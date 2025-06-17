@@ -255,6 +255,60 @@ footer {
   background-color: #0056b3;
 }
 
+/* Featured Links Section */
+#links {
+  background: linear-gradient(90deg, #f8fafc 0%, #e3f2fd 100%);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.08);
+  padding: 30px 20px;
+  margin: 40px auto;
+  max-width: 700px;
+  text-align: center;
+}
+
+#links h2 {
+  color: #388e3c;
+  margin-bottom: 18px;
+  font-size: 1.7em;
+}
+
+#links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+}
+
+#links li {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(76, 175, 80, 0.10);
+  margin: 0;
+  padding: 10px 18px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+#links li:hover {
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.18);
+  transform: translateY(-2px) scale(1.03);
+}
+
+#links a {
+  color: #1976d2;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.08em;
+  transition: color 0.2s;
+}
+
+#links a:hover {
+  color: #d81b60;
+  text-decoration: underline;
+}
+
 /* Updated Responsive Design */
 @media (max-width: 768px) {
   nav ul {
