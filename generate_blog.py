@@ -39,12 +39,21 @@ def convert_posts():
             posts.append({'title': title, 'date': date, 'filename': output_filename})
     # Sort posts by date descending
     posts.sort(key=lambda x: x['date'], reverse=True)
-    # Generate index
+    # Generate index using the template
+    generate_blog_index(posts)
+
+def generate_blog_index(posts):
+    with open(TEMPLATE_FILE, 'r') as tf:
+        template = tf.read()
+    # Build the blog index content
+    index_content = '<h1>Blog</h1>\n<ul>'
+    for post in posts:
+        index_content += f'<li><a href="{OUTPUT_DIR}/{post["filename"]}">{post["title"]} ({post["date"]})</a></li>'
+    index_content += '</ul>'
+    # Insert into template
+    index_html = template.replace('{{content}}', index_content).replace('{{title}}', 'Blog')
     with open('blog_index.html', 'w') as idx:
-        idx.write('<h1>Blog</h1>\n<ul>')
-        for post in posts:
-            idx.write(f'<li><a href="{OUTPUT_DIR}/{post["filename"]}">{post["title"]} ({post["date"]})</a></li>')
-        idx.write('</ul>')
+        idx.write(index_html)
 
 if __name__ == '__main__':
     convert_posts()
