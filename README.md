@@ -1,6 +1,16 @@
 # naughtycamspot
 Naughty Cam Spot Website
 
+## Project Structure
+
+- `blog/` — Markdown source files for blog posts
+- `blog_html/` — Generated HTML files for blog posts
+- `docs/` — Documentation and reference HTML/Markdown files
+- `images/` — Site images and assets
+- `models/` — Individual model pages (generated)
+- `scripts/` — Utility scripts (e.g., model page generator)
+- `styles.css` — Main site stylesheet
+
 ## Blog System
 
 This project includes a simple Markdown-based blog system.
@@ -29,3 +39,14 @@ You can automate the creation of Markdown files in the `blog/` folder using AI o
 ### Customizing the Blog
 - Edit `blog_template.html` to change the blog post layout or style.
 - Edit `styles.css` for site-wide styles.
+
+## Model Page Generation
+
+To create a new model page:
+1. Run the script:
+   ```sh
+   python scripts/create_model_page.py
+   ```
+2. Enter the model's room name when prompted. The script will generate a new HTML page in the `models/` folder with the correct site look and navigation.
+
+You can automate or extend this script as your workflow grows.
