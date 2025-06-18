@@ -425,6 +425,85 @@ hr {
   width: 50%;
 }
 
+/* Consistent section styling for models page */
+.models-block, .hero-block, .difference-block, .vip-block, .journey-block, .learnmore-block {
+  max-width: 700px;
+  margin: 24px auto 18px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px rgba(76,175,80,0.10), 0 1.5px 6px rgba(0,0,0,0.04);
+  padding: 22px 18px 18px 18px;
+  text-align: center;
+}
+
+.models-block h1, .hero-block h1 {
+  font-size: 2.2em;
+  color: #ff5722;
+  margin-bottom: 18px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-shadow: 0 2px 12px #ffd180;
+}
+
+.difference-block h2, .vip-block h2, .journey-block h2, .learnmore-block h2 {
+  color: #4caf50;
+  font-size: 1.5em;
+  margin-bottom: 14px;
+  font-weight: 800;
+}
+
+.models-block p, .hero-block p, .difference-block p, .vip-block p, .journey-block p, .learnmore-block p {
+  font-size: 1.15em;
+  color: #333;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.difference-block ul, .vip-block ul, .learnmore-block ul {
+  text-align: left;
+  display: inline-block;
+  margin: 0 auto 18px auto;
+  padding-left: 24px;
+  font-size: 1.08em;
+}
+
+blockquote {
+  font-size: 1.08em;
+  color: #d84315;
+  font-style: italic;
+  margin: 18px auto;
+  max-width: 600px;
+  background: #f9fbe7;
+  border-left: 4px solid #4caf50;
+  padding: 12px 18px;
+}
+
+.cta-button {
+  display: inline-block;
+  margin: 10px 8px 0 8px;
+  font-size: 1.08em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 14px 28px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #4caf50 60%, #ff5722 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(76,175,80,0.10);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.cta-button:hover {
+  background: linear-gradient(90deg, #388e3c 60%, #d84315 100%);
+  transform: scale(1.04);
+}
+
+hr {
+  border: none;
+  border-top: 1.5px solid #e0e0e0;
+  margin: 18px auto 18px auto;
+  width: 50%;
+}
+
 /* Updated Responsive Design */
 @media (max-width: 768px) {
   body {
@@ -451,6 +530,22 @@ hr {
 
   h2 {
     font-size: 1.5em;
+  }
+
+  .models-block, .hero-block, .difference-block, .vip-block, .journey-block, .learnmore-block {
+    max-width: 98vw;
+    padding: 12px 4vw 12px 4vw;
+  }
+  .models-block h1, .hero-block h1 {
+    font-size: 1.3em;
+  }
+  .cta-button {
+    padding: 12px 10vw;
+    font-size: 1em;
+  }
+  blockquote {
+    font-size: 1em;
+    padding: 10px 8px;
   }
 }
 
