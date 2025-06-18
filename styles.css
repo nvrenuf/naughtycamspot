@@ -359,6 +359,72 @@ footer {
   text-decoration: underline;
 }
 
+/* Home Page Exciting Centered Style */
+.hero-block, .difference-block, .vip-block, .journey-block, .learnmore-block {
+  max-width: 700px;
+  margin: 24px auto 18px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px rgba(76,175,80,0.10), 0 1.5px 6px rgba(0,0,0,0.04);
+  padding: 22px 18px 18px 18px;
+  text-align: center;
+}
+
+.hero-block h1 {
+  font-size: 2.3em;
+  color: #4caf50;
+  margin-bottom: 18px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.difference-block h2, .vip-block h2, .journey-block h2, .learnmore-block h2 {
+  color: #ff5722;
+  font-size: 1.6em;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.hero-block p, .difference-block p, .vip-block p, .journey-block p, .learnmore-block p {
+  font-size: 1.18em;
+  color: #333;
+  margin-bottom: 18px;
+}
+
+.difference-block ul, .learnmore-block ul {
+  text-align: left;
+  display: inline-block;
+  margin: 0 auto 18px auto;
+  padding-left: 24px;
+  font-size: 1.08em;
+}
+
+.cta-button {
+  display: inline-block;
+  margin: 10px 8px 0 8px;
+  font-size: 1.08em;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 14px 28px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #4caf50 60%, #ff5722 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(76,175,80,0.10);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.cta-button:hover {
+  background: linear-gradient(90deg, #388e3c 60%, #d84315 100%);
+  transform: scale(1.04);
+}
+
+hr {
+  border: none;
+  border-top: 1.5px solid #e0e0e0;
+  margin: 18px auto 18px auto;
+  width: 50%;
+}
+
 /* Updated Responsive Design */
 @media (max-width: 768px) {
   body {
