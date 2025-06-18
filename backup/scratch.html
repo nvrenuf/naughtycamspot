@@ -10,27 +10,29 @@
     <button onclick="modelLogin()">Model Login</button>
 
     <!-- Your other HTML content -->
-#
-    <!-- Place the JavaScript at the end of the body -->
-    <script>
-        function modelLogin() {
-            const password = prompt("Please enter your model password:");
-            const modelPage = getModelPage(password);
-            if (modelPage) {
-                window.location.href = modelPage;
-            } else {
-                alert("Incorrect password!");
-            }
-        }
 
-        function getModelPage(password) {
-            const modelPages = {
-                "password1": "models/model1.html",
-                "password2": "models/model2.html",
-                // Add more models as needed
-            };
-            return modelPages[password];
-        }
-    </script>
+    <main>
+        <!-- Place the JavaScript at the end of the body -->
+        <script>
+            function modelLogin() {
+                const password = prompt("Please enter your model password:");
+                const modelPage = getModelPage(password);
+                if (modelPage) {
+                    window.location.href = modelPage;
+                } else {
+                    alert("Incorrect password!");
+                }
+            }
+
+            function getModelPage(password) {
+                const modelPages = {
+                    "password1": "models/model1.html",
+                    "password2": "models/model2.html",
+                    // Add more models as needed
+                };
+                return modelPages[password];
+            }
+        </script>
+    </main>
 </body>
 </html>

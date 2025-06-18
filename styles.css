@@ -1,3 +1,53 @@
+/* Enhanced Typography */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #f4f4f4;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  color: #222;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* Modern Color Palette */
+:root {
+  --primary-color: #4caf50;
+  --secondary-color: #333;
+  --accent-color: #ff5722;
+  --background-color: #f4f4f4;
+  --text-color: #333;
+}
+
+header {
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+}
+
+nav ul li a {
+  color: var(--background-color);
+}
+
+nav ul li a:hover {
+  color: var(--primary-color);
+}
+
+.cta-button {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+}
+
+.cta-button:hover {
+  background-color: var(--accent-color);
+}
+
 /* Updated Global Styles */
 body {
   font-family: 'Roboto', sans-serif;
@@ -113,10 +163,10 @@ nav ul li a:hover {
 /* Sections */
 section {
   margin-bottom: 40px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 section h2 {
@@ -173,18 +223,18 @@ input, textarea {
 
 /* Updated Buttons */
 button {
-  background-color: #4caf50;
-  color: #fff;
-  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  padding: 12px 25px;
   border: none;
   border-radius: 5px;
-  margin-top: 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.3s, background-color 0.3s;
 }
 
 button:hover {
-  background-color: #388e3c;
+  background-color: var(--accent-color);
+  transform: scale(1.05);
 }
 
 #about {
@@ -311,41 +361,47 @@ footer {
 
 /* Updated Responsive Design */
 @media (max-width: 768px) {
-  nav ul {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  #hero h2 {
-    font-size: 2em;
-  }
-
-  #hero p {
-    font-size: 1em;
-  }
-
-  .cta-button {
-    padding: 10px 20px;
+  body {
+    font-size: 14px;
   }
 
   .container {
     padding: 10px;
   }
 
-  section h2 {
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #hero {
+    padding: 40px 10px;
+  }
+
+  section {
+    margin-bottom: 20px;
+    padding: 15px;
+  }
+
+  h2 {
     font-size: 1.5em;
   }
+}
 
-  ul {
-    padding-left: 20px;
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 2em;
   }
 
-  /* Global Text Alignment */
-  body, p, ul, li, h2, h3 {
-    text-align: left; /* Ensures left alignment for all text */
+  #hero h2 {
+    font-size: 2em;
   }
 
-  .hero p {
-    font-size: 18px;
+  .cta-button {
+    padding: 10px 20px;
+  }
+
+  section h2 {
+    font-size: 1.2em;
   }
 }
