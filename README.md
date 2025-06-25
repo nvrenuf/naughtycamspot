@@ -2,6 +2,7 @@
 Naughty Cam Spot Website
 
 ## Project Structure
+## This should be real
 
 - `blog/` — Markdown source files for blog posts
 - `blog_html/` — Generated HTML files for blog posts
