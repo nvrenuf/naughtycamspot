@@ -1,0 +1,105 @@
+import os
+import json
+
+MODEL_DIR = 'models'
+AFFILIATE_FILE = os.path.join(os.path.dirname(__file__), 'model_affiliates.json')
+
+TEMPLATE = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NaughtyCamSpot - Model's Exclusive Page">
+    <title>{room_name} - Model's Page</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="../images/logo.webp" alt="NaughtyCamSpot Logo" width="150">
+            <h1>NaughtyCamSpot</h1>
+            <p class="tagline">You Create, We Elevate</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../about.html">About Us</a></li>
+                <li><a href="../models.html">For Models</a></li>
+                <li><a href="../contact.html">Contact Us</a></li>
+                <li><a href="../blog_index.html">Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-content">
+                <img src="../images/profile_placeholder.png" alt="Profile Photo" width="180" style="border-radius: 50px;">
+                <h2>{room_name} <span class="vip-badge">VIP</span></h2>
+                <button class="vip-login">VIP Login</button>
+            </div>
+        </section>
+        <!-- Live Stream Section -->
+        <section id="livestream">
+            <h3>Live Stream</h3>
+            <div class="livestream-placeholder">[Live stream embed or preview here]</div>
+        </section>
+        <!-- Affiliate Links Section -->
+        <section id="affiliate-links">
+            <h3>Find {room_name} on:</h3>
+            {affiliate_buttons}
+        </section>
+        <!-- Stat Block -->
+        <section id="stats">
+            <h3>Performance Stat</h3>
+            <div class="stat-block">Fastest goal closed: <strong>Placeholder</strong></div>
+        </section>
+        <!-- Testimonial -->
+        <section id="testimonial">
+            <blockquote>"NaughtyCamSpot helped me grow my audience!"</blockquote>
+        </section>
+        <!-- Teaser Media -->
+        <section id="teaser-media">
+            <h3>Teaser Media</h3>
+            <div class="media-placeholder">[Teaser images/videos here]</div>
+        </section>
+        <!-- Tip Call-to-Action -->
+        <section id="tip-cta">
+            <button class="cta-button">Tip {room_name} on her platform!</button>
+        </section>
+        <!-- Referral Call-to-Action -->
+        <section id="referral-cta">
+            <p>Want to become a broadcaster? <a href="../models.html">Learn more and join here!</a></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 NaughtyCamSpot</p>
+    </footer>
+</body>
+</html>
+'''
+
+def get_affiliate_buttons(room_name, affiliates):
+    links = affiliates.get(room_name, {})
+    if not links:
+        return '<p>[Affiliate links coming soon]</p>'
+    btns = []
+    for platform, url in links.items():
+        btns.append(f'<a href="{url}" class="cta-button" target="_blank">{platform}</a>')
+    return ' '.join(btns)
+
+def create_model_page(room_name, affiliates):
+    filename = f"{room_name}.html"
+    filepath = os.path.join(MODEL_DIR, filename)
+    os.makedirs(MODEL_DIR, exist_ok=True)  # Ensure the models directory exists
+    affiliate_buttons = get_affiliate_buttons(room_name, affiliates)
+    with open(filepath, 'w') as f:
+        f.write(TEMPLATE.format(room_name=room_name, affiliate_buttons=affiliate_buttons))
+    print(f"Created {filepath}")
+
+if __name__ == "__main__":
+    room_name = input("Enter the model's room name (no spaces, use underscores if needed): ")
+    with open(AFFILIATE_FILE, 'r') as af:
+        affiliates = json.load(af)
+    create_model_page(room_name, affiliates)
