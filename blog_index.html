@@ -1,40 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="NaughtyCamSpot - You Create, We Elevate. A promotional service for cam models.">
-    <title>Blog | NaughtyCamSpot Blog</title>
-    <link rel="stylesheet" href="/naughtycamspot/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Explore cam model strategies, success stories, and industry secrets from NaughtyCamSpot." />
+  <title>Blog - NaughtyCamSpot</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="blog.css" />
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <div class="logo">
-            <img src="/naughtycamspot/images/logo.webp" alt="NaughtyCamSpot Logo" width="150">
-            <h1>NaughtyCamSpot</h1>
-            <p class="tagline">You Create, We Elevate</p>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/naughtycamspot/index.html">Home</a></li>
-                <li><a href="/naughtycamspot/about.html">About Us</a></li>
-                <li><a href="/naughtycamspot/models.html">For Models</a></li>
-                <li><a href="/naughtycamspot/contact.html">Contact Us</a></li>
-                <li><a href="/naughtycamspot/blog_index.html">Blog</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h1>Blog</h1>
-        <ul>
-            <li><a href="blog_html/2025-06-17-welcome.html">Welcome to the NaughtyCamSpot Blog (2025-06-17)</a></li>
-            <li><a href="blog_html/future-of-cam-modeling.html">The Future of Cam Modeling: Support, Training, and Real Growth (2025-06-16)</a></li>
-        </ul>
-    </main>
-    <footer>
-        <p>&copy; 2025 NaughtyCamSpot</p>
-    </footer>
+  <header>
+    <div class="logo">
+      <h1>NaughtyCamSpot</h1>
+      <p class="tagline">You Create, We Elevate</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="models.html">For Models</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="blog_index.html">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero-block">
+      <h1>📰 NaughtyCamSpot Blog</h1>
+      <p>Explore insights, strategies, and behind-the-scenes tips to grow your cam career. Learn from real models, industry pros, and AI-powered success.</p>
+    </section>
+
+    <div class="search-bar">
+      <input type="text" id="blogSearch" placeholder="Search blog posts..." onkeyup="filterBlog()" />
+    </div>
+
+    <section id="blogList"></section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 NaughtyCamSpot. All rights reserved.</p>
+  </footer>
+
+  <script>
+    async function loadBlog() {
+      const res = await fetch('posts.json');
+      const posts = await res.json();
+      const list = document.getElementById('blogList');
+
+      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      posts.forEach(post => {
+        const entry = document.createElement('div');
+        entry.className = 'blog-entry';
+        entry.innerHTML = `
+          <h3>${post.title}</h3>
+          <p>${post.description}</p>
+          <a href="blog/${post.slug}.html">Read More →</a>
+        `;
+        list.appendChild(entry);
+      });
+    }
+
+    function filterBlog() {
+      const input = document.getElementById('blogSearch').value.toLowerCase();
+      const entries = document.getElementsByClassName('blog-entry');
+      for (let i = 0; i < entries.length; i++) {
+        const entry = entries[i];
+        const text = entry.innerText.toLowerCase();
+        entry.style.display = text.includes(input) ? 'block' : 'none';
+      }
+    }
+
+    loadBlog();
+  </script>
 </body>
 </html>
