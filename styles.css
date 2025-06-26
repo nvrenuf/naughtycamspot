@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 /* Reset & Base */
 * {
@@ -7,17 +7,18 @@
   box-sizing: border-box;
 }
 body {
-  font-family: 'Roboto', sans-serif;
-  background: #fff0f5;
-  color: #333;
+  font-family: 'Open Sans', sans-serif;
+  background: #121212;
+  color: #e0e0e0;
   line-height: 1.6;
 }
 a {
-  color: #ff4081;
+  color: #03a9f4;
   text-decoration: none;
 }
 a:hover {
   text-decoration: underline;
+  color: #00bcd4;
 }
 
 /* Layout */
@@ -29,13 +30,13 @@ a:hover {
 
 /* Header & Nav */
 header {
-  background: #1f1f1f;
-  color: #eaeaea;
+  background: #181818;
+  color: #fafafa;
   padding: 24px;
   text-align: center;
 }
 header .logo h1 {
-  color: #ff4081;
+  color: #03a9f4;
   font-size: 2.2em;
   font-weight: 700;
   letter-spacing: 1px;
@@ -55,22 +56,22 @@ nav ul {
   margin-top: 16px;
 }
 nav ul li a {
-  color: #eaeaea;
+  color: #e0e0e0;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 nav ul li a:hover {
-  color: #ff4081;
+  color: #03a9f4;
 }
 
 /* Hero Section */
 .hero-block {
-  background: #ffe4ec;
+  background: #202020;
   text-align: center;
   padding: 60px 20px;
 }
 .hero-block h1 {
-  color: #ff4081;
+  color: #03a9f4;
   font-size: 2.6em;
   margin-bottom: 18px;
   font-weight: 700;
@@ -79,12 +80,12 @@ nav ul li a:hover {
   font-size: 1.2em;
   max-width: 680px;
   margin: 0 auto;
-  color: #444;
+  color: #ccc;
 }
 
 /* CTA Buttons */
 .cta-button {
-  background: linear-gradient(90deg, #ff4081 0%, #ff1744 100%);
+  background: linear-gradient(90deg, #03a9f4 0%, #00bcd4 100%);
   color: #fff;
   padding: 14px 30px;
   border-radius: 10px;
@@ -95,7 +96,7 @@ nav ul li a:hover {
   transition: transform 0.2s ease, background 0.2s ease;
 }
 .cta-button:hover {
-  background: linear-gradient(90deg, #ff1744 0%, #ff4081 100%);
+  background: linear-gradient(90deg, #00bcd4 0%, #03a9f4 100%);
   transform: scale(1.05);
 }
 
@@ -103,13 +104,13 @@ nav ul li a:hover {
 section {
   margin: 40px auto;
   padding: 30px;
-  background: #fff;
+  background: #1e1e1e;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 section h2 {
   font-size: 2em;
-  color: #ff4081;
+  color: #03a9f4;
   margin-bottom: 20px;
 }
 
@@ -118,30 +119,31 @@ section h2 {
   max-width: 700px;
   margin: 24px auto;
   padding: 24px;
-  background: #fff;
+  background: #1e1e1e;
   border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   text-align: center;
 }
 .blog-entry h3 {
   font-size: 1.6em;
-  color: #ff4081;
+  color: #03a9f4;
   margin-bottom: 10px;
 }
 .blog-entry p {
   font-size: 1.1em;
-  color: #555;
+  color: #ccc;
 }
 .blog-entry a {
   font-weight: 600;
   margin-top: 12px;
   display: inline-block;
+  color: #03a9f4;
 }
 
 /* Footer */
 footer {
-  background: #1f1f1f;
-  color: #ccc;
+  background: #181818;
+  color: #777;
   text-align: center;
   padding: 20px;
   font-size: 0.9em;
