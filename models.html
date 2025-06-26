@@ -23,15 +23,19 @@
         <li><a href="blog_index.html">Blog</a></li>
       </ul>
     </nav>
+    <div class="language-switcher" style="text-align:center;margin:20px;">
+      <button onclick="setLanguage('en')">🇺🇸 English</button>
+      <button onclick="setLanguage('es')">🇪🇸 Español</button>
+      <button onclick="setLanguage('ru')">🇷🇺 Русский</button>
+    </div>
   </header>
 
-  <main>
+  <main id="content-block" style="max-width: 720px; margin: auto; padding: 20px;">
     <!-- HERO SECTION -->
     <section class="hero-block">
-      <h1 style="font-size:2.2em;color:#ff5722;font-weight:900;letter-spacing:1.2px;text-shadow:0 2px 12px #ffd180;text-align:center;">🌟 Become a Cam Model with NaughtyCamSpot</h1>
+      <h1 id="headline" style="font-size:2.2em;color:#ff5722;font-weight:900;letter-spacing:1.2px;text-shadow:0 2px 12px #ffd180;text-align:center;">🌟 Become a Cam Model with NaughtyCamSpot</h1>
       <p style="font-size:1.18em;color:#222;font-weight:700;margin:18px 0 10px 0;text-align:center;max-width:650px;margin-left:auto;margin-right:auto;">
-        Welcome to your future in the cam industry. NaughtyCamSpot isn't just a site—it's your secret weapon for success.
-        We currently support models on <strong>Chaturbate</strong> and <strong>Camsoda</strong>. This is your chance to start fresh—with a major advantage.
+        Welcome to your future in the cam industry. NaughtyCamSpot isn't just a site—it's your secret weapon for success. If you're thinking about becoming a cam model and <strong>haven’t yet signed up as a broadcaster</strong>, you’re in the right place. We currently support models on <strong>Chaturbate</strong> and <strong>Camsoda</strong>, and we’re actively expanding to more platforms. This is your chance to start fresh—with a major advantage.
       </p>
     </section>
     <hr>
@@ -53,14 +57,14 @@
 
     <!-- WHO IT'S FOR -->
     <section class="vip-block">
-      <h2>📣 Who Is This For?</h2>
+      <h2 id="vipHeadline">📣 Who Is This For?</h2>
       <ul>
-        <li>Women new to camming (not yet registered)</li>
-        <li>Aspiring creators who want structure and growth</li>
-        <li>Models who want real results—not vague advice</li>
+        <li>Women who are <strong>new to the cam industry</strong> and haven’t signed up yet</li>
+        <li>Aspiring models ready to take control of their income and schedule</li>
+        <li>Creators who want support, strategy, and real results—not empty advice</li>
       </ul>
-      <p>If you haven’t signed up on <strong>Camsoda</strong> or <strong>Chaturbate</strong> yet, you qualify for our full perks and affiliate support.</p>
-      <a href="https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default" class="cta-button" target="_blank">👉 Join Now – Sign up on Chaturbate</a>
+      <p>If you haven’t yet registered as a broadcaster on <strong>Camsoda</strong> or <strong>Chaturbate</strong>, you qualify for full support and affiliate benefits.</p>
+      <a href="https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default" class="cta-button" id="ctaText" target="_blank">👉 Join Now – Sign up on Chaturbate</a>
       <a href="https://www.camsoda.com/models?id=naughtycamboss" class="cta-button" target="_blank">👉 Join Now – Sign up on Camsoda</a>
     </section>
     <hr>
@@ -118,6 +122,30 @@
       };
       return modelPages[password];
     }
+
+    const content = {
+      en: `<!-- English models page content here -->\n<section class='models-block'><h1>Become a Model with NaughtyCamSpot</h1><p>Ready to launch your cam career? We offer exclusive support, VIP training, and a proven path to success. Sign up through us and unlock your full potential!</p><ul><li>Fast-track onboarding</li><li>Private dashboards</li><li>One-on-one coaching</li><li>VIP community access</li></ul><a href='https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default' class='cta-button' target='_blank'>Sign up for Chaturbate</a> <a href='https://www.camsoda.com/models?id=naughtycamboss' class='cta-button' target='_blank'>Sign up for CamSoda</a></section>`,
+      es: `<!-- Spanish models page content here -->\n<section class='models-block'><h1>Conviértete en Modelo con NaughtyCamSpot</h1><p>¿Lista para lanzar tu carrera como modelo webcam? Ofrecemos apoyo exclusivo, entrenamiento VIP y un camino probado al éxito. ¡Regístrate con nosotros y alcanza tu máximo potencial!</p><ul><li>Onboarding rápido</li><li>Paneles privados</li><li>Coaching personalizado</li><li>Acceso a la comunidad VIP</li></ul><a href='https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default' class='cta-button' target='_blank'>Regístrate en Chaturbate</a> <a href='https://www.camsoda.com/models?id=naughtycamboss' class='cta-button' target='_blank'>Regístrate en CamSoda</a></section>`,
+      ru: `<!-- Russian models page content here -->\n<section class='models-block'><h1>Стань моделью с NaughtyCamSpot</h1><p>Готовы начать карьеру веб-модели? Мы предлагаем эксклюзивную поддержку, VIP-обучение и проверенный путь к успеху. Регистрируйтесь через нас и раскройте свой потенциал!</p><ul><li>Быстрый онбординг</li><li>Личные панели</li><li>Индивидуальный коучинг</li><li>Доступ к VIP-сообществу</li></ul><a href='https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default' class='cta-button' target='_blank'>Регистрация на Chaturbate</a> <a href='https://www.camsoda.com/models?id=naughtycamboss' class='cta-button' target='_blank'>Регистрация на CamSoda</a></section>`
+    };
+
+    const savedLang = localStorage.getItem('preferredLang') || 'en';
+
+    function setLanguage(lang) {
+      localStorage.setItem('preferredLang', lang);
+      renderContent(lang);
+    }
+
+    function renderContent(lang) {
+      const container = document.getElementById('content-block');
+      if (container && content[lang]) {
+        container.innerHTML = content[lang];
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderContent(savedLang);
+    });
   </script>
 </body>
 </html>

@@ -25,54 +25,42 @@
     </nav>
   </header>
 
-  <main>
-    <section class="hero-block">
-      <h1>📰 NaughtyCamSpot Blog</h1>
-      <p>Explore insights, strategies, and behind-the-scenes tips to grow your cam career. Learn from real models, industry pros, and AI-powered success.</p>
-    </section>
+  <div class="language-switcher" style="text-align:center;margin:20px;">
+    <button onclick="setLanguage('en')">🇺🇸 English</button>
+    <button onclick="setLanguage('es')">🇪🇸 Español</button>
+    <button onclick="setLanguage('ru')">🇷🇺 Русский</button>
+  </div>
 
-    <div class="search-bar">
-      <input type="text" id="blogSearch" placeholder="Search blog posts..." onkeyup="filterBlog()" />
-    </div>
-
-    <section id="blogList"></section>
-  </main>
+  <main id="content-block" style="max-width: 720px; margin: auto; padding: 20px;"></main>
 
   <footer>
     <p>&copy; 2024 NaughtyCamSpot. All rights reserved.</p>
   </footer>
 
   <script>
-    async function loadBlog() {
-      const res = await fetch('posts.json');
-      const posts = await res.json();
-      const list = document.getElementById('blogList');
+    const content = {
+      en: `<!-- English blog index content here -->\n<section class='blog-index-block'><h1>Blog & Resources</h1><ul><li><a href='blog/post1.html'>How to Stand Out as a New Cam Model</a></li><li><a href='blog/post2.html'>VIP Support: What You Get</a></li><li><a href='blog/post3.html'>Safety & Privacy Tips for Models</a></li></ul></section>`,
+      es: `<!-- Spanish blog index content here -->\n<section class='blog-index-block'><h1>Blog y Recursos</h1><ul><li><a href='blog/post1.html'>Cómo destacar como nueva modelo webcam</a></li><li><a href='blog/post2.html'>Soporte VIP: Qué obtienes</a></li><li><a href='blog/post3.html'>Consejos de seguridad y privacidad para modelos</a></li></ul></section>`,
+      ru: `<!-- Russian blog index content here -->\n<section class='blog-index-block'><h1>Блог и ресурсы</h1><ul><li><a href='blog/post1.html'>Как выделиться среди новых веб-моделей</a></li><li><a href='blog/post2.html'>VIP-поддержка: что вы получаете</a></li><li><a href='blog/post3.html'>Советы по безопасности и приватности для моделей</a></li></ul></section>`
+    };
 
-      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const savedLang = localStorage.getItem('preferredLang') || 'en';
 
-      posts.forEach(post => {
-        const entry = document.createElement('div');
-        entry.className = 'blog-entry';
-        entry.innerHTML = `
-          <h3>${post.title}</h3>
-          <p>${post.description}</p>
-          <a href="blog/${post.slug}.html">Read More →</a>
-        `;
-        list.appendChild(entry);
-      });
+    function setLanguage(lang) {
+      localStorage.setItem('preferredLang', lang);
+      renderContent(lang);
     }
 
-    function filterBlog() {
-      const input = document.getElementById('blogSearch').value.toLowerCase();
-      const entries = document.getElementsByClassName('blog-entry');
-      for (let i = 0; i < entries.length; i++) {
-        const entry = entries[i];
-        const text = entry.innerText.toLowerCase();
-        entry.style.display = text.includes(input) ? 'block' : 'none';
+    function renderContent(lang) {
+      const container = document.getElementById('content-block');
+      if (container && content[lang]) {
+        container.innerHTML = content[lang];
       }
     }
 
-    loadBlog();
+    document.addEventListener('DOMContentLoaded', () => {
+      renderContent(savedLang);
+    });
   </script>
 </body>
 </html>

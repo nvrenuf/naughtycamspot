@@ -22,12 +22,17 @@
         <li><a href="blog_index.html">Blog</a></li>
       </ul>
     </nav>
+    <div class="language-switcher" style="text-align:center;margin:20px;">
+      <button onclick="setLanguage('en')">🇺🇸 English</button>
+      <button onclick="setLanguage('es')">🇪🇸 Español</button>
+      <button onclick="setLanguage('ru')">🇷🇺 Русский</button>
+    </div>
   </header>
 
-  <main>
+  <main id="content-block" style="max-width: 720px; margin: auto; padding: 20px;">
     <!-- HERO SECTION -->
     <section class="hero-block">
-      <h1 style="font-size:2.2em;color:#ff5722;font-weight:900;text-align:center;">💡 Why We Built NaughtyCamSpot</h1>
+      <h1 id="headline" style="font-size:2.2em;color:#ff5722;font-weight:900;text-align:center;">💡 Why We Built NaughtyCamSpot</h1>
       <p style="font-size:1.15em;color:#444;text-align:center;max-width:700px;margin:0 auto;">
         Most cam models are thrown into the deep end—no real guidance, no roadmap, just trial and error. NaughtyCamSpot was created to change that. We give new models the tools, strategies, and visibility they need to thrive.
       </p>
@@ -72,5 +77,30 @@
   <footer>
     <p>&copy; 2024 NaughtyCamSpot. All rights reserved.</p>
   </footer>
+  <script>
+const content = {
+  en: `<!-- English about page content here -->\n<section class='about-block'><h1>About NaughtyCamSpot</h1><p>NaughtyCamSpot was founded to help new cam models succeed with real support, expert advice, and a vibrant community. Our team includes industry veterans, AI specialists, and passionate mentors who care about your growth and safety.</p><ul><li>Personalized onboarding</li><li>VIP training modules</li><li>Private dashboards</li><li>One-on-one mentorship</li></ul><p>We believe every model deserves a launchpad, not just a signup link. Join us and experience the difference!</p></section>`,
+  es: `<!-- Spanish about page content here -->\n<section class='about-block'><h1>Sobre NaughtyCamSpot</h1><p>NaughtyCamSpot fue creado para ayudar a nuevas modelos webcam a triunfar con apoyo real, asesoría experta y una comunidad vibrante. Nuestro equipo incluye veteranos de la industria, especialistas en IA y mentores apasionados que se preocupan por tu crecimiento y seguridad.</p><ul><li>Onboarding personalizado</li><li>Módulos de entrenamiento VIP</li><li>Paneles privados</li><li>Mentoría uno a uno</li></ul><p>Creemos que cada modelo merece una plataforma de lanzamiento, no solo un enlace de registro. ¡Únete y nota la diferencia!</p></section>`,
+  ru: `<!-- Russian about page content here -->\n<section class='about-block'><h1>О NaughtyCamSpot</h1><p>NaughtyCamSpot создан, чтобы помочь новым веб-моделям добиться успеха с реальной поддержкой, экспертными советами и активным сообществом. В нашей команде — профессионалы индустрии, специалисты по ИИ и наставники, которые заботятся о вашем росте и безопасности.</p><ul><li>Персонализированный онбординг</li><li>VIP-обучающие модули</li><li>Личные панели</li><li>Индивидуальное наставничество</li></ul><p>Мы верим, что каждая модель заслуживает стартовой площадки, а не просто ссылки для регистрации. Присоединяйтесь и почувствуйте разницу!</p></section>`
+};
+
+const savedLang = localStorage.getItem('preferredLang') || 'en';
+
+function setLanguage(lang) {
+  localStorage.setItem('preferredLang', lang);
+  renderContent(lang);
+}
+
+function renderContent(lang) {
+  const container = document.getElementById('content-block');
+  if (container && content[lang]) {
+    container.innerHTML = content[lang];
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderContent(savedLang);
+});
+</script>
 </body>
 </html>
