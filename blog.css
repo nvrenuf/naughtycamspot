@@ -39,3 +39,29 @@
   color: #4caf50;
   text-decoration: underline;
 }
+
+#blog-content h1 {
+  font-size: 2em;
+  color: #ff5722;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+#blog-content p {
+  font-size: 1.1em;
+  color: #444;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+#blog-content blockquote {
+  font-size: 1.1em;
+  color: #d84315;
+  font-style: italic;
+  margin: 20px auto;
+  padding: 12px 18px;
+  background: #f9fbe7;
+  border-left: 4px solid #4caf50;
+  max-width: 600px;
+}
+
