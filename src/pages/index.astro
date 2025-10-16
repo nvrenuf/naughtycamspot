@@ -1,0 +1,247 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const featuredModels = [
+  {
+    name: 'Nova Noir',
+    archetype: 'Chaturbate • After-dark storyteller',
+    presence: 'Velvet energy, high-value room rituals, and cinematic stagecraft.',
+    image:
+      'https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?auto=format&fit=crop&w=960&q=80'
+  },
+  {
+    name: 'Lumi Rae',
+    archetype: 'CamSoda • Neon muse',
+    presence: 'Light-drenched aesthetics with art-house creativity and gentle dominance.',
+    image:
+      'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=960&q=80'
+  },
+  {
+    name: 'Saffron Veil',
+    archetype: 'Chaturbate • Luxe temptress',
+    presence: 'Rose-gold charisma, curated mod team, masterclass in conversion pacing.',
+    image:
+      'https://images.unsplash.com/photo-1517840901100-8179e982acb7?auto=format&fit=crop&w=960&q=80'
+  },
+  {
+    name: 'Eden Vesper',
+    archetype: 'Multi-platform • Cosmic siren',
+    presence: 'Meta-fan funnels, bilingual moments, and immersive sensory play.',
+    image:
+      'https://images.unsplash.com/photo-1531256456869-ce942a665e80?auto=format&fit=crop&w=960&q=80'
+  }
+];
+
+const conciergeHighlights = [
+  {
+    title: 'Concierge Launch Architecture',
+    description:
+      'Signature onboarding rituals, boutique photography direction, and room-energy scripting tuned for luxury audiences.'
+  },
+  {
+    title: 'Audience Chemistry Lab',
+    description:
+      'AI-assisted persona mapping, emotional cadence coaching, and nightly debriefs that turn lurkers into patrons.'
+  },
+  {
+    title: 'Revenue Ecosystems',
+    description:
+      'Layered goal pacing, mod orchestration, and premium upsell frameworks that respect your boundaries and boost lifetime value.'
+  }
+];
+
+const kineticMoments = [
+  {
+    metric: '48 hr',
+    detail: 'custom runway from signup to signature show, backed by a private growth dashboard.'
+  },
+  {
+    metric: '6x',
+    detail: 'average engagement lift from bespoke room rituals and tailored fan segmentation.'
+  },
+  {
+    metric: 'Zero guesswork',
+    detail: 'human strategy plus AI insights guiding every set, schedule, and conversion path.'
+  }
+];
+---
+
+<MainLayout
+  title="NaughtyCamSpot | Luxury Model Gallery"
+  description="Refined gallery experience for cam models who crave concierge-level support, rose-gold aesthetics, and growth you can feel."
+>
+  <header class="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-6 pt-10">
+    <a href="/" class="flex items-center gap-3 text-sm font-semibold tracking-[0.32em] text-rose-gold uppercase">
+      <span class="flex h-11 w-11 items-center justify-center rounded-full border border-rose-gold/60 bg-white/10 shadow-glow backdrop-blur-lg">N</span>
+      NaughtyCamSpot
+    </a>
+    <nav class="hidden items-center gap-7 rounded-full border border-white/10 bg-white/10 px-6 py-3 text-sm backdrop-blur-2xl lg:flex">
+      <a class="transition hover:text-rose-gold" href="#gallery-hero">Vision</a>
+      <a class="transition hover:text-rose-gold" href="#concierge">Services</a>
+      <a class="transition hover:text-rose-gold" href="#muses">Muses</a>
+      <a class="transition hover:text-rose-gold" href="#retention">Concierge</a>
+    </nav>
+    <a
+      class="rounded-full border border-rose-gold/40 bg-rose-gold/20 px-5 py-2 text-sm font-medium text-rose-petal shadow-glow backdrop-blur-xl transition hover:border-rose-gold/60 hover:bg-rose-gold/30"
+      href="https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default"
+      target="_blank"
+      rel="noreferrer"
+    >
+      Request VIP Access
+    </a>
+  </header>
+
+  <main class="relative mx-auto mt-10 flex w-full max-w-6xl flex-1 flex-col gap-24 px-6 pb-24">
+    <section id="gallery-hero" class="glass relative overflow-hidden rounded-[42px] px-10 py-16">
+      <div class="pointer-events-none absolute -left-24 top-12 h-48 w-48 rounded-full bg-rose-gold/40 blur-3xl"></div>
+      <div class="pointer-events-none absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-rose-gold/40 blur-[110px]"></div>
+      <div class="relative grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-8">
+          <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
+            Elevated model gallery
+          </p>
+          <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">
+            The luxury runway<br />for models who own the night
+          </h1>
+          <p class="max-w-xl text-lg text-white/70">
+            Curated aesthetics, glassy ambience, and concierge-level support. NaughtyCamSpot transforms your room into an
+            immersive world that seduces premium fans and keeps them close.
+          </p>
+          <div class="flex flex-col gap-4 sm:flex-row">
+            <a
+              class="flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-midnight shadow-glow transition hover:-translate-y-1"
+              href="https://www.camsoda.com/models?id=naughtycamboss"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Become Our Next Muse
+            </a>
+            <a
+              class="flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 backdrop-blur-xl transition hover:-translate-y-1"
+              href="#concierge"
+            >
+              Explore the VIP Suite
+            </a>
+          </div>
+        </div>
+        <div class="relative flex items-center justify-center">
+          <div class="absolute inset-0 animate-float rounded-[34px] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent"></div>
+          <div class="relative glass h-full w-full max-w-sm rounded-[34px] p-8">
+            <div class="flex flex-col gap-5">
+              {kineticMoments.map((item, index) => (
+                <div class={`animate-fade-slide rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl`} style={`animation-delay: ${index * 0.12}s`}>
+                  <p class="font-display text-3xl text-rose-petal">{item.metric}</p>
+                  <p class="mt-2 text-sm text-white/65">{item.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <section id="concierge" class="space-y-12">
+      <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+        <div>
+          <h2 class="font-display text-4xl text-white">Our concierge touch</h2>
+          <p class="mt-3 max-w-2xl text-base text-white/70">
+            We blend sensory storytelling, psychology-backed rituals, and data-guided coaching into a tailored program that feels
+            as polished as your best performance night.
+          </p>
+        </div>
+        <span class="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
+          Signature services
+        </span>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {conciergeHighlights.map((item, index) => (
+          <article
+            class="glass relative overflow-hidden rounded-3xl p-8 transition duration-500 ease-out hover:-translate-y-2 hover:border-rose-gold/40"
+            style={`animation-delay: ${index * 0.15}s`}
+          >
+            <div class="pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-full bg-rose-gold/20 blur-3xl"></div>
+            <h3 class="font-display text-2xl text-white">{item.title}</h3>
+            <p class="mt-4 text-sm leading-relaxed text-white/70">{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+  <section id="muses" class="space-y-10">
+      <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+        <div>
+          <h2 class="font-display text-4xl text-white">Featured muses</h2>
+          <p class="mt-3 max-w-xl text-base text-white/70">A rotating gallery of models who craft immersive rooms with us.</p>
+        </div>
+        <a
+          class="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80 backdrop-blur-xl transition hover:border-rose-gold/50 hover:text-rose-gold"
+          href="#muses"
+        >
+          View the full roster
+        </a>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        {featuredModels.map((model, index) => (
+          <article
+            class="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.08] shadow-[0_30px_70px_rgba(5,6,8,0.65)] backdrop-blur-2xl transition duration-500 ease-out hover:-translate-y-2 hover:border-rose-gold/50 hover:shadow-[0_40px_80px_rgba(4,6,12,0.6)]"
+          >
+            <img
+              src={model.image}
+              alt={model.name}
+              loading="lazy"
+              class="h-64 w-full object-cover opacity-90 transition duration-700 ease-out group-hover:scale-105 group-hover:opacity-100"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/20 to-transparent opacity-80 transition group-hover:opacity-60"></div>
+            <div class="relative flex flex-col gap-2 px-6 pb-8 pt-6">
+              <span class="inline-flex w-fit rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[0.65rem] uppercase tracking-[0.4em] text-rose-petal/80">
+                {model.archetype}
+              </span>
+              <h3 class="font-display text-2xl text-white">{model.name}</h3>
+              <p class="text-sm text-white/70">{model.presence}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+  <section id="retention" class="glass overflow-hidden rounded-[42px] px-10 py-14">
+      <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-6">
+          <h2 class="font-display text-4xl text-white">Why models stay</h2>
+          <p class="text-base text-white/70">
+            Ultra-tailored coaching rhythms, discreet data insights, and brand support that celebrates your edges instead of smoothing
+            them out. You bring the essence, we sculpt the experience.
+          </p>
+          <ul class="grid gap-4 text-sm text-white/70 sm:grid-cols-2">
+            <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Bespoke onboarding rituals</li>
+            <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Psych-backed mod choreography</li>
+            <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Signature show moodboards</li>
+            <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">VIP retention funnels</li>
+          </ul>
+        </div>
+        <div class="relative">
+          <div class="pointer-events-none absolute -top-10 left-1/2 h-36 w-36 -translate-x-1/2 rounded-full bg-rose-gold/30 blur-3xl"></div>
+          <div class="glass relative overflow-hidden rounded-3xl p-8">
+            <span class="text-xs uppercase tracking-[0.4em] text-rose-petal/80">Voices from the suite</span>
+            <p class="mt-6 font-display text-2xl text-white">
+              “I doubled my average tip train in two weekends. The room choreography and vibe coaching feel like having an artistic
+              director in my ear without losing my freedom.”
+            </p>
+            <p class="mt-6 text-sm text-white/60">— Mila, VIP Muse</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-black/40 py-10 backdrop-blur-2xl">
+    <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 text-xs uppercase tracking-[0.4em] text-white/45 sm:flex-row sm:items-center sm:justify-between">
+      <span>NaughtyCamSpot © {new Date().getFullYear()}</span>
+      <div class="flex gap-5">
+        <a class="transition hover:text-rose-gold" href="#concierge">Model Intake</a>
+        <a class="transition hover:text-rose-gold" href="mailto:concierge@naughtycamspot.com">Contact Concierge</a>
+        <a class="transition hover:text-rose-gold" href="#muses">Featured Muses</a>
+      </div>
+    </div>
+  </footer>
+</MainLayout>

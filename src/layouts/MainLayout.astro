@@ -1,0 +1,25 @@
+---
+const { title = 'NaughtyCamSpot', description = 'NaughtyCamSpot — concierge growth for ambitious cam models.' } = Astro.props;
+import '../styles/tailwind.css';
+---
+<!doctype html>
+<html lang="en" class="bg-midnight">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="relative min-h-screen overflow-x-hidden bg-midnight text-white">
+    <div class="pointer-events-none fixed inset-0 z-0 bg-aurora opacity-80"></div>
+    <div class="pointer-events-none absolute -left-24 top-32 h-72 w-72 rounded-full bg-rose-gold/20 blur-3xl"></div>
+    <div class="pointer-events-none absolute -right-32 top-12 h-80 w-80 rounded-full bg-rose-gold/25 blur-3xl"></div>
+
+    <div class="relative z-10 flex min-h-screen flex-col">
+      <slot />
+    </div>
+  </body>
+</html>
