@@ -1,0 +1,124 @@
+---
+import BannerSlot from '../components/BannerSlot.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import { buildTrackedLink, isPagesBuild } from '../utils/links';
+
+const heroBullets = [
+  {
+    title: 'Fast start playbook',
+    description:
+      'Launch rituals, lighting cues, and conversion prompts mapped into a 14-day runway so you can step on set with clarity.'
+  },
+  {
+    title: 'Platform guidance',
+    description:
+      'Account setup audits, compliance walkthroughs, and concierge calibration for Bonga, Chaturbate, CamSoda, and more.'
+  },
+  {
+    title: 'Earnings tracker',
+    description:
+      'Private dashboards tracing nightly performance, tip triggers, and VIP pacing to optimise your growth cadence.'
+  },
+  {
+    title: 'Ongoing support',
+    description:
+      'Mod choreography, aftercare messaging, and strategy debriefs on demand from humans who know the room.'
+  }
+];
+
+const faqItems = [
+  {
+    question: 'How do I start the concierge intake? (Placeholder)',
+    answer: 'We are preparing the intake steps. Expect onboarding choreography notes soon.'
+  },
+  {
+    question: 'Which platforms are supported today? (Placeholder)',
+    answer: 'Full platform roster coming shortly. Submit interest so we can align concierge resources.'
+  },
+  {
+    question: 'What assets are included in the launch kit? (Placeholder)',
+    answer: 'We are finalising the kit contents. Watch this space for specifics on creative, mod scripts, and more.'
+  },
+  {
+    question: 'When will the earnings tracker be available? (Placeholder)',
+    answer: 'Analytics rollout timeline is being set. We will announce as soon as the dashboards are ready.'
+  }
+];
+
+const CTA_PLACEHOLDER = 'https://naughtycamspot.com/models';
+const ctaHref = buildTrackedLink({
+  path: '/go/model-join.php',
+  slot: 'join_models',
+  camp: 'landing',
+  placeholder: CTA_PLACEHOLDER
+});
+const pagesBuild = isPagesBuild();
+---
+
+<MainLayout
+  title="Join Models | NaughtyCamSpot"
+  description="Become a model with NaughtyCamSpot and access concierge playbooks, platform coaching, and real-time revenue insight."
+>
+  <section class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="space-y-8">
+      <div class="space-y-4">
+        <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
+          Model Concierge
+        </span>
+        <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Become a Model with NCS</h1>
+        <p class="max-w-2xl text-base text-white/70">
+          Submit interest to enter NaughtyCamSpot&apos;s concierge runway. We guide your platform setup, choreograph launch-night rituals, and keep a vigilant eye on earnings so your universe scales with intention.
+        </p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2">
+        {heroBullets.map((bullet) => (
+          <div class="content-card space-y-3">
+            <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{bullet.title}</p>
+            <p class="text-sm text-white/70">{bullet.description}</p>
+          </div>
+        ))}
+      </div>
+      <div>
+        <a
+          data-cta="join-models"
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          href={ctaHref}
+          target="_blank"
+          rel={pagesBuild ? 'noreferrer' : 'nofollow noreferrer'}
+        >
+          Start Concierge Intake
+        </a>
+        <p class="mt-3 text-xs uppercase tracking-[0.3em] text-white/40">
+          {pagesBuild ? 'Opens external concierge briefing' : 'Tracked via /go/model-join.php'}
+        </p>
+      </div>
+    </div>
+    <div class="space-y-6">
+      <div class="content-card space-y-4">
+        <h2 class="section-heading">Concierge Touchpoints</h2>
+        <p class="text-sm text-white/70">
+          Expect warm human support alongside automation. From persona blueprints to nightly recaps, we keep every detail aligned with your boundaries and brand.
+        </p>
+        <p class="text-sm text-white/70">
+          Not ready to commit? Browse our guides, observe the playbooks, and tap the affiliate disclosure to understand how we earn.
+        </p>
+      </div>
+      <BannerSlot id="model_sidebar_tall" class="w-full" />
+    </div>
+  </section>
+
+  <section class="space-y-10">
+    <div class="space-y-4">
+      <h2 class="section-heading">FAQ</h2>
+      <p class="text-sm text-white/60">We are documenting every step. Use these placeholders as a preview of what&apos;s coming soon.</p>
+    </div>
+    <div class="grid gap-6 lg:grid-cols-2">
+      {faqItems.map((item) => (
+        <div class="content-card space-y-3">
+          <h3 class="text-base font-semibold uppercase tracking-[0.25em] text-rose-petal/80">{item.question}</h3>
+          <p class="text-sm text-white/65">{item.answer}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</MainLayout>

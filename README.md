@@ -12,6 +12,8 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 
 - `src/layouts/MainLayout.astro` — shared chrome, fonts, and ambient gradients
 - `src/pages/index.astro` — luxury gallery homepage experience
+- `src/pages/join-models.astro` — recruitment landing with concierge bullets, tracked CTA, FAQ placeholders, and banner slot
+- `src/pages/disclosure.astro` — affiliate disclosure copy surfaced in the global footer
 - `src/styles/tailwind.css` — Tailwind layers plus glassmorphism utility classes
 - `images/` — shared static assets ready to surface in future sections
 
@@ -23,6 +25,13 @@ Legacy HTML pages, generators, and blog scaffolding have been removed. Work forw
 - Production builds return `/go/*` URLs with `?src=<slot>&camp=<page>&date=YYYYMMDD` appended for tracking.
 - GitHub Pages builds fall back to the provided external placeholder, stripping query strings so previews stay clean and never link to `/go/*`.
 - The production server now handles `/go/*` redirects and geotargeted program rotation via the PHP handlers in `public/go/`.
+
+### Join Models CTA behaviour
+
+- The Join Models landing (`src/pages/join-models.astro`) calls `buildTrackedLink` with `/go/model-join.php`, `src=join_models`, and `camp=landing`.
+- Provide a safe public placeholder URL in the `CTA_PLACEHOLDER` constant so Pages builds output an external link that does **not** start with `/go/`.
+- Production builds automatically append the `date=YYYYMMDD` stamp and keep the `/go/model-join.php` target.
+- Update the FAQ copy by editing the `faqItems` array in `src/pages/join-models.astro`.
 
 ## Banner slots
 
