@@ -1,0 +1,96 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const benefits = [
+  'Concierge onboarding rituals tailored to your persona',
+  'AI-assisted fan segmentation and nightly performance recaps',
+  'Dedicated mod team choreography and boundary-respecting monetization',
+  'Luxury branding assets, photoshoot direction, and bio engineering'
+];
+
+const steps = [
+  'Apply with your preferred platform and baseline experience',
+  'Meet your concierge strategist to map the launch runway',
+  'Activate premium show formats with real-time coaching',
+  'Scale your patron ecosystem with our affiliate partners'
+];
+---
+
+<MainLayout
+  title="Join | NaughtyCamSpot"
+  description="Become a NaughtyCamSpot model and unlock concierge growth, luxury branding, and premium fan conversion systems."
+>
+  <section class="hero-shell parallax-veil">
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/60"></div>
+    <div class="relative space-y-6">
+      <span class="hero-tagline">Model Recruitment</span>
+      <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Become a Model with NaughtyCamSpot</h1>
+      <p class="max-w-2xl text-base text-white/70">
+        Join our growing network of models earning more through smart promotion, refined ambience, and data-guided strategy. We pair
+        human concierge insight with automation to elevate your room into an unforgettable luxury experience.
+      </p>
+      <a
+        class="inline-flex w-fit items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+        href="mailto:concierge@naughtycamspot.com"
+      >
+        Apply Now
+      </a>
+    </div>
+  </section>
+
+  <section class="grid gap-10 lg:grid-cols-2">
+    <article class="content-card space-y-6">
+      <div>
+        <h2 class="section-heading">Why models choose us</h2>
+        <p class="mt-4 text-sm text-white/70">
+          Our concierge team orchestrates launch timelines, brand positioning, and mod choreography so you can focus on performance.
+          Every detail from lighting to call-to-action copy is tuned for premium audiences ready to invest.
+        </p>
+      </div>
+      <ul class="grid gap-4 text-sm text-white/70">
+        {benefits.map((benefit) => (
+          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">{benefit}</li>
+        ))}
+      </ul>
+    </article>
+    <article class="content-card space-y-6">
+      <div>
+        <h2 class="section-heading">How onboarding works</h2>
+        <p class="mt-4 text-sm text-white/70">
+          We keep the runway elegant and efficient. Expect warm guidance, VIP resources, and purposeful milestones from sign-up to
+          your first signature show.
+        </p>
+      </div>
+      <ol class="grid gap-4 text-sm text-white/70">
+        {steps.map((step, index) => (
+          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">
+            <span class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step {index + 1}</span>
+            <p class="mt-2">{step}</p>
+          </li>
+        ))}
+      </ol>
+    </article>
+  </section>
+
+  <section class="space-y-8">
+    <h2 class="section-heading">What you receive</h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Brand Systems</p>
+        <p class="text-sm text-white/70">Moodboards, bio copy, and signature room experiences that attract premium fans.</p>
+      </div>
+      <div class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Growth Data</p>
+        <p class="text-sm text-white/70">Dashboards illuminating tip cadence, VIP segments, and high-converting moments.</p>
+      </div>
+      <div class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Community</p>
+        <p class="text-sm text-white/70">Private mastermind rooms, nightly debriefs, and a vetted mod collective.</p>
+      </div>
+      <div class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Affiliate Engine</p>
+        <p class="text-sm text-white/70">Partnerships with CamSoda, Chaturbate, and premier networks to widen your reach.</p>
+      </div>
+    </div>
+  </section>
+</MainLayout>

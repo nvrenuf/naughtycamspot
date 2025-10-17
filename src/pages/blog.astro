@@ -1,0 +1,76 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const posts = [
+  {
+    slug: 'luxury-room-energy',
+    title: 'Crafting Luxury Room Energy',
+    excerpt: 'Five sensory cues that immediately elevate your room and prime viewers to invest deeply in your show narrative.',
+    category: 'Strategy',
+    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=80',
+    date: 'September 28, 2025'
+  },
+  {
+    slug: 'vip-funnel-design',
+    title: 'VIP Funnel Design That Converts',
+    excerpt: 'How to transform casual tipping energy into long-form patronage using layered rituals and concierge cues.',
+    category: 'Growth',
+    image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=900&q=80',
+    date: 'October 04, 2025'
+  },
+  {
+    slug: 'mod-team-choreography',
+    title: 'Mod Team Choreography Essentials',
+    excerpt: 'Synchronize your moderators like a luxury hospitality team to keep fan journeys smooth, attentive, and generous.',
+    category: 'Community',
+    image: 'https://images.unsplash.com/photo-1462396881884-de2c07cb95ed?auto=format&fit=crop&w=900&q=80',
+    date: 'October 10, 2025'
+  },
+  {
+    slug: 'ai-concierge-insights',
+    title: 'AI Concierge Insights for Live Shows',
+    excerpt: 'Using your performance data to pre-empt tipping spikes, design mood arcs, and honour your personal bandwidth.',
+    category: 'Technology',
+    image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=900&q=80',
+    date: 'October 14, 2025'
+  }
+];
+---
+
+<MainLayout
+  title="Blog | NaughtyCamSpot"
+  description="Insights & stories from the NaughtyCamSpot concierge team — luxury growth strategy for performers."
+>
+  <section class="hero-shell parallax-veil">
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/60"></div>
+    <div class="relative space-y-6">
+      <span class="hero-tagline">Editorial</span>
+      <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Insights &amp; Stories</h1>
+      <p class="max-w-2xl text-base text-white/70">
+        Field notes, success frameworks, and behind-the-scenes strategies from our concierge team. Sip something decadent and dig in.
+      </p>
+    </div>
+  </section>
+
+  <section class="grid gap-6 sm:grid-cols-2">
+    {posts.map((post, index) => (
+      <article class="content-card overflow-hidden" style={`animation-delay: ${index * 0.1}s`}>
+        <div class="relative overflow-hidden rounded-3xl">
+          <img src={post.image} alt={post.title} class="h-52 w-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-80 transition group-hover:opacity-60"></div>
+        </div>
+        <div class="mt-6 space-y-3">
+          <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{post.category}</span>
+          <h2 class="font-display text-2xl text-white">{post.title}</h2>
+          <p class="text-sm text-white/70">{post.excerpt}</p>
+          <div class="flex items-center justify-between text-xs text-white/50">
+            <span>{post.date}</span>
+            <a class="uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold" href={`/blog/${post.slug}`}>
+              Read More ↗
+            </a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </section>
+</MainLayout>

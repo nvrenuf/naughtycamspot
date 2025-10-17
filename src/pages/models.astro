@@ -1,0 +1,103 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const categories = ['Featured', 'New', 'Trending', 'VR'];
+
+const models = [
+  {
+    name: 'Nova Noir',
+    slug: 'nova-noir',
+    vibe: 'Velvet storytelling with luxe sensory cues.',
+    image: 'https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    name: 'Lumi Rae',
+    slug: 'lumi-rae',
+    vibe: 'Neon muse with dreamlike choreography.',
+    image: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    name: 'Saffron Veil',
+    slug: 'saffron-veil',
+    vibe: 'Rose-gold charisma engineered for premium patrons.',
+    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    name: 'Eden Vesper',
+    slug: 'eden-vesper',
+    vibe: 'Cosmic siren weaving multi-lingual seduction.',
+    image: 'https://images.unsplash.com/photo-1531256456869-ce942a665e80?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    name: 'Mila Serein',
+    slug: 'mila-serein',
+    vibe: 'Soft power meets kinetic pulse-room energy.',
+    image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    name: 'Aria Lux',
+    slug: 'aria-lux',
+    vibe: 'High-fashion edit with tailored upsell architecture.',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80'
+  }
+];
+---
+
+<MainLayout
+  title="Models | NaughtyCamSpot"
+  description="Explore the NaughtyCamSpot model gallery — a curated roster of performers with concierge-level positioning."
+>
+  <section class="hero-shell parallax-veil">
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/50"></div>
+    <div class="relative space-y-6">
+      <span class="hero-tagline">Signature Roster</span>
+      <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Meet Our Featured Models</h1>
+      <p class="max-w-2xl text-base text-white/70">
+        A living gallery of muses crafted with bespoke branding, concierge coaching, and compelling conversion frameworks. Tap in to
+        preview their rooms and study how luxury-focused storytelling converts fans into patrons.
+      </p>
+    </div>
+  </section>
+
+  <section class="space-y-10">
+    <div class="flex flex-wrap items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[0.75rem] uppercase tracking-[0.35em] text-rose-petal/80 backdrop-blur-xl">
+      {categories.map((category) => (
+        <button
+          class="rounded-full border border-transparent bg-transparent px-4 py-2 text-white/70 transition hover:border-rose-gold/40 hover:text-rose-gold"
+          type="button"
+        >
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      {models.map((model, index) => (
+        <article
+          class="group content-card overflow-hidden"
+          style={`animation-delay: ${index * 0.1}s`}
+        >
+          <div class="relative overflow-hidden rounded-3xl">
+            <img
+              src={model.image}
+              alt={model.name}
+              loading="lazy"
+              class="h-64 w-full object-cover opacity-90 transition duration-700 ease-out group-hover:scale-105 group-hover:opacity-100"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-70 transition group-hover:opacity-50"></div>
+          </div>
+          <div class="mt-6 space-y-3">
+            <h2 class="font-display text-2xl text-white">{model.name}</h2>
+            <p class="text-sm text-white/70">{model.vibe}</p>
+            <a
+              class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
+              href={`/models/${model.slug}`}
+            >
+              View profile ↗
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>

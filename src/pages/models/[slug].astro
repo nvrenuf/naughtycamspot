@@ -1,0 +1,180 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+
+export function getStaticPaths() {
+  const models = [
+    {
+      slug: 'nova-noir',
+      name: 'Nova Noir',
+      archetype: 'Velvet storyteller -- Chaturbate headliner',
+      summary:
+        'Lighting ritualist with noir show pacing, custom playlist mapping, and a signature midnight toast that spikes fan conversions.',
+      image: 'https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?auto=format&fit=crop&w=1200&q=80',
+      gallery: [
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80'
+      ]
+    },
+    {
+      slug: 'lumi-rae',
+      name: 'Lumi Rae',
+      archetype: 'Neon muse -- CamSoda trailblazer',
+      summary:
+        'Synthwave visuals, bilingual seduction arcs, and interactive prop choreography that keeps night owls tipping through sunrise.',
+      image: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=1200&q=80',
+      gallery: [
+        'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1502323777036-f29e3972d82f?auto=format&fit=crop&w=900&q=80'
+      ]
+    },
+    {
+      slug: 'saffron-veil',
+      name: 'Saffron Veil',
+      archetype: 'Rose-gold strategist -- Conversion queen',
+      summary:
+        'Orchestrates mod-led rituals, whispered upsells, and limited runway drops that turn VIP intentions into recurring revenue.',
+      image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
+      gallery: [
+        'https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1510626176961-4b37d0f0b4c3?auto=format&fit=crop&w=900&q=80'
+      ]
+    },
+    {
+      slug: 'eden-vesper',
+      name: 'Eden Vesper',
+      archetype: 'Cosmic siren -- Multi-platform darling',
+      summary:
+        'Stacks sensory scripting, tarot interludes, and multilingual fan rituals into an unforgettable late-night constellation.',
+      image: 'https://images.unsplash.com/photo-1531256456869-ce942a665e80?auto=format&fit=crop&w=1200&q=80',
+      gallery: [
+        'https://images.unsplash.com/photo-1517840901100-8179e982acb7?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1517840545244-3d257902454a?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1504270997636-07ddfbd48945?auto=format&fit=crop&w=900&q=80'
+      ]
+    }
+  ];
+
+  return models.map((model) => ({
+    params: { slug: model.slug },
+    props: {
+      model,
+      related: models.filter((item) => item.slug !== model.slug).slice(0, 3)
+    }
+  }));
+}
+
+const { model, related } = Astro.props;
+---
+
+<MainLayout
+  title={`${model.name} | NaughtyCamSpot Model Profile`}
+  description={`Discover ${model.name} — ${model.archetype} within the NaughtyCamSpot concierge gallery.`}
+>
+  <section class="hero-shell parallax-veil">
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/60"></div>
+    <div class="relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="space-y-6">
+        <span class="hero-tagline">Model Profile</span>
+        <h1 class="font-display text-5xl text-white sm:text-6xl">{model.name}</h1>
+        <p class="text-base text-rose-petal/80">{model.archetype}</p>
+        <p class="max-w-xl text-base text-white/70">{model.summary}</p>
+        <div class="flex flex-wrap gap-4">
+          <a
+            class="rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+            href="https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Watch Live
+          </a>
+          <a
+            class="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/80 backdrop-blur-xl transition hover:-translate-y-1"
+            href="https://www.camsoda.com/models?id=naughtycamboss"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Join Fan Club
+          </a>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="pointer-events-none absolute -top-16 right-4 h-36 w-36 rounded-full bg-rose-gold/30 blur-3xl"></div>
+        <div class="glass relative overflow-hidden rounded-[38px]">
+          <img src={model.image} alt={model.name} class="h-full w-full object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-10">
+    <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <article class="content-card space-y-5">
+        <h2 class="section-heading">Signature Experience</h2>
+        <p class="text-sm text-white/70">
+          From the first neon spark to the last whisper, every beat in {model.name}'s room is mapped. Expect calibrated lighting cues,
+          storyline-driven games, and a concierge team choreographing the perfect tip train.
+        </p>
+        <ul class="grid gap-3 text-sm text-white/70 sm:grid-cols-2">
+          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Curated soundtrack moodboards</li>
+          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Mod-led conversion rituals</li>
+          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">VIP retention storytelling arcs</li>
+          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Premium merch & upsell ladders</li>
+        </ul>
+      </article>
+      <aside class="content-card space-y-4">
+        <h3 class="text-sm uppercase tracking-[0.4em] text-rose-petal/80">Performance Metrics</h3>
+        <div class="grid gap-4 text-sm text-white/70">
+          <div class="glass rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+            <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Peak engagement</p>
+            <p class="text-2xl font-display text-white">6.4k viewers</p>
+          </div>
+          <div class="glass rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+            <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Average tip train</p>
+            <p class="text-2xl font-display text-white">$1,820</p>
+          </div>
+          <div class="glass rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+            <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">VIP retention</p>
+            <p class="text-2xl font-display text-white">92%</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="space-y-8">
+    <h2 class="section-heading">Gallery &amp; Atmosphere</h2>
+    <div class="grid gap-6 sm:grid-cols-3">
+      {model.gallery.map((item, index) => (
+        <div class="glass overflow-hidden rounded-3xl" style={`animation-delay: ${index * 0.1}s`}>
+          <img src={item} alt={`${model.name} gallery ${index + 1}`} class="h-56 w-full object-cover" loading="lazy" />
+        </div>
+      ))}
+    </div>
+    <div class="grid gap-4 sm:grid-cols-3">
+      <div class="video-placeholder">Video Teaser</div>
+      <div class="video-placeholder">Behind the Scenes</div>
+      <div class="video-placeholder">Fan-Favorite Moment</div>
+    </div>
+  </section>
+
+  <section class="space-y-6">
+    <h2 class="section-heading">Related Models</h2>
+    <div class="flex snap-x gap-6 overflow-x-auto pb-4">
+      {related.map((item) => (
+        <a
+          class="min-w-[260px] flex-shrink-0 content-card space-y-3"
+          href={`/models/${item.slug}`}
+        >
+          <img src={item.image} alt={item.name} class="h-40 w-full rounded-3xl object-cover" loading="lazy" />
+          <div>
+            <p class="font-display text-xl text-white">{item.name}</p>
+            <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">{item.archetype}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</MainLayout>

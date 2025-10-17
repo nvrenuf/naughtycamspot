@@ -1,0 +1,110 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+
+export function getStaticPaths() {
+  const articles = [
+    {
+      slug: 'luxury-room-energy',
+      title: 'Crafting Luxury Room Energy',
+      author: 'Concierge Team',
+      date: 'September 28, 2025',
+      image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
+      category: 'Strategy'
+    },
+    {
+      slug: 'vip-funnel-design',
+      title: 'VIP Funnel Design That Converts',
+      author: 'Elena, Head of Growth',
+      date: 'October 04, 2025',
+      image: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=1200&q=80',
+      category: 'Growth'
+    },
+    {
+      slug: 'mod-team-choreography',
+      title: 'Mod Team Choreography Essentials',
+      author: 'Milo, Community Director',
+      date: 'October 10, 2025',
+      image: 'https://images.unsplash.com/photo-1462396881884-de2c07cb95ed?auto=format&fit=crop&w=1200&q=80',
+      category: 'Community'
+    },
+    {
+      slug: 'ai-concierge-insights',
+      title: 'AI Concierge Insights for Live Shows',
+      author: 'Lina, Data Strategist',
+      date: 'October 14, 2025',
+      image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=80',
+      category: 'Technology'
+    }
+  ];
+
+  return articles.map((entry) => ({
+    params: { slug: entry.slug },
+    props: {
+      article: entry,
+      related: articles.filter((item) => item.slug !== entry.slug).slice(0, 3)
+    }
+  }));
+}
+
+const { article, related } = Astro.props;
+---
+
+<MainLayout
+  title={`${article.title} | NaughtyCamSpot Journal`}
+  description={`Read ${article.title} on the NaughtyCamSpot journal.`}
+>
+  <article class="space-y-10">
+    <header class="hero-shell parallax-veil">
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70"></div>
+      <div class="relative space-y-4">
+        <span class="hero-tagline">{article.category}</span>
+        <h1 class="font-display text-5xl text-white sm:text-6xl">{article.title}</h1>
+        <div class="flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.3em] text-white/60">
+          <span>By {article.author}</span>
+          <span>{article.date}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="glass overflow-hidden rounded-[42px]">
+      <img src={article.image} alt={article.title} class="h-80 w-full object-cover" loading="lazy" />
+    </div>
+
+    <div class="space-y-6 text-base leading-relaxed text-white/70">
+      <p class="first-letter:float-left first-letter:mr-4 first-letter:text-6xl first-letter:font-display first-letter:text-rose-gold first-letter:leading-none">
+  Luxury cam rooms are sculpted, not improvised. The way light kisses your cheekbones, the tempo of your intro story, the
+  cadence your mods keep in chat--it all tells viewers whether they have stumbled into something unforgettable.
+      </p>
+      <p>
+        Think of your room as a boutique hotel lobby. Every sensory element is intentional. Begin with a signature welcome ritual,
+        from a candle lighting to a velvet toast. Pair it with music that signals the tone of the night and reminders about your
+        premium offers. Energy rises when the room feels choreographed, not chaotic.
+      </p>
+      <p>
+        Once your baseline vibe is dialled in, layer conversion cues. Highlight goals visually in your overlays, coach mods to echo
+        them with warmth, and break the fourth wall with personal thank-you moments. Small details—slowing your voice, leaning into
+        the camera, smiling like you have a secret—make patrons feel like insiders.
+      </p>
+      <p>
+        Finally, close every show with a ritualistic sign-off. Share next-show teasers, invite VIPs to exclusive chats, and reinforce
+        that joining your fan club is the way to stay close. Luxury is never rushed; it is curated. Your audience will feel it and
+        reward you for it.
+      </p>
+    </div>
+  </article>
+
+  <section class="space-y-6">
+    <h2 class="section-heading">Related Posts</h2>
+    <div class="grid gap-6 sm:grid-cols-3">
+      {related.map((item) => (
+        <a class="content-card space-y-3" href={`/blog/${item.slug}`}>
+          <img src={item.image} alt={item.title} class="h-40 w-full rounded-3xl object-cover" loading="lazy" />
+          <div>
+            <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{item.category}</p>
+            <p class="font-display text-xl text-white">{item.title}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</MainLayout>
