@@ -1,16 +1,18 @@
 ---
+import BannerSlot from '../components/BannerSlot.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { buildTrackedLink, withBase } from '../utils/links';
 
 const featuredMuse = {
-  name: 'Nova Noir',
-  archetype: 'Chaturbate • After-dark storyteller',
-  presence: 'Velvet energy, high-value room rituals, and cinematic stagecraft.',
-  image: 'https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?auto=format&fit=crop&w=960&q=80',
+  name: 'Anna Prince',
+  archetype: 'Stripchat • Velvet strategist',
+  presence: 'Commanding presence blending intimate storytelling, bilingual charm, and precision-timed mod choreography.',
+  image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=960&q=80',
   quote:
-    '“They built me a cinematic lounge where every cue, every whisper, and every tip train feels intentionally choreographed.”',
+    '“Every room they build feels like a gallery opening. My fans stay longer, tip deeper, and leave with a story to tell.”',
   story:
-    'Our midnight muse leans into noir storytelling, intimate rituals, and velvet pacing that keep premium patrons close without sacrificing boundaries.',
-  ctaHref: '/models/nova-noir'
+    'Anna anchors our concierge roster with luxe rituals, rotating set design, and segmented aftercare. From VIP salons to livestream premieres, she executes every beat with polish.',
+  ctaHref: '/models/anna-prince'
 };
 
 const runwayBlueprint = [
@@ -49,29 +51,51 @@ const conciergeHighlights = [
   }
 ];
 
-const kineticMoments = [
+const proofEntries = [
   {
-    metric: '48 hr',
-    detail: 'custom runway from signup to signature show, backed by a private growth dashboard.'
+    metric: 'Case Study A',
+    summary: 'Premium room relaunch with concierge scripts and sonic cues.',
+    source: 'Filed March 2025'
   },
   {
-    metric: '6x',
-    detail: 'average engagement lift from bespoke room rituals and tailored fan segmentation.'
+    metric: 'Case Study B',
+    summary: 'Hybrid merch drop plus fan aftercare loop mapped over 6 weeks.',
+    source: 'Audit pending April 2025'
   },
   {
-    metric: 'Zero guesswork',
-    detail: 'human strategy plus AI insights guiding every set, schedule, and conversion path.'
+    metric: 'Case Study C',
+    summary: 'Multi-platform crossover using Spanish/English call-and-response.',
+    source: 'Source: Internal concierge lab notes'
   }
 ];
 
-const baseUrl = import.meta.env.BASE_URL;
-const withBase = (path = '') => `${baseUrl}${path.replace(/^\//, '')}`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'NaughtyCamSpot',
+  url: 'https://naughtycamspot.com',
+  description:
+    'Concierge-level growth agency for luxury cam models, delivering tailored launch architectures, retention choreography, and premium fan journeys.',
+  sameAs: [
+    'https://www.instagram.com/naughtycamspot',
+    'https://twitter.com/naughtycamspot'
+  ],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'Concierge support',
+    email: 'concierge@naughtycamspot.com',
+    areaServed: 'Global'
+  }
+};
 ---
 
 <MainLayout
   title="NaughtyCamSpot | Luxury Model Gallery"
   description="Refined gallery experience for cam models who crave concierge-level support, rose-gold aesthetics, and growth you can feel."
 >
+  <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+
+  <!-- SECTION: Hero -->
   <section id="gallery-hero" class="glass relative overflow-hidden rounded-[42px] px-10 py-16">
       <div class="pointer-events-none absolute -left-24 top-12 h-48 w-48 rounded-full bg-rose-gold/40 blur-3xl"></div>
       <div class="pointer-events-none absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-rose-gold/40 blur-[110px]"></div>
@@ -90,7 +114,12 @@ const withBase = (path = '') => `${baseUrl}${path.replace(/^\//, '')}`;
           <div class="flex flex-col gap-4 sm:flex-row">
             <a
               class="flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-midnight shadow-glow transition hover:-translate-y-1"
-              href="https://www.camsoda.com/models?id=naughtycamboss"
+              href={buildTrackedLink({
+                path: '/go/model-join.php',
+                slot: 'home_hero',
+                camp: 'home',
+                placeholder: 'https://bongacams.com/model-signup'
+              })}
               target="_blank"
               rel="noreferrer"
             >
@@ -108,18 +137,29 @@ const withBase = (path = '') => `${baseUrl}${path.replace(/^\//, '')}`;
           <div class="absolute inset-0 animate-float rounded-[34px] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent"></div>
           <div class="relative glass h-full w-full max-w-sm rounded-[34px] p-8">
             <div class="flex flex-col gap-5">
-              {kineticMoments.map((item, index) => (
-                <div class={`animate-fade-slide rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl`} style={`animation-delay: ${index * 0.12}s`}>
-                  <p class="font-display text-3xl text-rose-petal">{item.metric}</p>
-                  <p class="mt-2 text-sm text-white/65">{item.detail}</p>
-                </div>
-              ))}
+              <p class="text-xs uppercase tracking-[0.45em] text-rose-petal/70">Proof in motion</p>
+              <ul class="space-y-4 text-sm text-white/70">
+                {proofEntries.map((entry) => (
+                  <li class="rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <p class="font-display text-lg text-white">{entry.metric}</p>
+                    <p class="mt-1 text-white/60">{entry.summary}</p>
+                    <p class="mt-2 text-[0.65rem] uppercase tracking-[0.35em] text-white/40">{entry.source}</p>
+                  </li>
+                ))}
+              </ul>
+              <a class="text-xs uppercase tracking-[0.4em] text-rose-gold transition hover:text-white" href="#proof">
+                See all proof ↓
+              </a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
+  <!-- SLOT: home_top_leaderboard -->
+  <BannerSlot slotId="home_top_leaderboard" class="mt-14" />
+
+  <!-- SECTION: Concierge -->
   <section id="concierge" class="space-y-12">
       <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
         <div>
@@ -147,6 +187,10 @@ const withBase = (path = '') => `${baseUrl}${path.replace(/^\//, '')}`;
       </div>
     </section>
 
+  <!-- SLOT: home_mid_rectangle -->
+  <BannerSlot slotId="home_mid_rectangle" class="mt-16" />
+
+  <!-- SECTION: Featured Muse -->
   <section id="muse-spotlight" class="glass overflow-hidden rounded-[42px] px-10 py-14">
       <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div class="space-y-6">
@@ -183,6 +227,7 @@ const withBase = (path = '') => `${baseUrl}${path.replace(/^\//, '')}`;
       </div>
     </section>
 
+  <!-- SECTION: Runway -->
   <section id="runway" class="space-y-12">
       <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
         <div>
@@ -210,6 +255,32 @@ const withBase = (path = '') => `${baseUrl}${path.replace(/^\//, '')}`;
       </div>
     </section>
 
+  <!-- SECTION: Proof -->
+  <section id="proof" class="glass overflow-hidden rounded-[42px] px-10 py-14">
+      <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <div class="max-w-xl space-y-4">
+          <h2 class="font-display text-4xl text-white">Proof of concept</h2>
+          <p class="text-base text-white/70">
+            We track every launch with concierge notes, mod call transcripts, and conversion snapshots. Real case files sit ready for
+            partners under NDA; this block marks where the receipts will live.
+          </p>
+        </div>
+        <a class="rounded-full border border-white/20 bg-white/5 px-5 py-3 text-xs uppercase tracking-[0.4em] text-rose-petal/80 backdrop-blur-xl transition hover:text-rose-gold" href={withBase('/case-studies')}>
+          See details shortly
+        </a>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {proofEntries.map((entry, index) => (
+          <article class="glass space-y-3 rounded-3xl border border-white/10 bg-white/5 p-6" style={`animation-delay: ${index * 0.12}s`}>
+            <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">{entry.source}</p>
+            <h3 class="font-display text-2xl text-white">{entry.metric}</h3>
+            <p class="text-sm text-white/65">{entry.summary}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+  <!-- SECTION: Retention -->
   <section id="retention" class="glass overflow-hidden rounded-[42px] px-10 py-14">
       <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div class="space-y-6">
@@ -238,4 +309,7 @@ const withBase = (path = '') => `${baseUrl}${path.replace(/^\//, '')}`;
         </div>
       </div>
     </section>
+
+  <!-- SLOT: home_footer_leaderboard -->
+  <BannerSlot slotId="home_footer_leaderboard" class="mt-16" />
 </MainLayout>

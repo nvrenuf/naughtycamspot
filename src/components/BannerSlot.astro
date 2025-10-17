@@ -1,0 +1,33 @@
+---
+import { bannerSlots } from '../data/banners';
+import { buildTrackedLink } from '../utils/links';
+
+interface Props {
+  slotId: keyof typeof bannerSlots;
+  class?: string;
+}
+
+const { slotId, class: className = '' } = Astro.props as Props;
+const slot = bannerSlots[slotId];
+
+if (!slot) {
+  throw new Error(`Banner slot "${slotId}" is not defined in bannerSlots.`);
+}
+
+const href = buildTrackedLink({
+  path: slot.path,
+  slot: slot.id,
+  camp: slot.camp,
+  placeholder: slot.placeholder
+});
+---
+<div class={`banner-slot glass rounded-3xl border border-white/10 bg-white/5 p-3 text-center ${className}`}>
+  <a class="flex h-full w-full items-center justify-center" href={href} target="_blank" rel="noreferrer">
+    <img
+      class="h-auto max-h-64 w-full rounded-2xl object-cover"
+      src={slot.image}
+      alt={slot.alt}
+      loading="lazy"
+    />
+  </a>
+</div>

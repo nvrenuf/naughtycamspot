@@ -1,0 +1,7 @@
+## 2025-10-17
+- Refined homepage hero CTA routing with tracked `/go/` link in production and safe external fallback for GitHub Pages.
+- Replaced kinetic metric cards with a Proof section scaffold and added JSON-LD metadata.
+- Introduced banner slot system with centralized configuration and placements across home, model, and blog post templates.
+- Added environment-aware link helpers to normalize base paths and tracking parameters.
+- Published the Anna Prince model profile with platform buttons, gallery, and banner scaffolding.
+- Annotated key content sections with markers for upcoming content passes.

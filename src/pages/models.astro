@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { withBase } from '../utils/links';
 
 const categories = ['Featured', 'New', 'Trending', 'VR'];
 
@@ -39,6 +40,12 @@ const models = [
     slug: 'aria-lux',
     vibe: 'High-fashion edit with tailored upsell architecture.',
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    name: 'Anna Prince',
+    slug: 'anna-prince',
+    vibe: 'Bilingual velvet strategist with concierge-engineered show arcs.',
+    image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80'
   }
 ];
 ---
@@ -47,6 +54,7 @@ const models = [
   title="Models | NaughtyCamSpot"
   description="Explore the NaughtyCamSpot model gallery — a curated roster of performers with concierge-level positioning."
 >
+  <!-- SECTION: Models Hero -->
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/50"></div>
     <div class="relative space-y-6">
@@ -59,6 +67,7 @@ const models = [
     </div>
   </section>
 
+  <!-- SECTION: Models Grid -->
   <section class="space-y-10">
     <div class="flex flex-wrap items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[0.75rem] uppercase tracking-[0.35em] text-rose-petal/80 backdrop-blur-xl">
       {categories.map((category) => (
@@ -91,7 +100,7 @@ const models = [
             <p class="text-sm text-white/70">{model.vibe}</p>
             <a
               class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
-              href={`/models/${model.slug}`}
+              href={withBase(`/models/${model.slug}`)}
             >
               View profile ↗
             </a>

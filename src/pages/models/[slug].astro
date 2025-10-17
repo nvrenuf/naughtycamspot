@@ -1,5 +1,7 @@
 ---
+import BannerSlot from '../../components/BannerSlot.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
+import { buildTrackedLink, withBase } from '../../utils/links';
 
 export function getStaticPaths() {
   const models = [
@@ -10,6 +12,7 @@ export function getStaticPaths() {
       summary:
         'Lighting ritualist with noir show pacing, custom playlist mapping, and a signature midnight toast that spikes fan conversions.',
       image: 'https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?auto=format&fit=crop&w=1200&q=80',
+      platforms: [],
       gallery: [
         'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
@@ -22,7 +25,8 @@ export function getStaticPaths() {
       archetype: 'Neon muse -- CamSoda trailblazer',
       summary:
         'Synthwave visuals, bilingual seduction arcs, and interactive prop choreography that keeps night owls tipping through sunrise.',
-      image: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=1200&q=80',
+  image: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=1200&q=80',
+  platforms: [],
       gallery: [
         'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
@@ -35,7 +39,8 @@ export function getStaticPaths() {
       archetype: 'Rose-gold strategist -- Conversion queen',
       summary:
         'Orchestrates mod-led rituals, whispered upsells, and limited runway drops that turn VIP intentions into recurring revenue.',
-      image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
+  image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
+  platforms: [],
       gallery: [
         'https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80',
@@ -49,10 +54,33 @@ export function getStaticPaths() {
       summary:
         'Stacks sensory scripting, tarot interludes, and multilingual fan rituals into an unforgettable late-night constellation.',
       image: 'https://images.unsplash.com/photo-1531256456869-ce942a665e80?auto=format&fit=crop&w=1200&q=80',
+      platforms: [],
       gallery: [
         'https://images.unsplash.com/photo-1517840901100-8179e982acb7?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1517840545244-3d257902454a?auto=format&fit=crop&w=900&q=80',
         'https://images.unsplash.com/photo-1504270997636-07ddfbd48945?auto=format&fit=crop&w=900&q=80'
+      ]
+    },
+    {
+      slug: 'anna-prince',
+      name: 'Anna Prince',
+      archetype: 'Stripchat velvet strategist',
+      summary:
+        'Anna orchestrates bilingual storytelling arcs, timed lighting cues, and concierge-led mod scripts tailored to late-night luxury crowds.',
+      image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
+      platforms: [
+        { name: 'Stripchat', path: '/go/anna-stripchat.php', placeholder: 'https://stripchat.com', active: true },
+        { name: 'Chaturbate', path: '/go/anna-chaturbate.php', placeholder: 'https://chaturbate.com', active: true },
+        { name: 'CamSoda', path: '/go/anna-camsoda.php', placeholder: 'https://www.camsoda.com', active: true },
+        { name: 'ManyVids', path: '/go/anna-manyvids.php', placeholder: 'https://www.manyvids.com', active: true },
+        { name: 'Pornhub', path: '/go/anna-pornhub.php', placeholder: 'https://www.pornhub.com', active: true },
+        { name: 'OnlyFans', path: '/go/anna-onlyfans.php', placeholder: 'https://onlyfans.com', active: true },
+        { name: 'My.club', path: '/go/anna-myclub.php', placeholder: 'https://my.club', active: false }
+      ],
+      gallery: [
+        'https://images.unsplash.com/photo-1478454197698-1526513ad1a3?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=900&q=80',
+        'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80'
       ]
     }
   ];
@@ -67,12 +95,19 @@ export function getStaticPaths() {
 }
 
 const { model, related } = Astro.props;
+const platforms = (model.platforms ?? []) as Array<{
+  name: string;
+  path?: string;
+  placeholder?: string;
+  active?: boolean;
+}>;
 ---
 
 <MainLayout
   title={`${model.name} | NaughtyCamSpot Model Profile`}
   description={`Discover ${model.name} — ${model.archetype} within the NaughtyCamSpot concierge gallery.`}
 >
+  <!-- SECTION: Hero -->
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/60"></div>
     <div class="relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
@@ -81,34 +116,51 @@ const { model, related } = Astro.props;
         <h1 class="font-display text-5xl text-white sm:text-6xl">{model.name}</h1>
         <p class="text-base text-rose-petal/80">{model.archetype}</p>
         <p class="max-w-xl text-base text-white/70">{model.summary}</p>
-        <div class="flex flex-wrap gap-4">
-          <a
-            class="rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-            href="https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Watch Live
-          </a>
-          <a
-            class="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/80 backdrop-blur-xl transition hover:-translate-y-1"
-            href="https://www.camsoda.com/models?id=naughtycamboss"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Join Fan Club
-          </a>
-        </div>
+        {platforms.length > 0 && (
+          <div class="space-y-4">
+            <!-- SECTION: Platforms -->
+            <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">Platform lineup</p>
+            <div class="flex flex-wrap gap-3">
+              {platforms.map((platform) => (
+                platform.active !== false ? (
+                  <a
+                    class="rounded-full border border-rose-gold/60 bg-rose-gold/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-rose-petal shadow-glow backdrop-blur-xl transition hover:bg-rose-gold/30"
+                    href={buildTrackedLink({
+                      path: platform.path ?? '/go/model-platform.php',
+                      slot: `${model.slug}_${platform.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+                      camp: 'models',
+                      placeholder: platform.placeholder ?? 'https://stripchat.com'
+                    })}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {platform.name}
+                  </a>
+                ) : (
+                  <span
+                    class="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.3em] text-white/40"
+                    aria-disabled="true"
+                  >
+                    {platform.name} • Inactive
+                  </span>
+                )
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-      <div class="relative">
+      <div class="relative space-y-6">
         <div class="pointer-events-none absolute -top-16 right-4 h-36 w-36 rounded-full bg-rose-gold/30 blur-3xl"></div>
         <div class="glass relative overflow-hidden rounded-[38px]">
           <img src={model.image} alt={model.name} class="h-full w-full object-cover" loading="lazy" />
         </div>
+        <!-- SLOT: model_sidebar_tall -->
+        <BannerSlot slotId="model_sidebar_tall" />
       </div>
     </div>
   </section>
 
+  <!-- SECTION: Signature Experience -->
   <section class="space-y-10">
     <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
       <article class="content-card space-y-5">
@@ -144,6 +196,10 @@ const { model, related } = Astro.props;
     </div>
   </section>
 
+  <!-- SLOT: model_mid_rectangle -->
+  <BannerSlot slotId="model_mid_rectangle" class="mt-12" />
+
+  <!-- SECTION: Gallery -->
   <section class="space-y-8">
     <h2 class="section-heading">Gallery &amp; Atmosphere</h2>
     <div class="grid gap-6 sm:grid-cols-3">
@@ -160,14 +216,15 @@ const { model, related } = Astro.props;
     </div>
   </section>
 
+  <!-- SECTION: Related Models -->
   <section class="space-y-6">
     <h2 class="section-heading">Related Models</h2>
     <div class="flex snap-x gap-6 overflow-x-auto pb-4">
       {related.map((item) => (
-        <a
-          class="min-w-[260px] flex-shrink-0 content-card space-y-3"
-          href={`/models/${item.slug}`}
-        >
+          <a
+            class="min-w-[260px] flex-shrink-0 content-card space-y-3"
+            href={withBase(`/models/${item.slug}`)}
+          >
           <img src={item.image} alt={item.name} class="h-40 w-full rounded-3xl object-cover" loading="lazy" />
           <div>
             <p class="font-display text-xl text-white">{item.name}</p>

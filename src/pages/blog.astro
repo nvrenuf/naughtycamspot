@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { withBase } from '../utils/links';
 
 const posts = [
   {
@@ -41,6 +42,7 @@ const posts = [
   title="Blog | NaughtyCamSpot"
   description="Insights & stories from the NaughtyCamSpot concierge team — luxury growth strategy for performers."
 >
+  <!-- SECTION: Blog Hero -->
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/60"></div>
     <div class="relative space-y-6">
@@ -52,6 +54,7 @@ const posts = [
     </div>
   </section>
 
+  <!-- SECTION: Blog Grid -->
   <section class="grid gap-6 sm:grid-cols-2">
     {posts.map((post, index) => (
       <article class="content-card overflow-hidden" style={`animation-delay: ${index * 0.1}s`}>
@@ -65,7 +68,7 @@ const posts = [
           <p class="text-sm text-white/70">{post.excerpt}</p>
           <div class="flex items-center justify-between text-xs text-white/50">
             <span>{post.date}</span>
-            <a class="uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold" href={`/blog/${post.slug}`}>
+            <a class="uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold" href={withBase(`/blog/${post.slug}`)}>
               Read More ↗
             </a>
           </div>

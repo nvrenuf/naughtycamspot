@@ -5,6 +5,7 @@ const {
   showNavigation = true
 } = Astro.props;
 import '../styles/tailwind.css';
+import { withBase } from '../utils/links';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -21,8 +22,6 @@ const footerLinks = [
 ];
 
 const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
-const baseUrl = import.meta.env.BASE_URL;
-const withBase = (path = '') => `${baseUrl}${path.replace(/^\//, '')}`;
 ---
 <!doctype html>
 <html lang="en" class="bg-midnight">
