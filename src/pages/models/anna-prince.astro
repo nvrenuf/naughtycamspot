@@ -1,0 +1,188 @@
+---
+import BannerSlot from '../../components/BannerSlot.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
+import { buildTrackedLink } from '../../utils/links';
+
+const model = {
+  name: 'Anna Prince',
+  tagline: 'Stripchat velvet strategist',
+  summary:
+    'Anna Prince curates immersive bilingual sets, concierge-guided mod scripts, and rose-gold lighting rituals that keep luxe night owls glued to every scene.',
+  heroImage: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1280&q=80'
+};
+
+const buttons = [
+  {
+    label: 'ManyVids',
+    slug: 'manyvids',
+    path: '/go/mv-anna',
+    placeholder: 'https://www.manyvids.com/live/cam/anna_prince',
+    variant: 'primary'
+  },
+  {
+    label: 'Beacons – All links',
+    slug: 'beacons',
+    path: '/go/beacons-anna',
+    placeholder: 'https://beacons.ai/annaprince'
+  },
+  {
+    label: 'Stripchat',
+    slug: 'stripchat',
+    path: '/go/stripchat-anna',
+    placeholder: 'https://stripchat.com/Anna_Prince'
+  },
+  {
+    label: 'Chaturbate',
+    slug: 'chaturbate',
+    path: '/go/chaturbate-anna',
+    placeholder: 'https://chaturbate.com/b/anna_prince/'
+  },
+  {
+    label: 'CamSoda',
+    slug: 'camsoda',
+    path: '/go/camsoda-anna',
+    placeholder: 'https://www.camsoda.com/annaprince'
+  },
+  {
+    label: 'Pornhub',
+    slug: 'pornhub',
+    path: '/go/ph-anna',
+    placeholder: 'https://pornhub.com/model/sabrina_great'
+  },
+  {
+    label: 'OnlyFans',
+    slug: 'onlyfans',
+    path: '/go/of-anna',
+    placeholder: 'https://onlyfans.com/sabrinagreat'
+  },
+  {
+    label: 'My.club',
+    slug: 'myclub',
+    path: '/go/myclub-anna',
+    placeholder: 'https://my.club/Anna_Prince',
+    active: false
+  }
+];
+
+const buildHref = (button) =>
+  buildTrackedLink({
+    path: button.path,
+    slot: `anna_prince_${button.slug}`,
+    camp: 'anna_profile',
+    placeholder: button.placeholder
+  });
+
+const activeButtons = buttons.filter((button) => button.active !== false);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: model.name,
+  url: 'https://naughtycamspot.com/models/anna-prince/',
+  sameAs: activeButtons.map((button) => button.placeholder)
+};
+---
+
+<MainLayout
+  title={`${model.name} | NaughtyCamSpot Muse Profile`}
+  description={`Dive into ${model.name}'s curated rituals, signature lighting, and concierge-run conversions.`}
+>
+  <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+
+  <!-- SECTION: Hero -->
+  <section class="glass overflow-hidden rounded-[42px] px-10 py-14">
+    <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+      <div class="space-y-6">
+        <span class="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
+          Model profile
+        </span>
+        <div class="space-y-4">
+          <h1 class="font-display text-5xl text-white sm:text-6xl">{model.name}</h1>
+          <p class="text-sm uppercase tracking-[0.3em] text-rose-petal/80">{model.tagline}</p>
+          <p class="max-w-2xl text-base leading-relaxed text-white/70">
+            {model.summary}
+          </p>
+        </div>
+        <div class="space-y-3">
+          <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">Platform lineup</p>
+          <div class="flex flex-wrap gap-3" data-test="anna-platform-buttons">
+            {buttons.map((button) => (
+              button.active !== false ? (
+                <a
+                  data-platform={button.slug}
+                  class={`rounded-full border px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] shadow-glow transition hover:-translate-y-1 ${
+                    button.variant === 'primary'
+                      ? 'border-rose-gold/60 bg-rose-gold text-midnight'
+                      : 'border-rose-gold/40 bg-rose-gold/15 text-rose-petal hover:bg-rose-gold/25'
+                  }`}
+                  href={buildHref(button)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {button.label}
+                </a>
+              ) : (
+                <span
+                  data-platform={button.slug}
+                  class="rounded-full border border-white/15 bg-white/5 px-6 py-2 text-xs uppercase tracking-[0.28em] text-white/40"
+                  aria-disabled="true"
+                >
+                  {button.label} • Inactive
+                </span>
+              )
+            ))}
+          </div>
+        </div>
+      </div>
+      <div class="relative space-y-6">
+        <div class="pointer-events-none absolute -top-16 right-4 hidden h-36 w-36 rounded-full bg-rose-gold/30 blur-3xl lg:block"></div>
+        <div class="glass relative overflow-hidden rounded-[38px]">
+          <img src={model.heroImage} alt={model.name} class="h-full w-full object-cover" loading="lazy" />
+        </div>
+        <!-- SLOT: model_sidebar_tall -->
+        <BannerSlot id="model_sidebar_tall" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SLOT: model_mid_rectangle -->
+  <BannerSlot id="model_mid_rectangle" class="mt-16" />
+
+  <!-- SECTION: Email capture stub -->
+  <section class="glass overflow-hidden rounded-[42px] px-10 py-14">
+    <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="space-y-5">
+        <h2 class="font-display text-4xl text-white">Stay in Anna's orbit</h2>
+        <p class="max-w-xl text-base text-white/70">
+          Drop your email to join the first wave of concierge updates, launch recaps, and VIP salon invites curated by Anna herself.
+        </p>
+        <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">Concierge digest launching soon</p>
+      </div>
+      <form class="glass space-y-4 rounded-3xl border border-white/10 bg-white/5 p-8" aria-describedby="anna-email-note">
+        <label class="text-xs uppercase tracking-[0.35em] text-rose-petal/70" for="anna-email">
+          Email address
+        </label>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <input
+            id="anna-email"
+            type="email"
+            placeholder="you@example.com"
+            disabled
+            class="w-full rounded-full border border-white/15 bg-black/30 px-5 py-3 text-sm text-white/70 placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-rose-gold/40"
+          />
+          <button
+            type="button"
+            class="w-full rounded-full border border-white/20 bg-white/10 px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/50 transition sm:w-auto"
+            disabled
+            aria-disabled="true"
+          >
+            Coming soon
+          </button>
+        </div>
+        <p id="anna-email-note" class="text-xs text-white/40">
+          We are polishing the concierge onboarding flow. Submissions are paused, but this block marks where the experience will launch.
+        </p>
+      </form>
+    </div>
+  </section>
+</MainLayout>
