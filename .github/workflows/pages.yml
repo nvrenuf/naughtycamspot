@@ -31,11 +31,8 @@ jobs:
           cache: npm
       - name: Install deps
         run: npm ci
-      - name: Build (GitHub Pages)
-        run: npx astro build
-        env:
-          SITE: https://leecuevasowner.github.io/naughtycamspot
-          BASE_PATH: /naughtycamspot/
+      - name: Build (Pages config)
+        run: npx astro build --config astro.config.pages.mjs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
