@@ -5,7 +5,7 @@ declare(strict_types=1);
 const GO_SUBID_PARAM = 'subid';
 const GO_MODEL_PROGRAM_CONFIG = [
     'bonga' => [
-        'active' => true,
+        'active' => false,
         'tiers' => ['T1', 'T2', 'T3', 'T4'],
     ],
     'camsoda' => [
@@ -17,7 +17,7 @@ const GO_MODEL_PROGRAM_CONFIG = [
         'tiers' => ['T1', 'T2', 'T3', 'T4'],
     ],
     'of_creator' => [
-        'active' => true,
+        'active' => false,
         'tiers' => ['T1', 'T2', 'T3', 'T4'],
     ],
     'myclub' => [
@@ -206,16 +206,23 @@ function go_build_bonga_model_signup(string $subid, array $context = []): string
 
 function go_build_camsoda_model_signup(string $subid): string
 {
-    $base = 'https://track.naughtycamspot.com/camsoda/models';
+    $base = 'https://www.camsoda.com/models?id=naughtycamboss';
+    $tracking = $subid !== '' ? $subid : 'default';
+    $query = http_build_query([
+        's1' => $tracking,
+        'track' => $tracking,
+    ], '', '&', PHP_QUERY_RFC3986);
 
-    return go_append_subid($base, $subid);
+    $separator = strpos($base, '?') !== false ? '&' : '?';
+
+    return $base . $separator . $query;
 }
 
 function go_build_chaturbate_model_signup(string $subid): string
 {
-    $base = 'https://track.naughtycamspot.com/chaturbate/models';
+    $tracking = $subid !== '' ? $subid : 'default';
 
-    return go_append_subid($base, $subid);
+    return 'https://chaturbate.com/in/?tour=5zjT&campaign=YIOhf&track=' . rawurlencode($tracking);
 }
 
 function go_build_onlyfans_creator_signup(string $subid): string
