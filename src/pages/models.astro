@@ -3,7 +3,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import { withBase } from '../utils/links';
 import { getCollection } from 'astro:content';
 
-const categories = ['Featured', 'New', 'Trending', 'VR'];
+const categories = ['Lighting', 'Conversion', 'Scheduling', 'Aftercare'];
 
 const modelEntries = await getCollection('models');
 const models = modelEntries
@@ -27,18 +27,18 @@ const models = modelEntries
 ---
 
 <MainLayout
-  title="Models | NaughtyCamSpot"
-  description="Explore the NaughtyCamSpot model gallery — a curated roster of performers with concierge-level positioning."
+  title="Example Models | NaughtyCamSpot"
+  description="Explore example cam model pages that demonstrate how to use the NaughtyCamSpot starter kit templates."
 >
   <!-- SECTION: Models Hero -->
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/50"></div>
     <div class="relative space-y-6">
-      <span class="hero-tagline">Signature Roster</span>
-      <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Meet Our Featured Models</h1>
+      <span class="hero-tagline">Example Library</span>
+      <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Example model walkthroughs</h1>
       <p class="max-w-2xl text-base text-white/70">
-        A living gallery of muses crafted with bespoke branding, concierge coaching, and compelling conversion frameworks. Tap in to
-        preview their rooms and study how luxury-focused storytelling converts fans into patrons.
+        These pages are demos, not promotions. Each example highlights how to apply the starter kit’s lighting notes, schedule, and
+        conversion ladders. Use them as inspiration while keeping full control of your own accounts.
       </p>
     </div>
   </section>
@@ -78,7 +78,7 @@ const models = modelEntries
               class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
               href={withBase(`/models/${model.slug}`)}
             >
-              View profile ↗
+              View example ↗
             </a>
           </div>
         </article>
