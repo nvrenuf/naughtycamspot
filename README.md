@@ -8,6 +8,12 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 - Create a production build: `npm run build`
 - Build for GitHub Pages: `npm run build:pages`
 
+## Deploy model
+
+- Run a local production build and upload the generated `dist/` directory to ViceTemple.
+- Treat `/public/go` as the canonical source inside the repo — never hand-edit PHP on the server.
+- The Pages workflow deletes `dist/go`, so GitHub Pages never ships the PHP redirectors.
+
 ## Project structure
 
 - `src/layouts/MainLayout.astro` — shared chrome, fonts, and ambient gradients
