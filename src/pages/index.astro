@@ -3,6 +3,8 @@ import BannerSlot from '../components/BannerSlot.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { buildTrackedLink, withBase } from '../utils/links';
 
+const HERO_CTA_PLACEHOLDER = 'https://linktr.ee/naughtycamspot';
+
 const featuredMuse = {
   name: 'Anna Prince',
   archetype: 'Stripchat • Velvet strategist',
@@ -118,7 +120,7 @@ const jsonLd = {
                 path: '/go/model-join.php',
                 slot: 'home_hero',
                 camp: 'home',
-                placeholder: 'https://bongacams.com/model-signup'
+                placeholder: HERO_CTA_PLACEHOLDER
               })}
               target="_blank"
               rel="noreferrer"
