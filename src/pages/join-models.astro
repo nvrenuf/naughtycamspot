@@ -1,7 +1,7 @@
 ---
 import BannerSlot from '../components/BannerSlot.astro';
 import MainLayout from '../layouts/MainLayout.astro';
-import { buildTrackedLink, isPagesBuild } from '../utils/links';
+import { buildTrackedLink, getClaimUrl, isPagesBuild } from '../utils/links';
 
 const heroBullets = [
   {
@@ -53,6 +53,35 @@ const ctaHref = buildTrackedLink({
   placeholder: CTA_PLACEHOLDER
 });
 const pagesBuild = isPagesBuild();
+const claimUrl = getClaimUrl();
+const claimLinkIsExternal = claimUrl.startsWith('http');
+const claimLinkTarget = claimLinkIsExternal ? '_blank' : undefined;
+const claimLinkRel = claimLinkIsExternal ? 'noreferrer' : undefined;
+
+const onboardingSteps = [
+  {
+    title: 'Choose your launch partner',
+    detail:
+      'Pick the cam platform that fits your goals, complete the official signup, and keep the welcome email handy for reference.'
+  },
+  {
+    title: 'Send verification proof',
+    detail:
+      'Forward the confirmation screenshot or referral code to concierge@naughtycamspot.com so we can match your account to our affiliate record.'
+  },
+  {
+    title: 'Claim the starter kit',
+    detail:
+      'Once the referral clears, submit the claim form with your screenshot and delivery notes so the concierge team can ship the launch bundle.',
+    cta: {
+      href: claimUrl,
+      target: claimLinkTarget,
+      rel: claimLinkRel,
+      external: claimLinkIsExternal,
+      label: 'Open claim form'
+    }
+  }
+];
 ---
 
 <MainLayout
@@ -105,6 +134,36 @@ const pagesBuild = isPagesBuild();
       </div>
       <BannerSlot id="model_sidebar_tall" class="w-full" />
     </div>
+  </section>
+
+  <section class="content-card space-y-6">
+    <div class="space-y-3">
+      <h2 class="section-heading">Claim sequence</h2>
+      <p class="text-sm text-white/70">
+        Keep proof handy so we can release the kit quickly. Step three routes to the secure claim form where you&apos;ll upload your
+        screenshot and leave delivery notes for the concierge team.
+      </p>
+    </div>
+    <ol class="grid gap-4 text-sm text-white/70 md:grid-cols-3">
+      {onboardingSteps.map((step, index) => (
+        <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">
+          <span class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step {index + 1}</span>
+          <p class="mt-2 font-semibold text-white">{step.title}</p>
+          <p class="mt-1 text-white/70">{step.detail}</p>
+          {step.cta && (
+            <a
+              class="mt-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-rose-gold transition hover:text-rose-petal"
+              href={step.cta.href}
+              target={step.cta.target}
+              rel={step.cta.rel}
+            >
+              {step.cta.label}
+              {step.cta.external && <span aria-hidden="true">↗</span>}
+            </a>
+          )}
+        </li>
+      ))}
+    </ol>
   </section>
 
   <section class="space-y-10">

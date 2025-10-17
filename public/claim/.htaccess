@@ -1,0 +1,17 @@
+<IfModule mod_authz_core.c>
+  <LimitExcept GET POST>
+    Require all denied
+  </LimitExcept>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <LimitExcept GET POST>
+    Deny from all
+  </LimitExcept>
+</IfModule>
+
+Options -ExecCGI
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^uploads/.*\.(?:php|phtml|phar|cgi|pl|py|rb|sh)$ - [F,L]
+</IfModule>

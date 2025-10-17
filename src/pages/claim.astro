@@ -1,0 +1,92 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getClaimUrl, withBase } from '../utils/links';
+
+const claimUrl = getClaimUrl();
+const claimLinkIsExternal = claimUrl.startsWith('http');
+const claimLinkTarget = claimLinkIsExternal ? '_blank' : undefined;
+const claimLinkRel = claimLinkIsExternal ? 'noreferrer' : undefined;
+
+const proofSteps = [
+  {
+    title: 'Finish your signup',
+    detail:
+      'Complete the program application using our tracked link. Make sure the email address on the form matches the platform account so we can confirm the referral credit.'
+  },
+  {
+    title: 'Capture verification proof',
+    detail:
+      'Take a clear screenshot showing the platform dashboard or confirmation email with your username visible. We use this to match your referral ID.'
+  },
+  {
+    title: 'Submit the claim form',
+    detail:
+      'Upload the screenshot, share any notes, and send us the best reply-to email. The concierge team double-checks the credit before releasing the kit.'
+  }
+];
+
+const followUpNotes = [
+  'We aim to confirm claims within one business day. Weekends may take a touch longer.',
+  'The starter kit ships from concierge@naughtycamspot.com once the referral clears—add us to your safe senders list so nothing lands in spam.',
+  'You can review the full kit contents any time on the starter kit overview page.'
+];
+---
+
+<MainLayout
+  title="Claim Starter Kit | NaughtyCamSpot"
+  description="Submit proof of your partner signup to unlock the NaughtyCamSpot 14-day starter kit."
+>
+  <section class="content-card space-y-6">
+    <div class="space-y-4">
+      <span class="hero-tagline">Starter kit verification</span>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Claim your 14-day starter kit</h1>
+      <p class="max-w-2xl text-sm text-white/70">
+        Finish your partner signup, gather a screenshot that proves the referral, and send it through this claim flow. We verify
+        every submission manually so your launch plan stays exclusive to active models.
+      </p>
+    </div>
+    <a
+      class="inline-flex w-fit items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+      href={claimUrl}
+      target={claimLinkTarget}
+      rel={claimLinkRel}
+    >
+      Open claim form
+    </a>
+    <p class="text-xs uppercase tracking-[0.3em] text-white/45">
+      {claimLinkIsExternal
+        ? 'Routes to our secure intake on Tally.'
+        : 'Opens the secure claim form hosted on naughtycamspot.com.'}
+    </p>
+  </section>
+
+  <section class="space-y-6">
+    <h2 class="section-heading">Proof checklist</h2>
+    <ol class="grid gap-4 text-sm text-white/70 md:grid-cols-3">
+      {proofSteps.map((step, index) => (
+        <li class="content-card space-y-3">
+          <span class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step {index + 1}</span>
+          <p class="font-semibold text-white">{step.title}</p>
+          <p class="text-white/70">{step.detail}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="content-card space-y-5">
+    <h2 class="section-heading">After you submit</h2>
+    <ul class="grid gap-3 text-sm text-white/70">
+      {followUpNotes.map((note) => (
+        <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">{note}</li>
+      ))}
+    </ul>
+    <p class="text-sm text-white/65">
+      After you submit the form we surface a direct link to the{' '}
+      <a class="text-rose-gold underline-offset-4 hover:underline" href={withBase('/starter-kit')}>
+        starter kit overview
+      </a>{' '}
+      so you can download everything immediately. Bookmark it now if you want a sneak peek at the daily prompts, pricing ladders,
+      and lighting checklists.
+    </p>
+  </section>
+</MainLayout>
