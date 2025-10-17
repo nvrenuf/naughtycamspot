@@ -1,5 +1,6 @@
 ---
 import BannerSlot from '../../components/BannerSlot.astro';
+import SEO from '../../components/SEO.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { buildTrackedLink } from '../../utils/links';
 
@@ -75,6 +76,7 @@ const buttons = beaconsButton
   : [...baseButtons];
 
 const trackingSlotPrefix = model.slug.replace(/-/g, '_');
+const canonicalPath = Astro.url.pathname;
 const buildHref = (button) => {
   if (button.slug === 'beacons') {
     return buildTrackedLink({
@@ -95,12 +97,21 @@ const buildHref = (button) => {
 
 const activeButtons = buttons.filter((button) => button.active !== false);
 
-const jsonLd = {
+const siteUrl = import.meta.env.SITE ?? 'https://naughtycamspot.com';
+const personJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: model.name,
-  url: 'https://naughtycamspot.com/models/anna-prince/',
-  sameAs: activeButtons.map((button) => button.placeholder)
+  url: new URL(canonicalPath, siteUrl).toString(),
+  sameAs: [
+    'https://stripchat.com/Anna_Prince',
+    'https://chaturbate.com/b/anna_prince/',
+    'https://www.camsoda.com/annaprince',
+    'https://www.manyvids.com/live/cam/anna_prince',
+    'https://pornhub.com/model/sabrina_great',
+    'https://onlyfans.com/sabrinagreat',
+    'https://my.club/Anna_Prince'
+  ]
 };
 ---
 
@@ -108,7 +119,15 @@ const jsonLd = {
   title={`${model.name} | NaughtyCamSpot Muse Profile`}
   description={`Dive into ${model.name}'s curated rituals, signature lighting, and concierge-run conversions.`}
 >
-  <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+  <SEO
+    slot="head"
+    title={`${model.name} | NaughtyCamSpot Muse Profile`}
+    description={`Dive into ${model.name}'s curated rituals, signature lighting, and concierge-run conversions.`}
+    path={canonicalPath}
+    ogImage={model.heroImage}
+    ogType="profile"
+  />
+  <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
 
   <!-- SECTION: Hero -->
   <section class="glass overflow-hidden rounded-[42px] px-10 py-14">

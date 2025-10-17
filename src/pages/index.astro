@@ -1,9 +1,12 @@
 ---
 import BannerSlot from '../components/BannerSlot.astro';
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { buildTrackedLink, withBase } from '../utils/links';
 
 const HERO_CTA_PLACEHOLDER = 'https://linktr.ee/naughtycamspot';
+
+const canonicalPath = Astro.url.pathname;
 
 const heroCtaSlot = 'home_hero';
 const heroCtaCamp = 'home';
@@ -93,23 +96,11 @@ const proofCards = [
   }
 ];
 
-const jsonLd = {
+const websiteJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'WebSite',
   name: 'NaughtyCamSpot',
-  url: 'https://naughtycamspot.com',
-  description:
-    'Concierge-level growth agency for luxury cam models, delivering tailored launch architectures, retention choreography, and premium fan journeys.',
-  sameAs: [
-    'https://www.instagram.com/naughtycamspot',
-    'https://twitter.com/naughtycamspot'
-  ],
-  contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'Concierge support',
-    email: 'concierge@naughtycamspot.com',
-    areaServed: 'Global'
-  }
+  url: import.meta.env.SITE ?? 'https://naughtycamspot.com'
 };
 ---
 
@@ -117,7 +108,14 @@ const jsonLd = {
   title="NaughtyCamSpot | Luxury Model Gallery"
   description="Refined gallery experience for cam models who crave concierge-level support, rose-gold aesthetics, and growth you can feel."
 >
-  <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+  <SEO
+    slot="head"
+    title="NaughtyCamSpot | Luxury Cam Model Growth Concierge"
+    description="Concierge launch rituals, retention choreography, and revenue ecosystems for luxury cam models ready to scale."
+    path={canonicalPath}
+    ogImage="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1280&q=80"
+  />
+  <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
 
   <!-- SECTION: Hero -->
   <section id="gallery-hero" class="glass relative overflow-hidden rounded-[42px] px-10 py-16">
