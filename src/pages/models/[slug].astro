@@ -155,7 +155,7 @@ const platforms = (model.platforms ?? []) as Array<{
           <img src={model.image} alt={model.name} class="h-full w-full object-cover" loading="lazy" />
         </div>
         <!-- SLOT: model_sidebar_tall -->
-        <BannerSlot slotId="model_sidebar_tall" />
+        <BannerSlot id="model_sidebar_tall" />
       </div>
     </div>
   </section>
@@ -197,7 +197,7 @@ const platforms = (model.platforms ?? []) as Array<{
   </section>
 
   <!-- SLOT: model_mid_rectangle -->
-  <BannerSlot slotId="model_mid_rectangle" class="mt-12" />
+  <BannerSlot id="model_mid_rectangle" class="mt-12" />
 
   <!-- SECTION: Gallery -->
   <section class="space-y-8">

@@ -1,17 +1,18 @@
 ---
-import { bannerSlots } from '../data/banners';
+import { bannerSlots, getBannerSlot, type BannerSlotId } from '../data/banners';
 import { buildTrackedLink } from '../utils/links';
 
 interface Props {
-  slotId: keyof typeof bannerSlots;
+  id: BannerSlotId;
   class?: string;
 }
 
-const { slotId, class: className = '' } = Astro.props as Props;
-const slot = bannerSlots[slotId];
+const { id, class: className = '' } = Astro.props as Props;
+const slot = getBannerSlot(id);
 
 if (!slot) {
-  throw new Error(`Banner slot "${slotId}" is not defined in bannerSlots.`);
+  const available = Object.keys(bannerSlots).join(', ');
+  throw new Error(`Banner slot "${id}" is not defined. Available slots: ${available}`);
 }
 
 const href = buildTrackedLink({
@@ -20,14 +21,22 @@ const href = buildTrackedLink({
   camp: slot.camp,
   placeholder: slot.placeholder
 });
+
+const anchorClass = [
+  'banner-slot block overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 text-center shadow-glow',
+  className
+]
+  .filter(Boolean)
+  .join(' ');
 ---
-<div class={`banner-slot glass rounded-3xl border border-white/10 bg-white/5 p-3 text-center ${className}`}>
-  <a class="flex h-full w-full items-center justify-center" href={href} target="_blank" rel="noreferrer">
-    <img
-      class="h-auto max-h-64 w-full rounded-2xl object-cover"
-      src={slot.image}
-      alt={slot.alt}
-      loading="lazy"
-    />
-  </a>
-</div>
+<a class={anchorClass} href={href} target="_blank" rel="nofollow sponsored">
+  <img
+    src={slot.image}
+    alt={slot.alt}
+    width={slot.width}
+    height={slot.height}
+    loading="lazy"
+    decoding="async"
+    class="h-auto w-full object-cover"
+  />
+</a>

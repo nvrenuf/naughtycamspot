@@ -74,7 +74,7 @@ const { article, related } = Astro.props;
     </div>
 
     <!-- SLOT: post_top_strip -->
-    <BannerSlot slotId="post_top_strip" />
+    <BannerSlot id="post_top_strip" />
 
     <div class="space-y-6 text-base leading-relaxed text-white/70">
       <p class="first-letter:float-left first-letter:mr-4 first-letter:text-6xl first-letter:font-display first-letter:text-rose-gold first-letter:leading-none">
@@ -87,7 +87,7 @@ const { article, related } = Astro.props;
         premium offers. Energy rises when the room feels choreographed, not chaotic.
       </p>
       <!-- SLOT: post_inline_rect -->
-      <BannerSlot slotId="post_inline_rect" />
+      <BannerSlot id="post_inline_rect" />
       <p>
         Once your baseline vibe is dialled in, layer conversion cues. Highlight goals visually in your overlays, coach mods to echo
         them with warmth, and break the fourth wall with personal thank-you moments. Small details—slowing your voice, leaning into
@@ -102,7 +102,7 @@ const { article, related } = Astro.props;
   </article>
 
   <!-- SLOT: post_end_strip -->
-  <BannerSlot slotId="post_end_strip" class="mt-10" />
+  <BannerSlot id="post_end_strip" class="mt-10" />
 
   <!-- SECTION: Related Posts -->
   <section class="space-y-6">
