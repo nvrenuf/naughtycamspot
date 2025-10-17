@@ -18,6 +18,22 @@ const heroCtaHref = buildTrackedLink({
   placeholder: HERO_CTA_PLACEHOLDER
 });
 
+const resolveHostname = (value) => {
+  if (!value) {
+    return '';
+  }
+
+  try {
+    return new URL(value).hostname;
+  } catch {
+    return String(value).replace(/^https?:\/\//, '').split('/')[0];
+  }
+};
+
+const siteHostname = resolveHostname(import.meta.env.SITE ?? '');
+const isPagesBuild = import.meta.env.IS_PAGES === 'true';
+const shouldTrackClicks = siteHostname === 'naughtycamspot.com' && !isPagesBuild;
+
 
 const featuredMuseTiles = [
   {
@@ -139,6 +155,9 @@ const websiteJsonLd = {
               href={heroCtaHref}
               target="_blank"
               rel="noreferrer"
+              data-track={shouldTrackClicks ? 'click' : undefined}
+              data-slot={shouldTrackClicks ? heroCtaSlot : undefined}
+              data-camp={shouldTrackClicks ? heroCtaCamp : undefined}
             >
               Become Our Next Muse
             </a>

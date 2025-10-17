@@ -33,6 +33,13 @@ Legacy HTML pages, generators, and blog scaffolding have been removed. Work forw
 - GitHub Pages builds fall back to the provided external placeholder, stripping query strings so previews stay clean and never link to `/go/*`.
 - The production server now handles `/go/*` redirects and geotargeted program rotation via the PHP handlers in `public/go/`.
 
+## Analytics & click beacons
+
+- Set the GA4 measurement ID through the `PUBLIC_GA4_ID` environment variable (for example, add `PUBLIC_GA4_ID=G-XXXXXXX` to your ViceTemple `.env`).
+- The GA snippet only renders when `import.meta.env.SITE` resolves to `https://naughtycamspot.com` **and** `IS_PAGES` is not flagged, so GitHub Pages previews never emit tracking.
+- Click beacons fire for any element marked with `data-track="click"` (homepage hero CTA and all banner slots in production) and send lightweight GET requests to `/go/click.php` with the slot, campaign, and timestamp.
+- ViceTemple writes those beacon hits to `logs/clicks.log` (see `public/go/click.php`). Pages builds keep the PHP handler inert because the environment never executes the file.
+
 ### Join Models CTA behaviour
 
 - The Join Models landing (`src/pages/join-models.astro`) calls `buildTrackedLink` with `/go/model-join.php`, `src=join_models`, and `camp=landing`.
