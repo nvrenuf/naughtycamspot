@@ -1,96 +1,183 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { buildTrackedLink, withBase } from '../utils/links';
 
-const benefits = [
-  'Concierge onboarding rituals tailored to your persona',
-  'AI-assisted fan segmentation and nightly performance recaps',
-  'Dedicated mod team choreography and boundary-respecting monetization',
-  'Luxury branding assets, photoshoot direction, and bio engineering'
+const HERO_CTA_PLACEHOLDER = 'https://linktr.ee/naughtycamspot';
+const joinSlot = 'join_page';
+const joinCamp = 'join';
+
+const joinHref = buildTrackedLink({
+  path: '/go/model-join.php',
+  slot: joinSlot,
+  camp: joinCamp,
+  placeholder: HERO_CTA_PLACEHOLDER
+});
+
+const resolveHostname = (value: string | undefined) => {
+  if (!value) {
+    return '';
+  }
+
+  try {
+    return new URL(value).hostname;
+  } catch {
+    return String(value).replace(/^https?:\/\//, '').split('/')[0];
+  }
+};
+
+const siteHostname = resolveHostname(import.meta.env.SITE ?? '');
+const isPagesBuild = import.meta.env.IS_PAGES === 'true';
+const shouldTrackClicks = siteHostname === 'naughtycamspot.com' && !isPagesBuild;
+
+const howItWorks = [
+  {
+    title: 'Click join',
+    detail:
+      'Tap the join button to open our affiliate rotator. Pick a paid cam program and complete their sign-up flow using our link.'
+  },
+  {
+    title: 'Send proof',
+    detail:
+      'Email a screenshot or your referral code to concierge@naughtycamspot.com so we can confirm the referral credit.'
+  },
+  {
+    title: 'Receive the starter kit',
+    detail:
+      'We immediately send the 14-day launch kit: lighting checklist, scripted opener, tip menu, pricing ladders, schedule, and ToS cheatsheet.'
+  },
+  {
+    title: 'Optional Q&A',
+    detail:
+      'Need clarification? Reply to the starter-kit email for asynchronous guidance—no hands-on promotion, just answers.'
+  }
 ];
 
-const steps = [
-  'Apply with your preferred platform and baseline experience',
-  'Meet your concierge strategist to map the launch runway',
-  'Activate premium show formats with real-time coaching',
-  'Scale your patron ecosystem with our affiliate partners'
+const starterKitItems = [
+  'Lighting checklist for webcams and phones',
+  'Opening show script with icebreakers',
+  'Tip menu with upsell ladders',
+  '14-day launch schedule with daily prompts',
+  'Pricing ladders for tokens, tributes, and bundles',
+  'Terms of service cheatsheet with quick references'
+];
+
+const whatWereNot = [
+  'Not an agency, manager, or representative',
+  'No paid promotions or social boosts promised',
+  'We never take a cut—affiliate links fund the starter kit',
+  'You own every account and can leave whenever you like'
+];
+
+const faq = [
+  {
+    question: 'Who owns the accounts?',
+    answer:
+      'You do. Every platform profile stays under your control. We only provide starter resources after you sign up with our links.'
+  },
+  {
+    question: 'Do you guarantee earnings?',
+    answer:
+      'No. Results depend on your effort, platform policies, and audience. The starter kit is a guide—not a promise of income.'
+  },
+  {
+    question: 'Is this employment or an agency contract?',
+    answer:
+      'No. There is no employment, representation, or agency relationship. We run an affiliate-funded resource hub.'
+  },
+  {
+    question: 'What happens after the starter kit?',
+    answer:
+      'You can email follow-up questions, share your first payout, and, if you like, provide a one-line testimonial so other models know what to expect.'
+  }
 ];
 ---
 
 <MainLayout
   title="Join | NaughtyCamSpot"
-  description="Become a NaughtyCamSpot model and unlock concierge growth, luxury branding, and premium fan conversion systems."
+  description="Sign up through NaughtyCamSpot affiliate links to unlock the free 14-day cam model starter kit."
 >
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/60"></div>
     <div class="relative space-y-6">
-      <span class="hero-tagline">Model Recruitment</span>
-      <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Become a Model with NaughtyCamSpot</h1>
+      <span class="hero-tagline">Referral starter kit</span>
+      <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Start camming, keep control, claim your kit</h1>
       <p class="max-w-2xl text-base text-white/70">
-        Join our growing network of models earning more through smart promotion, refined ambience, and data-guided strategy. We pair
-        human concierge insight with automation to elevate your room into an unforgettable luxury experience.
+        NaughtyCamSpot is a referral + starter-kit hub. Click join, finish the partner program signup with our links, send proof,
+        and we email the full 14-day launch kit—no promo promises, no management fees.
       </p>
       <a
         class="inline-flex w-fit items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-        href="mailto:concierge@naughtycamspot.com"
+        href={joinHref}
+        target="_blank"
+        rel="noreferrer"
+        data-track={shouldTrackClicks ? 'click' : undefined}
+        data-slot={shouldTrackClicks ? joinSlot : undefined}
+        data-camp={shouldTrackClicks ? joinCamp : undefined}
       >
-        Apply Now
+        Start camming • Free starter kit
       </a>
     </div>
   </section>
 
-  <section class="grid gap-10 lg:grid-cols-2">
-    <article class="content-card space-y-6">
-      <div>
-        <h2 class="section-heading">Why models choose us</h2>
-        <p class="mt-4 text-sm text-white/70">
-          Our concierge team orchestrates launch timelines, brand positioning, and mod choreography so you can focus on performance.
-          Every detail from lighting to call-to-action copy is tuned for premium audiences ready to invest.
-        </p>
-      </div>
-      <ul class="grid gap-4 text-sm text-white/70">
-        {benefits.map((benefit) => (
-          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">{benefit}</li>
-        ))}
-      </ul>
-    </article>
-    <article class="content-card space-y-6">
-      <div>
-        <h2 class="section-heading">How onboarding works</h2>
-        <p class="mt-4 text-sm text-white/70">
-          We keep the runway elegant and efficient. Expect warm guidance, VIP resources, and purposeful milestones from sign-up to
-          your first signature show.
-        </p>
-      </div>
-      <ol class="grid gap-4 text-sm text-white/70">
-        {steps.map((step, index) => (
-          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">
-            <span class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step {index + 1}</span>
-            <p class="mt-2">{step}</p>
-          </li>
-        ))}
-      </ol>
-    </article>
+  <section class="content-card space-y-6">
+    <h2 class="section-heading">How it works</h2>
+    <p class="text-sm text-white/70">
+      Four simple steps keep the process transparent. The full breakdown lives in our
+      <a class="text-rose-gold underline-offset-4 hover:underline" href={withBase('/starter-kit')}>starter kit overview</a>
+      so you always know what’s included.
+    </p>
+    <ol class="grid gap-4 text-sm text-white/70 sm:grid-cols-2">
+      {howItWorks.map((step, index) => (
+        <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">
+          <span class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step {index + 1}</span>
+          <p class="mt-2 font-semibold text-white">{step.title}</p>
+          <p class="mt-1 text-white/70">{step.detail}</p>
+        </li>
+      ))}
+    </ol>
   </section>
 
-  <section class="space-y-8">
-    <h2 class="section-heading">What you receive</h2>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      <div class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Brand Systems</p>
-        <p class="text-sm text-white/70">Moodboards, bio copy, and signature room experiences that attract premium fans.</p>
-      </div>
-      <div class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Growth Data</p>
-        <p class="text-sm text-white/70">Dashboards illuminating tip cadence, VIP segments, and high-converting moments.</p>
-      </div>
-      <div class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Community</p>
-        <p class="text-sm text-white/70">Private mastermind rooms, nightly debriefs, and a vetted mod collective.</p>
-      </div>
-      <div class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Affiliate Engine</p>
-        <p class="text-sm text-white/70">Partnerships with CamSoda, Chaturbate, and premier networks to widen your reach.</p>
-      </div>
-    </div>
+  <section class="content-card space-y-6">
+    <h2 class="section-heading">What you get</h2>
+    <p class="text-sm text-white/70">
+      Everything arrives in one email bundle immediately after we verify your referral. Download, duplicate, and adapt every
+      worksheet for your own brand.
+    </p>
+    <ul class="grid gap-4 text-sm text-white/70 sm:grid-cols-2">
+      {starterKitItems.map((item) => (
+        <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">{item}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="content-card space-y-6">
+    <h2 class="section-heading">What we’re not</h2>
+    <p class="text-sm text-white/70">
+      Clarity first. We only provide tools, templates, and email support. There is no management or promotion component.
+    </p>
+    <ul class="grid gap-4 text-sm text-white/70">
+      {whatWereNot.map((item) => (
+        <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">{item}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="content-card space-y-6">
+    <h2 class="section-heading">FAQ</h2>
+    <dl class="grid gap-4 text-sm text-white/70">
+      {faq.map((item) => (
+        <div class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">
+          <dt class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">{item.question}</dt>
+          <dd class="mt-2 text-white/70">{item.answer}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="content-card space-y-4 text-xs uppercase tracking-[0.3em] text-white/55">
+    <p>No employment or agency relationship.</p>
+    <p>No guarantee of earnings.</p>
+    <p>Accounts remain yours; you can leave anytime.</p>
+    <p>Affiliate links fund the starter kit.</p>
   </section>
 </MainLayout>

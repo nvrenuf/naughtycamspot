@@ -63,16 +63,16 @@ const featuredMuse = featuredMuseEntry
       name: featuredMuseEntry.data.name,
       archetype: featuredMuseEntry.data.archetype,
       image: featuredMuseEntry.data.heroImage,
-      quote: `“Every room ${featuredMuseEntry.data.name} builds feels like a gallery opening. My fans stay longer, tip deeper, and leave with a story to tell.”`,
-      story: `${featuredMuseEntry.data.name} anchors our concierge roster with luxe rituals, rotating set design, and segmented aftercare. From VIP salons to livestream premieres, they execute every beat with polish.`,
+      quote: `${featuredMuseEntry.data.name}'s walkthrough shows how we format storytelling, offers, and lighting notes inside the starter kit.`,
+      story: `${featuredMuseEntry.data.name} lives in our example library so you can see how a polished bio, visuals, and schedule might flow. Use it as inspiration—your accounts stay yours, and nothing here is a promise of promotion.`,
       ctaHref: `/models/${featuredMuseEntry.id}`
     }
   : {
       name: 'Coming Soon',
-      archetype: 'Signature muse',
+      archetype: 'Example muse',
       image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=960&q=80',
-      quote: '“Every room they build feels like a gallery opening. My fans stay longer, tip deeper, and leave with a story to tell.”',
-      story: 'Our next concierge muse is being curated. Check back shortly for a fresh spotlight.',
+      quote: 'This placeholder illustrates how we storyboard the starter kit resources you’ll receive after sign-up.',
+      story: 'We’re drafting additional example pages to showcase kit tactics. Check back for fresh demos you can borrow from immediately.',
       ctaHref: '/models'
     };
 
@@ -158,14 +158,14 @@ const websiteJsonLd = {
       <div class="relative grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
         <div class="space-y-8">
           <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
-            Elevated model gallery
+            Referral starter kit hub
           </p>
           <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">
-            The luxury runway<br />for models who own the night
+            Sign up with our links → get a free 14-day starter kit
           </h1>
           <p class="max-w-xl text-lg text-white/70">
-            Curated aesthetics, glassy ambience, and concierge-level support. NaughtyCamSpot transforms your room into an
-            immersive world that seduces premium fans and keeps them close.
+            We’re a referral collective—no management, no promo promises. Use our affiliate links, send proof, and you’ll
+            instantly receive tools, schedules, and scripts to launch faster while keeping full control of your accounts.
           </p>
           <div class="flex flex-col gap-4 sm:flex-row">
             <a
@@ -177,13 +177,13 @@ const websiteJsonLd = {
               data-slot={shouldTrackClicks ? heroCtaSlot : undefined}
               data-camp={shouldTrackClicks ? heroCtaCamp : undefined}
             >
-              Become Our Next Muse
+              Start camming • Free starter kit
             </a>
             <a
               class="flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 backdrop-blur-xl transition hover:-translate-y-1"
-              href="#concierge"
+              href={withBase('/join')}
             >
-              Explore the VIP Suite
+              See how it works
             </a>
           </div>
         </div>
@@ -209,13 +209,13 @@ const websiteJsonLd = {
   <section aria-labelledby="featured-muses-heading" class="mt-14">
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 id="featured-muses-heading" class="font-display text-3xl text-white sm:text-4xl">Featured muses</h2>
+          <h2 id="featured-muses-heading" class="font-display text-3xl text-white sm:text-4xl">Example builds</h2>
           <p class="mt-2 text-sm text-white/70">
-            Spotlighting concierge muses you can study, book, or draw inspiration from for your own runway.
+            These sample profiles exist to demonstrate structure and storytelling. Study them as templates—no promotion or booking implied.
           </p>
         </div>
         <a class="text-xs uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/models')}>
-          View gallery →
+          View example gallery →
         </a>
       </div>
       <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -231,7 +231,7 @@ const websiteJsonLd = {
             ></div>
             <div class="relative space-y-2">
               <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/40 px-4 py-1 text-[0.65rem] uppercase tracking-[0.4em] text-rose-petal/70">
-                Concierge muse
+                Example model
               </span>
               <h3 class="font-display text-2xl text-white">{tile.name}</h3>
               <p class="text-sm uppercase tracking-[0.3em] text-white/70">{tile.role}</p>

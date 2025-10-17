@@ -5,7 +5,7 @@ const {
   showNavigation = true
 } = Astro.props;
 import '../styles/tailwind.css';
-import { withBase } from '../utils/links';
+import { buildTrackedLink, withBase } from '../utils/links';
 
 const isPagesBuild = import.meta.env.IS_PAGES === 'true';
 
@@ -36,13 +36,25 @@ const organizationJsonLd = {
   url: import.meta.env.SITE ?? 'https://naughtycamspot.com'
 };
 
+const HERO_CTA_PLACEHOLDER = 'https://linktr.ee/naughtycamspot';
+const navCtaSlot = 'nav_cta';
+const navCtaCamp = 'site_nav';
+
+const navCtaHref = buildTrackedLink({
+  path: '/go/model-join.php',
+  slot: navCtaSlot,
+  camp: navCtaCamp,
+  placeholder: HERO_CTA_PLACEHOLDER
+});
+
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/models', label: 'Models' },
-  { href: '/join', label: 'Become a Model' },
+  { href: '/starter-kit', label: 'Starter Kit' },
+  { href: '/join', label: 'Join' },
   { href: '/blog', label: 'Blog' },
   { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' }
+  { href: '/contact', label: 'Contact' },
+  { href: '/models/anna-prince', label: 'Example model page' }
 ];
 
 const footerLinks = [
@@ -100,11 +112,14 @@ gtag('config', '${gaMeasurementId}');`}
             </a>
             <a
               class="rounded-full border border-rose-gold/40 bg-rose-gold/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-rose-petal shadow-glow backdrop-blur-xl transition hover:border-rose-gold/60 hover:bg-rose-gold/30"
-              href="https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default"
+              href={navCtaHref}
               target="_blank"
               rel="noreferrer"
+              data-track={shouldTrackClicks ? 'click' : undefined}
+              data-slot={shouldTrackClicks ? navCtaSlot : undefined}
+              data-camp={shouldTrackClicks ? navCtaCamp : undefined}
             >
-              Request VIP
+              Start camming • Free starter kit
             </a>
           </div>
           <nav class="flex w-full flex-wrap items-center justify-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 backdrop-blur-2xl sm:gap-4 sm:text-[0.7rem] sm:tracking-[0.28em] lg:flex-nowrap lg:text-sm lg:tracking-[0.3em]">

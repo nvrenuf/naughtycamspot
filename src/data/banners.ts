@@ -32,7 +32,7 @@ export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
     path: '/go/home-top-leaderboard.php',
     camp: 'home',
     image: '/ads/home_top_leaderboard.svg',
-    alt: 'Homepage top leaderboard banner promoting concierge services.',
+    alt: 'Homepage top leaderboard banner spotlighting starter-kit resources.',
     width: 1200,
     height: 250,
     placeholder: buildPlaceholderHref('home_top_leaderboard', 'home')
@@ -42,7 +42,7 @@ export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
     path: '/go/home-mid-rectangle.php',
     camp: 'home',
     image: '/ads/home_mid_rectangle.svg',
-    alt: 'Homepage mid-article rectangle banner showcasing VIP guidance.',
+    alt: 'Homepage mid-article rectangle banner showcasing starter guidance.',
     width: 600,
     height: 500,
     placeholder: buildPlaceholderHref('home_mid_rectangle', 'home')
@@ -52,7 +52,7 @@ export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
     path: '/go/home-footer-leaderboard.php',
     camp: 'home',
     image: '/ads/home_footer_leaderboard.svg',
-    alt: 'Homepage footer leaderboard banner inviting sponsorship chats.',
+    alt: 'Homepage footer leaderboard banner inviting referral questions.',
     width: 1200,
     height: 250,
     placeholder: buildPlaceholderHref('home_footer_leaderboard', 'home')
@@ -62,7 +62,7 @@ export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
     path: '/go/model-sidebar-tall.php',
     camp: 'models',
     image: '/ads/model_sidebar_tall.svg',
-    alt: 'Model profile sidebar tall banner featuring concierge upgrade.',
+    alt: 'Model profile sidebar tall banner featuring starter kit tips.',
     width: 360,
     height: 720,
     placeholder: buildPlaceholderHref('model_sidebar_tall', 'models')
@@ -72,7 +72,7 @@ export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
     path: '/go/model-mid-rectangle.php',
     camp: 'models',
     image: '/ads/model_mid_rectangle.svg',
-    alt: 'Model profile mid-article rectangle banner with runway strategy.',
+    alt: 'Model profile mid-article rectangle banner with launch strategy.',
     width: 600,
     height: 500,
     placeholder: buildPlaceholderHref('model_mid_rectangle', 'models')
@@ -82,7 +82,7 @@ export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
     path: '/go/post-top-strip.php',
     camp: 'blog',
     image: '/ads/post_top_strip.svg',
-    alt: 'Blog post top strip banner announcing concierge campaigns.',
+    alt: 'Blog post top strip banner announcing referral resources.',
     width: 900,
     height: 150,
     placeholder: buildPlaceholderHref('post_top_strip', 'blog')
@@ -92,7 +92,7 @@ export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
     path: '/go/post-inline-rect.php',
     camp: 'blog',
     image: '/ads/post_inline_rect.svg',
-    alt: 'Blog post inline rectangle banner highlighting sponsorship offers.',
+    alt: 'Blog post inline rectangle banner highlighting starter insights.',
     width: 600,
     height: 400,
     placeholder: buildPlaceholderHref('post_inline_rect', 'blog')
@@ -102,7 +102,7 @@ export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
     path: '/go/post-end-strip.php',
     camp: 'blog',
     image: '/ads/post_end_strip.svg',
-    alt: 'Blog post end strip banner summarizing concierge contact details.',
+    alt: 'Blog post end strip banner summarizing referral contact details.',
     width: 900,
     height: 200,
     placeholder: buildPlaceholderHref('post_end_strip', 'blog')
