@@ -1,34 +1,33 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 
-const featuredModels = [
+const featuredMuse = {
+  name: 'Nova Noir',
+  archetype: 'Chaturbate • After-dark storyteller',
+  presence: 'Velvet energy, high-value room rituals, and cinematic stagecraft.',
+  image: 'https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?auto=format&fit=crop&w=960&q=80',
+  quote:
+    '“They built me a cinematic lounge where every cue, every whisper, and every tip train feels intentionally choreographed.”',
+  story:
+    'Our midnight muse leans into noir storytelling, intimate rituals, and velvet pacing that keep premium patrons close without sacrificing boundaries.',
+  ctaHref: '/models/nova-noir'
+};
+
+const runwayBlueprint = [
   {
-    name: 'Nova Noir',
-    archetype: 'Chaturbate • After-dark storyteller',
-    presence: 'Velvet energy, high-value room rituals, and cinematic stagecraft.',
-    image:
-      'https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?auto=format&fit=crop&w=960&q=80'
+    title: 'Immersive Welcome Rituals',
+    description:
+      'Signature countdowns, playlist cues, and lighting shifts that frame your entrance like a premiere.'
   },
   {
-    name: 'Lumi Rae',
-    archetype: 'CamSoda • Neon muse',
-    presence: 'Light-drenched aesthetics with art-house creativity and gentle dominance.',
-    image:
-      'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=960&q=80'
+    title: 'Conversion Choreography',
+    description:
+      'Layered goal pacing, mod-led prompts, and bespoke upsell ladders tuned to your comfort levels.'
   },
   {
-    name: 'Saffron Veil',
-    archetype: 'Chaturbate • Luxe temptress',
-    presence: 'Rose-gold charisma, curated mod team, masterclass in conversion pacing.',
-    image:
-      'https://images.unsplash.com/photo-1517840901100-8179e982acb7?auto=format&fit=crop&w=960&q=80'
-  },
-  {
-    name: 'Eden Vesper',
-    archetype: 'Multi-platform • Cosmic siren',
-    presence: 'Meta-fan funnels, bilingual moments, and immersive sensory play.',
-    image:
-      'https://images.unsplash.com/photo-1531256456869-ce942a665e80?auto=format&fit=crop&w=960&q=80'
+    title: 'Aftercare & Retention',
+    description:
+      'Post-show debriefs, VIP touchpoints, and merch drops that keep your universe buzzing between sets.'
   }
 ];
 
@@ -145,38 +144,64 @@ const kineticMoments = [
       </div>
     </section>
 
-  <section id="muses" class="space-y-10">
-      <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-        <div>
-          <h2 class="font-display text-4xl text-white">Featured muses</h2>
-          <p class="mt-3 max-w-xl text-base text-white/70">A rotating gallery of models who craft immersive rooms with us.</p>
+  <section id="muse-spotlight" class="glass overflow-hidden rounded-[42px] px-10 py-14">
+      <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-6">
+          <span class="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
+            Featured muse
+          </span>
+          <div class="space-y-3">
+            <h2 class="font-display text-4xl text-white sm:text-5xl">{featuredMuse.name}</h2>
+            <p class="text-sm uppercase tracking-[0.3em] text-rose-petal/80">{featuredMuse.archetype}</p>
+            <p class="max-w-xl text-base text-white/70">{featuredMuse.story}</p>
+          </div>
+          <div class="flex flex-col gap-4 sm:flex-row">
+            <a
+              class="flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-midnight shadow-glow transition hover:-translate-y-1"
+              href={featuredMuse.ctaHref}
+            >
+              Meet {featuredMuse.name}
+            </a>
+            <a
+              class="flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 backdrop-blur-xl transition hover:-translate-y-1"
+              href="/models"
+            >
+              Tour the full gallery
+            </a>
+          </div>
+          <p class="text-sm text-white/55">{featuredMuse.quote}</p>
         </div>
-        <a
-          class="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80 backdrop-blur-xl transition hover:border-rose-gold/50 hover:text-rose-gold"
-          href="/models"
-        >
-          View the full roster
-        </a>
+        <div class="relative">
+          <div class="pointer-events-none absolute -top-16 right-4 h-36 w-36 rounded-full bg-rose-gold/30 blur-3xl"></div>
+          <div class="glass relative overflow-hidden rounded-[38px]">
+            <img src={featuredMuse.image} alt={featuredMuse.name} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+        </div>
       </div>
-      <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        {featuredModels.map((model, index) => (
+    </section>
+
+  <section id="runway" class="space-y-12">
+      <div class="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+        <div>
+          <h2 class="font-display text-4xl text-white">Your velvet runway</h2>
+          <p class="mt-3 max-w-2xl text-base text-white/70">
+            Every muse launches with a curated arc — from the first teaser ping to the final aftercare touchpoint. These are the pillars
+            we drop into every suite to keep premium audiences invested.
+          </p>
+        </div>
+        <span class="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
+          Experience blueprint
+        </span>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {runwayBlueprint.map((item, index) => (
           <article
-            class="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.08] shadow-[0_30px_70px_rgba(5,6,8,0.65)] backdrop-blur-2xl transition duration-500 ease-out hover:-translate-y-2 hover:border-rose-gold/50 hover:shadow-[0_40px_80px_rgba(4,6,12,0.6)]"
+            class="glass relative overflow-hidden rounded-3xl p-8 transition duration-500 ease-out hover:-translate-y-2 hover:border-rose-gold/40"
+            style={`animation-delay: ${index * 0.15}s`}
           >
-            <img
-              src={model.image}
-              alt={model.name}
-              loading="lazy"
-              class="h-64 w-full object-cover opacity-90 transition duration-700 ease-out group-hover:scale-105 group-hover:opacity-100"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-midnight via-midnight/20 to-transparent opacity-80 transition group-hover:opacity-60"></div>
-            <div class="relative flex flex-col gap-2 px-6 pb-8 pt-6">
-              <span class="inline-flex w-fit rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[0.65rem] uppercase tracking-[0.4em] text-rose-petal/80">
-                {model.archetype}
-              </span>
-              <h3 class="font-display text-2xl text-white">{model.name}</h3>
-              <p class="text-sm text-white/70">{model.presence}</p>
-            </div>
+            <div class="pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-full bg-rose-gold/20 blur-3xl"></div>
+            <h3 class="font-display text-2xl text-white">{item.title}</h3>
+            <p class="mt-4 text-sm leading-relaxed text-white/70">{item.description}</p>
           </article>
         ))}
       </div>
