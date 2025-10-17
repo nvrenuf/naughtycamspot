@@ -1,53 +1,29 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import { withBase } from '../utils/links';
+import { getCollection } from 'astro:content';
 
 const categories = ['Featured', 'New', 'Trending', 'VR'];
 
-const models = [
-  {
-    name: 'Nova Noir',
-    slug: 'nova-noir',
-    vibe: 'Velvet storytelling with luxe sensory cues.',
-    image: 'https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    name: 'Lumi Rae',
-    slug: 'lumi-rae',
-    vibe: 'Neon muse with dreamlike choreography.',
-    image: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    name: 'Saffron Veil',
-    slug: 'saffron-veil',
-    vibe: 'Rose-gold charisma engineered for premium patrons.',
-    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    name: 'Eden Vesper',
-    slug: 'eden-vesper',
-    vibe: 'Cosmic siren weaving multi-lingual seduction.',
-    image: 'https://images.unsplash.com/photo-1531256456869-ce942a665e80?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    name: 'Mila Serein',
-    slug: 'mila-serein',
-    vibe: 'Soft power meets kinetic pulse-room energy.',
-    image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    name: 'Aria Lux',
-    slug: 'aria-lux',
-    vibe: 'High-fashion edit with tailored upsell architecture.',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    name: 'Anna Prince',
-    slug: 'anna-prince',
-    vibe: 'Bilingual velvet strategist with concierge-engineered show arcs.',
-    image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80'
-  }
-];
+const modelEntries = await getCollection('models');
+const models = modelEntries
+  .filter((entry) => entry.data.featured)
+  .sort((a, b) => {
+    const aOrder = a.data.featuredOrder ?? Number.POSITIVE_INFINITY;
+    const bOrder = b.data.featuredOrder ?? Number.POSITIVE_INFINITY;
+
+    if (aOrder === bOrder) {
+      return a.id.localeCompare(b.id);
+    }
+
+    return aOrder - bOrder;
+  })
+  .map((entry) => ({
+    name: entry.data.name,
+    slug: entry.id,
+    vibe: entry.data.summary,
+    image: entry.data.cardImage ?? entry.data.heroImage
+  }));
 ---
 
 <MainLayout

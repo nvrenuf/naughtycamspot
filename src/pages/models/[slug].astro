@@ -1,196 +1,159 @@
 ---
 import BannerSlot from '../../components/BannerSlot.astro';
+import SEO from '../../components/SEO.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import { buildTrackedLink, withBase } from '../../utils/links';
 
-type ModelPlatform = {
-  name: string;
-  path?: string;
-  placeholder?: string;
-  active?: boolean;
+type ModelEntry = CollectionEntry<'models'>;
+type ModelPlatform = ModelEntry['data']['platforms'][number];
+
+const resolveTrackingValue = (value: string | undefined, fallback: string) => {
+  if (!value) {
+    return fallback;
+  }
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : fallback;
 };
 
-type ModelData = {
-  slug: string;
-  name: string;
-  archetype: string;
-  summary: string;
-  image: string;
-  platforms?: readonly ModelPlatform[];
-  gallery: readonly string[];
-  beacons_url?: string;
-};
-
-export function getStaticPaths() {
-  const models: ModelData[] = [
-    {
-      slug: 'nova-noir',
-      name: 'Nova Noir',
-      archetype: 'Velvet storyteller -- Chaturbate headliner',
-      summary:
-        'Lighting ritualist with noir show pacing, custom playlist mapping, and a signature midnight toast that spikes fan conversions.',
-      image: 'https://images.unsplash.com/photo-1531263539449-56fdf29dfc4d?auto=format&fit=crop&w=1200&q=80',
-      platforms: [],
-      gallery: [
-        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80'
-      ]
-    },
-    {
-      slug: 'lumi-rae',
-      name: 'Lumi Rae',
-      archetype: 'Neon muse -- CamSoda trailblazer',
-      summary:
-        'Synthwave visuals, bilingual seduction arcs, and interactive prop choreography that keeps night owls tipping through sunrise.',
-  image: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=1200&q=80',
-  platforms: [],
-      gallery: [
-        'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1502323777036-f29e3972d82f?auto=format&fit=crop&w=900&q=80'
-      ]
-    },
-    {
-      slug: 'saffron-veil',
-      name: 'Saffron Veil',
-      archetype: 'Rose-gold strategist -- Conversion queen',
-      summary:
-        'Orchestrates mod-led rituals, whispered upsells, and limited runway drops that turn VIP intentions into recurring revenue.',
-  image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
-  platforms: [],
-      gallery: [
-        'https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1510626176961-4b37d0f0b4c3?auto=format&fit=crop&w=900&q=80'
-      ]
-    },
-    {
-      slug: 'eden-vesper',
-      name: 'Eden Vesper',
-      archetype: 'Cosmic siren -- Multi-platform darling',
-      summary:
-        'Stacks sensory scripting, tarot interludes, and multilingual fan rituals into an unforgettable late-night constellation.',
-      image: 'https://images.unsplash.com/photo-1531256456869-ce942a665e80?auto=format&fit=crop&w=1200&q=80',
-      platforms: [],
-      gallery: [
-        'https://images.unsplash.com/photo-1517840901100-8179e982acb7?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1517840545244-3d257902454a?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1504270997636-07ddfbd48945?auto=format&fit=crop&w=900&q=80'
-      ]
-    },
-    {
-      slug: 'anna-prince',
-      name: 'Anna Prince',
-      archetype: 'Stripchat velvet strategist',
-      summary:
-        'Anna orchestrates bilingual storytelling arcs, timed lighting cues, and concierge-led mod scripts tailored to late-night luxury crowds.',
-      image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
-      beacons_url: 'https://beacons.ai/annaprince',
-      platforms: [
-        { name: 'Stripchat', path: '/go/anna-stripchat.php', placeholder: 'https://stripchat.com', active: true },
-        { name: 'Chaturbate', path: '/go/anna-chaturbate.php', placeholder: 'https://chaturbate.com', active: true },
-        { name: 'CamSoda', path: '/go/anna-camsoda.php', placeholder: 'https://www.camsoda.com', active: true },
-        { name: 'ManyVids', path: '/go/anna-manyvids.php', placeholder: 'https://www.manyvids.com', active: true },
-        { name: 'Pornhub', path: '/go/anna-pornhub.php', placeholder: 'https://www.pornhub.com', active: true },
-        { name: 'OnlyFans', path: '/go/anna-onlyfans.php', placeholder: 'https://onlyfans.com', active: true },
-        { name: 'My.club', path: '/go/anna-myclub.php', placeholder: 'https://my.club', active: false }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1478454197698-1526513ad1a3?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=900&q=80',
-        'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80'
-      ]
-    }
-  ];
+export async function getStaticPaths() {
+  const models = await getCollection('models');
 
   return models.map((model) => ({
-    params: { slug: model.slug },
+    params: { slug: model.id },
     props: {
       model,
-      related: models.filter((item) => item.slug !== model.slug).slice(0, 3)
+      related: models.filter((item) => item.id !== model.id).slice(0, 3)
     }
   }));
 }
 
 const { model, related } = Astro.props as {
-  model: ModelData;
-  related: ModelData[];
+  model: ModelEntry;
+  related: ModelEntry[];
 };
-const platforms = (model.platforms ?? []) as ModelPlatform[];
-const beaconsHref = model.beacons_url
-  ? buildTrackedLink({
-      path: `/go/beacons-${model.slug}`,
-      slot: 'model_page',
-      camp: model.slug,
-      placeholder: model.beacons_url
+
+const data = model.data;
+const canonicalPath = Astro.url.pathname;
+const slotPrefix = resolveTrackingValue(data.tracking?.slotPrefix, model.id.replace(/-/g, '_'));
+const profileCamp = resolveTrackingValue(data.tracking?.profileCamp, `${slotPrefix}_profile`);
+const beaconsCamp = resolveTrackingValue(data.tracking?.beaconsCamp, model.id);
+const siteUrl = import.meta.env.SITE ?? 'https://naughtycamspot.com';
+
+const sameAsCandidates = [
+  ...data.profiles,
+  ...data.platforms
+    .map((platform) => platform.placeholder)
+    .filter((value): value is string => {
+      if (!value) {
+        return false;
+      }
+
+      return /^https?:\/\//i.test(value);
     })
-  : undefined;
+];
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: data.name,
+  url: new URL(canonicalPath, siteUrl).toString(),
+  sameAs: Array.from(new Set(sameAsCandidates))
+};
+
+const buildHref = (platform: ModelPlatform) => {
+  const placeholder = platform.placeholder ?? '';
+
+  if (platform.kind === 'beacons') {
+    return buildTrackedLink({
+      path: platform.path,
+      slot: 'model_page',
+      camp: beaconsCamp,
+      placeholder
+    });
+  }
+
+  return buildTrackedLink({
+    path: platform.path,
+    slot: `${slotPrefix}_${platform.slug}`,
+    camp: profileCamp,
+    placeholder
+  });
+};
+
+const activePlatforms = data.platforms;
+const relatedCards = related.map((entry) => ({
+  slug: entry.id,
+  name: entry.data.name,
+  archetype: entry.data.archetype,
+  image: entry.data.cardImage ?? entry.data.heroImage
+}));
 ---
 
 <MainLayout
-  title={`${model.name} | NaughtyCamSpot Model Profile`}
-  description={`Discover ${model.name} — ${model.archetype} within the NaughtyCamSpot concierge gallery.`}
+  title={`${data.name} | NaughtyCamSpot Model Profile`}
+  description={`Discover ${data.name} — ${data.archetype} within the NaughtyCamSpot concierge gallery.`}
 >
+  <SEO
+    slot="head"
+    title={`${data.name} | NaughtyCamSpot Model Profile`}
+    description={`Discover ${data.name}'s curated rituals, signature lighting, and concierge-run conversions.`}
+    path={canonicalPath}
+    ogImage={data.heroImage}
+    ogType="profile"
+  />
+  <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
+
   <!-- SECTION: Hero -->
-  <section class="hero-shell parallax-veil">
-    <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-black/40 via-transparent to-black/60"></div>
-    <div class="relative grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+  <section class="glass overflow-hidden rounded-[42px] px-10 py-14">
+    <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
       <div class="space-y-6">
-        <span class="hero-tagline">Model Profile</span>
-        <h1 class="font-display text-5xl text-white sm:text-6xl">{model.name}</h1>
-        <p class="text-base text-rose-petal/80">{model.archetype}</p>
-        <p class="max-w-xl text-base text-white/70">{model.summary}</p>
-        {beaconsHref && (
-          <div>
-            <a
-              data-platform="beacons"
-              class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-              href={beaconsHref}
-              target="_blank"
-              rel="noreferrer"
-            >
-              All links (Beacons)
-            </a>
+        <span class="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
+          Model profile
+        </span>
+        <div class="space-y-4">
+          <h1 class="font-display text-5xl text-white sm:text-6xl">{data.name}</h1>
+          <p class="text-sm uppercase tracking-[0.3em] text-rose-petal/80">{data.archetype}</p>
+          <p class="max-w-2xl text-base leading-relaxed text-white/70">
+            {data.summary}
+          </p>
+        </div>
+        <div class="space-y-3">
+          <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">Platform lineup</p>
+          <div class="flex flex-wrap gap-3" data-test={`${model.id}-platform-buttons`}>
+            {activePlatforms.map((platform) => (
+              platform.active !== false ? (
+                <a
+                  data-platform={platform.slug}
+                  class={`rounded-full border px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] shadow-glow transition hover:-translate-y-1 ${
+                    platform.variant === 'primary'
+                      ? 'border-rose-gold/60 bg-rose-gold text-midnight'
+                      : 'border-rose-gold/40 bg-rose-gold/15 text-rose-petal hover:bg-rose-gold/25'
+                  }`}
+                  href={buildHref(platform)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {platform.name}
+                </a>
+              ) : (
+                <span
+                  data-platform={platform.slug}
+                  class="rounded-full border border-white/15 bg-white/5 px-6 py-2 text-xs uppercase tracking-[0.28em] text-white/40"
+                  aria-disabled="true"
+                >
+                  {platform.name} • Inactive
+                </span>
+              )
+            ))}
           </div>
-        )}
-        {platforms.length > 0 && (
-          <div class="space-y-4">
-            <!-- SECTION: Platforms -->
-            <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">Platform lineup</p>
-            <div class="flex flex-wrap gap-3">
-              {platforms.map((platform) => (
-                platform.active !== false ? (
-                  <a
-                    class="rounded-full border border-rose-gold/60 bg-rose-gold/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-rose-petal shadow-glow backdrop-blur-xl transition hover:bg-rose-gold/30"
-                    href={buildTrackedLink({
-                      path: platform.path ?? '/go/model-platform.php',
-                      slot: `${model.slug}_${platform.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
-                      camp: 'models',
-                      placeholder: platform.placeholder ?? 'https://stripchat.com'
-                    })}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {platform.name}
-                  </a>
-                ) : (
-                  <span
-                    class="rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.3em] text-white/40"
-                    aria-disabled="true"
-                  >
-                    {platform.name} • Inactive
-                  </span>
-                )
-              ))}
-            </div>
-          </div>
-        )}
+        </div>
       </div>
       <div class="relative space-y-6">
-        <div class="pointer-events-none absolute -top-16 right-4 h-36 w-36 rounded-full bg-rose-gold/30 blur-3xl"></div>
+        <div class="pointer-events-none absolute -top-16 right-4 hidden h-36 w-36 rounded-full bg-rose-gold/30 blur-3xl lg:block"></div>
         <div class="glass relative overflow-hidden rounded-[38px]">
-          <img src={model.image} alt={model.name} class="h-full w-full object-cover" loading="lazy" />
+          <img src={data.heroImage} alt={data.name} class="h-full w-full object-cover" loading="lazy" />
         </div>
         <!-- SLOT: model_sidebar_tall -->
         <BannerSlot id="model_sidebar_tall" />
@@ -198,52 +161,16 @@ const beaconsHref = model.beacons_url
     </div>
   </section>
 
-  <!-- SECTION: Signature Experience -->
-  <section class="space-y-10">
-    <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-      <article class="content-card space-y-5">
-        <h2 class="section-heading">Signature Experience</h2>
-        <p class="text-sm text-white/70">
-          From the first neon spark to the last whisper, every beat in {model.name}'s room is mapped. Expect calibrated lighting cues,
-          storyline-driven games, and a concierge team choreographing the perfect tip train.
-        </p>
-        <ul class="grid gap-3 text-sm text-white/70 sm:grid-cols-2">
-          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Curated soundtrack moodboards</li>
-          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Mod-led conversion rituals</li>
-          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">VIP retention storytelling arcs</li>
-          <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Premium merch & upsell ladders</li>
-        </ul>
-      </article>
-      <aside class="content-card space-y-4">
-        <h3 class="text-sm uppercase tracking-[0.4em] text-rose-petal/80">Performance Metrics</h3>
-        <div class="grid gap-4 text-sm text-white/70">
-          <div class="glass rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
-            <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Peak engagement</p>
-            <p class="text-2xl font-display text-white">6.4k viewers</p>
-          </div>
-          <div class="glass rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
-            <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Average tip train</p>
-            <p class="text-2xl font-display text-white">$1,820</p>
-          </div>
-          <div class="glass rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
-            <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">VIP retention</p>
-            <p class="text-2xl font-display text-white">92%</p>
-          </div>
-        </div>
-      </aside>
-    </div>
-  </section>
-
   <!-- SLOT: model_mid_rectangle -->
-  <BannerSlot id="model_mid_rectangle" class="mt-12" />
+  <BannerSlot id="model_mid_rectangle" class="mt-16" />
 
   <!-- SECTION: Gallery -->
   <section class="space-y-8">
     <h2 class="section-heading">Gallery &amp; Atmosphere</h2>
     <div class="grid gap-6 sm:grid-cols-3">
-      {model.gallery.map((item, index) => (
+      {data.gallery.map((item, index) => (
         <div class="glass overflow-hidden rounded-3xl" style={`animation-delay: ${index * 0.1}s`}>
-          <img src={item} alt={`${model.name} gallery ${index + 1}`} class="h-56 w-full object-cover" loading="lazy" />
+          <img src={item} alt={`${data.name} gallery ${index + 1}`} class="h-56 w-full object-cover" loading="lazy" />
         </div>
       ))}
     </div>
@@ -254,22 +181,20 @@ const beaconsHref = model.beacons_url
     </div>
   </section>
 
-  <!-- SECTION: Related Models -->
-  <section class="space-y-6">
-    <h2 class="section-heading">Related Models</h2>
-    <div class="flex snap-x gap-6 overflow-x-auto pb-4">
-      {related.map((item) => (
-          <a
-            class="min-w-[260px] flex-shrink-0 content-card space-y-3"
-            href={withBase(`/models/${item.slug}`)}
-          >
-          <img src={item.image} alt={item.name} class="h-40 w-full rounded-3xl object-cover" loading="lazy" />
-          <div>
-            <p class="font-display text-xl text-white">{item.name}</p>
-            <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">{item.archetype}</p>
-          </div>
-        </a>
-      ))}
-    </div>
-  </section>
+  {relatedCards.length > 0 && (
+    <section class="space-y-6">
+      <h2 class="section-heading">Related Models</h2>
+      <div class="flex snap-x gap-6 overflow-x-auto pb-4">
+        {relatedCards.map((item) => (
+          <a class="min-w-[260px] flex-shrink-0 content-card space-y-3" href={withBase(`/models/${item.slug}`)}>
+            <img src={item.image} alt={item.name} class="h-40 w-full rounded-3xl object-cover" loading="lazy" />
+            <div>
+              <p class="font-display text-xl text-white">{item.name}</p>
+              <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">{item.archetype}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 </MainLayout>

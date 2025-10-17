@@ -3,6 +3,7 @@ import BannerSlot from '../components/BannerSlot.astro';
 import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { buildTrackedLink, withBase } from '../utils/links';
+import { getCollection } from 'astro:content';
 
 const HERO_CTA_PLACEHOLDER = 'https://linktr.ee/naughtycamspot';
 
@@ -34,29 +35,46 @@ const siteHostname = resolveHostname(import.meta.env.SITE ?? '');
 const isPagesBuild = import.meta.env.IS_PAGES === 'true';
 const shouldTrackClicks = siteHostname === 'naughtycamspot.com' && !isPagesBuild;
 
+const featuredModelEntries = await getCollection('models', (entry) => entry.data.featured);
+const sortedFeaturedModels = featuredModelEntries
+  .sort((a, b) => {
+    const aOrder = a.data.featuredOrder ?? Number.POSITIVE_INFINITY;
+    const bOrder = b.data.featuredOrder ?? Number.POSITIVE_INFINITY;
 
-const featuredMuseTiles = [
-  {
-    name: 'Anna Prince',
-    slug: 'anna-prince',
-    role: 'Stripchat • Velvet strategist',
-    summary: 'Immersive bilingual storytelling, concierge-led room choreography, and luxe aftercare rituals.',
-    href: '/models/anna-prince/',
-    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=720&q=80'
-  }
-];
+    if (aOrder === bOrder) {
+      return a.id.localeCompare(b.id);
+    }
 
-const featuredMuse = {
-  name: 'Anna Prince',
-  archetype: 'Stripchat • Velvet strategist',
-  presence: 'Commanding presence blending intimate storytelling, bilingual charm, and precision-timed mod choreography.',
-  image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=960&q=80',
-  quote:
-    '“Every room they build feels like a gallery opening. My fans stay longer, tip deeper, and leave with a story to tell.”',
-  story:
-    'Anna anchors our concierge roster with luxe rituals, rotating set design, and segmented aftercare. From VIP salons to livestream premieres, she executes every beat with polish.',
-  ctaHref: '/models/anna-prince'
-};
+    return aOrder - bOrder;
+  });
+
+const featuredMuseTiles = sortedFeaturedModels.map((entry) => ({
+  name: entry.data.name,
+  slug: entry.id,
+  role: entry.data.archetype,
+  summary: entry.data.summary,
+  href: `/models/${entry.id}/`,
+  image: entry.data.cardImage ?? entry.data.heroImage
+}));
+
+const featuredMuseEntry = sortedFeaturedModels[0];
+const featuredMuse = featuredMuseEntry
+  ? {
+      name: featuredMuseEntry.data.name,
+      archetype: featuredMuseEntry.data.archetype,
+      image: featuredMuseEntry.data.heroImage,
+      quote: `“Every room ${featuredMuseEntry.data.name} builds feels like a gallery opening. My fans stay longer, tip deeper, and leave with a story to tell.”`,
+      story: `${featuredMuseEntry.data.name} anchors our concierge roster with luxe rituals, rotating set design, and segmented aftercare. From VIP salons to livestream premieres, they execute every beat with polish.`,
+      ctaHref: `/models/${featuredMuseEntry.id}`
+    }
+  : {
+      name: 'Coming Soon',
+      archetype: 'Signature muse',
+      image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=960&q=80',
+      quote: '“Every room they build feels like a gallery opening. My fans stay longer, tip deeper, and leave with a story to tell.”',
+      story: 'Our next concierge muse is being curated. Check back shortly for a fresh spotlight.',
+      ctaHref: '/models'
+    };
 
 const runwayBlueprint = [
   {
