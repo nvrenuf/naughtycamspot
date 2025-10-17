@@ -1,6 +1,26 @@
 ---
-const { title = 'NaughtyCamSpot', description = 'NaughtyCamSpot — concierge growth for ambitious cam models.' } = Astro.props;
+const {
+  title = 'NaughtyCamSpot',
+  description = 'NaughtyCamSpot -- concierge growth for ambitious cam models.',
+  showNavigation = true
+} = Astro.props;
 import '../styles/tailwind.css';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/models', label: 'Models' },
+  { href: '/join', label: 'Become a Model' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' }
+];
+
+const footerLinks = [
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/terms', label: 'Terms' }
+];
+
+const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
 ---
 <!doctype html>
 <html lang="en" class="bg-midnight">
@@ -19,7 +39,58 @@ import '../styles/tailwind.css';
     <div class="pointer-events-none absolute -right-32 top-12 h-80 w-80 rounded-full bg-rose-gold/25 blur-3xl"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
-      <slot />
+      {showNavigation && (
+        <header class="mx-auto flex w-full max-w-6xl flex-col gap-5 px-6 pt-10 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+          <div class="flex w-full items-center justify-between gap-3">
+            <a
+              href="/"
+              class="flex items-center gap-3 text-sm font-semibold tracking-[0.32em] text-rose-gold uppercase"
+            >
+              <span class="flex h-11 w-11 items-center justify-center rounded-full border border-rose-gold/60 bg-white/10 shadow-glow backdrop-blur-lg">
+                N
+              </span>
+              NaughtyCamSpot
+            </a>
+            <a
+              class="rounded-full border border-rose-gold/40 bg-rose-gold/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-rose-petal shadow-glow backdrop-blur-xl transition hover:border-rose-gold/60 hover:bg-rose-gold/30"
+              href="https://chaturbate.com/in/?tour=NwNd&campaign=YIOhf&track=default"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Request VIP
+            </a>
+          </div>
+          <nav class="flex w-full flex-wrap items-center justify-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 backdrop-blur-2xl sm:gap-4 sm:text-[0.7rem] sm:tracking-[0.28em] lg:flex-nowrap lg:text-sm lg:tracking-[0.3em]">
+            {navLinks.map((link) => (
+              <a class="whitespace-nowrap transition hover:text-rose-gold" href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </header>
+      )}
+
+      <main class={`relative mx-auto flex w-full max-w-6xl flex-1 flex-col gap-24 px-6 pb-24 ${mainTopPadding}`}>
+        <slot />
+      </main>
+
+      <footer class="border-t border-white/10 bg-black/40 py-10 backdrop-blur-2xl">
+        <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 text-xs uppercase tracking-[0.4em] text-white/45 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex flex-wrap items-center gap-4 text-[0.7rem]">
+            {footerLinks.map((link) => (
+              <a class="transition hover:text-rose-gold" href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <div class="flex items-center gap-4 text-[0.7rem]">
+            <a class="transition hover:text-rose-gold" href="mailto:concierge@naughtycamspot.com">
+              concierge@naughtycamspot.com
+            </a>
+            <span>© NaughtyCamSpot 2025</span>
+          </div>
+        </div>
+      </footer>
     </div>
   </body>
 </html>
