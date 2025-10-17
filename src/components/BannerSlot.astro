@@ -22,6 +22,22 @@ const href = buildTrackedLink({
   placeholder: slot.placeholder
 });
 
+const resolveHostname = (value: string | undefined) => {
+  if (!value) {
+    return '';
+  }
+
+  try {
+    return new URL(value).hostname;
+  } catch {
+    return String(value).replace(/^https?:\/\//, '').split('/')[0];
+  }
+};
+
+const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
+const isPagesBuild = import.meta.env.IS_PAGES === 'true';
+const shouldTrackClicks = siteHostname === 'naughtycamspot.com' && !isPagesBuild;
+
 const anchorClass = [
   'banner-slot block overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 text-center shadow-glow',
   className
@@ -29,7 +45,15 @@ const anchorClass = [
   .filter(Boolean)
   .join(' ');
 ---
-<a class={anchorClass} href={href} target="_blank" rel="nofollow sponsored">
+<a
+  class={anchorClass}
+  href={href}
+  target="_blank"
+  rel="nofollow sponsored"
+  data-track={shouldTrackClicks ? 'click' : undefined}
+  data-slot={shouldTrackClicks ? slot.id : undefined}
+  data-camp={shouldTrackClicks ? slot.camp : undefined}
+>
   <img
     src={slot.image}
     alt={slot.alt}
