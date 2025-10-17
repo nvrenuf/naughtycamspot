@@ -27,14 +27,20 @@ const sample = {
   path: '/go/sample-offer.php',
   slot: 'home_top_leaderboard',
   camp: 'home',
-  placeholder: 'https://leads.naughtycamspot.com/sponsor?slot=home_top_leaderboard&camp=home'
+  placeholder:
+    'https://leads.naughtycamspot.com/sponsor/home/home_top_leaderboard?slot=home_top_leaderboard&camp=home'
 };
 
 test('Pages builds fall back to safe external links', async () => {
   const { buildTrackedLink } = await loadLinksModule({ ASTRO_BASE_URL: '/naughtycamspot/' });
   const href = buildTrackedLink(sample);
   assert.ok(!href.startsWith('/go/'), 'Pages href must not point to /go/');
-  assert.equal(href, sample.placeholder);
+  assert.equal(
+    href,
+    'https://leads.naughtycamspot.com/sponsor/home/home_top_leaderboard',
+    'Pages href should strip query params'
+  );
+  assert.ok(!href.includes('?'), 'Pages href should not contain query params');
 });
 
 test('Production builds generate tracked /go/ links', async () => {

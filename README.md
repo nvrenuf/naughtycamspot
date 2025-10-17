@@ -17,6 +17,12 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 
 Legacy HTML pages, generators, and blog scaffolding have been removed. Work forward from the Astro surface for new sections and routes.
 
+## Tracked links in prod vs Pages
+
+- Use the shared `buildTrackedLink` helper whenever a `/go/*` slug is involved (homepage hero CTA, `<BannerSlot>`, model profile buttons).
+- Production builds return `/go/*` URLs with `?src=<slot>&camp=<page>&date=YYYYMMDD` appended for tracking.
+- GitHub Pages builds fall back to the provided external placeholder, stripping query strings so previews stay clean and never link to `/go/*`.
+
 ## Banner slots
 
 Banner placement is configured in `src/data/banners.ts`. Each slot defines its `/go/*` path for production, a Pages-safe placeholder link, SVG creative, explicit dimensions, and descriptive alt text.
@@ -39,17 +45,6 @@ SVG placeholders for every slot live in `public/ads/`. Update these assets if cr
 1. Define the slot in `src/data/banners.ts` with a unique `id`, production `/go/*` path, Pages placeholder URL, camp grouping, image path, dimensions, and alt text.
 2. Drop a matching SVG into `public/ads/` so Pages previews have local creative.
 3. Render the slot with `<BannerSlot id="slot_id" />` in the page or layout where it should appear, adding a `<!-- SLOT: slot_id -->` comment for quick scanning.
-
-### Link behaviour
-
-- **Pages builds (`astro.config.pages.mjs`)** use the placeholder URLs from the data file. These must be safe external links and must not start with `/go/` so GitHub Pages previews work.
-- **Production builds** use the `/go/*` slugs and automatically append `?src=<slot>&camp=<page>&date=YYYYMMDD` tracking parameters via the shared `buildTrackedLink` helper.
-
-### Beacons buttons
-
-- Model data objects support an optional `beacons_url` field. When present, model templates render an **All links (Beacons)** button.
-- Pages builds link directly to the external `beacons_url` value so previews never emit `/go/*` paths.
-- Production builds route through `/go/beacons-<slug>` via `buildTrackedLink`, which appends `src=model_page`, `camp=<model>`, and the UTC datestamp for tracking.
 
 ## How to add a model page
 
