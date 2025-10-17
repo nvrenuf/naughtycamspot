@@ -11,6 +11,9 @@ const envBaseUrl =
 const BASE_URL = runtimeBaseUrl ?? envBaseUrl ?? '/';
 const IS_PAGES_BUILD = BASE_URL !== '/';
 
+const CLAIM_FORM_EXTERNAL_URL = 'https://tally.so/r/claim-starter-kit';
+const CLAIM_FORM_INTERNAL_PATH = '/claim/';
+
 const sanitizePlaceholder = (placeholder) => {
   if (!placeholder) {
     return '';
@@ -62,5 +65,7 @@ export const buildTrackedLink = ({ path, slot, camp, placeholder }) => {
 
   return `${normalizedPath}${queryGlue}${tracking}`;
 };
+
+export const getClaimUrl = () => (IS_PAGES_BUILD ? CLAIM_FORM_EXTERNAL_URL : CLAIM_FORM_INTERNAL_PATH);
 
 export const __test = { formatDateStamp, sanitizePlaceholder };
