@@ -1,4 +1,14 @@
-const BASE_URL = import.meta.env.BASE_URL || '/';
+const runtimeBaseUrl =
+  typeof import.meta !== 'undefined' && typeof import.meta.env !== 'undefined'
+    ? import.meta.env.BASE_URL
+    : undefined;
+
+const envBaseUrl =
+  typeof process !== 'undefined' && process.env
+    ? process.env.ASTRO_BASE_URL ?? process.env.BASE_URL
+    : undefined;
+
+const BASE_URL = runtimeBaseUrl ?? envBaseUrl ?? '/';
 const IS_PAGES_BUILD = BASE_URL !== '/';
 
 const formatDateStamp = () => {
@@ -11,7 +21,7 @@ const formatDateStamp = () => {
 
 export const isPagesBuild = () => IS_PAGES_BUILD;
 
-export const withBase = (path = ''): string => {
+export const withBase = (path = '') => {
   const cleanedPath = path.startsWith('/') ? path.slice(1) : path;
   if (!cleanedPath) {
     return BASE_URL;
@@ -20,17 +30,7 @@ export const withBase = (path = ''): string => {
   return `${BASE_URL}${cleanedPath}`;
 };
 
-export const buildTrackedLink = ({
-  path,
-  slot,
-  camp,
-  placeholder
-}: {
-  path: string;
-  slot: string;
-  camp: string;
-  placeholder: string;
-}): string => {
+export const buildTrackedLink = ({ path, slot, camp, placeholder }) => {
   if (IS_PAGES_BUILD) {
     return placeholder;
   }
@@ -41,3 +41,5 @@ export const buildTrackedLink = ({
 
   return `${normalizedPath}${queryGlue}${tracking}`;
 };
+
+export const __test = { formatDateStamp };
