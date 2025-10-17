@@ -1,37 +1,20 @@
 ---
 import BannerSlot from '../components/BannerSlot.astro';
 import MainLayout from '../layouts/MainLayout.astro';
-import { buildTrackedLink, isPagesBuild, withBase } from '../utils/links';
-import {
-  BONGA_COUNTRY_TIERS,
-  BONGA_TIER_ORDER,
-  DEFAULT_TIER,
-  MODEL_SIGNUP_PROGRAMS,
-  getDefaultModelProgram
-} from '../utils/model-rotator';
+import { buildTrackedLink, withBase } from '../utils/links';
 
 const HERO_CTA_PLACEHOLDER = 'https://linktr.ee/naughtycamspot';
 
-const pagesBuild = isPagesBuild();
-const modelProgram = getDefaultModelProgram();
 const heroCtaSlot = 'home_hero';
 const heroCtaCamp = 'home';
-const heroCtaPath = modelProgram?.path ?? '/go/model-join.php';
 
 const heroCtaHref = buildTrackedLink({
-  path: heroCtaPath,
+  path: '/go/model-join.php',
   slot: heroCtaSlot,
   camp: heroCtaCamp,
   placeholder: HERO_CTA_PLACEHOLDER
 });
 
-const safeStringify = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c');
-const modelRotatorPayload = safeStringify({
-  programs: MODEL_SIGNUP_PROGRAMS,
-  tierMap: BONGA_COUNTRY_TIERS,
-  tierOrder: BONGA_TIER_ORDER,
-  defaultTier: DEFAULT_TIER
-});
 
 const featuredMuseTiles = [
   {
@@ -156,9 +139,6 @@ const jsonLd = {
             <a
               class="flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-midnight shadow-glow transition hover:-translate-y-1"
               href={heroCtaHref}
-              data-model-rotator="model-join"
-              data-slot={heroCtaSlot}
-              data-camp={heroCtaCamp}
               target="_blank"
               rel="noreferrer"
             >
@@ -401,121 +381,4 @@ const jsonLd = {
   <!-- SLOT: home_footer_leaderboard -->
   <BannerSlot id="home_footer_leaderboard" class="mt-16" />
 
-  {!pagesBuild && (
-    <script is:inline type="module">
-      const payload = JSON.parse('{modelRotatorPayload}');
-      const { programs, tierMap, tierOrder, defaultTier } = payload;
-
-      const formatDateStamp = () => {
-        const now = new Date();
-        const year = String(now.getUTCFullYear());
-        const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-        const day = String(now.getUTCDate()).padStart(2, '0');
-        return `${year}${month}${day}`;
-      };
-
-      const buildTrackedHref = (path, slot, camp) => {
-        if (!path) return undefined;
-        const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-        const glue = normalizedPath.includes('?') ? '&' : '?';
-        const date = formatDateStamp();
-        return `${normalizedPath}${glue}src=${encodeURIComponent(slot)}&camp=${encodeURIComponent(camp)}&date=${date}`;
-      };
-
-      const parseLocaleToCountry = (locale) => {
-        if (!locale || typeof locale !== 'string') return undefined;
-        const match = locale.toUpperCase().match(/[-_]([A-Z]{2})$/);
-        return match ? match[1] : undefined;
-      };
-
-      const collectLocales = () => {
-        const locales = new Set();
-        if (Array.isArray(navigator.languages)) {
-          navigator.languages.forEach((lang) => locales.add(lang));
-        }
-
-        if (navigator.language) {
-          locales.add(navigator.language);
-        }
-
-        try {
-          const resolved = Intl.DateTimeFormat().resolvedOptions().locale;
-          if (resolved) {
-            locales.add(resolved);
-          }
-        } catch (error) {
-          // ignore
-        }
-
-        return Array.from(locales);
-      };
-
-      const findProgramForTier = (tier) => {
-        const activePrograms = programs.filter((program) => program.active !== false);
-        if (activePrograms.length === 0) {
-          return undefined;
-        }
-
-        const startingIndex = Math.max(tierOrder.indexOf(tier), 0);
-        for (let index = startingIndex; index < tierOrder.length; index += 1) {
-          const currentTier = tierOrder[index];
-          const match = activePrograms.find((program) =>
-            Array.isArray(program.tiers) && program.tiers.includes(currentTier)
-          );
-
-          if (match) {
-            return match;
-          }
-        }
-
-        return activePrograms[0];
-      };
-
-      const detectCountry = () => {
-        const locales = collectLocales();
-        for (const locale of locales) {
-          const country = parseLocaleToCountry(locale);
-          if (country) {
-            return country;
-          }
-        }
-
-        return undefined;
-      };
-
-      const applyRotator = () => {
-        const anchors = document.querySelectorAll('[data-model-rotator="model-join"]');
-        if (!anchors.length) {
-          return;
-        }
-
-        const country = detectCountry();
-        const tier = (country && tierMap[country]) || defaultTier;
-        const program = findProgramForTier(tier);
-
-        if (!program) {
-          return;
-        }
-
-        anchors.forEach((anchor) => {
-          const slot = anchor.dataset.slot;
-          const camp = anchor.dataset.camp;
-          if (!slot || !camp) {
-            return;
-          }
-
-          const href = buildTrackedHref(program.path, slot, camp);
-          if (href) {
-            anchor.href = href;
-          }
-        });
-      };
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', applyRotator, { once: true });
-      } else {
-        applyRotator();
-      }
-    </script>
-  )}
 </MainLayout>

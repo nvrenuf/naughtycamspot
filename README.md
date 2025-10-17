@@ -22,6 +22,7 @@ Legacy HTML pages, generators, and blog scaffolding have been removed. Work forw
 - Use the shared `buildTrackedLink` helper whenever a `/go/*` slug is involved (homepage hero CTA, `<BannerSlot>`, model profile buttons).
 - Production builds return `/go/*` URLs with `?src=<slot>&camp=<page>&date=YYYYMMDD` appended for tracking.
 - GitHub Pages builds fall back to the provided external placeholder, stripping query strings so previews stay clean and never link to `/go/*`.
+- The production server now handles `/go/*` redirects and geotargeted program rotation via the PHP handlers in `public/go/`.
 
 ## Banner slots
 

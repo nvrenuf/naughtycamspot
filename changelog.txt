@@ -1,3 +1,6 @@
+## 2025-10-18
+- Swapped the homepage model CTA rotator to rely on the new server-driven `/go/model-join.php` redirect pipeline.
+
 ## 2025-10-17
 - Refined homepage hero CTA routing with tracked `/go/` link in production and safe external fallback for GitHub Pages.
 - Replaced kinetic metric cards with a Proof section scaffold and added JSON-LD metadata.
