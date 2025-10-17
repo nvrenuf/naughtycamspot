@@ -31,6 +31,8 @@ jobs:
           cache: npm
       - name: Install deps
         run: npm ci
+      - name: Prepare robots.txt for GitHub Pages
+        run: cp public/robots.pages.txt public/robots.txt
       - name: Build (Pages config)
         run: npx astro build --config astro.config.pages.mjs
       - name: Upload artifact

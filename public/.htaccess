@@ -1,0 +1,4 @@
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+Header set X-Content-Type-Options "nosniff"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"

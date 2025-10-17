@@ -19,6 +19,13 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 
 Legacy HTML pages, generators, and blog scaffolding have been removed. Work forward from the Astro surface for new sections and routes.
 
+## SEO & indexing
+
+- Production builds (`astro.config.mjs`) enable `@astrojs/sitemap` with the public `site` domain locked to `https://naughtycamspot.com`. GitHub Pages builds continue to use `astro.config.pages.mjs` and inject a `<meta name="robots" content="noindex,nofollow">` tag so previews stay out of the index.
+- Robots directives live in `public/robots.prod.txt` (deploy as `robots.txt` on ViceTemple) and `public/robots.pages.txt` (copied to `robots.txt` by the Pages workflow before building). Update both files when crawl strategy changes.
+- ViceTemple security headers are shipped via `public/.htaccess` — keep updates scoped there so Pages previews remain unaffected.
+- Page-level titles, descriptions, OG, and canonical tags are centralized in `src/components/SEO.astro`. Pull this component into new pages and provide unique copy per surface.
+
 ## Tracked links in prod vs Pages
 
 - Use the shared `buildTrackedLink` helper whenever a `/go/*` slug is involved (homepage hero CTA, `<BannerSlot>`, model profile buttons).
