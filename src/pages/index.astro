@@ -149,7 +149,7 @@ const websiteJsonLd = {
     path={canonicalPath}
     ogImage="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1280&q=80"
   />
-  <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
+  <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 
   <!-- SECTION: Hero -->
   <section id="gallery-hero" class="glass relative overflow-hidden rounded-[42px] px-10 py-16">

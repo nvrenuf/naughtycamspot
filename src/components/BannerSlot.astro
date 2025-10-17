@@ -1,6 +1,6 @@
 ---
 import { bannerSlots, getBannerSlot, type BannerSlotId } from '../data/banners';
-import { buildTrackedLink } from '../utils/links';
+import { buildTrackedLink, withBase } from '../utils/links';
 
 interface Props {
   id: BannerSlotId;
@@ -21,6 +21,8 @@ const href = buildTrackedLink({
   camp: slot.camp,
   placeholder: slot.placeholder
 });
+
+const imageSrc = withBase(slot.image);
 
 const resolveHostname = (value: string | undefined) => {
   if (!value) {
@@ -55,7 +57,7 @@ const anchorClass = [
   data-camp={shouldTrackClicks ? slot.camp : undefined}
 >
   <img
-    src={slot.image}
+    src={imageSrc}
     alt={slot.alt}
     width={slot.width}
     height={slot.height}

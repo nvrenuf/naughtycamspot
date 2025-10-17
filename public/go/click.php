@@ -4,15 +4,22 @@ declare(strict_types=1);
 header('Cache-Control: no-store');
 http_response_code(204);
 
-$slot = isset($_GET['src']) ? (string) $_GET['src'] : '';
-$camp = isset($_GET['camp']) ? (string) $_GET['camp'] : '';
+$sanitizeLogField = static function (string $value): string {
+    // Strip control characters so attackers cannot forge log lines.
+    $clean = preg_replace('/[\x00-\x1F\x7F]+/', ' ', $value);
+    return trim($clean ?? '', " \t\n\r");
+};
+
+$slot = isset($_GET['src']) ? $sanitizeLogField((string) $_GET['src']) : '';
+$camp = isset($_GET['camp']) ? $sanitizeLogField((string) $_GET['camp']) : '';
 $timestamp = gmdate('c');
-$ipAddress = $_SERVER['REMOTE_ADDR'] ?? '';
-$userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+$ipAddress = $sanitizeLogField($_SERVER['REMOTE_ADDR'] ?? '');
+$userAgent = $sanitizeLogField($_SERVER['HTTP_USER_AGENT'] ?? '');
 
 $line = sprintf("%s\t%s\t%s\t%s\t%s\n", $timestamp, $ipAddress, $slot, $camp, $userAgent);
 
-$logDirectory = dirname(__DIR__) . '/logs';
+$projectRoot = dirname(__DIR__, 2);
+$logDirectory = $projectRoot . '/storage/logs';
 $logFile = $logDirectory . '/clicks.log';
 
 if (!is_dir($logDirectory)) {

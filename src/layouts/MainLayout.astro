@@ -76,7 +76,7 @@ const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
       <meta name="description" content={description} />
     </slot>
     {isPagesBuild && <meta name="robots" content="noindex,nofollow" />}
-    <script type="application/ld+json">{JSON.stringify(organizationJsonLd)}</script>
+  <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />

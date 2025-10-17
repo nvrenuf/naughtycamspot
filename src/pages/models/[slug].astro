@@ -103,7 +103,7 @@ const relatedCards = related.map((entry) => ({
     ogImage={data.heroImage}
     ogType="profile"
   />
-  <script type="application/ld+json">{JSON.stringify(personJsonLd)}</script>
+  <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
 
   <!-- SECTION: Hero -->
   <section class="glass overflow-hidden rounded-[42px] px-10 py-14">

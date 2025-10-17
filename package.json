@@ -8,7 +8,7 @@
     "build": "astro build",
     "build:pages": "astro build --config astro.config.pages.mjs",
     "preview": "astro preview",
-    "test": "vitest run"
+  "test": "node --test \"tests/**/*.mjs\" && vitest run"
   },
   "dependencies": {
     "@astrojs/sitemap": "file:vendor/astrojs-sitemap",
