@@ -5,25 +5,21 @@ import { buildTrackedLink } from '../../utils/links';
 
 const model = {
   name: 'Anna Prince',
+  slug: 'anna-prince',
   tagline: 'Stripchat velvet strategist',
   summary:
     'Anna Prince curates immersive bilingual sets, concierge-guided mod scripts, and rose-gold lighting rituals that keep luxe night owls glued to every scene.',
-  heroImage: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1280&q=80'
+  heroImage: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1280&q=80',
+  beacons_url: 'https://beacons.ai/annaprince'
 };
 
-const buttons = [
+const baseButtons = [
   {
     label: 'ManyVids',
     slug: 'manyvids',
     path: '/go/mv-anna',
     placeholder: 'https://www.manyvids.com/live/cam/anna_prince',
     variant: 'primary'
-  },
-  {
-    label: 'Beacons – All links',
-    slug: 'beacons',
-    path: '/go/beacons-anna',
-    placeholder: 'https://beacons.ai/annaprince'
   },
   {
     label: 'Stripchat',
@@ -64,13 +60,38 @@ const buttons = [
   }
 ];
 
-const buildHref = (button) =>
-  buildTrackedLink({
+const beaconsButton = model.beacons_url
+  ? {
+      label: 'All links (Beacons)',
+      slug: 'beacons',
+      path: '/go/beacons-anna',
+      placeholder: model.beacons_url,
+      variant: 'primary'
+    }
+  : undefined;
+
+const buttons = beaconsButton
+  ? [baseButtons[0], beaconsButton, ...baseButtons.slice(1)]
+  : [...baseButtons];
+
+const trackingSlotPrefix = model.slug.replace(/-/g, '_');
+const buildHref = (button) => {
+  if (button.slug === 'beacons') {
+    return buildTrackedLink({
+      path: button.path,
+      slot: 'model_page',
+      camp: model.slug,
+      placeholder: model.beacons_url
+    });
+  }
+
+  return buildTrackedLink({
     path: button.path,
-    slot: `anna_prince_${button.slug}`,
+    slot: `${trackingSlotPrefix}_${button.slug}`,
     camp: 'anna_profile',
     placeholder: button.placeholder
   });
+};
 
 const activeButtons = buttons.filter((button) => button.active !== false);
 

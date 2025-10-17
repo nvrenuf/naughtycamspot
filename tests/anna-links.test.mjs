@@ -90,9 +90,15 @@ test('Production build uses tracked /go/ links for Anna Prince', async () => {
     const href = extractHref(html, platform);
     assert.ok(href, `expected ${platform} button to exist`);
     assert.ok(href.startsWith(pathPrefix), `${platform} href should start with ${pathPrefix}`);
-    assert.ok(href.includes('src='), `${platform} href should include src param`);
-    assert.ok(href.includes('camp=anna_profile'), `${platform} href should include camp param`);
     assert.ok(href.includes('date='), `${platform} href should include date param`);
+
+    if (platform === 'beacons') {
+      assert.ok(href.includes('src=model_page'), 'beacons href should include src=model_page');
+      assert.ok(href.includes('camp=anna-prince'), 'beacons href should include camp=anna-prince');
+    } else {
+      assert.ok(href.includes('src='), `${platform} href should include src param`);
+      assert.ok(href.includes('camp=anna_profile'), `${platform} href should include camp param`);
+    }
   }
 });
 

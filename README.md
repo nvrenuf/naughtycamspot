@@ -45,6 +45,12 @@ SVG placeholders for every slot live in `public/ads/`. Update these assets if cr
 - **Pages builds (`astro.config.pages.mjs`)** use the placeholder URLs from the data file. These must be safe external links and must not start with `/go/` so GitHub Pages previews work.
 - **Production builds** use the `/go/*` slugs and automatically append `?src=<slot>&camp=<page>&date=YYYYMMDD` tracking parameters via the shared `buildTrackedLink` helper.
 
+### Beacons buttons
+
+- Model data objects support an optional `beacons_url` field. When present, model templates render an **All links (Beacons)** button.
+- Pages builds link directly to the external `beacons_url` value so previews never emit `/go/*` paths.
+- Production builds route through `/go/beacons-<slug>` via `buildTrackedLink`, which appends `src=model_page`, `camp=<model>`, and the UTC datestamp for tracking.
+
 ## How to add a model page
 
 1. Create a dedicated page in `src/pages/models/` named after the slug (for example, `anna-prince.astro`). Import `MainLayout`, `BannerSlot`, and the shared `buildTrackedLink` helper so link behaviour matches other surfaces.

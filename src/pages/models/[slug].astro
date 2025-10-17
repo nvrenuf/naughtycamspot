@@ -3,8 +3,26 @@ import BannerSlot from '../../components/BannerSlot.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { buildTrackedLink, withBase } from '../../utils/links';
 
+type ModelPlatform = {
+  name: string;
+  path?: string;
+  placeholder?: string;
+  active?: boolean;
+};
+
+type ModelData = {
+  slug: string;
+  name: string;
+  archetype: string;
+  summary: string;
+  image: string;
+  platforms?: readonly ModelPlatform[];
+  gallery: readonly string[];
+  beacons_url?: string;
+};
+
 export function getStaticPaths() {
-  const models = [
+  const models: ModelData[] = [
     {
       slug: 'nova-noir',
       name: 'Nova Noir',
@@ -68,6 +86,7 @@ export function getStaticPaths() {
       summary:
         'Anna orchestrates bilingual storytelling arcs, timed lighting cues, and concierge-led mod scripts tailored to late-night luxury crowds.',
       image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
+      beacons_url: 'https://beacons.ai/annaprince',
       platforms: [
         { name: 'Stripchat', path: '/go/anna-stripchat.php', placeholder: 'https://stripchat.com', active: true },
         { name: 'Chaturbate', path: '/go/anna-chaturbate.php', placeholder: 'https://chaturbate.com', active: true },
@@ -94,13 +113,19 @@ export function getStaticPaths() {
   }));
 }
 
-const { model, related } = Astro.props;
-const platforms = (model.platforms ?? []) as Array<{
-  name: string;
-  path?: string;
-  placeholder?: string;
-  active?: boolean;
-}>;
+const { model, related } = Astro.props as {
+  model: ModelData;
+  related: ModelData[];
+};
+const platforms = (model.platforms ?? []) as ModelPlatform[];
+const beaconsHref = model.beacons_url
+  ? buildTrackedLink({
+      path: `/go/beacons-${model.slug}`,
+      slot: 'model_page',
+      camp: model.slug,
+      placeholder: model.beacons_url
+    })
+  : undefined;
 ---
 
 <MainLayout
@@ -116,6 +141,19 @@ const platforms = (model.platforms ?? []) as Array<{
         <h1 class="font-display text-5xl text-white sm:text-6xl">{model.name}</h1>
         <p class="text-base text-rose-petal/80">{model.archetype}</p>
         <p class="max-w-xl text-base text-white/70">{model.summary}</p>
+        {beaconsHref && (
+          <div>
+            <a
+              data-platform="beacons"
+              class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+              href={beaconsHref}
+              target="_blank"
+              rel="noreferrer"
+            >
+              All links (Beacons)
+            </a>
+          </div>
+        )}
         {platforms.length > 0 && (
           <div class="space-y-4">
             <!-- SECTION: Platforms -->
