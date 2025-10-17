@@ -92,21 +92,21 @@ const conciergeHighlights = [
   }
 ];
 
-const proofEntries = [
+const proofCards = [
   {
-    metric: 'Case Study A',
-    summary: 'Premium room relaunch with concierge scripts and sonic cues.',
-    source: 'Filed March 2025'
+    metric: 'Launch concierge baseline',
+    blurb: 'Outline of the starter rituals, conversion pacing, and sensory cues we document for every debut.',
+    date: 'Status: TBD'
   },
   {
-    metric: 'Case Study B',
-    summary: 'Hybrid merch drop plus fan aftercare loop mapped over 6 weeks.',
-    source: 'Audit pending April 2025'
+    metric: 'Retention cadence sketch',
+    blurb: 'Placeholder for weekly follow-up rhythms, VIP touchpoints, and aftercare loops ready for publishing.',
+    date: 'Status: TBD'
   },
   {
-    metric: 'Case Study C',
-    summary: 'Multi-platform crossover using Spanish/English call-and-response.',
-    source: 'Source: Internal concierge lab notes'
+    metric: 'Merch + crossover notes',
+    blurb: 'Snapshot slot for cross-platform experiments and concierge debriefs queued for the proof vault.',
+    date: 'Status: TBD'
   }
 ];
 
@@ -176,18 +176,13 @@ const jsonLd = {
           <div class="absolute inset-0 animate-float rounded-[34px] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent"></div>
           <div class="relative glass h-full w-full max-w-sm rounded-[34px] p-8">
             <div class="flex flex-col gap-5">
-              <p class="text-xs uppercase tracking-[0.45em] text-rose-petal/70">Proof in motion</p>
-              <ul class="space-y-4 text-sm text-white/70">
-                {proofEntries.map((entry) => (
-                  <li class="rounded-3xl border border-white/10 bg-white/5 p-5">
-                    <p class="font-display text-lg text-white">{entry.metric}</p>
-                    <p class="mt-1 text-white/60">{entry.summary}</p>
-                    <p class="mt-2 text-[0.65rem] uppercase tracking-[0.35em] text-white/40">{entry.source}</p>
-                  </li>
-                ))}
-              </ul>
+              <p class="text-xs uppercase tracking-[0.45em] text-rose-petal/70">Proof vault in progress</p>
+              <p class="text-sm leading-relaxed text-white/70">
+                We're cataloging concierge metrics, scripts, and room choreography breakdowns. Track the build-out in our proof
+                section as each case study unlocks.
+              </p>
               <a class="text-xs uppercase tracking-[0.4em] text-rose-gold transition hover:text-white" href="#proof">
-                See all proof ↓
+                Browse the outline ↓
               </a>
             </div>
           </div>
@@ -331,30 +326,46 @@ const jsonLd = {
       </div>
     </section>
 
-  <!-- SECTION: Proof -->
-  <section id="proof" class="glass overflow-hidden rounded-[42px] px-10 py-14">
-      <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-        <div class="max-w-xl space-y-4">
-          <h2 class="font-display text-4xl text-white">Proof of concept</h2>
-          <p class="text-base text-white/70">
-            We track every launch with concierge notes, mod call transcripts, and conversion snapshots. Real case files sit ready for
-            partners under NDA; this block marks where the receipts will live.
-          </p>
+    <!-- SECTION: Proof -->
+    <section
+      id="proof"
+      data-test="proof-section"
+      class="glass overflow-hidden rounded-[42px] px-10 py-14"
+    >
+        <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div class="max-w-xl space-y-4">
+            <h2 class="font-display text-4xl text-white">Proof vault</h2>
+            <p class="text-base text-white/70">
+              We're assembling concierge case files with timelines, scripts, and performance notes. This preview highlights the
+              placeholders reserved for those releases.
+            </p>
+          </div>
+          <a
+            class="rounded-full border border-white/20 bg-white/5 px-5 py-3 text-xs uppercase tracking-[0.4em] text-rose-petal/80 backdrop-blur-xl transition hover:text-rose-gold"
+            href={withBase('/case-studies/start')}
+          >
+            Visit the stub case study
+          </a>
         </div>
-        <a class="rounded-full border border-white/20 bg-white/5 px-5 py-3 text-xs uppercase tracking-[0.4em] text-rose-petal/80 backdrop-blur-xl transition hover:text-rose-gold" href={withBase('/case-studies')}>
-          See details shortly
-        </a>
-      </div>
-      <div class="grid gap-6 md:grid-cols-3">
-        {proofEntries.map((entry, index) => (
-          <article class="glass space-y-3 rounded-3xl border border-white/10 bg-white/5 p-6" style={`animation-delay: ${index * 0.12}s`}>
-            <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">{entry.source}</p>
-            <h3 class="font-display text-2xl text-white">{entry.metric}</h3>
-            <p class="text-sm text-white/65">{entry.summary}</p>
-          </article>
-        ))}
-      </div>
-    </section>
+        <div class="grid gap-6 md:grid-cols-3">
+          {proofCards.map((entry, index) => (
+            <article
+              class="glass space-y-3 rounded-3xl border border-white/10 bg-white/5 p-6"
+              style={`animation-delay: ${index * 0.12}s`}
+            >
+              <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{entry.date}</p>
+              <h3 class="font-display text-2xl text-white">{entry.metric}</h3>
+              <p class="text-sm text-white/65">{entry.blurb}</p>
+              <a
+                class="text-xs uppercase tracking-[0.35em] text-rose-gold transition hover:text-white"
+                href={withBase('/case-studies/start')}
+              >
+                See details →
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
 
   <!-- SECTION: Retention -->
   <section id="retention" class="glass overflow-hidden rounded-[42px] px-10 py-14">
@@ -377,8 +388,9 @@ const jsonLd = {
           <div class="glass relative overflow-hidden rounded-3xl p-8">
             <span class="text-xs uppercase tracking-[0.4em] text-rose-petal/80">Voices from the suite</span>
             <p class="mt-6 font-display text-2xl text-white">
-              “I doubled my average tip train in two weekends. The room choreography and vibe coaching feel like having an artistic
-              director in my ear without losing my freedom.”
+              “Their concierge team keeps my pacing on point. I'm ready to log the receipts inside the
+              <a class="text-rose-gold underline-offset-4 hover:underline" href="#proof">proof vault</a>
+              the moment they're cleared.”
             </p>
             <p class="mt-6 text-sm text-white/60">— Mila, VIP Muse</p>
           </div>
