@@ -1,0 +1,112 @@
+import { test, after } from 'node:test';
+import assert from 'node:assert/strict';
+import { execSync } from 'node:child_process';
+import { readFile } from 'node:fs/promises';
+import { rm } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const projectRoot = path.resolve(__dirname, '..');
+
+const buildCache = new Map();
+const cleanupDirs = new Set();
+
+const buildPage = async (mode) => {
+  if (buildCache.has(mode)) {
+    return buildCache.get(mode);
+  }
+
+  const outDirName = mode === 'pages' ? 'dist-test-pages' : 'dist-test-prod';
+  const outDir = path.join(projectRoot, outDirName);
+  await rm(outDir, { recursive: true, force: true });
+
+  const command =
+    mode === 'pages'
+      ? `npx astro build --config astro.config.pages.mjs --outDir ${outDirName}`
+      : `npx astro build --outDir ${outDirName}`;
+
+  execSync(command, { cwd: projectRoot, stdio: 'pipe' });
+
+  cleanupDirs.add(outDir);
+
+  const htmlPath = path.join(outDir, 'models', 'anna-prince', 'index.html');
+  const html = await readFile(htmlPath, 'utf8');
+
+  const result = { html, outDir };
+  buildCache.set(mode, result);
+  return result;
+};
+
+const extractHref = (html, platform) => {
+  const pattern = new RegExp(`<a[^>]+data-platform="${platform}"[^>]+href="([^"]+)"`, 'i');
+  const match = html.match(pattern);
+  return match ? match[1] : undefined;
+};
+
+const collectPlatformOrder = (html) => {
+  const matches = [...html.matchAll(/data-platform="([^"]+)"/g)];
+  return matches.map(([, slug]) => slug);
+};
+
+test('Pages build uses external hrefs for Anna Prince', async () => {
+  const { html } = await buildPage('pages');
+
+  const expected = {
+    manyvids: 'https://www.manyvids.com/live/cam/anna_prince',
+    beacons: 'https://beacons.ai/annaprince',
+    stripchat: 'https://stripchat.com/Anna_Prince',
+    chaturbate: 'https://chaturbate.com/b/anna_prince/',
+    camsoda: 'https://www.camsoda.com/annaprince',
+    pornhub: 'https://pornhub.com/model/sabrina_great',
+    onlyfans: 'https://onlyfans.com/sabrinagreat'
+  };
+
+  for (const [platform, href] of Object.entries(expected)) {
+    const value = extractHref(html, platform);
+    assert.ok(value, `expected ${platform} button to exist`);
+    assert.equal(value, href, `expected ${platform} href to match placeholder`);
+    assert.ok(!value.startsWith('/go/'), `${platform} href should not start with /go/ in Pages mode`);
+  }
+
+  const order = collectPlatformOrder(html);
+  assert.deepEqual(order, ['manyvids', 'beacons', 'stripchat', 'chaturbate', 'camsoda', 'pornhub', 'onlyfans', 'myclub']);
+});
+
+test('Production build uses tracked /go/ links for Anna Prince', async () => {
+  const { html } = await buildPage('prod');
+
+  const expectedPaths = {
+    manyvids: '/go/mv-anna',
+    beacons: '/go/beacons-anna',
+    stripchat: '/go/stripchat-anna',
+    chaturbate: '/go/chaturbate-anna',
+    camsoda: '/go/camsoda-anna',
+    pornhub: '/go/ph-anna',
+    onlyfans: '/go/of-anna'
+  };
+
+  for (const [platform, pathPrefix] of Object.entries(expectedPaths)) {
+    const href = extractHref(html, platform);
+    assert.ok(href, `expected ${platform} button to exist`);
+    assert.ok(href.startsWith(pathPrefix), `${platform} href should start with ${pathPrefix}`);
+    assert.ok(href.includes('src='), `${platform} href should include src param`);
+    assert.ok(href.includes('camp=anna_profile'), `${platform} href should include camp param`);
+    assert.ok(href.includes('date='), `${platform} href should include date param`);
+  }
+});
+
+test('My.club button renders inactive state', async () => {
+  const { html } = await buildPage('pages');
+  const inactiveMatch = html.match(/data-platform="myclub"[^>]*>([^<]+)/i);
+  assert.ok(inactiveMatch, 'expected My.club element to exist');
+  const text = inactiveMatch[1].trim();
+  assert.ok(/Inactive$/i.test(text), 'My.club label should indicate inactive state');
+  assert.ok(!extractHref(html, 'myclub'), 'My.club should not render an href when inactive');
+});
+
+after(async () => {
+  for (const dir of cleanupDirs) {
+    await rm(dir, { recursive: true, force: true });
+  }
+});

@@ -33,6 +33,17 @@ const modelRotatorPayload = safeStringify({
   defaultTier: DEFAULT_TIER
 });
 
+const featuredMuseTiles = [
+  {
+    name: 'Anna Prince',
+    slug: 'anna-prince',
+    role: 'Stripchat • Velvet strategist',
+    summary: 'Immersive bilingual storytelling, concierge-led room choreography, and luxe aftercare rituals.',
+    href: '/models/anna-prince/',
+    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=720&q=80'
+  }
+];
+
 const featuredMuse = {
   name: 'Anna Prince',
   archetype: 'Stripchat • Velvet strategist',
@@ -181,6 +192,43 @@ const jsonLd = {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+
+  <!-- SECTION: Featured muse tiles -->
+  <section aria-labelledby="featured-muses-heading" class="mt-14">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 id="featured-muses-heading" class="font-display text-3xl text-white sm:text-4xl">Featured muses</h2>
+          <p class="mt-2 text-sm text-white/70">
+            Spotlighting concierge muses you can study, book, or draw inspiration from for your own runway.
+          </p>
+        </div>
+        <a class="text-xs uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/models')}>
+          View gallery →
+        </a>
+      </div>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {featuredMuseTiles.map((tile) => (
+          <a
+            class="glass group relative flex h-full flex-col justify-end overflow-hidden rounded-[32px] border border-white/10 bg-white/5 p-8 transition hover:-translate-y-2 hover:border-rose-gold/40"
+            href={withBase(tile.href)}
+            data-featured-muse={tile.slug}
+          >
+            <div
+              class="pointer-events-none absolute inset-0 opacity-70 transition duration-500 group-hover:opacity-90"
+              style={`background-image: url('${tile.image}'); background-size: cover; background-position: center;`}
+            ></div>
+            <div class="relative space-y-2">
+              <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/40 px-4 py-1 text-[0.65rem] uppercase tracking-[0.4em] text-rose-petal/70">
+                Concierge muse
+              </span>
+              <h3 class="font-display text-2xl text-white">{tile.name}</h3>
+              <p class="text-sm uppercase tracking-[0.3em] text-white/70">{tile.role}</p>
+              <p class="text-sm text-white/70">{tile.summary}</p>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
 
