@@ -1,0 +1,82 @@
+{
+  "name": "Anna Prince",
+  "archetype": "Stripchat velvet strategist",
+  "summary": "Anna Prince curates immersive bilingual sets, concierge-guided mod scripts, and rose-gold lighting rituals that keep luxe night owls glued to every scene.",
+  "heroImage": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1280&q=80",
+  "cardImage": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=720&q=80",
+  "gallery": [
+    "https://images.unsplash.com/photo-1478454197698-1526513ad1a3?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80"
+  ],
+  "featured": true,
+  "featuredOrder": 1,
+  "platforms": [
+    {
+      "name": "ManyVids",
+      "slug": "manyvids",
+      "path": "/go/mv-anna",
+      "placeholder": "https://www.manyvids.com/live/cam/anna_prince",
+      "variant": "primary"
+    },
+    {
+      "name": "All links (Beacons)",
+      "slug": "beacons",
+      "path": "/go/beacons-anna",
+      "placeholder": "https://beacons.ai/annaprince",
+      "variant": "primary",
+      "kind": "beacons"
+    },
+    {
+      "name": "Stripchat",
+      "slug": "stripchat",
+      "path": "/go/stripchat-anna",
+      "placeholder": "https://stripchat.com/Anna_Prince"
+    },
+    {
+      "name": "Chaturbate",
+      "slug": "chaturbate",
+      "path": "/go/chaturbate-anna",
+      "placeholder": "https://chaturbate.com/b/anna_prince/"
+    },
+    {
+      "name": "CamSoda",
+      "slug": "camsoda",
+      "path": "/go/camsoda-anna",
+      "placeholder": "https://www.camsoda.com/annaprince"
+    },
+    {
+      "name": "Pornhub",
+      "slug": "pornhub",
+      "path": "/go/ph-anna",
+      "placeholder": "https://pornhub.com/model/sabrina_great"
+    },
+    {
+      "name": "OnlyFans",
+      "slug": "onlyfans",
+      "path": "/go/of-anna",
+      "placeholder": "https://onlyfans.com/sabrinagreat"
+    },
+    {
+      "name": "My.club",
+      "slug": "myclub",
+      "path": "/go/myclub-anna",
+      "placeholder": "https://my.club/Anna_Prince",
+      "active": false
+    }
+  ],
+  "profiles": [
+    "https://stripchat.com/Anna_Prince",
+    "https://chaturbate.com/b/anna_prince/",
+    "https://www.camsoda.com/annaprince",
+    "https://www.manyvids.com/live/cam/anna_prince",
+    "https://pornhub.com/model/sabrina_great",
+    "https://onlyfans.com/sabrinagreat",
+    "https://my.club/Anna_Prince"
+  ],
+  "tracking": {
+    "slotPrefix": "anna_prince",
+    "profileCamp": "anna_profile",
+    "beaconsCamp": "anna-prince"
+  }
+}
