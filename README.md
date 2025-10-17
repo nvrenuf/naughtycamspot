@@ -6,6 +6,7 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 - Install dependencies: `npm install`
 - Start local dev server: `npm run dev`
 - Create a production build: `npm run build`
+- Build for GitHub Pages: `npm run build:pages`
 
 ## Project structure
 
