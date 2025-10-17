@@ -11,6 +11,22 @@ const envBaseUrl =
 const BASE_URL = runtimeBaseUrl ?? envBaseUrl ?? '/';
 const IS_PAGES_BUILD = BASE_URL !== '/';
 
+const sanitizePlaceholder = (placeholder) => {
+  if (!placeholder) {
+    return '';
+  }
+
+  const trimmed = String(placeholder).trim();
+  if (!trimmed) {
+    return '';
+  }
+
+  const withoutHash = trimmed.split('#')[0];
+  const withoutQuery = withoutHash.split('?')[0];
+
+  return withoutQuery;
+};
+
 const formatDateStamp = () => {
   const now = new Date();
   const year = String(now.getUTCFullYear());
@@ -32,7 +48,12 @@ export const withBase = (path = '') => {
 
 export const buildTrackedLink = ({ path, slot, camp, placeholder }) => {
   if (IS_PAGES_BUILD) {
-    return placeholder;
+    const sanitizedPlaceholder = sanitizePlaceholder(placeholder);
+    if (sanitizedPlaceholder && !sanitizedPlaceholder.startsWith('/go/')) {
+      return sanitizedPlaceholder;
+    }
+
+    return 'https://naughtycamspot.com';
   }
 
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
@@ -42,4 +63,4 @@ export const buildTrackedLink = ({ path, slot, camp, placeholder }) => {
   return `${normalizedPath}${queryGlue}${tracking}`;
 };
 
-export const __test = { formatDateStamp };
+export const __test = { formatDateStamp, sanitizePlaceholder };

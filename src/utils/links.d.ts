@@ -10,4 +10,5 @@ export declare const withBase: (path?: string) => string;
 export declare const buildTrackedLink: (options: BuildTrackedLinkOptions) => string;
 export declare const __test: {
   formatDateStamp: () => string;
+  sanitizePlaceholder: (value: string) => string;
 };

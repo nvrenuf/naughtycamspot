@@ -24,7 +24,7 @@ type BannerSlotConfig = {
 const PLACEHOLDER_BASE = 'https://leads.naughtycamspot.com/sponsor';
 
 const buildPlaceholderHref = (slot: BannerSlotId, camp: BannerCamp) =>
-  `${PLACEHOLDER_BASE}?slot=${encodeURIComponent(slot)}&camp=${encodeURIComponent(camp)}`;
+  `${PLACEHOLDER_BASE}/${camp}/${slot}`;
 
 export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
   home_top_leaderboard: {

@@ -42,3 +42,9 @@ test('Production build outputs tracked /go link', async () => {
     `<a href="/go/model-join.php?src=home_hero&camp=home&date=${dateStamp}"></a>`
   );
 });
+
+test('sanitizePlaceholder removes query and hash fragments', async () => {
+  const { __test } = await importLinksWithBase('/docs/');
+  const cleaned = __test.sanitizePlaceholder('https://example.com/join?foo=bar#cta');
+  assert.equal(cleaned, 'https://example.com/join');
+});
