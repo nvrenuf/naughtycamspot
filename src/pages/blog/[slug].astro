@@ -62,12 +62,11 @@ const joinCtaLabel = pagesBuild ? 'Join our concierge roster' : 'Join via tracke
       <img src={post.data.heroImage} alt={post.data.heroImageAlt ?? post.data.title} class="h-80 w-full object-cover" loading="lazy" />
     </div>
 
-    <!-- SLOT: post_top_strip -->
-    <BannerSlot id="post_top_strip" />
-
     <div class="space-y-6 text-base leading-relaxed text-white/70">
       <Content />
     </div>
+
+    <BannerSlot id="post_inline_rect" class="mt-6" />
 
     <div class="content-card space-y-5">
       <h2 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Continue your launch</h2>
@@ -98,9 +97,6 @@ const joinCtaLabel = pagesBuild ? 'Join our concierge roster' : 'Join via tracke
       </p>
     </div>
   </article>
-
-  <!-- SLOT: post_end_strip -->
-  <BannerSlot id="post_end_strip" class="mt-10" />
 
   <!-- SECTION: Related Posts -->
   <section class="space-y-6">

@@ -1,0 +1,38 @@
+{
+  "name": "Luna Vale",
+  "archetype": "CamSoda neon daydream",
+  "summary": "Luna Vale experiments with synthwave lighting, ASMR cadences, and playful countdown rituals to break the ice with new fans.",
+  "heroImage": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1280&q=80",
+  "cardImage": "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=720&q=80",
+  "gallery": [
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80"
+  ],
+  "consent": false,
+  "featured": false,
+  "platforms": [
+    {
+      "name": "CamSoda",
+      "slug": "camsoda",
+      "path": "/go/camsoda-luna",
+      "placeholder": "https://www.camsoda.com/lunavale",
+      "variant": "primary"
+    },
+    {
+      "name": "Chaturbate",
+      "slug": "chaturbate",
+      "path": "/go/chaturbate-luna",
+      "placeholder": "https://chaturbate.com/b/luna_vale"
+    }
+  ],
+  "profiles": [
+    "https://www.camsoda.com/lunavale",
+    "https://chaturbate.com/b/luna_vale"
+  ],
+  "tracking": {
+    "slotPrefix": "luna_vale",
+    "profileCamp": "luna_profile",
+    "beaconsCamp": "luna-vale"
+  }
+}

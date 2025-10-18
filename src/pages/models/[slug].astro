@@ -1,13 +1,17 @@
 ---
 import BannerSlot from '../../components/BannerSlot.astro';
+import Notices from '../../components/Notices.astro';
 import SEO from '../../components/SEO.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
+import earnings from '../../data/earnings.json';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import { buildTrackedLink, withBase } from '../../utils/links';
 
 type ModelEntry = CollectionEntry<'models'>;
 type ModelPlatform = ModelEntry['data']['platforms'][number];
+
+type EarningsBands = Record<string, Record<string, [number, number]>>;
 
 const resolveTrackingValue = (value: string | undefined, fallback: string) => {
   if (!value) {
@@ -89,6 +93,36 @@ const relatedCards = related.map((entry) => ({
   archetype: entry.data.archetype,
   image: entry.data.cardImage ?? entry.data.heroImage
 }));
+
+const hasConsent = data.consent === true;
+const earningsBands = (earnings.bands ?? {}) as EarningsBands;
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumFractionDigits: 0
+});
+const bandTitles: Record<string, string> = {
+  new: 'New lane',
+  growing: 'Growing lane',
+  top25: 'Top 25%',
+  top10: 'Top 10%'
+};
+
+const primaryEarningsSlug = activePlatforms
+  .map((platform) => platform.slug)
+  .find((slug) => slug && earningsBands[slug]);
+
+let rangeBadge: { title: string; value: string } | undefined;
+if (hasConsent && data.range_band) {
+  const targetSlug = primaryEarningsSlug ?? (Object.keys(earningsBands)[0] ?? '');
+  const range = targetSlug ? earningsBands[targetSlug]?.[data.range_band] : undefined;
+  if (range) {
+    rangeBadge = {
+      title: `${bandTitles[data.range_band] ?? data.range_band} • ${targetSlug.toUpperCase()}`,
+      value: `${formatter.format(range[0])}–${formatter.format(range[1])} / week`
+    };
+  }
+}
 ---
 
 <MainLayout
@@ -105,84 +139,142 @@ const relatedCards = related.map((entry) => ({
   />
   <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
 
-  <!-- SECTION: Hero -->
-  <section class="glass overflow-hidden rounded-[42px] px-10 py-14">
-    <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-      <div class="space-y-6">
-        <span class="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
-          Example model page
-        </span>
-        <div class="space-y-4">
-          <h1 class="font-display text-5xl text-white sm:text-6xl">{data.name}</h1>
-          <p class="text-sm uppercase tracking-[0.3em] text-rose-petal/80">{data.archetype}</p>
-          <p class="max-w-2xl text-base leading-relaxed text-white/70">
-            {data.summary}
-          </p>
-          <p class="text-xs uppercase tracking-[0.3em] text-white/55">
-            Demo only • No promotion or representation. Use this layout to craft your own profile once you claim the starter kit.
-          </p>
+  <Notices />
+
+  {hasConsent ? (
+    <section class="glass overflow-hidden rounded-[42px] px-10 py-14">
+      <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+        <div class="space-y-6">
+          <span class="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
+            Example model page
+          </span>
+          <div class="space-y-4">
+            <h1 class="font-display text-5xl text-white sm:text-6xl">{data.name}</h1>
+            <p class="text-sm uppercase tracking-[0.3em] text-rose-petal/80">{data.archetype}</p>
+            <p class="max-w-2xl text-base leading-relaxed text-white/70">{data.summary}</p>
+            {rangeBadge && (
+              <p class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white/60">
+                {rangeBadge.title}: {rangeBadge.value}
+              </p>
+            )}
+            {data.quote && (
+              <blockquote class="rounded-3xl border border-white/10 bg-black/30 p-4 text-sm italic text-white/70">
+                “{data.quote}”
+              </blockquote>
+            )}
+            <p class="text-xs uppercase tracking-[0.3em] text-white/55">
+              Demo only • No promotion or representation. Use this layout to craft your own profile once you claim the starter kit.
+            </p>
+          </div>
+          <div class="space-y-3">
+            <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">Platform lineup</p>
+            <div class="flex flex-wrap gap-3" data-test={`${model.id}-platform-buttons`}>
+              {activePlatforms.map((platform) => (
+                platform.active !== false ? (
+                  <a
+                    data-platform={platform.slug}
+                    class={`rounded-full border px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] shadow-glow transition hover:-translate-y-1 ${
+                      platform.variant === 'primary'
+                        ? 'border-rose-gold/60 bg-rose-gold text-midnight'
+                        : 'border-rose-gold/40 bg-rose-gold/15 text-rose-petal hover:bg-rose-gold/25'
+                    }`}
+                    href={buildHref(platform)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {platform.name}
+                  </a>
+                ) : (
+                  <span
+                    data-platform={platform.slug}
+                    class="rounded-full border border-white/15 bg-white/5 px-6 py-2 text-xs uppercase tracking-[0.28em] text-white/40"
+                    aria-disabled="true"
+                  >
+                    {platform.name} • Inactive
+                  </span>
+                )
+              ))}
+            </div>
+          </div>
         </div>
-        <div class="space-y-3">
-          <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">Platform lineup</p>
-          <div class="flex flex-wrap gap-3" data-test={`${model.id}-platform-buttons`}>
-            {activePlatforms.map((platform) => (
-              platform.active !== false ? (
-                <a
-                  data-platform={platform.slug}
-                  class={`rounded-full border px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] shadow-glow transition hover:-translate-y-1 ${
-                    platform.variant === 'primary'
-                      ? 'border-rose-gold/60 bg-rose-gold text-midnight'
-                      : 'border-rose-gold/40 bg-rose-gold/15 text-rose-petal hover:bg-rose-gold/25'
-                  }`}
-                  href={buildHref(platform)}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {platform.name}
-                </a>
-              ) : (
-                <span
-                  data-platform={platform.slug}
-                  class="rounded-full border border-white/15 bg-white/5 px-6 py-2 text-xs uppercase tracking-[0.28em] text-white/40"
-                  aria-disabled="true"
-                >
-                  {platform.name} • Inactive
-                </span>
-              )
-            ))}
+        <div class="relative space-y-6">
+          <div class="pointer-events-none absolute -top-16 right-4 hidden h-36 w-36 rounded-full bg-rose-gold/30 blur-3xl lg:block"></div>
+          <div class="glass relative overflow-hidden rounded-[38px]">
+            <img src={data.heroImage} alt={data.name} class="h-full w-full object-cover" loading="lazy" />
+          </div>
+          <BannerSlot id="model_sidebar_tall" />
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="glass overflow-hidden rounded-[42px] px-10 py-14">
+      <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+        <div class="space-y-5">
+          <span class="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.4em] text-amber-200/80">
+            Unaffiliated listing
+          </span>
+          <h1 class="font-display text-5xl text-white sm:text-6xl">{data.name}</h1>
+          <p class="text-xs uppercase tracking-[0.3em] text-white/45">
+            Visuals withheld until this creator opts in. Reach them directly on the official platforms below.
+          </p>
+          <div class="space-y-3">
+            <p class="text-xs uppercase tracking-[0.4em] text-rose-petal/70">Platform lineup</p>
+            <div class="flex flex-wrap gap-3" data-test={`${model.id}-platform-buttons`}>
+              {activePlatforms.map((platform) => (
+                platform.active !== false ? (
+                  <a
+                    data-platform={platform.slug}
+                    class="rounded-full border border-white/15 bg-white/5 px-6 py-2 text-xs uppercase tracking-[0.28em] text-white/70 transition hover:-translate-y-1 hover:bg-white/10"
+                    href={buildHref(platform)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {platform.name}
+                  </a>
+                ) : (
+                  <span
+                    data-platform={platform.slug}
+                    class="rounded-full border border-white/15 bg-white/5 px-6 py-2 text-xs uppercase tracking-[0.28em] text-white/40"
+                    aria-disabled="true"
+                  >
+                    {platform.name} • Inactive
+                  </span>
+                )
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4">
+          <BannerSlot id="model_sidebar_tall" />
+          <div class="rounded-3xl border border-white/10 bg-white/5 px-4 py-4 text-xs uppercase tracking-[0.35em] text-white/45">
+            Consent pending — imagery locked.
           </div>
         </div>
       </div>
-      <div class="relative space-y-6">
-        <div class="pointer-events-none absolute -top-16 right-4 hidden h-36 w-36 rounded-full bg-rose-gold/30 blur-3xl lg:block"></div>
-        <div class="glass relative overflow-hidden rounded-[38px]">
-          <img src={data.heroImage} alt={data.name} class="h-full w-full object-cover" loading="lazy" />
-        </div>
-        <!-- SLOT: model_sidebar_tall -->
-        <BannerSlot id="model_sidebar_tall" />
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- SLOT: model_mid_rectangle -->
-  <BannerSlot id="model_mid_rectangle" class="mt-16" />
+  {hasConsent && (
+    <>
+      <BannerSlot id="model_mid_rectangle" class="mt-16" />
 
-  <!-- SECTION: Gallery -->
-  <section class="space-y-8">
-    <h2 class="section-heading">Gallery &amp; Atmosphere</h2>
-    <div class="grid gap-6 sm:grid-cols-3">
-      {data.gallery.map((item, index) => (
-        <div class="glass overflow-hidden rounded-3xl" style={`animation-delay: ${index * 0.1}s`}>
-          <img src={item} alt={`${data.name} gallery ${index + 1}`} class="h-56 w-full object-cover" loading="lazy" />
+      <section class="space-y-8">
+        <h2 class="section-heading">Gallery &amp; Atmosphere</h2>
+        <div class="grid gap-6 sm:grid-cols-3">
+          {data.gallery.map((item, index) => (
+            <div class="glass overflow-hidden rounded-3xl" style={`animation-delay: ${index * 0.1}s`}>
+              <img src={item} alt={`${data.name} gallery ${index + 1}`} class="h-56 w-full object-cover" loading="lazy" />
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
-    <div class="grid gap-4 sm:grid-cols-3">
-      <div class="video-placeholder">Video Teaser</div>
-      <div class="video-placeholder">Behind the Scenes</div>
-      <div class="video-placeholder">Fan-Favorite Moment</div>
-    </div>
-  </section>
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="video-placeholder">Video Teaser</div>
+          <div class="video-placeholder">Behind the Scenes</div>
+          <div class="video-placeholder">Fan-Favorite Moment</div>
+        </div>
+      </section>
+    </>
+  )}
 
   {relatedCards.length > 0 && (
     <section class="space-y-6">

@@ -1,0 +1,38 @@
+{
+  "name": "Maya Knox",
+  "archetype": "Chaturbate midnight poet",
+  "summary": "Maya Knox writes on-screen haikus, runs cozy nightcap shows, and keeps mods whispering soft prompts for VIPs.",
+  "heroImage": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1280&q=80",
+  "cardImage": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=720&q=80",
+  "gallery": [
+    "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1478454197698-1526513ad1a3?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=900&q=80"
+  ],
+  "consent": false,
+  "featured": false,
+  "platforms": [
+    {
+      "name": "Chaturbate",
+      "slug": "chaturbate",
+      "path": "/go/chaturbate-maya",
+      "placeholder": "https://chaturbate.com/b/maya_knox",
+      "variant": "primary"
+    },
+    {
+      "name": "CamSoda",
+      "slug": "camsoda",
+      "path": "/go/camsoda-maya",
+      "placeholder": "https://www.camsoda.com/mayaknox"
+    }
+  ],
+  "profiles": [
+    "https://chaturbate.com/b/maya_knox",
+    "https://www.camsoda.com/mayaknox"
+  ],
+  "tracking": {
+    "slotPrefix": "maya_knox",
+    "profileCamp": "maya_profile",
+    "beaconsCamp": "maya-knox"
+  }
+}

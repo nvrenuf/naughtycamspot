@@ -1,0 +1,38 @@
+{
+  "name": "Ivy Hart",
+  "archetype": "BongaCams boutique muse",
+  "summary": "Ivy Hart crafts multi-lingual intros, GEO-targeted merch drops, and velvet VIP rooms for her loyalists.",
+  "heroImage": "https://images.unsplash.com/photo-1478454197698-1526513ad1a3?auto=format&fit=crop&w=1280&q=80",
+  "cardImage": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=720&q=80",
+  "gallery": [
+    "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1478454197698-1526513ad1a3?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80"
+  ],
+  "consent": false,
+  "featured": false,
+  "platforms": [
+    {
+      "name": "BongaCams",
+      "slug": "bonga",
+      "path": "/go/bonga-ivy",
+      "placeholder": "https://bongacams.com/ivy_hart",
+      "variant": "primary"
+    },
+    {
+      "name": "Chaturbate",
+      "slug": "chaturbate",
+      "path": "/go/chaturbate-ivy",
+      "placeholder": "https://chaturbate.com/b/ivy_hart"
+    }
+  ],
+  "profiles": [
+    "https://bongacams.com/ivy_hart",
+    "https://chaturbate.com/b/ivy_hart"
+  ],
+  "tracking": {
+    "slotPrefix": "ivy_hart",
+    "profileCamp": "ivy_profile",
+    "beaconsCamp": "ivy-hart"
+  }
+}

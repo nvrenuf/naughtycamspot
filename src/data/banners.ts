@@ -1,112 +1,32 @@
-export type BannerSlotId =
-  | 'home_top_leaderboard'
-  | 'home_mid_rectangle'
-  | 'home_footer_leaderboard'
-  | 'model_sidebar_tall'
-  | 'model_mid_rectangle'
-  | 'post_top_strip'
-  | 'post_inline_rect'
-  | 'post_end_strip';
-
-type BannerCamp = 'home' | 'models' | 'blog';
-
-type BannerSlotConfig = {
-  id: BannerSlotId;
-  path: string;
-  camp: BannerCamp;
-  image: string;
-  alt: string;
-  width: number;
-  height: number;
-  placeholder: string;
-};
-
-const PLACEHOLDER_BASE = 'https://leads.naughtycamspot.com/sponsor';
-
-const buildPlaceholderHref = (slot: BannerSlotId, camp: BannerCamp) =>
-  `${PLACEHOLDER_BASE}/${camp}/${slot}`;
-
-export const bannerSlots: Record<BannerSlotId, BannerSlotConfig> = {
+export const BANNERS = {
   home_top_leaderboard: {
-    id: 'home_top_leaderboard',
-    path: '/go/home-top-leaderboard.php',
-    camp: 'home',
-    image: '/ads/home_top_leaderboard.svg',
-    alt: 'Homepage top leaderboard banner spotlighting starter-kit resources.',
-    width: 1200,
-    height: 250,
-    placeholder: buildPlaceholderHref('home_top_leaderboard', 'home')
-  },
-  home_mid_rectangle: {
-    id: 'home_mid_rectangle',
-    path: '/go/home-mid-rectangle.php',
-    camp: 'home',
-    image: '/ads/home_mid_rectangle.svg',
-    alt: 'Homepage mid-article rectangle banner showcasing starter guidance.',
-    width: 600,
-    height: 500,
-    placeholder: buildPlaceholderHref('home_mid_rectangle', 'home')
-  },
-  home_footer_leaderboard: {
-    id: 'home_footer_leaderboard',
-    path: '/go/home-footer-leaderboard.php',
-    camp: 'home',
-    image: '/ads/home_footer_leaderboard.svg',
-    alt: 'Homepage footer leaderboard banner inviting referral questions.',
-    width: 1200,
-    height: 250,
-    placeholder: buildPlaceholderHref('home_footer_leaderboard', 'home')
+    img: '/ads/leaderboard-970x90.svg',
+    alt: 'Start camming — get the free 14-day kit',
+    href_pages: 'https://www.camsoda.com/models',
+    href_prod: '/go/model-join.php?src=banner_home_top&camp=home&date=YYYYMMDD',
+    size: { w: 970, h: 90 },
+    note: 'Affiliate link. Not an agency. No earnings guarantee.'
   },
   model_sidebar_tall: {
-    id: 'model_sidebar_tall',
-    path: '/go/model-sidebar-tall.php',
-    camp: 'models',
-    image: '/ads/model_sidebar_tall.svg',
-    alt: 'Model profile sidebar tall banner featuring starter kit tips.',
-    width: 360,
-    height: 720,
-    placeholder: buildPlaceholderHref('model_sidebar_tall', 'models')
-  },
-  model_mid_rectangle: {
-    id: 'model_mid_rectangle',
-    path: '/go/model-mid-rectangle.php',
-    camp: 'models',
-    image: '/ads/model_mid_rectangle.svg',
-    alt: 'Model profile mid-article rectangle banner with launch strategy.',
-    width: 600,
-    height: 500,
-    placeholder: buildPlaceholderHref('model_mid_rectangle', 'models')
-  },
-  post_top_strip: {
-    id: 'post_top_strip',
-    path: '/go/post-top-strip.php',
-    camp: 'blog',
-    image: '/ads/post_top_strip.svg',
-    alt: 'Blog post top strip banner announcing referral resources.',
-    width: 900,
-    height: 150,
-    placeholder: buildPlaceholderHref('post_top_strip', 'blog')
+    img: '/ads/sky-160x600.svg',
+    alt: 'Join with our links',
+    href_pages: 'https://www.camsoda.com/models',
+    href_prod: '/go/model-join.php?src=banner_model_sidebar&camp=model&date=YYYYMMDD',
+    size: { w: 160, h: 600 },
+    note: 'Contains affiliate links.'
   },
   post_inline_rect: {
-    id: 'post_inline_rect',
-    path: '/go/post-inline-rect.php',
-    camp: 'blog',
-    image: '/ads/post_inline_rect.svg',
-    alt: 'Blog post inline rectangle banner highlighting starter insights.',
-    width: 600,
-    height: 400,
-    placeholder: buildPlaceholderHref('post_inline_rect', 'blog')
-  },
-  post_end_strip: {
-    id: 'post_end_strip',
-    path: '/go/post-end-strip.php',
-    camp: 'blog',
-    image: '/ads/post_end_strip.svg',
-    alt: 'Blog post end strip banner summarizing referral contact details.',
-    width: 900,
-    height: 200,
-    placeholder: buildPlaceholderHref('post_end_strip', 'blog')
+    img: '/ads/rect-300x250.svg',
+    alt: 'Claim your starter kit',
+    href_pages: '/claim',
+    href_prod: '/claim/',
+    size: { w: 300, h: 250 },
+    note: 'Free 14-day kit after signup proof.'
   }
-};
+} as const;
 
-export const getBannerSlot = (id: BannerSlotId) => bannerSlots[id];
+export type BannerSlotId = keyof typeof BANNERS;
+
+export type BannerConfig = (typeof BANNERS)[BannerSlotId];
+
+export const getBannerSlot = (id: BannerSlotId) => BANNERS[id];

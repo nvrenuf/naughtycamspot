@@ -1,28 +1,20 @@
 ---
-import { bannerSlots, getBannerSlot, type BannerSlotId } from '../data/banners';
-import { buildTrackedLink, withBase } from '../utils/links';
+import { BANNERS, getBannerSlot, type BannerSlotId } from '../data/banners';
+import { withBase } from '../utils/links';
 
 interface Props {
   id: BannerSlotId;
   class?: string;
+  showNote?: boolean;
 }
 
-const { id, class: className = '' } = Astro.props as Props;
+const { id, class: className = '', showNote = false } = Astro.props as Props;
 const slot = getBannerSlot(id);
 
 if (!slot) {
-  const available = Object.keys(bannerSlots).join(', ');
+  const available = Object.keys(BANNERS).join(', ');
   throw new Error(`Banner slot "${id}" is not defined. Available slots: ${available}`);
 }
-
-const href = buildTrackedLink({
-  path: slot.path,
-  slot: slot.id,
-  camp: slot.camp,
-  placeholder: slot.placeholder
-});
-
-const imageSrc = withBase(slot.image);
 
 const resolveHostname = (value: string | undefined) => {
   if (!value) {
@@ -38,31 +30,58 @@ const resolveHostname = (value: string | undefined) => {
 
 const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
 const isPagesBuild = import.meta.env.IS_PAGES === 'true';
-const shouldTrackClicks = siteHostname === 'naughtycamspot.com' && !isPagesBuild;
+const isProdSite = siteHostname === 'naughtycamspot.com';
+const shouldTrackClicks = isProdSite && !isPagesBuild;
 
+const formatDateStamp = () => {
+  const now = new Date();
+  const year = String(now.getUTCFullYear());
+  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(now.getUTCDate()).padStart(2, '0');
+  return `${year}${month}${day}`;
+};
+
+const pickHref = () => {
+  const raw = isPagesBuild ? slot.href_pages : slot.href_prod;
+  const hydrated = !isPagesBuild ? raw.replace('YYYYMMDD', formatDateStamp()) : raw;
+  if (hydrated.startsWith('http')) {
+    return hydrated;
+  }
+  return withBase(hydrated);
+};
+
+const href = pickHref();
+const isExternal = /^https?:\/\//.test(href);
 const anchorClass = [
-  'banner-slot block overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 text-center shadow-glow',
+  'banner-slot block overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 text-center shadow-glow transition hover:-translate-y-1',
   className
 ]
   .filter(Boolean)
   .join(' ');
+
+const imageSrc = slot.img.startsWith('http') ? slot.img : withBase(slot.img);
 ---
-<a
-  class={anchorClass}
-  href={href}
-  target="_blank"
-  rel="nofollow sponsored"
-  data-track={shouldTrackClicks ? 'click' : undefined}
-  data-slot={shouldTrackClicks ? slot.id : undefined}
-  data-camp={shouldTrackClicks ? slot.camp : undefined}
->
-  <img
-    src={imageSrc}
-    alt={slot.alt}
-    width={slot.width}
-    height={slot.height}
-    loading="lazy"
-    decoding="async"
-    class="h-auto w-full object-cover"
-  />
-</a>
+<div class="space-y-3">
+  <a
+    class={anchorClass}
+    href={href}
+    target="_blank"
+    rel={isExternal ? 'nofollow noopener sponsored' : 'nofollow noopener'}
+    data-track={shouldTrackClicks ? 'click' : undefined}
+    data-slot={shouldTrackClicks ? id : undefined}
+    data-camp={shouldTrackClicks ? 'banner' : undefined}
+  >
+    <img
+      src={imageSrc}
+      alt={slot.alt}
+      width={slot.size.w}
+      height={slot.size.h}
+      loading="lazy"
+      decoding="async"
+      class="h-auto w-full object-cover"
+    />
+  </a>
+  {showNote && slot.note && (
+    <p class="text-xs uppercase tracking-[0.3em] text-white/45">{slot.note}</p>
+  )}
+</div>

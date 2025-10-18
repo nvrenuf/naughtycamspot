@@ -1,0 +1,368 @@
+---
+import LinkCTA from '../components/LinkCTA.astro';
+import Notices from '../components/Notices.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import programs from '../data/programs.json';
+
+interface Program {
+  key: string;
+  name: string;
+  join_base: string;
+  status: 'approved' | 'pending';
+  best_for: string[];
+}
+
+const formatDateStamp = () => {
+  const now = new Date();
+  const year = String(now.getUTCFullYear());
+  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(now.getUTCDate()).padStart(2, '0');
+  return `${year}${month}${day}`;
+};
+
+const dateStamp = formatDateStamp();
+const basePrograms = (programs as Program[]).map((program) => {
+  const joinHrefPages = program.join_base;
+  const joinHrefProdTemplate = `/go/model-join.php?src=recommend_${program.key}&camp=recommend&date=YYYYMMDD`;
+  const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', dateStamp);
+
+  return {
+    ...program,
+    joinHrefPages,
+    joinHrefProd,
+    joinHrefProdTemplate,
+    joinDisabled: program.status !== 'approved' || !/^https?:\/\//i.test(joinHrefPages ?? '')
+  };
+});
+
+const defaultAnswers = {
+  experience: 'new',
+  hours: 10,
+  timezone: 'NA',
+  language: 'EN',
+  content: 'cam only',
+  payout: 'ASAP',
+  device: 'basic'
+};
+
+const fieldClass =
+  'w-full rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 focus:border-rose-gold focus:outline-none focus:ring-2 focus:ring-rose-gold/40 backdrop-blur-xl';
+
+type Answers = typeof defaultAnswers;
+
+type Recommendation = (typeof basePrograms)[number] & {
+  score: number;
+  reasons: string[];
+};
+
+const ensureReasons = (rec: Recommendation) => {
+  const baseReasons = rec.best_for.map((item, index) =>
+    index === 0 ? `Strong fit for ${item}.` : `Also helps with ${item}.`
+  );
+  for (const reason of baseReasons) {
+    if (!rec.reasons.includes(reason)) {
+      rec.reasons.push(reason);
+    }
+  }
+  if (rec.reasons.length < 2) {
+    rec.reasons.push('Starter kit unlock keeps resources flowing.');
+  }
+  return rec;
+};
+
+const evaluate = (answers: Answers) => {
+  const entries: Recommendation[] = basePrograms.map((program) => ({
+    ...program,
+    score: 1,
+    reasons: []
+  }));
+  const map = new Map(entries.map((item) => [item.key, item] as const));
+
+  const addReason = (key: string, reason: string, weight = 1) => {
+    const target = map.get(key);
+    if (!target) return;
+    target.score += weight;
+    if (!target.reasons.includes(reason)) {
+      target.reasons.push(reason);
+    }
+  };
+
+  if (answers.experience === 'new' && answers.payout === 'ASAP') {
+    addReason('camsoda', 'Fast weekly payouts keep new creators liquid.', 2);
+    addReason('camsoda', 'Low-friction verification so you go live faster.', 1);
+  }
+
+  if (answers.timezone === 'NA') {
+    addReason('chaturbate', 'Massive North America traffic for your schedule.', 1.5);
+    addReason('chaturbate', 'Room categories stay busy 24/7 for EN-first creators.', 1);
+  }
+
+  if (answers.timezone === 'EU' || answers.timezone === 'LatAm') {
+    addReason('bonga', 'Regional bounties reward EU / LatAm creators.', 1.5);
+    addReason('bonga', 'Geo-weighted promos help you surface faster.', 1);
+  }
+
+  if (answers.content === 'cam + clips') {
+    addReason('chaturbate', 'Clip-friendly ecosystem to diversify later.', 0.5);
+  }
+
+  if (answers.device === 'pro') {
+    addReason('chaturbate', 'Pro setups shine on high-volume directories.', 0.5);
+  }
+
+  entries.forEach(ensureReasons);
+
+  return entries
+    .sort((a, b) => {
+      if (b.score === a.score) {
+        return a.name.localeCompare(b.name);
+      }
+      return b.score - a.score;
+    })
+    .slice(0, 3);
+};
+
+const defaultRecommendations = evaluate(defaultAnswers);
+const clientPrograms = JSON.stringify(
+  basePrograms.map((program) => ({
+    ...program,
+    joinHrefProd: program.joinHrefProdTemplate
+  }))
+);
+---
+
+<MainLayout title="Cam platform recommender" description="Answer a few prompts and get your top NaughtyCamSpot platform matches.">
+  <section class="space-y-8">
+    <Notices />
+    <div class="space-y-4">
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Find your starting platforms</h1>
+      <p class="max-w-3xl text-base text-white/70">
+        Tune the inputs to match your situation. We&apos;ll translate those signals into a ranked list of partner programs and tell
+        you why they fit. Use the guarded links to unlock the starter kit.
+      </p>
+    </div>
+    <form id="recommend-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="space-y-2 text-sm text-white/70">
+          <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Experience level</span>
+          <select name="experience" class={fieldClass}>
+            <option value="new" selected>new</option>
+            <option value="intermediate">intermediate</option>
+          </select>
+        </label>
+        <label class="space-y-2 text-sm text-white/70">
+          <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Hours per week</span>
+          <input name="hours" type="number" min="1" value="10" class={fieldClass} />
+        </label>
+        <label class="space-y-2 text-sm text-white/70">
+          <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Timezone</span>
+          <select name="timezone" class={fieldClass}>
+            <option value="NA" selected>NA</option>
+            <option value="EU">EU</option>
+            <option value="LatAm">LatAm</option>
+            <option value="APAC">APAC</option>
+          </select>
+        </label>
+        <label class="space-y-2 text-sm text-white/70">
+          <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Primary language</span>
+          <select name="language" class={fieldClass}>
+            <option value="EN" selected>EN</option>
+            <option value="ES">ES</option>
+            <option value="PT">PT</option>
+            <option value="RU">RU</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label class="space-y-2 text-sm text-white/70">
+          <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Content mix</span>
+          <select name="content" class={fieldClass}>
+            <option value="cam only" selected>cam only</option>
+            <option value="cam + clips">cam + clips</option>
+          </select>
+        </label>
+        <label class="space-y-2 text-sm text-white/70">
+          <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Payout urgency</span>
+          <select name="payout" class={fieldClass}>
+            <option value="ASAP" selected>ASAP</option>
+            <option value="flexible">flexible</option>
+          </select>
+        </label>
+        <label class="space-y-2 text-sm text-white/70">
+          <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Device / gear setup</span>
+          <select name="device" class={fieldClass}>
+            <option value="basic" selected>basic</option>
+            <option value="mid">mid</option>
+            <option value="pro">pro</option>
+          </select>
+        </label>
+      </div>
+    </form>
+    <section
+      class="space-y-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl"
+      id="recommend-results"
+      data-programs={clientPrograms}
+      data-is-pages={import.meta.env.IS_PAGES === 'true' ? 'true' : 'false'}
+      data-claim-pages="/claim"
+      data-claim-prod="/claim/"
+    >
+      <div class="space-y-2">
+        <h2 class="font-display text-3xl text-white">Your best starting points</h2>
+        <p class="text-sm text-white/60">Switch the form inputs to refresh this guidance. We pick the top three matches.</p>
+      </div>
+      <div class="space-y-5" id="recommendation-list">
+        {defaultRecommendations.map((result) => (
+          <article class="rounded-3xl border border-white/10 bg-black/30 p-5">
+            <header class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h3 class="font-display text-2xl text-white">{result.name}</h3>
+                {result.status !== 'approved' && (
+                  <p class="text-xs uppercase tracking-[0.35em] text-amber-200">Pending</p>
+                )}
+              </div>
+              <div class="flex flex-col gap-2 sm:flex-row">
+                <LinkCTA
+                  label="Join with our links"
+                  href_pages={result.joinHrefPages}
+                  href_prod={result.joinHrefProd}
+                  disabled={result.joinDisabled}
+                />
+                <LinkCTA label="Claim starter kit" variant="secondary" href_pages="/claim" href_prod="/claim/" />
+              </div>
+            </header>
+            <ul class="mt-4 space-y-2 text-sm text-white/70">
+              {result.reasons.slice(0, 2).map((reason) => (
+                <li class="flex items-start gap-2">
+                  <span aria-hidden="true" class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-gold"></span>
+                  <span>{reason}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <p class="text-xs uppercase tracking-[0.3em] text-white/45">
+        This is guidance, not a guarantee. Use our links → claim the free 14-day starter kit.
+      </p>
+    </section>
+  </section>
+  <script is:inline>
+    const form = document.querySelector('#recommend-form');
+    const resultsContainer = document.querySelector('#recommend-results');
+    const list = document.querySelector('#recommendation-list');
+    if (form && resultsContainer && list) {
+      const programs = JSON.parse(resultsContainer.dataset.programs || '[]');
+      const formatDateStamp = () => {
+        const now = new Date();
+        return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
+      };
+      const ensureReasons = (rec) => {
+        const baseReasons = (rec.best_for || []).map((item, index) =>
+          index === 0 ? `Strong fit for ${item}.` : `Also helps with ${item}.`
+        );
+        baseReasons.forEach((reason) => {
+          if (!rec.reasons.includes(reason)) {
+            rec.reasons.push(reason);
+          }
+        });
+        if (rec.reasons.length < 2) {
+          rec.reasons.push('Starter kit unlock keeps resources flowing.');
+        }
+        return rec;
+      };
+      const evaluate = (answers) => {
+        const dateStamp = formatDateStamp();
+        const items = programs.map((program) => ({
+          ...program,
+          joinHrefProd: program.joinHrefProd.replace('YYYYMMDD', dateStamp),
+          score: 1,
+          reasons: []
+        }));
+        const map = new Map(items.map((item) => [item.key, item]));
+        const addReason = (key, reason, weight = 1) => {
+          const target = map.get(key);
+          if (!target) return;
+          target.score += weight;
+          if (!target.reasons.includes(reason)) {
+            target.reasons.push(reason);
+          }
+        };
+        if (answers.experience === 'new' && answers.payout === 'ASAP') {
+          addReason('camsoda', 'Fast weekly payouts keep new creators liquid.', 2);
+          addReason('camsoda', 'Low-friction verification so you go live faster.', 1);
+        }
+        if (answers.timezone === 'NA') {
+          addReason('chaturbate', 'Massive North America traffic for your schedule.', 1.5);
+          addReason('chaturbate', 'Room categories stay busy 24/7 for EN-first creators.', 1);
+        }
+        if (answers.timezone === 'EU' || answers.timezone === 'LatAm') {
+          addReason('bonga', 'Regional bounties reward EU / LatAm creators.', 1.5);
+          addReason('bonga', 'Geo-weighted promos help you surface faster.', 1);
+        }
+        if (answers.content === 'cam + clips') {
+          addReason('chaturbate', 'Clip-friendly ecosystem to diversify later.', 0.5);
+        }
+        if (answers.device === 'pro') {
+          addReason('chaturbate', 'Pro setups shine on high-volume directories.', 0.5);
+        }
+        items.forEach(ensureReasons);
+        return items
+          .sort((a, b) => {
+            if (b.score === a.score) {
+              return a.name.localeCompare(b.name);
+            }
+            return b.score - a.score;
+          })
+          .slice(0, 3);
+      };
+      const render = (recommendations) => {
+        list.innerHTML = recommendations
+          .map((result) => {
+            const reasons = result.reasons.slice(0, 2)
+              .map((reason) => `<li class="flex items-start gap-2"><span aria-hidden="true" class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-gold"></span><span>${reason}</span></li>`)
+              .join('');
+            const joinHrefPages = result.joinHrefPages;
+            const joinHrefProd = result.joinHrefProd;
+            const resolvedJoinHref = isPagesBuild ? joinHrefPages : joinHrefProd;
+            const joinDisabled =
+              result.joinDisabled || (isPagesBuild ? !/^https?:\/\//i.test(joinHrefPages || '') : !resolvedJoinHref);
+            const joinLabel = 'Join with our links';
+            const joinIsExternal = /^https?:\/\//i.test(resolvedJoinHref);
+            const joinTarget = joinIsExternal ? '_blank' : '_self';
+            const joinRel = joinIsExternal ? 'nofollow noopener' : '';
+            const joinButton = joinDisabled
+              ? `<span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40" aria-disabled="true">${joinLabel}</span>`
+              : `<a class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1" href="${resolvedJoinHref}" target="${joinTarget}"${joinRel ? ` rel="${joinRel}"` : ''}>${joinLabel}${joinIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
+            const claimHref = isPagesBuild ? claimPages : claimProd;
+            const claimIsExternal = /^https?:\/\//i.test(claimHref);
+            const claimTarget = claimIsExternal ? '_blank' : '_self';
+            const claimRel = claimIsExternal ? 'nofollow noopener' : '';
+            const claimButton = `<a class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:bg-white/10" href="${claimHref}" target="${claimTarget}"${claimRel ? ` rel="${claimRel}"` : ''}>Claim starter kit${claimIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
+            const pendingLabel = result.status !== 'approved'
+              ? '<p class="text-xs uppercase tracking-[0.35em] text-amber-200">Pending</p>'
+              : '';
+            return `<article class="rounded-3xl border border-white/10 bg-black/30 p-5"><header class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="font-display text-2xl text-white">${result.name}</h3>${pendingLabel}</div><div class="flex flex-col gap-2 sm:flex-row">${joinButton}${claimButton}</div></header><ul class="mt-4 space-y-2 text-sm text-white/70">${reasons}</ul></article>`;
+          })
+          .join('');
+      };
+      const collect = () => {
+        const formData = new FormData(form);
+        return {
+          experience: formData.get('experience') || 'new',
+          hours: Number(formData.get('hours') || 10),
+          timezone: formData.get('timezone') || 'NA',
+          language: formData.get('language') || 'EN',
+          content: formData.get('content') || 'cam only',
+          payout: formData.get('payout') || 'ASAP',
+          device: formData.get('device') || 'basic'
+        };
+      };
+      const update = () => {
+        const answers = collect();
+        const results = evaluate(answers);
+        render(results);
+      };
+      form.addEventListener('input', update);
+      form.addEventListener('change', update);
+    }
+  </script>
+</MainLayout>
