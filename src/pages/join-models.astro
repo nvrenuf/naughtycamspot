@@ -1,7 +1,8 @@
 ---
 import BannerSlot from '../components/BannerSlot.astro';
+import LinkCTA from '../components/LinkCTA.astro';
 import MainLayout from '../layouts/MainLayout.astro';
-import { buildTrackedLink, getClaimUrl, isPagesBuild } from '../utils/links';
+import { getClaimUrl, isPagesBuild } from '../utils/links';
 
 const heroBullets = [
   {
@@ -46,12 +47,18 @@ const faqItems = [
 ];
 
 const CTA_PLACEHOLDER = 'https://naughtycamspot.com/models';
-const ctaHref = buildTrackedLink({
-  path: '/go/model-join.php',
-  slot: 'join_models',
-  camp: 'landing',
-  placeholder: CTA_PLACEHOLDER
-});
+
+const formatDateStamp = () => {
+  const now = new Date();
+  const year = String(now.getUTCFullYear());
+  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(now.getUTCDate()).padStart(2, '0');
+  return `${year}${month}${day}`;
+};
+
+const joinHrefPages = CTA_PLACEHOLDER;
+const joinHrefProdTemplate = '/go/model-join.php?src=join_models&camp=landing&date=YYYYMMDD';
+const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', formatDateStamp());
 const pagesBuild = isPagesBuild();
 const claimUrl = getClaimUrl();
 const claimLinkIsExternal = claimUrl.startsWith('http');
@@ -108,15 +115,14 @@ const onboardingSteps = [
         ))}
       </div>
       <div>
-        <a
+        <LinkCTA
           data-cta="join-models"
-          class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          href={ctaHref}
-          target="_blank"
-          rel={pagesBuild ? 'noreferrer' : 'nofollow noreferrer'}
-        >
-          Start Concierge Intake
-        </a>
+          class="border border-rose-gold/60 bg-rose-gold text-midnight text-sm shadow-glow"
+          href_pages={joinHrefPages}
+          href_prod={joinHrefProd}
+          label="Start Concierge Intake"
+          rel="noreferrer"
+        />
         <p class="mt-3 text-xs uppercase tracking-[0.3em] text-white/40">
           {pagesBuild ? 'Opens external concierge briefing' : 'Tracked via /go/model-join.php'}
         </p>
