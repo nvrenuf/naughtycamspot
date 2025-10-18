@@ -35,4 +35,19 @@ const models = defineCollection({
   })
 });
 
-export const collections = { models };
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    excerpt: z.string(),
+    publishDate: z.date(),
+    category: z.string(),
+    author: z.string(),
+    heroImage: z.string().url(),
+    heroImageAlt: z.string().optional(),
+    cardImage: z.string().url().optional()
+  })
+});
+
+export const collections = { models, blog };
