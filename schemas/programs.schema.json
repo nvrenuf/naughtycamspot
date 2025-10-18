@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "key",
+      "name",
+      "join_base",
+      "subid_params",
+      "payout",
+      "kyc",
+      "traffic",
+      "geo",
+      "best_for",
+      "status"
+    ],
+    "properties": {
+      "key": { "type": "string", "minLength": 1 },
+      "name": { "type": "string", "minLength": 1 },
+      "join_base": { "type": "string", "minLength": 1 },
+      "subid_params": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 }
+      },
+      "payout": { "type": "string", "minLength": 1 },
+      "kyc": { "type": "string", "minLength": 1 },
+      "traffic": { "type": "string", "minLength": 1 },
+      "geo": { "type": "string", "minLength": 1 },
+      "best_for": {
+        "type": "array",
+        "items": { "type": "string", "minLength": 1 }
+      },
+      "status": { "type": "string", "enum": ["pending", "approved"] }
+    }
+  }
+}

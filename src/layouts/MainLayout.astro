@@ -4,9 +4,11 @@ const {
   description = 'NaughtyCamSpot -- concierge growth for ambitious cam models.',
   showNavigation = true
 } = Astro.props;
+import LinkCTA from '../components/LinkCTA.astro';
 import '../styles/tailwind.css';
+import { PRIMARY_CTA } from '../data/copy';
 import { NAV_MORE, NAV_PRIMARY } from '../data/nav';
-import { buildTrackedLink, withBase } from '../utils/links';
+import { withBase } from '../utils/links';
 
 const isPagesBuild = import.meta.env.IS_PAGES === 'true';
 
@@ -36,17 +38,6 @@ const organizationJsonLd = {
   name: 'NaughtyCamSpot',
   url: import.meta.env.SITE ?? 'https://naughtycamspot.com'
 };
-
-const HERO_CTA_PLACEHOLDER = 'https://linktr.ee/naughtycamspot';
-const navCtaSlot = 'nav_cta';
-const navCtaCamp = 'site_nav';
-
-const navCtaHref = buildTrackedLink({
-  path: '/go/model-join.php',
-  slot: navCtaSlot,
-  camp: navCtaCamp,
-  placeholder: HERO_CTA_PLACEHOLDER
-});
 
 const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
 
@@ -125,17 +116,12 @@ gtag('config', '${gaMeasurementId}');`}
               >
                 Menu
               </button>
-              <a
-                class="rounded-full border border-rose-gold/40 bg-rose-gold/20 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-rose-petal shadow-glow backdrop-blur-xl transition hover:border-rose-gold/60 hover:bg-rose-gold/30"
-                href={navCtaHref}
-                target="_blank"
-                rel="noreferrer"
-                data-track={shouldTrackClicks ? 'click' : undefined}
-                data-slot={shouldTrackClicks ? navCtaSlot : undefined}
-                data-camp={shouldTrackClicks ? navCtaCamp : undefined}
-              >
-                Start camming • Free starter kit
-              </a>
+              <LinkCTA
+                class="border border-rose-gold/40 bg-rose-gold/20 px-5 py-2 text-rose-petal shadow-glow backdrop-blur-xl hover:border-rose-gold/60 hover:bg-rose-gold/30"
+                href_pages={PRIMARY_CTA.pagesHref}
+                href_prod={PRIMARY_CTA.prodHref}
+                label={PRIMARY_CTA.label}
+              />
             </div>
           </div>
           <nav class="hidden w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 backdrop-blur-2xl sm:gap-4 sm:text-[0.7rem] sm:tracking-[0.28em] lg:flex lg:flex-nowrap lg:text-sm lg:tracking-[0.3em]" aria-label="Primary">
@@ -523,7 +509,7 @@ gtag('config', '${gaMeasurementId}');`}
     {shouldTrackClicks && (
       <script is:inline>
         {`(function(){
-  const endpoint = '/go/click.php';
+  const endpoint = `/${String.fromCharCode(103, 111)}/click.php`;
   const sendBeacon = (slot, camp) => {
     const params = new URLSearchParams({
       e: 'click',

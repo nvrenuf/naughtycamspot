@@ -1,4 +1,5 @@
 ---
+import LinkCTA from './LinkCTA.astro';
 import { BANNERS, getBannerSlot, type BannerSlotId } from '../data/banners';
 import { withBase } from '../utils/links';
 
@@ -41,17 +42,10 @@ const formatDateStamp = () => {
   return `${year}${month}${day}`;
 };
 
-const pickHref = () => {
-  const raw = isPagesBuild ? slot.href_pages : slot.href_prod;
-  const hydrated = !isPagesBuild ? raw.replace('YYYYMMDD', formatDateStamp()) : raw;
-  if (hydrated.startsWith('http')) {
-    return hydrated;
-  }
-  return withBase(hydrated);
-};
+const hydrateProdHref = (value: string) => value.replace('YYYYMMDD', formatDateStamp());
 
-const href = pickHref();
-const isExternal = /^https?:\/\//.test(href);
+const hrefPages = slot.href_pages;
+const hrefProd = hydrateProdHref(slot.href_prod);
 const anchorClass = [
   'banner-slot block overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 text-center shadow-glow transition hover:-translate-y-1',
   className
@@ -60,13 +54,15 @@ const anchorClass = [
   .join(' ');
 
 const imageSrc = slot.img.startsWith('http') ? slot.img : withBase(slot.img);
+const rel = 'sponsored';
 ---
 <div class="space-y-3">
-  <a
+  <LinkCTA
     class={anchorClass}
-    href={href}
-    target="_blank"
-    rel={isExternal ? 'nofollow noopener sponsored' : 'nofollow noopener'}
+    href_pages={hrefPages}
+    href_prod={hrefProd}
+    label={slot.alt}
+    rel={rel}
     data-track={shouldTrackClicks ? 'click' : undefined}
     data-slot={shouldTrackClicks ? id : undefined}
     data-camp={shouldTrackClicks ? 'banner' : undefined}
@@ -80,7 +76,7 @@ const imageSrc = slot.img.startsWith('http') ? slot.img : withBase(slot.img);
       decoding="async"
       class="h-auto w-full object-cover"
     />
-  </a>
+  </LinkCTA>
   {showNote && slot.note && (
     <p class="text-xs uppercase tracking-[0.3em] text-white/45">{slot.note}</p>
   )}

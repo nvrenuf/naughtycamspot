@@ -7,6 +7,9 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 - Start local dev server: `npm run dev`
 - Create a production build: `npm run build`
 - Build for GitHub Pages: `npm run build:pages`
+- Pages safety scan: `npm run test:pages-safety`
+- JSON schema validation: `npm run check:schemas`
+- Homepage snapshot check: `npm run test:snapshot`
 
 ## Deploy model
 
@@ -24,6 +27,17 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 - `images/` — shared static assets ready to surface in future sections
 
 Legacy HTML pages, generators, and blog scaffolding have been removed. Work forward from the Astro surface for new sections and routes.
+
+## Local hooks
+
+Enable the shared Git hooks to run safety checks before every push:
+
+```bash
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-push
+```
+
+The pre-push hook executes the Pages safety scan, JSON schema validation, and the hero snapshot test.
 
 ## SEO & indexing
 

@@ -2,83 +2,61 @@
 import { withBase } from '../utils/links';
 
 interface Props {
-  label: string;
   href_pages: string;
   href_prod: string;
-  variant?: 'primary' | 'secondary';
+  label: string;
   class?: string;
-  trackSlot?: string;
-  trackCamp?: string;
-  disabled?: boolean;
 }
 
 const {
-  label,
   href_pages,
   href_prod,
-  variant = 'primary',
+  label,
   class: className = '',
-  trackSlot,
-  trackCamp,
-  disabled = false
-} = Astro.props as Props;
+  ...rest
+} = Astro.props as Props & Record<string, unknown>;
 
-const resolveHostname = (value: string | undefined) => {
-  if (!value) {
-    return '';
-  }
-
-  try {
-    return new URL(value).hostname;
-  } catch {
-    return String(value).replace(/^https?:\/\//, '').split('/')[0];
-  }
-};
-
-const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
-const isPagesBuild = import.meta.env.IS_PAGES === 'true';
-const shouldTrackClicks = siteHostname === 'naughtycamspot.com' && !isPagesBuild;
-
+const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
+const isPagesFlag = typeof import.meta.env.IS_PAGES === 'string' ? import.meta.env.IS_PAGES === 'true' : false;
+const isPagesBuild = isPagesFlag || baseUrl !== '/';
 const rawHref = (isPagesBuild ? href_pages : href_prod) ?? '';
-const trimmedHref = rawHref.trim();
-const isTbd = /^tbd$/i.test(trimmedHref);
-const isUnavailable = disabled || trimmedHref.length === 0 || isTbd;
+const trimmedHref = typeof rawHref === 'string' ? rawHref.trim() : '';
+
+if (!trimmedHref) {
+  throw new Error('LinkCTA requires a non-empty href.');
+}
+
+const resolvedHref = trimmedHref.startsWith('http') ? trimmedHref : withBase(trimmedHref);
+const isExternal = /^https?:\/\//i.test(resolvedHref);
+
+const {
+  rel: relFromProps,
+  target: targetFromProps,
+  ...restProps
+} = rest as Record<string, unknown>;
+
+const relTokens = new Set<string>();
+
+if (typeof relFromProps === 'string' && relFromProps.trim().length > 0) {
+  relFromProps
+    .split(/\s+/)
+    .filter(Boolean)
+    .forEach((token) => relTokens.add(token));
+}
+
+if (isExternal) {
+  relTokens.add('nofollow');
+  relTokens.add('noopener');
+}
+
+const finalRel = relTokens.size > 0 ? Array.from(relTokens).join(' ') : undefined;
+const finalTarget = isExternal ? '_blank' : (typeof targetFromProps === 'string' ? targetFromProps : undefined);
 
 const baseClass =
-  variant === 'secondary'
-    ? 'inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:bg-white/10'
-    : 'inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1';
-
+  'inline-flex items-center justify-center rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] transition hover:-translate-y-1';
 const combinedClass = [baseClass, className].filter(Boolean).join(' ');
-const disabledClass = 'inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40';
-
-let finalHref = '';
-let isExternalHref = false;
-let target: '_blank' | '_self' | undefined;
-let rel: string | undefined;
-
-if (!isUnavailable) {
-  finalHref = trimmedHref.startsWith('http') ? trimmedHref : withBase(trimmedHref);
-  isExternalHref = /^https?:\/\//.test(finalHref);
-  target = isExternalHref ? '_blank' : undefined;
-  rel = isExternalHref ? 'nofollow noopener' : undefined;
-}
+const hasSlot = Astro.slots.has('default');
 ---
-{isUnavailable ? (
-  <span class={disabledClass} aria-disabled="true">
-    {label}
-  </span>
-) : (
-  <a
-    class={combinedClass}
-    href={finalHref}
-    target={target}
-    rel={rel}
-    data-track={shouldTrackClicks && trackSlot ? 'click' : undefined}
-    data-slot={shouldTrackClicks ? trackSlot : undefined}
-    data-camp={shouldTrackClicks ? trackCamp : undefined}
-  >
-    {label}
-    {isExternalHref && <span class="ml-2" aria-hidden="true">↗</span>}
-  </a>
-)}
+<a {...restProps} class={combinedClass} href={resolvedHref} target={finalTarget} rel={finalRel}>
+  {hasSlot ? <slot /> : label}
+</a>

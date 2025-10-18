@@ -2,6 +2,7 @@
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { PRIMARY_CTA } from '../data/copy';
 import contests from '../data/contests.json';
 
 const formatDateStamp = () => {
@@ -47,8 +48,18 @@ const joinHrefProd = `/go/model-join.php?src=contests_banner&camp=contests&date=
         <p class="text-sm text-white/65">
           Use the guarded join path so we can verify your account and unlock the starter kit once you send proof.
         </p>
-        <LinkCTA label="Start enrollment" href_pages="https://www.camsoda.com/models" href_prod={joinHrefProd} />
-        <LinkCTA label="Claim starter kit" variant="secondary" href_pages="/claim" href_prod="/claim/" />
+        <LinkCTA
+          class="border border-rose-gold/60 bg-rose-gold text-midnight"
+          label="Start enrollment"
+          href_pages="https://www.camsoda.com/models"
+          href_prod={joinHrefProd}
+        />
+        <LinkCTA
+          class="border border-white/20 bg-transparent text-white hover:bg-white/10"
+          href_pages={PRIMARY_CTA.pagesHref}
+          href_prod={PRIMARY_CTA.prodHref}
+          label={PRIMARY_CTA.label}
+        />
       </aside>
     </div>
   </section>
