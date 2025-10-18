@@ -1,0 +1,38 @@
+[
+  {
+    "key": "camsoda",
+    "name": "CamSoda",
+    "join_base": "https://www.camsoda.com/models?id=naughtycamboss",
+    "subid_params": ["s1", "track"],
+    "payout": "weekly",
+    "kyc": "low friction",
+    "traffic": "good in NA",
+    "geo": "T1 US-heavy",
+    "best_for": ["fast start", "simple setup"],
+    "status": "approved"
+  },
+  {
+    "key": "chaturbate",
+    "name": "Chaturbate",
+    "join_base": "https://chaturbate.com/in/?tour=5zjT&campaign=YIOhf&track=default",
+    "subid_params": ["track"],
+    "payout": "weekly",
+    "kyc": "medium",
+    "traffic": "very high",
+    "geo": "global",
+    "best_for": ["largest audience", "broad categories"],
+    "status": "approved"
+  },
+  {
+    "key": "bonga",
+    "name": "BongaCams",
+    "join_base": "TBD",
+    "subid_params": ["TBD"],
+    "payout": "weekly",
+    "kyc": "medium",
+    "traffic": "high EU/EE",
+    "geo": "T1–T4 bounty tiers",
+    "best_for": ["GEO-tuned payouts"],
+    "status": "pending"
+  }
+]
