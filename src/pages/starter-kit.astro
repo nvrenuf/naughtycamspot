@@ -1,5 +1,117 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import { getClaimUrl } from '../utils/links';
+
+const claimUrl = getClaimUrl();
+const claimLinkIsExternal = claimUrl.startsWith('http');
+const claimLinkTarget = claimLinkIsExternal ? '_blank' : undefined;
+const claimLinkRel = claimLinkIsExternal ? 'noreferrer' : undefined;
+
+const launchSchedule = [
+  { day: 'Day 1', focus: 'Account hygiene', actions: ['Secure passwords & 2FA', 'Upload payout documents', 'Submit tax forms'] },
+  { day: 'Day 2', focus: 'Persona calibration', actions: ['Define on-camera persona pillars', 'Curate three wardrobe looks', 'Draft room story statement'] },
+  { day: 'Day 3', focus: 'Lighting rehearsal', actions: ['Position key & fill lights', 'Set white balance presets', 'Capture screenshot for claim proof'] },
+  { day: 'Day 4', focus: 'Soft open rehearsal', actions: ['Run 20-minute private stream', 'Record self-review notes', 'Log mod feedback'] },
+  { day: 'Day 5', focus: 'Offer architecture', actions: ['Finalise tip menu ladder', 'Tag VIP incentives', 'Load custom emojis/overlays'] },
+  { day: 'Day 6', focus: 'Community priming', actions: ['Send teaser emails/DMs', 'Brief moderators with scripts', 'Schedule hero launch event'] },
+  { day: 'Day 7', focus: 'Signature launch show', actions: ['Run hero script', 'Showcase tiered incentives', 'Pin concierge tracking goal'] },
+  { day: 'Day 8', focus: 'Debrief & optimisation', actions: ['Review conversion metrics', 'Update lighting notes', 'Log top tippers & gifting cues'] },
+  { day: 'Day 9', focus: 'VIP nurture', actions: ['Send tailored DM check-ins', 'Record audio thank-yous', 'Invite VIPs to next stream'] },
+  { day: 'Day 10', focus: 'Momentum show', actions: ['Run VIP spotlight script', 'Introduce limited-time bundle', 'Capture highlight clips'] },
+  { day: 'Day 11', focus: 'Rest & analysis', actions: ['Audit chat transcripts', 'Update show pacing matrix', 'Refresh hydration & vocal care'] },
+  { day: 'Day 12', focus: 'Collaboration planning', actions: ['Confirm guest or mod co-host', 'Align boundaries & safe words', 'Prep shared tip goals'] },
+  { day: 'Day 13', focus: 'Theme night execution', actions: ['Run duet script variation', 'Upsell private experiences', 'Document fan reactions'] },
+  { day: 'Day 14', focus: 'Concierge debrief', actions: ['Submit claim follow-up notes', 'Review pricing ladder data', 'Lock next milestone target'] }
+];
+
+const lightingChecklist = [
+  {
+    heading: 'Prep the space',
+    items: [
+      'Dust surfaces and remove reflective clutter.',
+      'Close curtains and control stray sunlight before setup.',
+      'Place a neutral backdrop or fabric to avoid colour casts.'
+    ]
+  },
+  {
+    heading: 'Lighting placement',
+    items: [
+      'Position key light 45° from your face at eye level.',
+      'Bounce fill light off a wall to soften shadows.',
+      'Use a hair/rim light or LED strip to separate you from the background.'
+    ]
+  },
+  {
+    heading: 'Camera & colour',
+    items: [
+      'Lock white balance around 4,000–4,500K for warm luxury tones.',
+      'Set exposure so highlights stay below 90% to retain skin detail.',
+      'Test focus points seated and standing; mark floor positions with tape.'
+    ]
+  }
+];
+
+const tipMenu = [
+  { tier: 'Warm-up', tokens: '25–75', experience: 'Compliment spin, vibe check question, or reveal next show theme.' },
+  { tier: 'Momentum', tokens: '100–250', experience: 'Signature tease sequence, custom thank-you audio, or chat shout-out trio.' },
+  { tier: 'VIP', tokens: '300–600', experience: 'Five-minute private queue pass, exclusive photo drop, or priority mod attention.' },
+  { tier: 'Hero', tokens: '750+', experience: 'Concierge-scripted fantasy scene, collaborative goal unlock, or bespoke bundle.' }
+];
+
+const priceLadder = [
+  { label: 'Starter bundle', contents: 'Three-photo set + personalised welcome DM', price: '$19 / 190 tokens', cadence: 'Offer once per show during intro.' },
+  { label: 'VIP evening', contents: '15-min private + aftercare voice note', price: '$79 / 790 tokens', cadence: 'Promote after midpoint hype spike.' },
+  { label: 'Concierge circle', contents: 'Monthly membership + weekly DM check-ins', price: '$129 subscription', cadence: 'Pitch on closing nights with urgency.' },
+  { label: 'White-glove patron', contents: 'Monthly custom content + quarterly dinner date (virtual)', price: '$399 retainer', cadence: 'Reserved for trusted whales with direct mod vetting.' }
+];
+
+const showScripts = [
+  {
+    name: 'Hero Launch',
+    opening: '“Welcome to the first night of our concierge era. Take a deep breath with me and drop your name in chat so I can greet you properly.”',
+    middle: 'Layer your first two goals with sensory descriptors and invite mods to echo them every five minutes.',
+    closing: '“Before we slip away, bookmark tomorrow’s rendezvous and check DMs for your gratitude note.”'
+  },
+  {
+    name: 'VIP Spotlight',
+    opening: '“Tonight is for the insiders. Mods have the gold list ready—claim your glow if you want in.”',
+    middle: 'Highlight two VIP-only menu items and run a 10-minute storytelling arc anchored to them.',
+    closing: '“Mods will send your aftercare prompts. Whisper me if you need a custom send-off.”'
+  },
+  {
+    name: 'Collaboration Duet',
+    opening: '“We’re sharing the stage tonight. Show love to our guest and let’s choreograph the energy together.”',
+    middle: 'Switch POV every five minutes, narrating transitions so chat feels guided.',
+    closing: '“Tip ledger closes in three minutes—drop your finale requests now so we can honour them live.”'
+  }
+];
+
+const tosCheatsheet = [
+  {
+    platform: 'Bonga / BongaCash',
+    reminders: [
+      'No explicit mention of revenue guarantees in promos.',
+      'All referral links must live behind compliant landing pages.',
+      'Model verification screenshots must hide sensitive IDs before sharing.'
+    ]
+  },
+  {
+    platform: 'Chaturbate',
+    reminders: [
+      'Keep giveaway language compliant—use “thank-you reward” instead of “raffle”.',
+      'No off-platform payment handles in public chat; route to tip menu entries.',
+      'Age and identity statements must be read verbatim during debut shows.'
+    ]
+  },
+  {
+    platform: 'CamSoda',
+    reminders: [
+      'DM promotions require opt-in; use concierge templates for consent tracking.',
+      'Wardrobe slips should be treated as private content and never shared publicly.',
+      'All collaborations must be pre-approved with partner performer IDs on file.'
+    ]
+  }
+];
 ---
 
 <MainLayout
@@ -8,32 +120,139 @@ import MainLayout from '../layouts/MainLayout.astro';
 >
   <section class="content-card space-y-6">
     <span class="hero-tagline">Starter kit preview</span>
-    <h1 class="section-heading">Inside the free 14-day launch kit</h1>
-    <p class="text-sm text-white/70">
-      This page is a placeholder overview. After you verify your signup through our links, we email the complete bundle with downloadable files and editable templates.
+    <h1 class="font-display text-4xl text-white sm:text-5xl">Inside the free 14-day launch kit</h1>
+    <p class="max-w-2xl text-sm text-white/70">
+      Submit your signup proof and the concierge team delivers this entire playbook within one business day. Use it as a command centre for your launch runway or print it as a desk-side PDF using the export tool.
     </p>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+        href={claimUrl}
+        target={claimLinkTarget}
+        rel={claimLinkRel}
+      >
+        Claim your starter kit
+        {claimLinkIsExternal && <span class="ml-2" aria-hidden="true">↗</span>}
+      </a>
+      <p class="text-xs uppercase tracking-[0.3em] text-white/45">
+        {claimLinkIsExternal
+          ? 'Pages preview links route to our secure Tally form.'
+          : 'Production builds open the secure PHP intake on /claim/.'}
+      </p>
+    </div>
   </section>
 
-  <section class="content-card space-y-4">
-    <h2 class="section-heading">What ships immediately</h2>
-    <ul class="grid gap-4 text-sm text-white/70 sm:grid-cols-2">
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Lighting checklist (home studio + travel)</li>
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Show script with 3 opening variations</li>
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Tip menu + upsell ladder matrix</li>
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">14-day schedule with daily focus prompts</li>
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Pricing ladder for tokens, tributes, and bundles</li>
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Terms of service cheatsheet with fast references</li>
-    </ul>
+  <section class="content-card space-y-6">
+    <h2 class="section-heading">14-day launch schedule</h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      {launchSchedule.map((entry) => (
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
+          <div class="flex items-center justify-between text-xs uppercase tracking-[0.35em] text-rose-petal/70">
+            <span>{entry.day}</span>
+            <span>{entry.focus}</span>
+          </div>
+          <ul class="mt-3 space-y-2 text-sm text-white/70">
+            {entry.actions.map((action) => (
+              <li>• {action}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   </section>
 
-  <section class="content-card space-y-4 text-sm text-white/70">
-    <h2 class="section-heading">How to unlock it</h2>
-    <ol class="grid gap-4 sm:grid-cols-2">
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Join a paid platform through our affiliate rotator.</li>
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Send proof via screenshot or referral code.</li>
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Receive the starter kit email bundle instantly.</li>
-      <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">Ask follow-up questions any time during the 14-day runway.</li>
-    </ol>
+  <section class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+    <div class="content-card space-y-5">
+      <h2 class="section-heading">Lighting checklist</h2>
+      <div class="space-y-4 text-sm text-white/70">
+        {lightingChecklist.map((section) => (
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
+            <h3 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{section.heading}</h3>
+            <ul class="mt-3 space-y-2">
+              {section.items.map((item) => (
+                <li>• {item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="content-card space-y-5">
+      <h2 class="section-heading">Tip menu foundations</h2>
+      <table class="w-full text-left text-sm text-white/70">
+        <thead class="text-xs uppercase tracking-[0.35em] text-white/50">
+          <tr>
+            <th class="pb-2">Tier</th>
+            <th class="pb-2">Tokens</th>
+            <th class="pb-2">Experience</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/10">
+          {tipMenu.map((item) => (
+            <tr class="align-top">
+              <td class="py-3 pr-4 font-semibold text-white">{item.tier}</td>
+              <td class="py-3 pr-4">{item.tokens}</td>
+              <td class="py-3">{item.experience}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="content-card space-y-6">
+    <h2 class="section-heading">Price ladder examples</h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      {priceLadder.map((offer) => (
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{offer.label}</p>
+          <p class="mt-2 font-semibold text-white">{offer.contents}</p>
+          <p class="mt-2 text-sm text-white/70">{offer.price}</p>
+          <p class="mt-3 text-xs uppercase tracking-[0.3em] text-white/40">{offer.cadence}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-card space-y-6">
+    <h2 class="section-heading">Show script capsules</h2>
+    <div class="grid gap-4 md:grid-cols-3">
+      {showScripts.map((script) => (
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
+          <h3 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{script.name}</h3>
+          <dl class="mt-3 space-y-3 text-sm text-white/70">
+            <div>
+              <dt class="font-semibold text-white">Opening cue</dt>
+              <dd class="mt-1">{script.opening}</dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Mid-show focus</dt>
+              <dd class="mt-1">{script.middle}</dd>
+            </div>
+            <div>
+              <dt class="font-semibold text-white">Closing ritual</dt>
+              <dd class="mt-1">{script.closing}</dd>
+            </div>
+          </dl>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-card space-y-6">
+    <h2 class="section-heading">Terms of service cheatsheet</h2>
+    <div class="grid gap-4 md:grid-cols-3">
+      {tosCheatsheet.map((block) => (
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
+          <h3 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{block.platform}</h3>
+          <ul class="mt-3 space-y-2 text-sm text-white/70">
+            {block.reminders.map((note) => (
+              <li>• {note}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   </section>
 
   <section class="content-card space-y-4 text-xs uppercase tracking-[0.3em] text-white/55">
@@ -42,4 +261,49 @@ import MainLayout from '../layouts/MainLayout.astro';
     <p>Accounts remain yours; you can leave anytime.</p>
     <p>Affiliate links fund the starter kit.</p>
   </section>
+
+  <style>
+    @media print {
+      :global(body) {
+        background: #ffffff !important;
+        color: #111111 !important;
+        font-family: 'Inter', system-ui, sans-serif;
+      }
+
+      :global(main) {
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
+      :global(.content-card) {
+        background: #ffffff !important;
+        border: 1px solid #d0d0d0 !important;
+        color: #111111 !important;
+        box-shadow: none !important;
+      }
+
+      :global(.content-card a) {
+        color: #111111 !important;
+        text-decoration: underline;
+      }
+
+      :global(.content-card .text-white\/70),
+      :global(.content-card .text-white\/65),
+      :global(.content-card .text-white\/55),
+      :global(.content-card .text-white\/50),
+      :global(.content-card .text-white\/40) {
+        color: #333333 !important;
+      }
+
+      :global(.hero-shell),
+      :global(.shadow-glow) {
+        box-shadow: none !important;
+      }
+
+      :global(a[href^="http"])::after {
+        content: ' (' attr(href) ')';
+        font-size: 0.8em;
+      }
+    }
+  </style>
 </MainLayout>
