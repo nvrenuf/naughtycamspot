@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340" role="img" aria-labelledby="title" aria-describedby="desc">
+  <title id="title">Mini focus checklist</title>
+  <desc id="desc">Three large checkboxes labelled 2-hr blocks, 1 goal, and 3-tier ladder.</desc>
+  <style>
+    :root {
+      color: #15151f;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color: #f4f4f8;
+      }
+    }
+    .card {
+      fill: currentColor;
+      opacity: 0.08;
+      stroke: currentColor;
+      stroke-opacity: 0.25;
+      stroke-width: 2;
+      rx: 24px;
+    }
+    text {
+      fill: currentColor;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .box {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 6;
+      rx: 18px;
+    }
+    .check {
+      stroke: currentColor;
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+  <rect class="card" x="30" y="30" width="460" height="280" />
+  <g transform="translate(60,90)">
+    <rect class="box" width="80" height="80" />
+    <polyline class="check" points="18,46 36,64 64,28" />
+    <text x="120" y="52">2-hr blocks</text>
+  </g>
+  <g transform="translate(60,170)">
+    <rect class="box" width="80" height="80" />
+    <polyline class="check" points="18,46 36,64 64,28" />
+    <text x="120" y="52">1 goal</text>
+  </g>
+  <g transform="translate(60,250)">
+    <rect class="box" width="80" height="80" />
+    <polyline class="check" points="18,46 36,64 64,28" />
+    <text x="120" y="52">3-tier ladder</text>
+  </g>
+</svg>

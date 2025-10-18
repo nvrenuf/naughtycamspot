@@ -10,6 +10,44 @@
   body {
     @apply bg-midnight text-white font-sans;
   }
+
+  img,
+  svg {
+    break-inside: avoid;
+    max-width: 100%;
+    height: auto;
+  }
+
+  figure,
+  .figure {
+    margin-block: 2.5rem;
+  }
+
+  figure figcaption,
+  .figure figcaption,
+  .figure-caption {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgb(216 220 228 / 0.78);
+    text-align: center;
+  }
+
+  @media print {
+    body {
+      background: #ffffff !important;
+      color: #111111 !important;
+    }
+
+    a {
+      color: #111111;
+    }
+
+    figure figcaption,
+    .figure figcaption,
+    .figure-caption {
+      color: #333333;
+    }
+  }
 }
 
 @layer components {
