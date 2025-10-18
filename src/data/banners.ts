@@ -1,3 +1,5 @@
+import { DISCLOSURE } from './copy';
+
 export const BANNERS = {
   home_top_leaderboard: {
     img: '/ads/leaderboard-970x90.svg',
@@ -5,7 +7,7 @@ export const BANNERS = {
     href_pages: 'https://www.camsoda.com/models',
     href_prod: '/go/model-join.php?src=banner_home_top&camp=home&date=YYYYMMDD',
     size: { w: 970, h: 90 },
-    note: 'Affiliate link. Not an agency. No earnings guarantee.'
+    note: DISCLOSURE
   },
   model_sidebar_tall: {
     img: '/ads/sky-160x600.svg',
@@ -13,7 +15,7 @@ export const BANNERS = {
     href_pages: 'https://www.camsoda.com/models',
     href_prod: '/go/model-join.php?src=banner_model_sidebar&camp=model&date=YYYYMMDD',
     size: { w: 160, h: 600 },
-    note: 'Contains affiliate links.'
+    note: DISCLOSURE
   },
   post_inline_rect: {
     img: '/ads/rect-300x250.svg',

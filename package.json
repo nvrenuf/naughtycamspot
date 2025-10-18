@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "imports": {
+    "ajv": "./vendor/ajv/index.js"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "build:pages": "astro build --config astro.config.pages.mjs",
     "preview": "astro preview",
-    "test": "node --test \"tests/**/*.mjs\" && vitest run"
+    "test": "node --test \"tests/**/*.mjs\" && vitest run",
+    "test:pages-safety": "node scripts/test-pages-safety.mjs",
+    "check:schemas": "node scripts/validate-json.mjs",
+    "test:snapshot": "node scripts/snapshot-hero.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "file:vendor/astrojs-sitemap",
@@ -19,6 +25,7 @@
     "tailwindcss": "^3.4.13"
   },
   "devDependencies": {
+    "ajv": "file:vendor/ajv",
     "concurrently": "^9.2.1",
     "puppeteer": "^24.25.0",
     "vitest": "^1.6.0"

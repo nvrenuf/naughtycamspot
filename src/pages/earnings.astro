@@ -2,6 +2,7 @@
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { PRIMARY_CTA } from '../data/copy';
 import earnings from '../data/earnings.json';
 import programs from '../data/programs.json';
 
@@ -78,13 +79,24 @@ const cards = bandEntries.map(([key, bands]) => {
           </div>
           <footer class="mt-auto">
             <div class="flex flex-col gap-3 sm:flex-row">
+              {card.joinDisabled ? (
+                <span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40">
+                  Join path pending
+                </span>
+              ) : (
+                <LinkCTA
+                  class="border border-rose-gold/60 bg-rose-gold text-midnight"
+                  href_pages={card.joinHrefPages}
+                  href_prod={card.joinHrefProd}
+                  label="Join with our links"
+                />
+              )}
               <LinkCTA
-                label="Join with our links"
-                href_pages={card.joinHrefPages}
-                href_prod={card.joinHrefProd}
-                disabled={card.joinDisabled}
+                class="border border-white/20 bg-transparent text-white hover:bg-white/10"
+                href_pages={PRIMARY_CTA.pagesHref}
+                href_prod={PRIMARY_CTA.prodHref}
+                label={PRIMARY_CTA.label}
               />
-              <LinkCTA label="Claim starter kit" variant="secondary" href_pages="/claim" href_prod="/claim/" />
             </div>
           </footer>
         </article>

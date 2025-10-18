@@ -1,39 +1,13 @@
 ---
 import BannerSlot from '../components/BannerSlot.astro';
+import LinkCTA from '../components/LinkCTA.astro';
 import SEO from '../components/SEO.astro';
+import { HERO, PRIMARY_CTA } from '../data/copy';
 import MainLayout from '../layouts/MainLayout.astro';
-import { buildTrackedLink, withBase } from '../utils/links';
+import { withBase } from '../utils/links';
 import { getCollection } from 'astro:content';
 
-const HERO_CTA_PLACEHOLDER = 'https://linktr.ee/naughtycamspot';
-
 const canonicalPath = Astro.url.pathname;
-
-const heroCtaSlot = 'home_hero';
-const heroCtaCamp = 'home';
-
-const heroCtaHref = buildTrackedLink({
-  path: '/go/model-join.php',
-  slot: heroCtaSlot,
-  camp: heroCtaCamp,
-  placeholder: HERO_CTA_PLACEHOLDER
-});
-
-const resolveHostname = (value) => {
-  if (!value) {
-    return '';
-  }
-
-  try {
-    return new URL(value).hostname;
-  } catch {
-    return String(value).replace(/^https?:\/\//, '').split('/')[0];
-  }
-};
-
-const siteHostname = resolveHostname(import.meta.env.SITE ?? '');
-const isPagesBuild = import.meta.env.IS_PAGES === 'true';
-const shouldTrackClicks = siteHostname === 'naughtycamspot.com' && !isPagesBuild;
 
 const featuredModelEntries = await getCollection('models', (entry) => entry.data.featured);
 const sortedFeaturedModels = featuredModelEntries
@@ -160,33 +134,29 @@ const websiteJsonLd = {
       <div class="relative grid gap-14 lg:grid-cols-[1.1fr_0.9fr]">
         <div class="space-y-8">
           <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80">
-            Referral starter kit hub
+            StartRight referral hub
           </p>
           <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">
-            Sign up with our links → get a free 14-day starter kit
+            {HERO.title}
           </h1>
-          <p class="max-w-xl text-lg text-white/70">
+          <p class="max-w-xl text-lg text-white/70">{HERO.sub}</p>
+          <p class="max-w-xl text-base text-white/65">
             We’re a referral collective—no management, no promo promises. Use our affiliate links, send proof, and you’ll
             instantly receive tools, schedules, and scripts to launch faster while keeping full control of your accounts.
           </p>
           <div class="flex flex-col gap-4 sm:flex-row">
-            <a
-              class="flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-midnight shadow-glow transition hover:-translate-y-1"
-              href={heroCtaHref}
-              target="_blank"
-              rel="noreferrer"
-              data-track={shouldTrackClicks ? 'click' : undefined}
-              data-slot={shouldTrackClicks ? heroCtaSlot : undefined}
-              data-camp={shouldTrackClicks ? heroCtaCamp : undefined}
-            >
-              Start camming • Free starter kit
-            </a>
-            <a
-              class="flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 backdrop-blur-xl transition hover:-translate-y-1"
-              href={withBase('/compare')}
-            >
-              Explore platforms
-            </a>
+            <LinkCTA
+              class="border border-rose-gold/60 bg-rose-gold text-midnight text-sm tracking-[0.2em] shadow-glow"
+              href_pages={PRIMARY_CTA.pagesHref}
+              href_prod={PRIMARY_CTA.prodHref}
+              label={PRIMARY_CTA.label}
+            />
+            <LinkCTA
+              class="border border-white/15 bg-white/5 text-white/80 text-sm tracking-[0.2em] backdrop-blur-xl hover:bg-white/10"
+              href_pages="/compare"
+              href_prod="/compare"
+              label="Explore platforms"
+            />
           </div>
         </div>
         <div class="relative flex items-center justify-center">
@@ -285,18 +255,18 @@ const websiteJsonLd = {
             <p class="max-w-xl text-base text-white/70">{featuredMuse.story}</p>
           </div>
           <div class="flex flex-col gap-4 sm:flex-row">
-            <a
-              class="flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-midnight shadow-glow transition hover:-translate-y-1"
-              href={withBase(featuredMuse.ctaHref)}
-            >
-              Meet {featuredMuse.name}
-            </a>
-            <a
-              class="flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 backdrop-blur-xl transition hover:-translate-y-1"
-              href={withBase('/models')}
-            >
-              Tour the full gallery
-            </a>
+            <LinkCTA
+              class="border border-rose-gold/60 bg-rose-gold text-midnight text-sm tracking-[0.2em] shadow-glow"
+              href_pages={featuredMuse.ctaHref}
+              href_prod={featuredMuse.ctaHref}
+              label={`Meet ${featuredMuse.name}`}
+            />
+            <LinkCTA
+              class="border border-white/15 bg-white/5 text-white/80 text-sm tracking-[0.2em] backdrop-blur-xl hover:bg-white/10"
+              href_pages="/models"
+              href_prod="/models"
+              label="Tour the full gallery"
+            />
           </div>
           <p class="text-sm text-white/55">{featuredMuse.quote}</p>
         </div>

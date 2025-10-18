@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+npm run test:pages-safety
+npm run check:schemas
+npm run test:snapshot

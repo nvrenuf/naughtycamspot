@@ -1,7 +1,7 @@
 export const NAV_PRIMARY = [
   { href: '/', label: 'Home' },
   { href: '/compare', label: 'Compare' },
-  { href: '/recommend', label: 'Recommend' },
+  { href: '/startright', label: 'StartRight' },
   { href: '/earnings', label: 'Earnings' },
   { href: '/blog', label: 'Blog' }
 ];

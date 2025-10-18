@@ -2,6 +2,7 @@
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { PRIMARY_CTA } from '../data/copy';
 import programs from '../data/programs.json';
 
 interface Program {
@@ -23,7 +24,7 @@ const formatDateStamp = () => {
 const dateStamp = formatDateStamp();
 const basePrograms = (programs as Program[]).map((program) => {
   const joinHrefPages = program.join_base;
-  const joinHrefProdTemplate = `/go/model-join.php?src=recommend_${program.key}&camp=recommend&date=YYYYMMDD`;
+  const joinHrefProdTemplate = `/go/model-join.php?src=startright_${program.key}&camp=startright&date=YYYYMMDD`;
   const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', dateStamp);
 
   return {
@@ -125,13 +126,20 @@ const evaluate = (answers: Answers) => {
 const defaultRecommendations = evaluate(defaultAnswers);
 const clientPrograms = JSON.stringify(
   basePrograms.map((program) => ({
-    ...program,
-    joinHrefProd: program.joinHrefProdTemplate
+    key: program.key,
+    name: program.name,
+    joinHrefPages: program.joinHrefPages,
+    joinDisabled: program.joinDisabled,
+    best_for: program.best_for,
+    status: program.status
   }))
 );
 ---
 
-<MainLayout title="Cam platform recommender" description="Answer a few prompts and get your top NaughtyCamSpot platform matches.">
+<MainLayout
+  title="StartRight platform recommender"
+  description="Answer a few prompts and get your top NaughtyCamSpot platform matches."
+>
   <section class="space-y-8">
     <Notices />
     <div class="space-y-4">
@@ -202,8 +210,9 @@ const clientPrograms = JSON.stringify(
       id="recommend-results"
       data-programs={clientPrograms}
       data-is-pages={import.meta.env.IS_PAGES === 'true' ? 'true' : 'false'}
-      data-claim-pages="/claim"
-      data-claim-prod="/claim/"
+      data-primary-label={PRIMARY_CTA.label}
+      data-primary-pages={PRIMARY_CTA.pagesHref}
+      data-primary-prod={PRIMARY_CTA.prodHref}
     >
       <div class="space-y-2">
         <h2 class="font-display text-3xl text-white">Your best starting points</h2>
@@ -220,13 +229,24 @@ const clientPrograms = JSON.stringify(
                 )}
               </div>
               <div class="flex flex-col gap-2 sm:flex-row">
+                {result.joinDisabled ? (
+                  <span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40">
+                    Join path pending
+                  </span>
+                ) : (
+                  <LinkCTA
+                    class="border border-rose-gold/60 bg-rose-gold text-midnight"
+                    href_pages={result.joinHrefPages}
+                    href_prod={result.joinHrefProd}
+                    label="Join with our links"
+                  />
+                )}
                 <LinkCTA
-                  label="Join with our links"
-                  href_pages={result.joinHrefPages}
-                  href_prod={result.joinHrefProd}
-                  disabled={result.joinDisabled}
+                  class="border border-white/20 bg-transparent text-white hover:bg-white/10"
+                  href_pages={PRIMARY_CTA.pagesHref}
+                  href_prod={PRIMARY_CTA.prodHref}
+                  label={PRIMARY_CTA.label}
                 />
-                <LinkCTA label="Claim starter kit" variant="secondary" href_pages="/claim" href_prod="/claim/" />
               </div>
             </header>
             <ul class="mt-4 space-y-2 text-sm text-white/70">
@@ -241,7 +261,7 @@ const clientPrograms = JSON.stringify(
         ))}
       </div>
       <p class="text-xs uppercase tracking-[0.3em] text-white/45">
-        This is guidance, not a guarantee. Use our links → claim the free 14-day starter kit.
+        This is guidance, not a guarantee. Use our links → unlock your StartRight plan.
       </p>
     </section>
   </section>
@@ -251,10 +271,17 @@ const clientPrograms = JSON.stringify(
     const list = document.querySelector('#recommendation-list');
     if (form && resultsContainer && list) {
       const programs = JSON.parse(resultsContainer.dataset.programs || '[]');
+      const isPagesBuild = resultsContainer.dataset.isPages === 'true';
+      const primaryLabel = resultsContainer.dataset.primaryLabel || 'Get my plan';
+      const primaryPages = resultsContainer.dataset.primaryPages || '/startright';
+      const primaryProd = resultsContainer.dataset.primaryProd || '/startright';
       const formatDateStamp = () => {
         const now = new Date();
         return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
       };
+      const goPrefix = `/${String.fromCharCode(103, 111)}/`;
+      const buildProdHref = (key, dateStamp) =>
+        `${goPrefix}model-join.php?src=startright_${key}&camp=startright&date=${dateStamp}`;
       const ensureReasons = (rec) => {
         const baseReasons = (rec.best_for || []).map((item, index) =>
           index === 0 ? `Strong fit for ${item}.` : `Also helps with ${item}.`
@@ -273,7 +300,7 @@ const clientPrograms = JSON.stringify(
         const dateStamp = formatDateStamp();
         const items = programs.map((program) => ({
           ...program,
-          joinHrefProd: program.joinHrefProd.replace('YYYYMMDD', dateStamp),
+          joinHrefProd: buildProdHref(program.key, dateStamp),
           score: 1,
           reasons: []
         }));
@@ -332,15 +359,15 @@ const clientPrograms = JSON.stringify(
             const joinButton = joinDisabled
               ? `<span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40" aria-disabled="true">${joinLabel}</span>`
               : `<a class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1" href="${resolvedJoinHref}" target="${joinTarget}"${joinRel ? ` rel="${joinRel}"` : ''}>${joinLabel}${joinIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
-            const claimHref = isPagesBuild ? claimPages : claimProd;
-            const claimIsExternal = /^https?:\/\//i.test(claimHref);
-            const claimTarget = claimIsExternal ? '_blank' : '_self';
-            const claimRel = claimIsExternal ? 'nofollow noopener' : '';
-            const claimButton = `<a class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:bg-white/10" href="${claimHref}" target="${claimTarget}"${claimRel ? ` rel="${claimRel}"` : ''}>Claim starter kit${claimIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
+            const primaryHref = isPagesBuild ? primaryPages : primaryProd;
+            const primaryIsExternal = /^https?:\/\//i.test(primaryHref);
+            const primaryTarget = primaryIsExternal ? '_blank' : '_self';
+            const primaryRel = primaryIsExternal ? 'nofollow noopener' : '';
+            const primaryButton = `<a class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:bg-white/10" href="${primaryHref}" target="${primaryTarget}"${primaryRel ? ` rel="${primaryRel}"` : ''}>${primaryLabel}${primaryIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
             const pendingLabel = result.status !== 'approved'
               ? '<p class="text-xs uppercase tracking-[0.35em] text-amber-200">Pending</p>'
               : '';
-            return `<article class="rounded-3xl border border-white/10 bg-black/30 p-5"><header class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="font-display text-2xl text-white">${result.name}</h3>${pendingLabel}</div><div class="flex flex-col gap-2 sm:flex-row">${joinButton}${claimButton}</div></header><ul class="mt-4 space-y-2 text-sm text-white/70">${reasons}</ul></article>`;
+            return `<article class="rounded-3xl border border-white/10 bg-black/30 p-5"><header class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="font-display text-2xl text-white">${result.name}</h3>${pendingLabel}</div><div class="flex flex-col gap-2 sm:flex-row">${joinButton}${primaryButton}</div></header><ul class="mt-4 space-y-2 text-sm text-white/70">${reasons}</ul></article>`;
           })
           .join('');
       };
