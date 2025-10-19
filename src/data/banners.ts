@@ -17,6 +17,14 @@ export const BANNERS = {
     size: { w: 160, h: 600 },
     note: DISCLOSURE
   },
+  model_mid_rectangle: {
+    img: '/ads/model_mid_rectangle.svg',
+    alt: 'Concierge-guided cam onboarding — unlock now',
+    href_pages: '/startright',
+    href_prod: '/go/model-join.php?src=banner_model_mid&camp=model&date=YYYYMMDD',
+    size: { w: 300, h: 250 },
+    note: DISCLOSURE
+  },
   post_inline_rect: {
     img: '/ads/rect-300x250.svg',
     alt: 'Claim your starter kit',

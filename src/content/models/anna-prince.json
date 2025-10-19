@@ -9,6 +9,9 @@
     "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=900&q=80",
     "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80"
   ],
+  "consent": true,
+  "quote": "When concierge runs the trenches, I stay in ritual mode and the conversions never slip.",
+  "range_band": "top10",
   "featured": true,
   "featuredOrder": 1,
   "platforms": [
