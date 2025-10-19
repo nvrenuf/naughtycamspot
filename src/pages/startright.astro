@@ -3,8 +3,11 @@ import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
-import { PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
+import { HERO, PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import programs from '../data/programs.json';
+
+const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+const qs = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${today}`;
 
 interface Program {
   key: string;
@@ -14,6 +17,8 @@ interface Program {
   best_for: string[];
 }
 
+const canonicalPath = '/startright';
+
 const formatDateStamp = () => {
   const now = new Date();
   const year = String(now.getUTCFullYear());
@@ -22,14 +27,26 @@ const formatDateStamp = () => {
   return `${year}${month}${day}`;
 };
 
-const canonicalPath = '/startright';
+const goBase = import.meta.env.IS_PAGES === 'true' ? '' : '/go';
+const modelJoinPath = `${goBase}/model-join.php`.replace(/\/{2,}/g, '/');
+
+const buildJoinHref = (key: string, date: string) => {
+  const params = new URLSearchParams({
+    src: `startright_${key}`,
+    camp: 'startright',
+    date,
+    slot: `startright_${key}`
+  });
+  return `${modelJoinPath}?${params.toString()}`;
+};
+
 const dateStamp = formatDateStamp();
-const skipQuery = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${dateStamp}`;
-const skipHrefPages = `${STARTRIGHT_SKIP.pagesHrefBase}${skipQuery}`;
+const skipHrefPages = `${STARTRIGHT_SKIP.pagesHrefBase}${qs}`;
 const skipHrefProd = skipHrefPages;
+
 const basePrograms = (programs as Program[]).map((program) => {
   const joinHrefPages = program.join_base;
-  const joinHrefProdTemplate = `${goPrefix}model-join.php?src=startright_${program.key}&camp=startright&date=YYYYMMDD`;
+  const joinHrefProdTemplate = `${modelJoinPath}?src=startright_${program.key}&camp=startright&date=YYYYMMDD`;
   const joinHrefProd = buildJoinHref(program.key, dateStamp);
 
   return {
@@ -160,6 +177,17 @@ const clientPrograms = JSON.stringify(
         Tune the inputs to match your situation. We&apos;ll translate those signals into a ranked list of partner programs, share
         why they fit, and route you to the guarded links you need to unlock the StartRight launch kit.
       </p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <LinkCTA
+          class="border border-rose-gold/60 bg-rose-gold text-midnight text-sm tracking-[0.2em] shadow-glow"
+          pagesHref={PRIMARY_CTA.pagesHref}
+          prodHref={PRIMARY_CTA.prodHref}
+          label={PRIMARY_CTA.label}
+        />
+        <a href={`/join-models${qs}`} class="btn btn-secondary w-full sm:w-auto">
+          Skip — pick my platforms
+        </a>
+      </div>
     </div>
     <form id="recommend-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
       <div class="grid gap-4 sm:grid-cols-2">
@@ -252,26 +280,26 @@ const clientPrograms = JSON.stringify(
                   ) : (
                     <LinkCTA
                       class="border border-rose-gold/60 bg-rose-gold text-midnight"
-                      href_pages={result.joinHrefPages}
-                      href_prod={result.joinHrefProd}
+                      pagesHref={result.joinHrefPages}
+                      prodHref={result.joinHrefProd}
                       label="Join with our links"
                     />
                   )}
                 </div>
                 <div class="flex flex-col gap-2 sm:items-start">
                   <LinkCTA
-                    class="border border-rose-gold/60 bg-rose-gold text-midnight"
-                    pagesHref={result.joinHrefPages}
-                    prodHref={result.joinHrefProd}
-                    label="Join with our links"
+                    class="border border-white/20 bg-transparent text-white hover:bg-white/10"
+                    pagesHref={PRIMARY_CTA.pagesHref}
+                    prodHref={PRIMARY_CTA.prodHref}
+                    label={PRIMARY_CTA.label}
                   />
-                )}
-                <LinkCTA
-                  class="border border-white/20 bg-transparent text-white hover:bg-white/10"
-                  pagesHref={PRIMARY_CTA.pagesHref}
-                  prodHref={PRIMARY_CTA.prodHref}
-                  label={PRIMARY_CTA.label}
-                />
+                  <LinkCTA
+                    class="border border-white/15 bg-transparent text-white/70 hover:border-white/30 hover:bg-white/10 hover:text-white"
+                    pagesHref={skipHrefPages}
+                    prodHref={skipHrefProd}
+                    label={STARTRIGHT_SKIP.label}
+                  />
+                </div>
               </div>
             </header>
             <ul class="mt-4 space-y-2 text-sm text-white/70">
@@ -307,7 +335,7 @@ const clientPrograms = JSON.stringify(
         const now = new Date();
         return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
       };
-      const goPrefix = `/${String.fromCharCode(103, 111)}/`;
+      const goBase = isPagesBuild ? '' : `/${String.fromCharCode(103, 111)}`;
       const searchParams = new URLSearchParams(window.location.search);
       const inboundSrc = searchParams.get('src') || '';
       const inboundCamp = searchParams.get('camp') || '';
@@ -334,7 +362,8 @@ const clientPrograms = JSON.stringify(
         if (tracking.camp) params.set('camp', tracking.camp);
         if (tracking.date) params.set('date', tracking.date);
         if (tracking.slot) params.set('slot', tracking.slot);
-        return `${goPrefix}model-join.php?${params.toString()}`;
+        const joinPath = goBase ? `${goBase}/model-join.php` : '/model-join.php';
+        return `${joinPath}?${params.toString()}`;
       };
       const applyTrackingToPath = (href, defaults) => {
         if (!href || /^https?:\/\//i.test(href)) {
