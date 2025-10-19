@@ -11,11 +11,12 @@
 - [ ] Build passes
 
 ## [#] Hero strip icon + text
-- [ ] Replace broken image with inline - [ ] Repl icon
-- [ ] Text: "STARTRIGHT — GET YOU- [ ]  KIT", href "/startright"
-- [- [- [ld passes; visible on home- [- [-40] Blog index + search
-- [- [- log shows list with tags
-- [ ] Client-side search- [ ] C title+excerpt; no external calls
+- [ ] Replace broken image with inline SVG camera icon
+- [ ] Text: "STARTRIGHT — GE- [ ] TFREE KIT", href "/startr- [ ] T [ ] Build passes; vi- [ ] Tn home
+
+## [#40] Blog in## [#
+- [ ] /blog shows l- [ ] th tags
+- [ ] Client-side sear- [across title+excerpt; no external calls
 - [ ] Build passes
 
 ## [#] Banner placeholders
