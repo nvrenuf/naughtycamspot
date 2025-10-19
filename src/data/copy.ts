@@ -10,3 +10,10 @@ export const PRIMARY_CTA = {
   pagesHref: '/startright',
   prodHref: '/startright'
 } as const;
+
+export const KIT = {
+  h1: 'StartRight Kit: your platform-matched launch plan',
+  sub: 'Choose where you were accepted. We assemble only what you need.',
+  claimCTA: { label: 'Claim StartRight Kit', pagesHref: '/claim', prodHref: '/claim/' },
+  joinCTA: { label: 'Join with our links', pagesHref: '/startright', prodHref: '/startright' }
+} as const;
