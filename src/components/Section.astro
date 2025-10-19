@@ -1,0 +1,32 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  bullets: string[];
+}
+
+const { id, title, bullets } = Astro.props as Props;
+---
+<article
+  id={id}
+  class="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl sm:p-8"
+>
+  <header class="space-y-2">
+    <h3 class="font-display text-2xl text-white">{title}</h3>
+    <a
+      href={`#${id}`}
+      class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-rose-gold/70 transition hover:text-rose-gold"
+    >
+      <span class="h-2 w-2 rounded-full bg-rose-gold/60"></span>
+      {id}
+    </a>
+  </header>
+  <ul class="space-y-3 text-sm text-white/80 sm:text-base">
+    {bullets.map((bullet) => (
+      <li class="flex gap-3">
+        <span class="mt-1 inline-flex h-2 w-2 flex-shrink-0 rounded-full bg-rose-gold/60"></span>
+        <span>{bullet}</span>
+      </li>
+    ))}
+  </ul>
+</article>

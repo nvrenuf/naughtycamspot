@@ -1,0 +1,19 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Notices from '../components/Notices.astro';
+import KitBuilder from '../components/KitBuilder.astro';
+import { KIT } from '../data/copy';
+---
+<MainLayout
+  title="StartRight Kit — dynamic, platform-matched launch plan"
+  description="Select your accepted platforms and assemble a launch plan that blends the StartRight basics with network-specific guidance."
+>
+  <section class="space-y-10">
+    <Notices />
+    <div class="space-y-4">
+      <h1 class="font-display text-4xl text-white sm:text-5xl">{KIT.h1}</h1>
+      <p class="max-w-3xl text-base text-white/70">{KIT.sub}</p>
+    </div>
+    <KitBuilder />
+  </section>
+</MainLayout>
