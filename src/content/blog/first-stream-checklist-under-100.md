@@ -16,7 +16,7 @@ Start with the room before touching tech. Wipe down your backdrop, clear clutter
 
 ## Lighting on a budget
 
-Buy two clip-on LED lamps (around $15 each) and a pack of warm diffusion gels. Position one lamp at a 45-degree angle for key light and bounce the second off a white wall as fill. A strand of fairy lights adds depth behind you. These notes are expanded inside the starter kit&apos;s lighting checklist.
+Buy two clip-on LED lamps (around $15 each) and a pack of warm diffusion gels. Position one lamp at a 45-degree angle for key light and bounce the second off a white wall as fill. A strand of fairy lights adds depth behind you. These notes are expanded inside the StartRight kit&apos;s lighting checklist.
 
 ## Audio that flatters
 
@@ -28,6 +28,6 @@ Light a candle that matches your room story—vanilla for cozy, sandalwood for l
 
 ## Final rehearsal
 
-Do a 15-minute dry run using one of the starter kit scripts. Practice your intro line, your first tip goal call-out, and the closing gratitude routine. Capture a screenshot for your claim submission while you rehearse so it&apos;s ready for concierge review.
+Do a 15-minute dry run using one of the StartRight kit scripts. Practice your intro line, your first tip goal call-out, and the closing gratitude routine. Capture a screenshot for your claim submission while you rehearse so it&apos;s ready for concierge review.
 
 You can create magic on a tight budget when every detail is intentional. Use this checklist alongside the full 14-day launch plan we send after your claim clears.

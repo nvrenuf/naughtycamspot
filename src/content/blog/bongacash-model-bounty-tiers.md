@@ -26,10 +26,10 @@ Once you have proof, widen the funnel. Host a themed stream where mods can answe
 
 ## Tier three: VIP runway
 
-At this stage, focus on quality control. Tier three referrals trigger higher bounty payouts, but the partners review them carefully. Use the starter kit&apos;s DM templates to follow up with prospects before sending them the link. You want genuinely motivated models joining through you.
+At this stage, focus on quality control. Tier three referrals trigger higher bounty payouts, but the partners review them carefully. Use the StartRight kit&apos;s DM templates to follow up with prospects before sending them the link. You want genuinely motivated models joining through you.
 
 ## Protecting your audience
 
-Never blast raw links without context. Instead, weave the offer into your 14-day runway content so fans see it as a curated opportunity. When you claim your starter kit, we share the compliance cheatsheet that keeps your copy inside Bonga&apos;s guidelines.
+Never blast raw links without context. Instead, weave the offer into your 14-day runway content so fans see it as a curated opportunity. When you claim your StartRight kit, we share the compliance cheatsheet that keeps your copy inside Bonga&apos;s guidelines.
 
 Finally, schedule weekly retros with concierge so we can tweak your copy and track conversion velocity. A steady cadence unlocks the bonuses faster than a messy burst.
