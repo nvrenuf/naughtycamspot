@@ -4,7 +4,7 @@ import BannerSlot from '../../components/BannerSlot.astro';
 import LinkCTA from '../../components/LinkCTA.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../../data/copy';
-import { withBase } from '../../utils/links';
+import { formatDateStamp, withBase } from '../../utils/links';
 
 const formatDate = (date: Date) =>
   new Intl.DateTimeFormat('en-US', { month: 'long', day: '2-digit', year: 'numeric' }).format(date);
@@ -24,11 +24,6 @@ export async function getStaticPaths() {
 
 const { post, related } = Astro.props;
 const { Content } = await post.render();
-
-const formatDateStamp = () => {
-  const now = new Date();
-  return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
-};
 
 const isPages = import.meta.env.IS_PAGES === 'true';
 const joinHrefPages = PRIMARY_CTA.pagesHref;

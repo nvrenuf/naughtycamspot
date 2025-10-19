@@ -30,7 +30,7 @@ const sanitizePlaceholder = (placeholder) => {
   return withoutQuery;
 };
 
-const formatDateStamp = () => {
+export const formatDateStamp = () => {
   const now = new Date();
   const year = String(now.getUTCFullYear());
   const month = String(now.getUTCMonth() + 1).padStart(2, '0');
@@ -53,6 +53,12 @@ const PAGES_FALLBACK_PATH = '/startright';
 
 export const buildTrackedLink = ({ path, slot, camp, placeholder }) => {
   if (IS_PAGES_BUILD) {
+    const sanitizedPlaceholder = sanitizePlaceholder(placeholder);
+
+    if (sanitizedPlaceholder && sanitizedPlaceholder.startsWith('/')) {
+      return withBase(sanitizedPlaceholder);
+    }
+
     return withBase(PAGES_FALLBACK_PATH);
   }
 
@@ -64,5 +70,3 @@ export const buildTrackedLink = ({ path, slot, camp, placeholder }) => {
 };
 
 export const getClaimUrl = () => (IS_PAGES_BUILD ? CLAIM_FORM_EXTERNAL_URL : CLAIM_FORM_INTERNAL_PATH);
-
-export const __test = { formatDateStamp, sanitizePlaceholder };

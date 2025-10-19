@@ -14,7 +14,15 @@
     "test": "node --test \"tests/**/*.mjs\" && vitest run",
     "test:pages-safety": "node scripts/test-pages-safety.mjs",
     "check:schemas": "node scripts/validate-json.mjs",
-    "test:snapshot": "node scripts/snapshot-hero.mjs"
+    "test:snapshot": "node scripts/snapshot-hero.mjs",
+    "lint": "eslint . --ext .ts,.tsx,.js,.astro",
+    "sec:audit": "npm audit --omit=dev",
+    "sec:scan": "secretlint \"**/*\"",
+    "sec:all": "npm run sec:audit || true && npm run sec:scan || true"
+  },
+  "engines": {
+    "node": "^20.17.0",
+    "npm": "^10.8.2"
   },
   "dependencies": {
     "@astrojs/sitemap": "file:vendor/astrojs-sitemap",

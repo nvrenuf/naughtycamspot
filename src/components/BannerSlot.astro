@@ -1,7 +1,7 @@
 ---
 import LinkCTA from './LinkCTA.astro';
 import { BANNERS, getBannerSlot, type BannerSlotId } from '../data/banners';
-import { withBase } from '../utils/links';
+import { formatDateStamp, withBase } from '../utils/links';
 
 interface Props {
   id: BannerSlotId;
@@ -33,14 +33,6 @@ const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined)
 const isPagesBuild = import.meta.env.IS_PAGES === 'true';
 const isProdSite = siteHostname === 'naughtycamspot.com';
 const shouldTrackClicks = isProdSite && !isPagesBuild;
-
-const formatDateStamp = () => {
-  const now = new Date();
-  const year = String(now.getUTCFullYear());
-  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(now.getUTCDate()).padStart(2, '0');
-  return `${year}${month}${day}`;
-};
 
 const hydrateProdHref = (value: string) => value.replace('YYYYMMDD', formatDateStamp());
 

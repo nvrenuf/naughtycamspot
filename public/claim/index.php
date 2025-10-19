@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+header('X-Robots-Tag: noindex', true);
+
 $platformOptions = [
     'bonga' => 'Bonga',
     'camsoda' => 'CamSoda',
