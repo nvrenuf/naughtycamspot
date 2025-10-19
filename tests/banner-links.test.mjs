@@ -31,15 +31,11 @@ const sample = {
     'https://leads.naughtycamspot.com/sponsor/home/home_top_leaderboard?slot=home_top_leaderboard&camp=home'
 };
 
-test('Pages builds fall back to safe external links', async () => {
+test('Pages builds route banners to StartRight', async () => {
   const { buildTrackedLink } = await loadLinksModule({ ASTRO_BASE_URL: '/naughtycamspot/' });
   const href = buildTrackedLink(sample);
   assert.ok(!href.startsWith('/go/'), 'Pages href must not point to /go/');
-  assert.equal(
-    href,
-    'https://leads.naughtycamspot.com/sponsor/home/home_top_leaderboard',
-    'Pages href should strip query params'
-  );
+  assert.equal(href, '/naughtycamspot/startright', 'Pages href should point to StartRight');
   assert.ok(!href.includes('?'), 'Pages href should not contain query params');
 });
 
