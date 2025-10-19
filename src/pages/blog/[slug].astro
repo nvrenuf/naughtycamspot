@@ -31,12 +31,12 @@ const formatDateStamp = () => {
 };
 
 const isPages = import.meta.env.IS_PAGES === 'true';
-const joinHrefPages = 'https://naughtycamspot.com/models';
+const joinHrefPages = PRIMARY_CTA.pagesHref;
 const joinHrefProd = `/go/model-join.php?src=blog_${post.slug}&camp=post&date=${formatDateStamp()}`;
-const joinRel = isPages ? 'noreferrer' : 'nofollow noreferrer';
+const joinRel = isPages ? undefined : 'nofollow noreferrer';
 const joinCtaLabel = isPages ? 'Join our concierge roster' : 'Join via tracked concierge';
 const startRightMessage = isPages
-  ? 'Pages previews point to the StartRight hub on GitHub Pages.'
+  ? 'Pages builds route through the StartRight concierge hub.'
   : 'Production routes directly to the on-site StartRight plan.';
 ---
 
@@ -73,8 +73,8 @@ const startRightMessage = isPages
       <div class="flex flex-col gap-3 sm:flex-row">
         <LinkCTA
           class="inline-flex items-center justify-center gap-2 border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow"
-          href_pages={joinHrefPages}
-          href_prod={joinHrefProd}
+          pagesHref={joinHrefPages}
+          prodHref={joinHrefProd}
           rel={joinRel}
         >
           {joinCtaLabel}
@@ -82,8 +82,8 @@ const startRightMessage = isPages
         </LinkCTA>
         <LinkCTA
           class="border border-white/20 bg-transparent text-white hover:bg-white/10"
-          href_pages={PRIMARY_CTA.pagesHref}
-          href_prod={PRIMARY_CTA.prodHref}
+          pagesHref={PRIMARY_CTA.pagesHref}
+          prodHref={PRIMARY_CTA.prodHref}
           label={PRIMARY_CTA.label}
         />
       </div>

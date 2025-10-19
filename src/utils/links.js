@@ -49,14 +49,11 @@ export const withBase = (path = '') => {
   return `${BASE_URL}${cleanedPath}`;
 };
 
+const PAGES_FALLBACK_PATH = '/startright';
+
 export const buildTrackedLink = ({ path, slot, camp, placeholder }) => {
   if (IS_PAGES_BUILD) {
-    const sanitizedPlaceholder = sanitizePlaceholder(placeholder);
-    if (sanitizedPlaceholder && !sanitizedPlaceholder.startsWith('/go/')) {
-      return sanitizedPlaceholder;
-    }
-
-    return 'https://naughtycamspot.com';
+    return withBase(PAGES_FALLBACK_PATH);
   }
 
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;

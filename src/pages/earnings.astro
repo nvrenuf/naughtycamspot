@@ -86,15 +86,15 @@ const cards = bandEntries.map(([key, bands]) => {
               ) : (
                 <LinkCTA
                   class="border border-rose-gold/60 bg-rose-gold text-midnight"
-                  href_pages={card.joinHrefPages}
-                  href_prod={card.joinHrefProd}
+                  pagesHref={card.joinHrefPages}
+                  prodHref={card.joinHrefProd}
                   label="Join with our links"
                 />
               )}
               <LinkCTA
                 class="border border-white/20 bg-transparent text-white hover:bg-white/10"
-                href_pages={PRIMARY_CTA.pagesHref}
-                href_prod={PRIMARY_CTA.prodHref}
+                pagesHref={PRIMARY_CTA.pagesHref}
+                prodHref={PRIMARY_CTA.prodHref}
                 label={PRIMARY_CTA.label}
               />
             </div>

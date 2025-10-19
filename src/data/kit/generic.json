@@ -1,0 +1,58 @@
+{
+  "sections": [
+    {
+      "id": "setup",
+      "title": "Setup Quickstart",
+      "bullets": [
+        "Submit KYC documents and tax forms before filming",
+        "Lock in a studio corner with flattering key + fill lighting",
+        "Test stream quality on desktop and mobile viewers"
+      ]
+    },
+    {
+      "id": "schedule",
+      "title": "Schedule Plan",
+      "bullets": [
+        "Block two anchor shows during your highest-traffic evenings",
+        "Add one rotating weekend slot for discovery",
+        "Publish availability in room topic + socials"
+      ]
+    },
+    {
+      "id": "price-ladder",
+      "title": "Price Ladder",
+      "bullets": [
+        "Create a three-tier menu: warmup, core experience, premium upsell",
+        "Bundle 3- and 6-month fan club offers with limited perks",
+        "Refresh tip goals weekly to reflect demand"
+      ]
+    },
+    {
+      "id": "show-structure",
+      "title": "Show Structure",
+      "bullets": [
+        "Open with a 5-minute welcome and chat prompts",
+        "Rotate between tease, request, and high-energy segments",
+        "Close with tomorrow's teaser and gratitude roll"
+      ]
+    },
+    {
+      "id": "safety",
+      "title": "Safety Stack",
+      "bullets": [
+        "Enable geo-blocking and banned word filters",
+        "Use a moderator or trusted friend during first streams",
+        "Document boundaries, no-gos, and red-flag escalation plan"
+      ]
+    },
+    {
+      "id": "metrics",
+      "title": "Metrics & Review",
+      "bullets": [
+        "Track peak viewers, conversion rate, and median tip",
+        "Log show notes in a spreadsheet after every session",
+        "Adjust menu + schedule based on two-week trend"
+      ]
+    }
+  ]
+}

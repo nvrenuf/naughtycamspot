@@ -1,0 +1,400 @@
+---
+import Section from './Section.astro';
+import LinkCTA from './LinkCTA.astro';
+import generic from '../data/kit/generic.json';
+import camsoda from '../data/kit/camsoda.json';
+import chaturbate from '../data/kit/chaturbate.json';
+import bonga from '../data/kit/bonga.json';
+import { DISCLOSURE, KIT } from '../data/copy';
+
+const platformOptions = [
+  { key: 'camsoda', label: 'CamSoda', sections: camsoda.sections },
+  { key: 'chaturbate', label: 'Chaturbate', sections: chaturbate.sections },
+  { key: 'bonga', label: 'BongaCams', sections: bonga.sections }
+] as const;
+
+const timezoneOptions = [
+  { value: 'NA', label: 'North America' },
+  { value: 'EU', label: 'Europe' },
+  { value: 'LatAm', label: 'Latin America' },
+  { value: 'APAC', label: 'Asia Pacific' }
+] as const;
+
+const timezoneLabelMap = Object.fromEntries(timezoneOptions.map((option) => [option.value, option.label]));
+
+const languageOptions = [
+  { value: 'EN', label: 'English' },
+  { value: 'ES', label: 'Spanish' },
+  { value: 'PT', label: 'Portuguese' },
+  { value: 'RU', label: 'Russian' },
+  { value: 'Other', label: 'Other' }
+] as const;
+
+const defaultHours = 10;
+---
+<section class="grid gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:items-start lg:gap-12">
+  <form
+    data-kit-form
+    class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl"
+  >
+    <fieldset class="space-y-3">
+      <legend class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Platforms</legend>
+      <p class="text-sm text-white/70">Select every network where you have an active account.</p>
+      <div class="space-y-2">
+        {platformOptions.map((platform) => (
+          <label class="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80 transition hover:border-rose-gold/50">
+            <span>{platform.label}</span>
+            <input
+              type="checkbox"
+              name="platforms"
+              value={platform.key}
+              class="h-4 w-4 rounded border-white/30 bg-black/40 text-rose-gold focus:ring-rose-gold"
+            />
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <label class="space-y-2 text-sm text-white/70">
+      <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Hours per week</span>
+      <input
+        type="number"
+        name="hours"
+        min="1"
+        max="60"
+        value={defaultHours}
+        class="w-full rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 focus:border-rose-gold focus:outline-none focus:ring-2 focus:ring-rose-gold/40 backdrop-blur-xl"
+      />
+    </label>
+
+    <label class="space-y-2 text-sm text-white/70">
+      <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Timezone</span>
+      <select
+        name="timezone"
+        class="w-full rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 focus:border-rose-gold focus:outline-none focus:ring-2 focus:ring-rose-gold/40 backdrop-blur-xl"
+      >
+        {timezoneOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
+      <p class="text-xs text-white/50">We auto-detect when possible.</p>
+    </label>
+
+    <label class="space-y-2 text-sm text-white/70">
+      <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Primary language</span>
+      <select
+        name="language"
+        class="w-full rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 focus:border-rose-gold focus:outline-none focus:ring-2 focus:ring-rose-gold/40 backdrop-blur-xl"
+      >
+        {languageOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    </label>
+
+    <button
+      type="submit"
+      class="inline-flex items-center justify-center rounded-full border border-rose-gold/40 bg-rose-gold/20 px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-rose-petal transition hover:-translate-y-1 hover:border-rose-gold/60 hover:bg-rose-gold/30"
+    >
+      Assemble my kit
+    </button>
+  </form>
+
+  <div class="space-y-6">
+    <div class="rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl sm:p-8">
+      <div class="flex flex-wrap items-center gap-3" data-kit-badges>
+        <div class="flex flex-wrap gap-2" data-kit-badges-platform>
+          <span class="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.25em] text-white/60">
+            Generic kit
+          </span>
+        </div>
+        <span
+          data-kit-badge-timezone
+          class="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.25em] text-white/60"
+        >
+          Timezone: {timezoneLabelMap['NA']}
+        </span>
+      </div>
+      <p class="mt-4 text-sm text-white/70" data-kit-summary>
+        Calibrated for {defaultHours} hours/week and English sessions. Add platforms to unlock matched guidance.
+      </p>
+    </div>
+
+    <div class="grid gap-5" data-kit-sections>
+      {generic.sections.map((section) => (
+        <Section {...section} />
+      ))}
+    </div>
+
+    <div class="flex flex-col gap-4 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-8">
+      <div class="space-y-1 text-sm text-white/70">
+        <p class="text-base font-semibold text-white">Ready to deploy?</p>
+        <p>Save your kit or jump into your partner dashboards.</p>
+      </div>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <LinkCTA
+          href_pages={KIT.claimCTA.pagesHref}
+          href_prod={KIT.claimCTA.prodHref}
+          label={KIT.claimCTA.label}
+          class="border border-rose-gold/40 bg-rose-gold/20 text-rose-petal shadow-glow backdrop-blur-xl hover:border-rose-gold/60 hover:bg-rose-gold/30"
+        />
+        <LinkCTA
+          href_pages={KIT.joinCTA.pagesHref}
+          href_prod={KIT.joinCTA.prodHref}
+          label={KIT.joinCTA.label}
+          class="border border-white/20 bg-white/10 text-white/80 shadow-glow backdrop-blur-xl hover:border-white/40 hover:text-white"
+        />
+      </div>
+    </div>
+
+    <p class="text-xs uppercase tracking-[0.3em] text-white/50">{DISCLOSURE}</p>
+  </div>
+
+  <script type="application/json" data-kit-generic>{JSON.stringify(generic.sections)}</script>
+  <script
+    type="application/json"
+    data-kit-platforms
+  >{JSON.stringify(Object.fromEntries(platformOptions.map((platform) => [platform.key, platform.sections])))}</script>
+  <script type="application/json" data-kit-platform-labels>{JSON.stringify(Object.fromEntries(platformOptions.map((platform) => [platform.key, platform.label])))}</script>
+  <script type="application/json" data-kit-timezone-labels>{JSON.stringify(timezoneLabelMap)}</script>
+
+  <script>
+    const form = document.querySelector('[data-kit-form]');
+    const sectionsContainer = document.querySelector('[data-kit-sections]');
+    const summaryEl = document.querySelector('[data-kit-summary]');
+    const platformBadgesEl = document.querySelector('[data-kit-badges-platform]');
+    const timezoneBadgeEl = document.querySelector('[data-kit-badge-timezone]');
+
+    const genericSections = (() => {
+      const el = document.querySelector('[data-kit-generic]');
+      if (!el) return [];
+      try {
+        return JSON.parse(el.textContent ?? '[]');
+      } catch (error) {
+        console.error('Failed to parse generic sections', error);
+        return [];
+      }
+    })();
+
+    const platformSectionsMap = (() => {
+      const el = document.querySelector('[data-kit-platforms]');
+      if (!el) return {};
+      try {
+        return JSON.parse(el.textContent ?? '{}');
+      } catch (error) {
+        console.error('Failed to parse platform sections', error);
+        return {};
+      }
+    })();
+
+    const platformLabels = (() => {
+      const el = document.querySelector('[data-kit-platform-labels]');
+      if (!el) return {};
+      try {
+        return JSON.parse(el.textContent ?? '{}');
+      } catch (error) {
+        console.error('Failed to parse platform labels', error);
+        return {};
+      }
+    })();
+
+    const timezoneLabels = (() => {
+      const el = document.querySelector('[data-kit-timezone-labels]');
+      if (!el) return {};
+      try {
+        return JSON.parse(el.textContent ?? '{}');
+      } catch (error) {
+        console.error('Failed to parse timezone labels', error);
+        return {};
+      }
+    })();
+
+    const fieldClass = 'space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl sm:p-8';
+
+    const detectTimezoneRegion = () => {
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (!tz) return 'NA';
+        const [area, location] = tz.split('/') as [string, string | undefined];
+        if (area === 'Europe') return 'EU';
+        if (area === 'America') {
+          const name = (location ?? '').toLowerCase();
+          const latAmMatches = ['argentina', 'bogota', 'lima', 'mexico', 'santiago', 'sao_paulo', 'montevideo', 'guayaquil', 'panama', 'caracas'];
+          if (latAmMatches.some((token) => name.includes(token))) {
+            return 'LatAm';
+          }
+          return 'NA';
+        }
+        if (area === 'Asia' || area === 'Australia' || area === 'Pacific' || area === 'Indian') {
+          return 'APAC';
+        }
+        return 'NA';
+      } catch (error) {
+        console.warn('Timezone detection failed', error);
+        return 'NA';
+      }
+    };
+
+    const timezoneField = form?.querySelector('select[name="timezone"]');
+    if (timezoneField instanceof HTMLSelectElement) {
+      const detected = detectTimezoneRegion();
+      const hasMatch = Array.from(timezoneField.options).some((option) => option.value === detected);
+      if (hasMatch) {
+        timezoneField.value = detected;
+        updateTimezoneBadge(detected);
+      }
+
+      timezoneField.addEventListener('change', (event) => {
+        const value = event.target instanceof HTMLSelectElement ? event.target.value : timezoneField.value;
+        updateTimezoneBadge(value || 'NA');
+      });
+    }
+
+    function mergeSections(selectedKeys) {
+      const merged = genericSections.map((section) => ({
+        id: section.id,
+        title: section.title,
+        bullets: Array.isArray(section.bullets) ? [...section.bullets] : []
+      }));
+      const indexById = new Map();
+      merged.forEach((section, index) => {
+        indexById.set(section.id, index);
+      });
+
+      selectedKeys.forEach((key) => {
+        const sections = platformSectionsMap[key] ?? [];
+        sections.forEach((section) => {
+          if (!section || typeof section.id !== 'string') return;
+          const copy = {
+            id: section.id,
+            title: section.title,
+            bullets: Array.isArray(section.bullets) ? [...section.bullets] : []
+          };
+          if (indexById.has(copy.id)) {
+            const idx = indexById.get(copy.id);
+            merged[idx] = copy;
+          } else {
+            indexById.set(copy.id, merged.length);
+            merged.push(copy);
+          }
+        });
+      });
+
+      return merged;
+    }
+
+    function renderSections(sections) {
+      if (!(sectionsContainer instanceof HTMLElement)) return;
+      sectionsContainer.innerHTML = '';
+      sections.forEach((section) => {
+        const article = document.createElement('article');
+        article.id = section.id;
+        article.className = fieldClass;
+
+        const header = document.createElement('header');
+        header.className = 'space-y-2';
+
+        const h3 = document.createElement('h3');
+        h3.className = 'font-display text-2xl text-white';
+        h3.textContent = section.title;
+
+        const anchor = document.createElement('a');
+        anchor.href = `#${section.id}`;
+        anchor.className = 'inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-rose-gold/70 transition hover:text-rose-gold';
+
+        const dot = document.createElement('span');
+        dot.className = 'h-2 w-2 rounded-full bg-rose-gold/60';
+
+        const anchorLabel = document.createElement('span');
+        anchorLabel.textContent = section.id;
+
+        anchor.append(dot, anchorLabel);
+        header.append(h3, anchor);
+
+        const list = document.createElement('ul');
+        list.className = 'space-y-3 text-sm text-white/80 sm:text-base';
+
+        section.bullets.forEach((bullet) => {
+          const li = document.createElement('li');
+          li.className = 'flex gap-3';
+
+          const bulletDot = document.createElement('span');
+          bulletDot.className = 'mt-1 inline-flex h-2 w-2 flex-shrink-0 rounded-full bg-rose-gold/60';
+
+          const bulletText = document.createElement('span');
+          bulletText.textContent = bullet;
+
+          li.append(bulletDot, bulletText);
+          list.append(li);
+        });
+
+        article.append(header, list);
+        sectionsContainer.append(article);
+      });
+    }
+
+    function renderBadges(platformKeys, timezoneValue) {
+      if (!(platformBadgesEl instanceof HTMLElement)) return;
+      platformBadgesEl.innerHTML = '';
+      if (Array.isArray(platformKeys) && platformKeys.length > 0) {
+        platformKeys.forEach((key) => {
+          const label = platformLabels[key] ?? key;
+          const badge = document.createElement('span');
+          badge.className = 'rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.25em] text-white/70';
+          badge.textContent = label;
+          platformBadgesEl.append(badge);
+        });
+      } else {
+        const badge = document.createElement('span');
+        badge.className = 'rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.25em] text-white/60';
+        badge.textContent = 'Generic kit';
+        platformBadgesEl.append(badge);
+      }
+
+      updateTimezoneBadge(timezoneValue);
+    }
+
+    function updateTimezoneBadge(value) {
+      if (!(timezoneBadgeEl instanceof HTMLElement)) return;
+      const label = timezoneLabels[value] ?? value;
+      timezoneBadgeEl.textContent = `Timezone: ${label}`;
+    }
+
+    function updateSummary(hours, language, hasPlatforms) {
+      if (!(summaryEl instanceof HTMLElement)) return;
+      const hoursLabel = Number.isFinite(hours) && hours > 0 ? hours : {defaultHours};
+      const languageLabel = typeof language === 'string' && language.length > 0 ? language : 'EN';
+      if (hasPlatforms) {
+        summaryEl.textContent = `Calibrated for ${hoursLabel} hours/week with ${languageLabel} sessions. Matched sections are live.`;
+      } else {
+        summaryEl.textContent = `Calibrated for ${hoursLabel} hours/week and ${languageLabel} sessions. Add platforms to unlock matched guidance.`;
+      }
+    }
+
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!(form instanceof HTMLFormElement)) return;
+      const formData = new FormData(form);
+      const selectedPlatforms = Array.from(
+        form.querySelectorAll('input[name="platforms"]:checked')
+      ).map((input) => (input instanceof HTMLInputElement ? input.value : ''))
+        .filter(Boolean);
+      const hoursRaw = formData.get('hours');
+      const hoursValue = typeof hoursRaw === 'string' ? parseInt(hoursRaw, 10) : Number(hoursRaw);
+      const timezoneValue = formData.get('timezone');
+      const timezoneLabel = typeof timezoneValue === 'string' ? timezoneValue : 'NA';
+      const languageValue = formData.get('language');
+      const languageLabel = typeof languageValue === 'string' ? languageValue : 'EN';
+
+      const mergedSections = mergeSections(selectedPlatforms);
+      renderSections(mergedSections);
+      renderBadges(selectedPlatforms, timezoneLabel);
+      updateSummary(hoursValue, languageLabel, selectedPlatforms.length > 0);
+    });
+
+    // initial render sync
+    renderSections(mergeSections([]));
+    renderBadges([], 'NA');
+    updateSummary({defaultHours}, 'EN', false);
+  </script>
+</section>
