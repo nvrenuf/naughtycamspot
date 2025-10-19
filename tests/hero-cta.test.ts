@@ -33,12 +33,12 @@ describe('Hero CTA routing', () => {
     expect(href).toBe('/go/model-join.php?src=home_hero&camp=home&date=20251017');
   });
 
-  it('emits safe external link for Pages builds', async () => {
+  it('routes Pages builds to StartRight', async () => {
     vi.stubEnv('BASE_URL', '/naughtycamspot/');
 
     const { buildTrackedLink } = await importLinksModule();
     const href = buildTrackedLink(heroParams);
 
-    expect(href).toBe(heroParams.placeholder);
+    expect(href).toBe('/naughtycamspot/startright');
   });
 });

@@ -43,12 +43,13 @@ const extractCtaHref = (html) => {
   return match ? match[1] : undefined;
 };
 
-test('Pages build keeps Join Models CTA external', async () => {
+test('Pages build routes Join Models CTA to StartRight', async () => {
   const { html } = await buildJoinModelsPage('pages');
   const href = extractCtaHref(html);
 
   assert.ok(href, 'CTA href should be present');
   assert.ok(!href.startsWith('/go/'), 'Pages CTA must not start with /go/');
+  assert.equal(href, '/naughtycamspot/startright', 'Pages CTA should point to StartRight');
 });
 
 test('Production build uses tracked /go/ link for Join Models CTA', async () => {

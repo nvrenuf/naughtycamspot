@@ -10,7 +10,7 @@ const importLinksWithBase = async (baseUrl) => {
   return module;
 };
 
-test('Pages build uses external placeholder link', async () => {
+test('Pages build routes CTA to StartRight', async () => {
   const { buildTrackedLink } = await importLinksWithBase('/docs/');
   const href = buildTrackedLink({
     path: '/go/model-join.php',
@@ -20,7 +20,7 @@ test('Pages build uses external placeholder link', async () => {
   });
 
   const anchorSnapshot = `<a href="${href}"></a>`;
-  assert.equal(anchorSnapshot, '<a href="https://linktr.ee/naughtycamspot"></a>');
+  assert.equal(anchorSnapshot, '<a href="/docs/startright"></a>');
 });
 
 test('Production build outputs tracked /go link', async () => {
