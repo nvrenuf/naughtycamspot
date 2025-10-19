@@ -3,7 +3,7 @@
     "key": "camsoda",
     "name": "CamSoda",
     "join_base": "https://www.camsoda.com/models?id=naughtycamboss",
-    "subid_params": ["s1", "track"],
+    "subid_params": ["subid"],
     "payout": "weekly",
     "kyc": "low friction",
     "traffic": "good in NA",
@@ -38,7 +38,7 @@
   {
     "key": "jasmin",
     "name": "Jasmin",
-    "join_base": "https://modelcenter.jasmin.com/en/signup",
+    "join_base": "",
     "subid_params": [],
     "payout": "twice monthly",
     "kyc": "strict",
@@ -50,7 +50,7 @@
   {
     "key": "stripchat",
     "name": "Stripchat",
-    "join_base": "https://stripchat.com/studio/start-streaming",
+    "join_base": "",
     "subid_params": [],
     "payout": "weekly",
     "kyc": "medium",
@@ -62,8 +62,8 @@
   {
     "key": "myclub",
     "name": "My.Club",
-    "join_base": "https://track.naughtycamspot.com/myclub/models",
-    "subid_params": ["subid"],
+    "join_base": "",
+    "subid_params": [],
     "payout": "monthly",
     "kyc": "medium",
     "traffic": "boutique fanbase",
@@ -74,8 +74,8 @@
   {
     "key": "pornhub",
     "name": "Pornhub",
-    "join_base": "https://track.naughtycamspot.com/pornhub/models",
-    "subid_params": ["subid"],
+    "join_base": "",
+    "subid_params": [],
     "payout": "monthly",
     "kyc": "strict",
     "traffic": "massive global",

@@ -5,7 +5,7 @@ declare(strict_types=1);
 const GO_SUBID_PARAM = 'subid';
 const GO_MODEL_PROGRAM_CONFIG = [
     'bonga' => [
-        'active' => true,
+        'active' => false,
         'tiers' => ['T1', 'T2', 'T3', 'T4'],
     ],
     'camsoda' => [
@@ -204,14 +204,8 @@ function go_build_camsoda_model_signup(string $subid): string
 {
     $base = 'https://www.camsoda.com/models?id=naughtycamboss';
     $tracking = $subid !== '' ? $subid : 'default';
-    $query = http_build_query([
-        's1' => $tracking,
-        'track' => $tracking,
-    ], '', '&', PHP_QUERY_RFC3986);
 
-    $separator = strpos($base, '?') !== false ? '&' : '?';
-
-    return $base . $separator . $query;
+    return go_append_subid($base, $tracking);
 }
 
 function go_build_chaturbate_model_signup(string $subid): string

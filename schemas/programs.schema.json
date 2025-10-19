@@ -19,7 +19,11 @@
     "properties": {
       "key": { "type": "string", "minLength": 1 },
       "name": { "type": "string", "minLength": 1 },
-      "join_base": { "type": "string", "minLength": 1 },
+      "join_base": {
+        "type": "string",
+        "pattern": "^(?:https?:\\/\\/[^\\s]+)?$",
+        "description": "Base join URL; leave blank while onboarding is gated."
+      },
       "subid_params": {
         "type": "array",
         "items": { "type": "string", "minLength": 1 }
