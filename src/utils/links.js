@@ -11,7 +11,7 @@ const envBaseUrl =
 const BASE_URL = runtimeBaseUrl ?? envBaseUrl ?? '/';
 const IS_PAGES_BUILD = BASE_URL !== '/';
 
-const CLAIM_FORM_EXTERNAL_URL = 'https://tally.so/r/claim-starter-kit';
+const CLAIM_FORM_EXTERNAL_URL = 'https://tally.so/r/claim-startright-kit';
 const CLAIM_FORM_INTERNAL_PATH = '/claim/';
 
 const sanitizePlaceholder = (placeholder) => {

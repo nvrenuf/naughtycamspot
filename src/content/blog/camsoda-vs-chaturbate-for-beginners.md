@@ -20,7 +20,7 @@ CamSoda feels like a boutique nightclub. Viewers expect higher production value 
 
 CamSoda usually approves new models within 24 hours if your ID photos are crisp and you list at least one social handle. They prefer performers who already have a brand arc. Chaturbate can take slightly longer but offers immediate access to a sandbox room where you can rehearse while waiting.
 
-For both platforms, keep your sign-up screenshots ready. The concierge team needs them when you submit the starter kit claim so we can match referral IDs.
+For both platforms, keep your sign-up screenshots ready. The concierge team needs them when you submit the StartRight kit claim so we can match referral IDs.
 
 ## Traffic and discovery
 
@@ -32,10 +32,10 @@ Regardless of platform, announce your show schedule through socials and prime yo
 
 CamSoda leans into premium DMs and custom menu sales. Build a tip ladder that escalates toward private show bundles. Chaturbate responds well to gamified countdowns and group goals. Rotate between flirty mini-goals and a hero reward every 20 minutes.
 
-Whichever path you pick, keep your first fourteen days focused on the same rituals so data stays clean. We can tweak your menu after the starter kit rollout if your room energy pulls higher spenders than expected.
+Whichever path you pick, keep your first fourteen days focused on the same rituals so data stays clean. We can tweak your menu after the StartRight kit rollout if your room energy pulls higher spenders than expected.
 
 ## Mod support and safety
 
-Chaturbate has a larger volunteer mod community ready to help, but you must set boundaries around ban policies and pacing. CamSoda offers concierge mod referrals for performers willing to host themed nights. Brief your mod team using the show scripts inside the starter kit so everyone welcomes fans the same way.
+Chaturbate has a larger volunteer mod community ready to help, but you must set boundaries around ban policies and pacing. CamSoda offers concierge mod referrals for performers willing to host themed nights. Brief your mod team using the show scripts inside the StartRight kit so everyone welcomes fans the same way.
 
 Remember: either platform works when you pair it with the 14-day runway. Choose the environment that matches your personality, then lock in the claim flow immediately after signup so we can release the kit without delays.

@@ -78,14 +78,14 @@ branch has diverged, the script will warn so you can handle the merge manually.
 - Production builds automatically append the `date=YYYYMMDD` stamp and keep the `/go/model-join.php` target.
 - Update the FAQ copy by editing the `faqItems` array in `src/pages/join-models.astro`.
 
-## Starter kit claim flow
+## StartRight kit claim flow
 
-- The Pages-safe instructions live in `src/pages/claim.astro`. It renders the proof checklist and links to the correct claim endpoint depending on the build (Tally on Pages, `/claim/` on ViceTemple) using the shared `getClaimUrl` helper.
+- The Pages-safe instructions live in `src/pages/claim.astro`. It renders the proof checklist and links to the correct StartRight claim endpoint depending on the build (Tally on Pages, `/claim/` on ViceTemple) using the shared `getClaimUrl` helper.
 - ViceTemple serves the multipart form from `public/claim/index.php`. Proof uploads are written to `public/claim/uploads/<year>/<month>/` and each submission is appended to `public/claim/claims.log`.
 - Notification emails go to `admin@naughtycamspot.com` through PHP&apos;s native `mail()` function. Confirm that the host has outbound email enabled so concierge receives alerts.
 - Adjust the external intake URL by editing `CLAIM_FORM_EXTERNAL_URL` in `src/utils/links.js`. Production automatically switches back to `/claim/`.
 - `.htaccess` hardens the claim folder: requests are limited to `GET`/`POST` and executable extensions inside `uploads/` are denied. Keep those guards intact when extending the flow.
-- Privacy reminder: claims store the submitter&apos;s name, email, platform selection, optional notes, and the uploaded screenshot. Treat the uploads directory and log file as sensitive customer data and restrict server-level access accordingly.
+- Privacy reminder: claims store the submitter&apos;s name, email, platform selection, optional notes, and the uploaded screenshot. Treat the uploads directory and log file as sensitive StartRight customer data and restrict server-level access accordingly.
 
 ## Banner slots
 

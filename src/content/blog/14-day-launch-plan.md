@@ -1,6 +1,6 @@
 ---
 title: '14-Day Launch Plan'
-description: 'Map out the two-week runway we use inside the starter kit to turn new signups into confident, profitable performers.'
+description: 'Map out the two-week runway we use inside the StartRight kit to turn new signups into confident, profitable performers.'
 excerpt: 'Preview the exact 14-day plan the concierge team deploys for new models so you know what happens after your claim clears.'
 publishDate: 2024-10-08
 category: 'Concierge Systems'
@@ -24,10 +24,10 @@ Your official launch lands on day seven. You run the hero script, introduce your
 
 ## Phase 4: Momentum stacking (Days 8–11)
 
-We analyse your first week, then double down. You stream every other day, alternating between your primary and VIP scripts. Between shows you send custom DM touchpoints using the templates from the starter kit.
+We analyse your first week, then double down. You stream every other day, alternating between your primary and VIP scripts. Between shows you send custom DM touchpoints using the templates from the StartRight kit.
 
 ## Phase 5: Expansion (Days 12–14)
 
 We close with a collaboration or themed night, plus a post-launch survey for your top tippers. By day 14 you have baseline conversion data, a refined tip menu, and a concierge debrief scheduled to plan your next milestone.
 
-Secure the starter kit as soon as your signup is approved so we can plug you into the full calendar with templates, pricing ladders, and aftercare scripts.
+Secure the StartRight kit as soon as your signup is approved so we can plug you into the full calendar with templates, pricing ladders, and aftercare scripts.
