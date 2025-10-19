@@ -73,8 +73,8 @@ const startRightMessage = isPages
       <div class="flex flex-col gap-3 sm:flex-row">
         <LinkCTA
           class="inline-flex items-center justify-center gap-2 border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow"
-          href_pages={joinHrefPages}
-          href_prod={joinHrefProd}
+          pagesHref={joinHrefPages}
+          prodHref={joinHrefProd}
           rel={joinRel}
         >
           {joinCtaLabel}
@@ -82,8 +82,8 @@ const startRightMessage = isPages
         </LinkCTA>
         <LinkCTA
           class="border border-white/20 bg-transparent text-white hover:bg-white/10"
-          href_pages={PRIMARY_CTA.pagesHref}
-          href_prod={PRIMARY_CTA.prodHref}
+          pagesHref={PRIMARY_CTA.pagesHref}
+          prodHref={PRIMARY_CTA.prodHref}
           label={PRIMARY_CTA.label}
         />
       </div>
