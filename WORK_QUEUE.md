@@ -1,9 +1,9 @@
 # NCS Work Queue (commit directly to main, no PR)
 
 ## [#72] Programs registry + UI wiring
-- [ ] Add src/data/programs.json (camsoda approved, chaturbate approved, bonga pending, jasmin pending, stripchat blocked, myclub low_priority, pornhub research)
-- [ ] Compare + StartRight read status; pending = disabled join, approved = join_base (Pages)
-- [ ] Build passes; Pages HTML has no /go/*
+- [x] Add src/data/programs.json (camsoda approved, chaturbate approved, bonga pending, jasmin pending, stripchat blocked, myclub low_priority, pornhub research)
+- [x] Compare + StartRight read status; pending = disabled join, approved = join_base (Pages)
+- [x] Build passes; Pages HTML has no /go/*
 
 ## [#] Models data source + pages
 - [ ] Add src/data/models.json (Anna links filled; Mia approved:false)

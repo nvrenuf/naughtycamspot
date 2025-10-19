@@ -4,6 +4,7 @@ import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../data/copy';
 import programs from '../data/programs.json';
+import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
 
 interface Program {
   key: string;
@@ -15,8 +16,19 @@ interface Program {
   traffic: string;
   geo: string;
   best_for: string[];
-  status: 'approved' | 'pending';
+  status: ProgramStatus;
 }
+
+type ProgramCard = Program & {
+  joinHrefPages: string;
+  joinHrefProd: string;
+  joinDisabled: boolean;
+  subidLine: string;
+  statusLabel: string;
+  statusBadgeClass: string;
+  statusDisclosure: string;
+  joinDisabledLabel: string;
+};
 
 const formatDateStamp = () => {
   const now = new Date();
@@ -27,18 +39,23 @@ const formatDateStamp = () => {
 };
 
 const dateStamp = formatDateStamp();
-const programCards = (programs as Program[]).map((program) => {
+const programCards: ProgramCard[] = (programs as Program[]).map((program) => {
   const joinHrefProd = `/go/model-join.php?src=compare_${program.key}&camp=compare&date=${dateStamp}`;
   const joinHrefPages = program.join_base;
+  const statusMeta = resolveProgramStatusMeta(program.status);
   const joinDisabled =
-    program.status !== 'approved' || !/^https?:\/\//i.test(joinHrefPages ?? '');
+    !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages ?? '');
 
   return {
     ...program,
     joinHrefPages,
     joinHrefProd,
     joinDisabled,
-    subidLine: program.subid_params.length > 0 ? `SubID params: ${program.subid_params.join(', ')}` : 'No subID params yet.'
+    subidLine: program.subid_params.length > 0 ? `SubID params: ${program.subid_params.join(', ')}` : 'No subID params yet.',
+    statusLabel: statusMeta.label,
+    statusBadgeClass: statusMeta.badgeClass,
+    statusDisclosure: statusMeta.disclosure,
+    joinDisabledLabel: statusMeta.joinDisabledLabel
   };
 });
 ---
@@ -60,13 +77,9 @@ const programCards = (programs as Program[]).map((program) => {
             <div class="flex items-center justify-between gap-3">
               <h2 class="font-display text-2xl text-white">{program.name}</h2>
               <span
-                class={`rounded-full px-3 py-1 text-[0.55rem] uppercase tracking-[0.3em] ${
-                  program.status === 'approved'
-                    ? 'bg-emerald-400/10 text-emerald-300'
-                    : 'bg-amber-300/10 text-amber-200'
-                }`}
+                class={`rounded-full px-3 py-1 text-[0.55rem] uppercase tracking-[0.3em] ${program.statusBadgeClass}`}
               >
-                {program.status === 'approved' ? 'Approved' : 'Pending'}
+                {program.statusLabel}
               </span>
             </div>
             <div class="flex flex-wrap gap-2 text-[0.65rem] uppercase tracking-[0.3em] text-white/60">
@@ -93,7 +106,7 @@ const programCards = (programs as Program[]).map((program) => {
             <div class="flex flex-col gap-3 sm:flex-row">
               {program.joinDisabled ? (
                 <span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40">
-                  Join path pending
+                  {program.joinDisabledLabel}
                 </span>
               ) : (
                 <LinkCTA
@@ -112,7 +125,7 @@ const programCards = (programs as Program[]).map((program) => {
             </div>
             <div class="space-y-1">
               <p>{program.subidLine}</p>
-              <p>Status disclosure: {program.status === 'approved' ? 'Live tracking.' : 'Awaiting final affiliate paperwork.'}</p>
+              <p>Status disclosure: {program.statusDisclosure}</p>
             </div>
           </footer>
         </article>
