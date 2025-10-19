@@ -49,23 +49,15 @@ const collectPlatformOrder = (html) => {
   return matches.map(([, slug]) => slug);
 };
 
-test('Pages build uses external hrefs for Anna Prince', async () => {
+test('Pages build routes Anna Prince CTAs to StartRight', async () => {
   const { html } = await buildPage('pages');
 
-  const expected = {
-    manyvids: 'https://www.manyvids.com/live/cam/anna_prince',
-    beacons: 'https://beacons.ai/annaprince',
-    stripchat: 'https://stripchat.com/Anna_Prince',
-    chaturbate: 'https://chaturbate.com/b/anna_prince/',
-    camsoda: 'https://www.camsoda.com/annaprince',
-    pornhub: 'https://pornhub.com/model/sabrina_great',
-    onlyfans: 'https://onlyfans.com/sabrinagreat'
-  };
+  const expectedHref = '/naughtycamspot/startright';
 
-  for (const [platform, href] of Object.entries(expected)) {
+  for (const platform of ['manyvids', 'beacons', 'stripchat', 'chaturbate', 'camsoda', 'pornhub', 'onlyfans']) {
     const value = extractHref(html, platform);
     assert.ok(value, `expected ${platform} button to exist`);
-    assert.equal(value, href, `expected ${platform} href to match placeholder`);
+    assert.equal(value, expectedHref, `expected ${platform} href to point to StartRight`);
     assert.ok(!value.startsWith('/go/'), `${platform} href should not start with /go/ in Pages mode`);
   }
 

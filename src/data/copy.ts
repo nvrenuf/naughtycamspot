@@ -10,3 +10,12 @@ export const PRIMARY_CTA = {
   pagesHref: '/startright',
   prodHref: '/startright'
 } as const;
+
+export const STARTRIGHT_SKIP = {
+  label: 'Skip — pick my platforms',
+  pagesHrefBase: '/join-models',
+  tracking: {
+    src: 'startright_skip',
+    camp: 'startright'
+  }
+} as const;

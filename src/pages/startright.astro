@@ -2,7 +2,7 @@
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
-import { PRIMARY_CTA } from '../data/copy';
+import { PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import programs from '../data/programs.json';
 
 interface Program {
@@ -22,6 +22,9 @@ const formatDateStamp = () => {
 };
 
 const dateStamp = formatDateStamp();
+const skipQuery = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${dateStamp}`;
+const skipHrefPages = `${STARTRIGHT_SKIP.pagesHrefBase}${skipQuery}`;
+const skipHrefProd = skipHrefPages;
 const basePrograms = (programs as Program[]).map((program) => {
   const joinHrefPages = program.join_base;
   const joinHrefProdTemplate = `/go/model-join.php?src=startright_${program.key}&camp=startright&date=YYYYMMDD`;
@@ -213,6 +216,9 @@ const clientPrograms = JSON.stringify(
       data-primary-label={PRIMARY_CTA.label}
       data-primary-pages={PRIMARY_CTA.pagesHref}
       data-primary-prod={PRIMARY_CTA.prodHref}
+      data-skip-label={STARTRIGHT_SKIP.label}
+      data-skip-pages={skipHrefPages}
+      data-skip-prod={skipHrefProd}
     >
       <div class="space-y-2">
         <h2 class="font-display text-3xl text-white">Your best starting points</h2>
@@ -228,25 +234,35 @@ const clientPrograms = JSON.stringify(
                   <p class="text-xs uppercase tracking-[0.35em] text-amber-200">Pending</p>
                 )}
               </div>
-              <div class="flex flex-col gap-2 sm:flex-row">
-                {result.joinDisabled ? (
-                  <span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40">
-                    Join path pending
-                  </span>
-                ) : (
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
+                <div class="flex flex-col gap-2 sm:flex-row sm:items-start">
+                  {result.joinDisabled ? (
+                    <span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40">
+                      Join path pending
+                    </span>
+                  ) : (
+                    <LinkCTA
+                      class="border border-rose-gold/60 bg-rose-gold text-midnight"
+                      href_pages={result.joinHrefPages}
+                      href_prod={result.joinHrefProd}
+                      label="Join with our links"
+                    />
+                  )}
+                </div>
+                <div class="flex flex-col gap-2 sm:items-start">
                   <LinkCTA
-                    class="border border-rose-gold/60 bg-rose-gold text-midnight"
-                    pagesHref={result.joinHrefPages}
-                    prodHref={result.joinHrefProd}
-                    label="Join with our links"
+                    class="border border-white/20 bg-transparent text-white hover:bg-white/10"
+                    href_pages={PRIMARY_CTA.pagesHref}
+                    href_prod={PRIMARY_CTA.prodHref}
+                    label={PRIMARY_CTA.label}
                   />
-                )}
-                <LinkCTA
-                  class="border border-white/20 bg-transparent text-white hover:bg-white/10"
-                  pagesHref={PRIMARY_CTA.pagesHref}
-                  prodHref={PRIMARY_CTA.prodHref}
-                  label={PRIMARY_CTA.label}
-                />
+                  <LinkCTA
+                    class="border border-white/15 bg-transparent text-white/70 hover:border-white/30 hover:bg-white/10 hover:text-white"
+                    href_pages={skipHrefPages}
+                    href_prod={skipHrefProd}
+                    label={STARTRIGHT_SKIP.label}
+                  />
+                </div>
               </div>
             </header>
             <ul class="mt-4 space-y-2 text-sm text-white/70">
@@ -275,6 +291,9 @@ const clientPrograms = JSON.stringify(
       const primaryLabel = resultsContainer.dataset.primaryLabel || 'Get my plan';
       const primaryPages = resultsContainer.dataset.primaryPages || '/startright';
       const primaryProd = resultsContainer.dataset.primaryProd || '/startright';
+      const skipLabel = resultsContainer.dataset.skipLabel || 'Skip — pick my platforms';
+      const skipPages = resultsContainer.dataset.skipPages || '/join-models';
+      const skipProd = resultsContainer.dataset.skipProd || '/join-models';
       const formatDateStamp = () => {
         const now = new Date();
         return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
@@ -364,10 +383,15 @@ const clientPrograms = JSON.stringify(
             const primaryTarget = primaryIsExternal ? '_blank' : '_self';
             const primaryRel = primaryIsExternal ? 'nofollow noopener' : '';
             const primaryButton = `<a class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:bg-white/10" href="${primaryHref}" target="${primaryTarget}"${primaryRel ? ` rel="${primaryRel}"` : ''}>${primaryLabel}${primaryIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
+            const skipHref = isPagesBuild ? skipPages : skipProd;
+            const skipIsExternal = /^https?:\/\//i.test(skipHref);
+            const skipTarget = skipIsExternal ? '_blank' : '_self';
+            const skipRel = skipIsExternal ? 'nofollow noopener' : '';
+            const skipButton = `<a class="inline-flex items-center justify-center rounded-full border border-white/15 bg-transparent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/70 transition hover:-translate-y-1 hover:border-white/30 hover:bg-white/10 hover:text-white" href="${skipHref}" target="${skipTarget}"${skipRel ? ` rel="${skipRel}"` : ''}>${skipLabel}${skipIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
             const pendingLabel = result.status !== 'approved'
               ? '<p class="text-xs uppercase tracking-[0.35em] text-amber-200">Pending</p>'
               : '';
-            return `<article class="rounded-3xl border border-white/10 bg-black/30 p-5"><header class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="font-display text-2xl text-white">${result.name}</h3>${pendingLabel}</div><div class="flex flex-col gap-2 sm:flex-row">${joinButton}${primaryButton}</div></header><ul class="mt-4 space-y-2 text-sm text-white/70">${reasons}</ul></article>`;
+            return `<article class="rounded-3xl border border-white/10 bg-black/30 p-5"><header class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="font-display text-2xl text-white">${result.name}</h3>${pendingLabel}</div><div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4"><div class="flex flex-col gap-2 sm:flex-row sm:items-start">${joinButton}</div><div class="flex flex-col gap-2 sm:items-start">${primaryButton}${skipButton}</div></div></header><ul class="mt-4 space-y-2 text-sm text-white/70">${reasons}</ul></article>`;
           })
           .join('');
       };
