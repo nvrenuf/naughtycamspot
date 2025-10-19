@@ -11,8 +11,9 @@
 - [ ] Build passes
 
 ## [#] Hero strip icon + text
-- [ ] Replace broken image with inline SVG camera icon- [ ]  Text: "STARTRIGHT — GE- [ ]  FREE KIT", href "/startright- [ [ ] Build passes; visible on- [ ] Re# [#40] Blog index + se- [ ]  [ ] /blog shows list with tag-
-- [ ] Client-side search across title+excerpt; no external calls
+- [ ] Replace broken image with inline SVG camera icon- [ ] RText: "STARTRIGHT — GE- [ ] RFREE KIT", href "/startright-
+- [ ] Build passes; visible on- [ ] 
+## [#40] Blog index + se## [#[ ] /blog shows list with tag##  [ ] Client-side search across title+excerpt; no external calls
 - [ ] Build passes
 
 ## [#] Banner placeholders
