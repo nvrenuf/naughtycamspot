@@ -1,9 +1,9 @@
 # NCS Work Queue (commit directly to main, no PR)
 
 ## [#72] Programs registry + UI wiring
-- [x] Add src/data/programs.json (camsoda approved, chaturbate approved, bonga pending, jasmin pending, stripchat blocked, myclub low_priority, pornhub research)
-- [x] Compare + StartRight read status; pending = disabled join, approved = join_base (Pages)
-- [x] Build passes; Pages HTML has no /go/*
+- [ ] Add src/data/programs.json (camsoda approved, chaturbate approved, bonga pending, jasmin pending, stripchat blocked, myclub low_priority, pornhub research)
+- [ ] Compare + StartRight read status; pending = disabled join, approved = join_base (Pages)
+- [ ] Build passes; Pages HTML has no /go/*
 
 ## [#] Models data source + pages
 - [ ] Add src/data/models.json (Anna links filled; Mia approved:false)
@@ -11,12 +11,8 @@
 - [ ] Build passes
 
 ## [#] Hero strip icon + text
-- [ ] Replace broken image with inline SVG camera icon
-- [ ] Text: "STARTRIGHT — GE- [ ] TFREE KIT", href "/startr- [ ] T [ ] Build passes; vi- [ ] Tn home
-
-## [#40] Blog in## [#
-- [ ] /blog shows l- [ ] th tags
-- [ ] Client-side sear- [across title+excerpt; no external calls
+- [ ] Replace broken image with inline SVG camera icon- [ ]  Text: "STARTRIGHT — GE- [ ]  FREE KIT", href "/startright- [ [ ] Build passes; visible on- [ ] Re# [#40] Blog index + se- [ ]  [ ] /blog shows list with tag-
+- [ ] Client-side search across title+excerpt; no external calls
 - [ ] Build passes
 
 ## [#] Banner placeholders
