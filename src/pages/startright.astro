@@ -1,6 +1,7 @@
 ---
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import programs from '../data/programs.json';
@@ -21,14 +22,15 @@ const formatDateStamp = () => {
   return `${year}${month}${day}`;
 };
 
+const canonicalPath = '/startright';
 const dateStamp = formatDateStamp();
 const skipQuery = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${dateStamp}`;
 const skipHrefPages = `${STARTRIGHT_SKIP.pagesHrefBase}${skipQuery}`;
 const skipHrefProd = skipHrefPages;
 const basePrograms = (programs as Program[]).map((program) => {
   const joinHrefPages = program.join_base;
-  const joinHrefProdTemplate = `/go/model-join.php?src=startright_${program.key}&camp=startright&date=YYYYMMDD`;
-  const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', dateStamp);
+  const joinHrefProdTemplate = `${goPrefix}model-join.php?src=startright_${program.key}&camp=startright&date=YYYYMMDD`;
+  const joinHrefProd = buildJoinHref(program.key, dateStamp);
 
   return {
     ...program,
@@ -140,16 +142,23 @@ const clientPrograms = JSON.stringify(
 ---
 
 <MainLayout
-  title="StartRight platform recommender"
-  description="Answer a few prompts and get your top NaughtyCamSpot platform matches."
+  title="StartRight for models | NaughtyCamSpot"
+  description="Skip the guesswork. Pick the right platforms and get a tailored launch kit — free."
 >
+  <SEO
+    slot="head"
+    title="StartRight for models | NaughtyCamSpot"
+    description="Skip the guesswork. Pick the right platforms and get a tailored launch kit — free."
+    path={canonicalPath}
+  />
   <section class="space-y-8">
     <Notices />
     <div class="space-y-4">
-      <h1 class="font-display text-4xl text-white sm:text-5xl">Find your starting platforms</h1>
-      <p class="max-w-3xl text-base text-white/70">
-        Tune the inputs to match your situation. We&apos;ll translate those signals into a ranked list of partner programs and tell
-        you why they fit. Use the guarded links to unlock the starter kit.
+      <h1 class="font-display text-4xl text-white sm:text-5xl">{HERO.title}</h1>
+      <p class="max-w-3xl text-base text-white/70">{HERO.sub}</p>
+      <p class="max-w-3xl text-base text-white/65">
+        Tune the inputs to match your situation. We&apos;ll translate those signals into a ranked list of partner programs, share
+        why they fit, and route you to the guarded links you need to unlock the StartRight launch kit.
       </p>
     </div>
     <form id="recommend-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
@@ -299,8 +308,50 @@ const clientPrograms = JSON.stringify(
         return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
       };
       const goPrefix = `/${String.fromCharCode(103, 111)}/`;
-      const buildProdHref = (key, dateStamp) =>
-        `${goPrefix}model-join.php?src=startright_${key}&camp=startright&date=${dateStamp}`;
+      const searchParams = new URLSearchParams(window.location.search);
+      const inboundSrc = searchParams.get('src') || '';
+      const inboundCamp = searchParams.get('camp') || '';
+      const inboundDate = searchParams.get('date') || '';
+      const computeTracking = (defaults) => {
+        const date = defaults.date || formatDateStamp();
+        return {
+          src: inboundSrc || defaults.src,
+          camp: inboundCamp || defaults.camp,
+          date: inboundDate || date,
+          slot: defaults.slot
+        };
+      };
+      const buildProdHref = (key) => {
+        const defaults = {
+          src: `startright_${key}`,
+          camp: 'startright',
+          date: formatDateStamp(),
+          slot: `startright_${key}`
+        };
+        const tracking = computeTracking(defaults);
+        const params = new URLSearchParams();
+        if (tracking.src) params.set('src', tracking.src);
+        if (tracking.camp) params.set('camp', tracking.camp);
+        if (tracking.date) params.set('date', tracking.date);
+        if (tracking.slot) params.set('slot', tracking.slot);
+        return `${goPrefix}model-join.php?${params.toString()}`;
+      };
+      const applyTrackingToPath = (href, defaults) => {
+        if (!href || /^https?:\/\//i.test(href)) {
+          return href;
+        }
+        try {
+          const url = new URL(href, window.location.origin);
+          const tracking = computeTracking(defaults);
+          if (tracking.src) url.searchParams.set('src', tracking.src);
+          if (tracking.camp) url.searchParams.set('camp', tracking.camp);
+          if (tracking.date) url.searchParams.set('date', tracking.date);
+          if (tracking.slot) url.searchParams.set('slot', tracking.slot);
+          return `${url.pathname}${url.search}${url.hash}`;
+        } catch (error) {
+          return href;
+        }
+      };
       const ensureReasons = (rec) => {
         const baseReasons = (rec.best_for || []).map((item, index) =>
           index === 0 ? `Strong fit for ${item}.` : `Also helps with ${item}.`
@@ -316,10 +367,9 @@ const clientPrograms = JSON.stringify(
         return rec;
       };
       const evaluate = (answers) => {
-        const dateStamp = formatDateStamp();
         const items = programs.map((program) => ({
           ...program,
-          joinHrefProd: buildProdHref(program.key, dateStamp),
+          joinHrefProd: buildProdHref(program.key),
           score: 1,
           reasons: []
         }));
@@ -360,7 +410,30 @@ const clientPrograms = JSON.stringify(
           })
           .slice(0, 3);
       };
+      const trackEvent = (name, payload) => {
+        if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+          window.gtag('event', name, payload);
+        }
+      };
+      const getEventBase = () => ({
+        src: inboundSrc || 'startright',
+        camp: inboundCamp || 'startright',
+        date: inboundDate || formatDateStamp()
+      });
+      trackEvent('startright_open', getEventBase());
+      let lastResultSignature = '';
       const render = (recommendations) => {
+        const primaryDefaults = {
+          src: 'startright_plan',
+          camp: 'startright',
+          date: formatDateStamp(),
+          slot: 'startright_plan'
+        };
+        const primaryHref = isPagesBuild ? primaryPages : applyTrackingToPath(primaryProd, primaryDefaults);
+        const primaryIsExternal = /^https?:\/\//i.test(primaryHref);
+        const primaryTarget = primaryIsExternal ? '_blank' : '_self';
+        const primaryRel = primaryIsExternal ? 'nofollow noopener' : '';
+        const primaryButton = `<a class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:bg-white/10" href="${primaryHref}" target="${primaryTarget}"${primaryRel ? ` rel="${primaryRel}"` : ''}>${primaryLabel}${primaryIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
         list.innerHTML = recommendations
           .map((result) => {
             const reasons = result.reasons.slice(0, 2)
@@ -407,13 +480,39 @@ const clientPrograms = JSON.stringify(
           device: formData.get('device') || 'basic'
         };
       };
-      const update = () => {
+      const update = ({ emitSubmit = false } = {}) => {
         const answers = collect();
         const results = evaluate(answers);
         render(results);
+        const signature = results
+          .map((item) => `${item.key}:${item.score.toFixed(3)}`)
+          .join('|');
+        if (signature !== lastResultSignature) {
+          lastResultSignature = signature;
+          trackEvent('startright_result_view', {
+            ...getEventBase(),
+            top_keys: results.map((item) => item.key).join('|'),
+            experience: answers.experience,
+            timezone: answers.timezone,
+            content: answers.content,
+            payout: answers.payout,
+            device: answers.device
+          });
+        }
+        if (emitSubmit) {
+          trackEvent('startright_submit', {
+            ...getEventBase(),
+            experience: answers.experience,
+            timezone: answers.timezone,
+            content: answers.content,
+            payout: answers.payout,
+            device: answers.device
+          });
+        }
       };
-      form.addEventListener('input', update);
-      form.addEventListener('change', update);
+      update();
+      form.addEventListener('input', () => update());
+      form.addEventListener('change', () => update({ emitSubmit: true }));
     }
   </script>
 </MainLayout>

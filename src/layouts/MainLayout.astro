@@ -6,7 +6,7 @@ const {
 } = Astro.props;
 import LinkCTA from '../components/LinkCTA.astro';
 import '../styles/tailwind.css';
-import { PRIMARY_CTA } from '../data/copy';
+import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
 import { NAV_MORE, NAV_PRIMARY } from '../data/nav';
 import { withBase } from '../utils/links';
 
@@ -275,6 +275,7 @@ gtag('config', '${gaMeasurementId}');`}
             </a>
             <span>© NaughtyCamSpot 2025</span>
           </div>
+          <p class="text-[0.65rem] uppercase tracking-[0.4em] text-white/40">{DISCLOSURE}</p>
         </div>
       </footer>
     </div>
