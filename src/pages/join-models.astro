@@ -2,6 +2,7 @@
 import BannerSlot from '../components/BannerSlot.astro';
 import LinkCTA from '../components/LinkCTA.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { PRIMARY_CTA } from '../data/copy';
 import { getClaimUrl, isPagesBuild } from '../utils/links';
 
 const heroBullets = [
@@ -46,8 +47,6 @@ const faqItems = [
   }
 ];
 
-const CTA_PLACEHOLDER = 'https://naughtycamspot.com/models';
-
 const formatDateStamp = () => {
   const now = new Date();
   const year = String(now.getUTCFullYear());
@@ -56,10 +55,11 @@ const formatDateStamp = () => {
   return `${year}${month}${day}`;
 };
 
-const joinHrefPages = CTA_PLACEHOLDER;
+const joinHrefPages = PRIMARY_CTA.pagesHref;
 const joinHrefProdTemplate = '/go/model-join.php?src=join_models&camp=landing&date=YYYYMMDD';
 const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', formatDateStamp());
 const pagesBuild = isPagesBuild();
+const joinRel = pagesBuild ? undefined : 'noreferrer';
 const claimUrl = getClaimUrl();
 const claimLinkIsExternal = claimUrl.startsWith('http');
 const claimLinkTarget = claimLinkIsExternal ? '_blank' : undefined;
@@ -121,10 +121,10 @@ const onboardingSteps = [
           pagesHref={joinHrefPages}
           prodHref={joinHrefProd}
           label="Start Concierge Intake"
-          rel="noreferrer"
+          rel={joinRel}
         />
         <p class="mt-3 text-xs uppercase tracking-[0.3em] text-white/40">
-          {pagesBuild ? 'Opens external concierge briefing' : 'Tracked via /go/model-join.php'}
+          {pagesBuild ? 'Routes through our StartRight concierge plan.' : 'Tracked via /go/model-join.php'}
         </p>
       </div>
     </div>

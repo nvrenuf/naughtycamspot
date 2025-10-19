@@ -31,12 +31,12 @@ const formatDateStamp = () => {
 };
 
 const isPages = import.meta.env.IS_PAGES === 'true';
-const joinHrefPages = 'https://naughtycamspot.com/models';
+const joinHrefPages = PRIMARY_CTA.pagesHref;
 const joinHrefProd = `/go/model-join.php?src=blog_${post.slug}&camp=post&date=${formatDateStamp()}`;
-const joinRel = isPages ? 'noreferrer' : 'nofollow noreferrer';
+const joinRel = isPages ? undefined : 'nofollow noreferrer';
 const joinCtaLabel = isPages ? 'Join our concierge roster' : 'Join via tracked concierge';
 const startRightMessage = isPages
-  ? 'Pages previews point to the StartRight hub on GitHub Pages.'
+  ? 'Pages builds route through the StartRight concierge hub.'
   : 'Production routes directly to the on-site StartRight plan.';
 ---
 

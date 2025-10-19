@@ -1,5 +1,7 @@
 ---
+import LinkCTA from '../components/LinkCTA.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { PRIMARY_CTA } from '../data/copy';
 import { buildTrackedLink, withBase } from '../utils/links';
 
 const HERO_CTA_PLACEHOLDER = 'https://linktr.ee/naughtycamspot';
@@ -28,6 +30,9 @@ const resolveHostname = (value: string | undefined) => {
 const siteHostname = resolveHostname(import.meta.env.SITE ?? '');
 const isPagesBuild = import.meta.env.IS_PAGES === 'true';
 const shouldTrackClicks = siteHostname === 'naughtycamspot.com' && !isPagesBuild;
+const joinHrefPages = PRIMARY_CTA.pagesHref;
+const ctaTarget = shouldTrackClicks ? '_blank' : undefined;
+const ctaRel = shouldTrackClicks ? 'noreferrer' : undefined;
 
 const howItWorks = [
   {
@@ -105,17 +110,18 @@ const faq = [
         NaughtyCamSpot is a referral + starter-kit hub. Click join, finish the partner program signup with our links, send proof,
         and we email the full 14-day launch kit—no promo promises, no management fees.
       </p>
-      <a
-        class="inline-flex w-fit items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-        href={joinHref}
-        target="_blank"
-        rel="noreferrer"
+      <LinkCTA
+        class="inline-flex w-fit items-center justify-center border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+        href_pages={joinHrefPages}
+        href_prod={joinHref}
+        target={ctaTarget}
+        rel={ctaRel}
         data-track={shouldTrackClicks ? 'click' : undefined}
         data-slot={shouldTrackClicks ? joinSlot : undefined}
         data-camp={shouldTrackClicks ? joinCamp : undefined}
       >
         Start camming • Free starter kit
-      </a>
+      </LinkCTA>
     </div>
   </section>
 
@@ -123,7 +129,9 @@ const faq = [
     <h2 class="section-heading">How it works</h2>
     <p class="text-sm text-white/70">
       Four simple steps keep the process transparent. The full breakdown lives in our
-      <a class="text-rose-gold underline-offset-4 hover:underline" href={withBase('/starter-kit')}>starter kit overview</a>
+      <a class="text-rose-gold underline-offset-4 hover:underline" href={withBase('/starter-kit')}>
+        starter kit overview
+      </a>
       so you always know what’s included.
     </p>
     <ol class="grid gap-4 text-sm text-white/70 sm:grid-cols-2">

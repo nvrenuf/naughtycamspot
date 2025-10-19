@@ -5,7 +5,7 @@ declare(strict_types=1);
 const GO_SUBID_PARAM = 'subid';
 const GO_MODEL_PROGRAM_CONFIG = [
     'bonga' => [
-        'active' => false,
+        'active' => true,
         'tiers' => ['T1', 'T2', 'T3', 'T4'],
     ],
     'camsoda' => [
@@ -185,23 +185,19 @@ function go_model_fallback_url(string $subid): string
     return go_append_subid('/join-models/', $subid);
 }
 
-/**
- * BongaCash model signup targets segmented by tier.
- * These will need to be replaced with live tracking links once issued.
- */
 function go_build_bonga_model_signup(string $subid, array $context = []): string
 {
-    $tier = strtoupper($context['tier'] ?? 'T4');
-    $targets = [
-        'T1' => 'https://track.naughtycamspot.com/bonga/models/tier1',
-        'T2' => 'https://track.naughtycamspot.com/bonga/models/tier2',
-        'T3' => 'https://track.naughtycamspot.com/bonga/models/tier3',
-        'T4' => 'https://track.naughtycamspot.com/bonga/models/global',
-    ];
+    // TODO: if panel uses a different subid key, change here and in programs.json
+    $subKey = 's1';
 
-    $base = $targets[$tier] ?? $targets['T4'];
+    // Single base for now; if you get tier-specific refs, branch on $tier
+    $base = 'https://bongacash.com/model-ref?c=828873';
 
-    return go_append_subid($base, $subid);
+    // Append subid
+    $sep = (strpos($base, '?') === false) ? '?' : '&';
+    $url = $base . $sep . $subKey . '=' . rawurlencode($subid);
+
+    return $url;
 }
 
 function go_build_camsoda_model_signup(string $subid): string
