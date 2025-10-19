@@ -46,18 +46,18 @@ const howItWorks = [
       'Email a screenshot or your referral code to concierge@naughtycamspot.com so we can confirm the referral credit.'
   },
   {
-    title: 'Receive the starter kit',
+    title: 'Receive the StartRight kit',
     detail:
       'We immediately send the 14-day launch kit: lighting checklist, scripted opener, tip menu, pricing ladders, schedule, and ToS cheatsheet.'
   },
   {
     title: 'Optional Q&A',
     detail:
-      'Need clarification? Reply to the starter-kit email for asynchronous guidance—no hands-on promotion, just answers.'
+      'Need clarification? Reply to the StartRight kit email for asynchronous guidance—no hands-on promotion, just answers.'
   }
 ];
 
-const starterKitItems = [
+const startRightKitItems = [
   'Lighting checklist for webcams and phones',
   'Opening show script with icebreakers',
   'Tip menu with upsell ladders',
@@ -69,7 +69,7 @@ const starterKitItems = [
 const whatWereNot = [
   'Not an agency, manager, or representative',
   'No paid promotions or social boosts promised',
-  'We never take a cut—affiliate links fund the starter kit',
+  'We never take a cut—affiliate links fund the StartRight kit',
   'You own every account and can leave whenever you like'
 ];
 
@@ -77,12 +77,12 @@ const faq = [
   {
     question: 'Who owns the accounts?',
     answer:
-      'You do. Every platform profile stays under your control. We only provide starter resources after you sign up with our links.'
+        'You do. Every platform profile stays under your control. We only provide StartRight resources after you sign up with our links.'
   },
   {
     question: 'Do you guarantee earnings?',
     answer:
-      'No. Results depend on your effort, platform policies, and audience. The starter kit is a guide—not a promise of income.'
+      'No. Results depend on your effort, platform policies, and audience. The StartRight kit is a guide—not a promise of income.'
   },
   {
     question: 'Is this employment or an agency contract?',
@@ -90,7 +90,7 @@ const faq = [
       'No. There is no employment, representation, or agency relationship. We run an affiliate-funded resource hub.'
   },
   {
-    question: 'What happens after the starter kit?',
+    question: 'What happens after the StartRight kit?',
     answer:
       'You can email follow-up questions, share your first payout, and, if you like, provide a one-line testimonial so other models know what to expect.'
   }
@@ -99,15 +99,15 @@ const faq = [
 
 <MainLayout
   title="Join | NaughtyCamSpot"
-  description="Sign up through NaughtyCamSpot affiliate links to unlock the free 14-day cam model starter kit."
+  description="Sign up through NaughtyCamSpot affiliate links to unlock the free 14-day cam model StartRight kit."
 >
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-black/60"></div>
     <div class="relative space-y-6">
-      <span class="hero-tagline">Referral starter kit</span>
+      <span class="hero-tagline">Referral StartRight kit</span>
       <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Start camming, keep control, claim your kit</h1>
       <p class="max-w-2xl text-base text-white/70">
-        NaughtyCamSpot is a referral + starter-kit hub. Click join, finish the partner program signup with our links, send proof,
+        NaughtyCamSpot is a referral + StartRight kit hub. Click join, finish the partner program signup with our links, send proof,
         and we email the full 14-day launch kit—no promo promises, no management fees.
       </p>
       <LinkCTA
@@ -120,7 +120,7 @@ const faq = [
         data-slot={shouldTrackClicks ? joinSlot : undefined}
         data-camp={shouldTrackClicks ? joinCamp : undefined}
       >
-        Start camming • Free starter kit
+        Start camming • Free StartRight kit
       </LinkCTA>
     </div>
   </section>
@@ -130,7 +130,7 @@ const faq = [
     <p class="text-sm text-white/70">
       Four simple steps keep the process transparent. The full breakdown lives in our
       <a class="text-rose-gold underline-offset-4 hover:underline" href={withBase('/starter-kit')}>
-        starter kit overview
+        StartRight kit overview
       </a>
       so you always know what’s included.
     </p>
@@ -152,7 +152,7 @@ const faq = [
       worksheet for your own brand.
     </p>
     <ul class="grid gap-4 text-sm text-white/70 sm:grid-cols-2">
-      {starterKitItems.map((item) => (
+      {startRightKitItems.map((item) => (
         <li class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl">{item}</li>
       ))}
     </ul>
@@ -186,6 +186,6 @@ const faq = [
     <p>No employment or agency relationship.</p>
     <p>No guarantee of earnings.</p>
     <p>Accounts remain yours; you can leave anytime.</p>
-    <p>Affiliate links fund the starter kit.</p>
+    <p>Affiliate links fund the StartRight kit.</p>
   </section>
 </MainLayout>

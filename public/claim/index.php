@@ -240,7 +240,7 @@ function build_log_entry(DateTimeImmutable $timestamp, string $relativePath, arr
 function build_email_body(DateTimeImmutable $timestamp, string $relativePath, array $values, string $platformLabel): string
 {
     $lines = [
-        'New starter kit claim received on ' . $timestamp->format('Y-m-d H:i:s T') . '.',
+        'New StartRight kit claim received on ' . $timestamp->format('Y-m-d H:i:s T') . '.',
         '',
         'Name: ' . $values['name'],
         'Email: ' . $values['email'],
@@ -286,8 +286,8 @@ function field_error(array $errors, string $key): string
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Claim Starter Kit | NaughtyCamSpot</title>
-    <meta name="description" content="Upload proof of your signup so the NaughtyCamSpot concierge can release the starter kit." />
+    <title>Claim StartRight kit | NaughtyCamSpot</title>
+    <meta name="description" content="Upload proof of your signup so the NaughtyCamSpot concierge can release the StartRight kit." />
     <style>
       :root {
         color-scheme: dark;
@@ -457,9 +457,9 @@ function field_error(array $errors, string $key): string
   </head>
   <body>
     <main>
-      <h1>Claim your starter kit</h1>
+      <h1>Claim your StartRight kit</h1>
       <p>
-        Submit proof of your signup so the NaughtyCamSpot concierge can release the 14-day starter kit. We verify every claim by
+        Submit proof of your signup so the NaughtyCamSpot concierge can release the 14-day StartRight kit. We verify every claim by
         hand. Weekday responses usually land within 24 hours.
       </p>
 
@@ -539,7 +539,7 @@ function field_error(array $errors, string $key): string
 
       <p class="helper" style="margin-top: 28px;">
         After approval you&apos;ll receive an email with the full kit plus a direct link to the
-        <a href="/starter-kit" style="color: var(--accent);">starter kit overview</a> for quick reference.
+        <a href="/starter-kit" style="color: var(--accent);">StartRight kit overview</a> for quick reference.
       </p>
     </main>
   </body>
