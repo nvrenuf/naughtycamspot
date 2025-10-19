@@ -39,6 +39,17 @@ chmod +x .githooks/pre-push
 
 The pre-push hook executes the Pages safety scan, JSON schema validation, and the hero snapshot test.
 
+### Branch synchronization
+
+Use the helper script to fast-forward every local branch to the latest remote state in one sweep:
+
+```bash
+./scripts/sync-all-branches.sh
+```
+
+The script fetches all remotes, skips dirty working trees, creates any missing local branches, and fast-forwards the rest. If a
+branch has diverged, the script will warn so you can handle the merge manually.
+
 ## SEO & indexing
 
 - Production builds (`astro.config.mjs`) enable `@astrojs/sitemap` with the public `site` domain locked to `https://naughtycamspot.com`. GitHub Pages builds continue to use `astro.config.pages.mjs` and inject a `<meta name="robots" content="noindex,nofollow">` tag so previews stay out of the index.
