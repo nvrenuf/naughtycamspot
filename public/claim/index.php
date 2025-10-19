@@ -286,7 +286,7 @@ function field_error(array $errors, string $key): string
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Claim StartRight Kit | NaughtyCamSpot</title>
+    <title>Claim StartRight kit | NaughtyCamSpot</title>
     <meta name="description" content="Upload proof of your signup so the NaughtyCamSpot concierge can release the StartRight kit." />
     <style>
       :root {

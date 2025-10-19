@@ -8,8 +8,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, '..');
 const outputDir = join(projectRoot, 'exports');
 const outputPath = join(outputDir, 'startright-kit.pdf');
-const targetUrl =
-  process.env.STARTRIGHT_KIT_URL ?? process.env.STARTER_KIT_URL ?? 'http://localhost:4321/starter-kit';
+const targetUrl = process.env.STARTER_KIT_URL ?? 'http://localhost:4321/starter-kit';
 
 const log = (message) => process.stdout.write(`${message}\n`);
 

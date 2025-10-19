@@ -38,4 +38,4 @@ Whichever path you pick, keep your first fourteen days focused on the same ritua
 
 Chaturbate has a larger volunteer mod community ready to help, but you must set boundaries around ban policies and pacing. CamSoda offers concierge mod referrals for performers willing to host themed nights. Brief your mod team using the show scripts inside the StartRight kit so everyone welcomes fans the same way.
 
-Remember: either platform works when you pair it with the 14-day runway. Choose the environment that matches your personality, then lock in the claim flow immediately after signup so we can release the kit without delays.
+Remember: either platform works when you pair it with the 14-day runway. Choose the environment that matches your personality, then lock in the claim flow immediately after signup so we can release the StartRight kit without delays.

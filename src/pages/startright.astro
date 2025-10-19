@@ -201,7 +201,7 @@ const clientPrograms = JSON.stringify(
         </a>
       </div>
     </div>
-    <form id="recommend-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
+    <form id="startright-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
       <div class="grid gap-4 sm:grid-cols-2">
         <label class="space-y-2 text-sm text-white/70">
           <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Experience level</span>
@@ -259,7 +259,7 @@ const clientPrograms = JSON.stringify(
     </form>
     <section
       class="space-y-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl"
-      id="recommend-results"
+      id="startright-results"
       data-programs={clientPrograms}
       data-is-pages={import.meta.env.IS_PAGES === 'true' ? 'true' : 'false'}
       data-primary-label={PRIMARY_CTA.label}
@@ -273,7 +273,7 @@ const clientPrograms = JSON.stringify(
         <h2 class="font-display text-3xl text-white">Your best starting points</h2>
         <p class="text-sm text-white/60">Switch the form inputs to refresh this guidance. We pick the top three matches.</p>
       </div>
-      <div class="space-y-5" id="recommendation-list">
+      <div class="space-y-5" id="startright-list">
         {defaultRecommendations.map((result) => (
           <article class="rounded-3xl border border-white/10 bg-black/30 p-5">
             <header class="flex flex-wrap items-center justify-between gap-3">
@@ -333,9 +333,9 @@ const clientPrograms = JSON.stringify(
     </section>
   </section>
   <script is:inline>
-    const form = document.querySelector('#recommend-form');
-    const resultsContainer = document.querySelector('#recommend-results');
-    const list = document.querySelector('#recommendation-list');
+    const form = document.querySelector('#startright-form');
+    const resultsContainer = document.querySelector('#startright-results');
+    const list = document.querySelector('#startright-list');
     if (form && resultsContainer && list) {
     const rawPrograms = JSON.parse(resultsContainer.dataset.programs || '[]');
     const programs = rawPrograms.map((program) => ({
