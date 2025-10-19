@@ -6,24 +6,30 @@ import { getCollection } from 'astro:content';
 const categories = ['Lighting', 'Conversion', 'Scheduling', 'Aftercare'];
 
 const modelEntries = await getCollection('models');
-const models = modelEntries
-  .filter((entry) => entry.data.featured)
-  .sort((a, b) => {
-    const aOrder = a.data.featuredOrder ?? Number.POSITIVE_INFINITY;
-    const bOrder = b.data.featuredOrder ?? Number.POSITIVE_INFINITY;
 
-    if (aOrder === bOrder) {
-      return a.id.localeCompare(b.id);
+const library = modelEntries.map((entry) => ({
+  name: entry.data.name,
+  slug: entry.id,
+  summary: entry.data.summary,
+  image: entry.data.cardImage ?? entry.data.heroImage,
+  featured: entry.data.featured,
+  featuredOrder: entry.data.featuredOrder ?? Number.POSITIVE_INFINITY,
+  consent: entry.data.consent === true
+}));
+
+const featuredModels = library
+  .filter((entry) => entry.featured)
+  .sort((a, b) => {
+    if (a.featuredOrder === b.featuredOrder) {
+      return a.slug.localeCompare(b.slug);
     }
 
-    return aOrder - bOrder;
-  })
-  .map((entry) => ({
-    name: entry.data.name,
-    slug: entry.id,
-    vibe: entry.data.summary,
-    image: entry.data.cardImage ?? entry.data.heroImage
-  }));
+    return a.featuredOrder - b.featuredOrder;
+  });
+
+const libraryModels = library
+  .filter((entry) => !entry.featured)
+  .sort((a, b) => a.name.localeCompare(b.name));
 ---
 
 <MainLayout
@@ -57,7 +63,7 @@ const models = modelEntries
     </div>
 
     <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-      {models.map((model, index) => (
+      {featuredModels.map((model, index) => (
         <article
           class="group content-card overflow-hidden"
           style={`animation-delay: ${index * 0.1}s`}
@@ -73,9 +79,10 @@ const models = modelEntries
           </div>
           <div class="mt-6 space-y-3">
             <h2 class="font-display text-2xl text-white">{model.name}</h2>
-            <p class="text-sm text-white/70">{model.vibe}</p>
+            <p class="text-sm text-white/70">{model.summary}</p>
             <a
               class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
+              data-model={model.slug}
               href={withBase(`/models/${model.slug}`)}
             >
               View example ↗
@@ -85,4 +92,52 @@ const models = modelEntries
       ))}
     </div>
   </section>
+
+  {libraryModels.length > 0 && (
+    <section class="space-y-8">
+      <div class="space-y-3">
+        <h2 class="section-heading">Library previews</h2>
+        <p class="max-w-2xl text-sm text-white/60">
+          These additional walkthroughs are staged examples. Full visuals unlock once each creator opts in.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {libraryModels.map((model, index) => (
+          <article
+            class="group content-card overflow-hidden"
+            style={`animation-delay: ${index * 0.08}s`}
+          >
+            <div class="relative overflow-hidden rounded-3xl">
+              <img
+                src={model.image}
+                alt={model.name}
+                loading="lazy"
+                class={`h-60 w-full object-cover transition duration-700 ease-out group-hover:scale-105 ${
+                  model.consent ? 'opacity-90 group-hover:opacity-100' : 'opacity-40 group-hover:opacity-60'
+                }`}
+              />
+              {!model.consent && (
+                <div class="absolute inset-0 bg-gradient-to-t from-midnight via-black/40 to-transparent"></div>
+              )}
+            </div>
+            <div class="mt-6 space-y-3">
+              <h3 class="font-display text-xl text-white">{model.name}</h3>
+              <p class="text-sm text-white/65">{model.summary}</p>
+              <p class="text-xs uppercase tracking-[0.35em] text-white/45">
+                {model.consent ? 'Example ready' : 'Consent pending listing'}
+              </p>
+              <a
+                class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
+                data-model={model.slug}
+                href={withBase(`/models/${model.slug}`)}
+              >
+                {model.consent ? 'View example ↗' : 'View listing ↗'}
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
 </MainLayout>

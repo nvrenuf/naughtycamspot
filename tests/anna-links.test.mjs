@@ -1,42 +1,8 @@
 import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { execSync } from 'node:child_process';
-import { readFile } from 'node:fs/promises';
-import { rm } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readOutputFile, cleanupBuilds } from './utils/build.js';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const projectRoot = path.resolve(__dirname, '..');
-
-const buildCache = new Map();
-const cleanupDirs = new Set();
-
-const buildPage = async (mode) => {
-  if (buildCache.has(mode)) {
-    return buildCache.get(mode);
-  }
-
-  const outDirName = mode === 'pages' ? 'dist-test-pages' : 'dist-test-prod';
-  const outDir = path.join(projectRoot, outDirName);
-  await rm(outDir, { recursive: true, force: true });
-
-  const command =
-    mode === 'pages'
-      ? `npx astro build --config astro.config.pages.mjs --outDir ${outDirName}`
-      : `npx astro build --outDir ${outDirName}`;
-
-  execSync(command, { cwd: projectRoot, stdio: 'pipe' });
-
-  cleanupDirs.add(outDir);
-
-  const htmlPath = path.join(outDir, 'models', 'anna-prince', 'index.html');
-  const html = await readFile(htmlPath, 'utf8');
-
-  const result = { html, outDir };
-  buildCache.set(mode, result);
-  return result;
-};
+const readModelPage = (mode) => readOutputFile(mode, ['models', 'anna-prince', 'index.html']);
 
 const extractHref = (html, platform) => {
   const pattern = new RegExp(`<a[^>]+data-platform="${platform}"[^>]+href="([^"]+)"`, 'i');
@@ -50,7 +16,7 @@ const collectPlatformOrder = (html) => {
 };
 
 test('Pages build routes Anna Prince CTAs to StartRight', async () => {
-  const { html } = await buildPage('pages');
+  const { html } = await readModelPage('pages');
 
   const expectedHref = '/naughtycamspot/startright';
 
@@ -66,7 +32,7 @@ test('Pages build routes Anna Prince CTAs to StartRight', async () => {
 });
 
 test('Production build uses tracked /go/ links for Anna Prince', async () => {
-  const { html } = await buildPage('prod');
+  const { html } = await readModelPage('prod');
 
   const expectedPaths = {
     manyvids: '/go/mv-anna',
@@ -95,7 +61,7 @@ test('Production build uses tracked /go/ links for Anna Prince', async () => {
 });
 
 test('My.club button renders inactive state', async () => {
-  const { html } = await buildPage('pages');
+  const { html } = await readModelPage('pages');
   const inactiveMatch = html.match(/data-platform="myclub"[^>]*>([^<]+)/i);
   assert.ok(inactiveMatch, 'expected My.club element to exist');
   const text = inactiveMatch[1].trim();
@@ -103,8 +69,4 @@ test('My.club button renders inactive state', async () => {
   assert.ok(!extractHref(html, 'myclub'), 'My.club should not render an href when inactive');
 });
 
-after(async () => {
-  for (const dir of cleanupDirs) {
-    await rm(dir, { recursive: true, force: true });
-  }
-});
+after(cleanupBuilds);
