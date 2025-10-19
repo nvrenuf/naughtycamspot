@@ -26,13 +26,13 @@
   {
     "key": "bonga",
     "name": "BongaCams",
-    "join_base": "TBD",
-    "subid_params": ["TBD"],
+    "join_base": "https://bongacash.com/model-ref?c=828873",
+    "subid_params": ["s1"],
     "payout": "weekly",
     "kyc": "medium",
     "traffic": "high EU/EE",
     "geo": "T1–T4 bounty tiers",
     "best_for": ["GEO-tuned payouts"],
-    "status": "pending"
+    "status": "approved"
   }
 ]
