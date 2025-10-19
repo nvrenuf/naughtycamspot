@@ -38,7 +38,7 @@ jobs:
       - name: Strip PHP redirectors from Pages artifact
         run: rm -rf dist/go
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: dist
 
