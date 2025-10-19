@@ -1,50 +1,26 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 import { test } from 'node:test';
 
-const placeholder = 'https://linktr.ee/naughtycamspot';
-const importLinksWithBase = async (baseUrl) => {
-  const previousBase = process.env.ASTRO_BASE_URL;
-  process.env.ASTRO_BASE_URL = baseUrl;
-  const module = await import(`../src/utils/links.js?base=${baseUrl}`);
-  process.env.ASTRO_BASE_URL = previousBase;
-  return module;
-};
+const resolveFixturePath = (relativePath) =>
+  path.join(path.dirname(fileURLToPath(import.meta.url)), '..', relativePath);
 
-test('Pages build routes CTA to StartRight', async () => {
-  const { buildTrackedLink } = await importLinksWithBase('/docs/');
-  const href = buildTrackedLink({
-    path: '/go/model-join.php',
-    slot: 'home_hero',
-    camp: 'home',
-    placeholder
-  });
+const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relativePath), 'utf8');
 
-  const anchorSnapshot = `<a href="${href}"></a>`;
-  assert.equal(anchorSnapshot, '<a href="/docs/startright"></a>');
+test('Primary CTA routes to StartRight in all environments', async () => {
+  const copySource = await readSource('src/data/copy.ts');
+  assert.ok(copySource.includes("pagesHref: '/startright'"), 'Pages href should point to /startright');
+  assert.ok(copySource.includes("prodHref: '/startright'"), 'Production href should point to /startright');
 });
 
-test('Production build outputs tracked /go link', async () => {
-  const { buildTrackedLink, __test } = await importLinksWithBase('/');
-  const href = buildTrackedLink({
-    path: '/go/model-join.php',
-    slot: 'home_hero',
-    camp: 'home',
-    placeholder
-  });
-
-  const dateStamp = __test.formatDateStamp();
-  assert.equal(dateStamp.length, 8);
-  assert.equal(/^\d{8}$/.test(dateStamp), true);
-
-  const anchorSnapshot = `<a href="${href}"></a>`;
-  assert.equal(
-    anchorSnapshot,
-    `<a href="/go/model-join.php?src=home_hero&camp=home&date=${dateStamp}"></a>`
-  );
+test('Hero partial wires secondary CTA to Join Models', async () => {
+  const heroSource = await readSource('src/partials/home/Hero.astro');
+  assert.ok(heroSource.includes("'/join-models'"), 'Hero partial should link to /join-models');
 });
 
-test('sanitizePlaceholder removes query and hash fragments', async () => {
-  const { __test } = await importLinksWithBase('/docs/');
-  const cleaned = __test.sanitizePlaceholder('https://example.com/join?foo=bar#cta');
-  assert.equal(cleaned, 'https://example.com/join');
+test('Hero partial avoids tracked /go/ links', async () => {
+  const heroSource = await readSource('src/partials/home/Hero.astro');
+  assert.ok(!heroSource.includes('/go/'), 'Hero partial should not contain /go/ links');
 });

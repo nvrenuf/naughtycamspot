@@ -1,0 +1,52 @@
+---
+import { withBase } from '../../utils/links';
+
+const steps = [
+  {
+    title: 'Share proof of acceptance',
+    description:
+      'Send your welcome email or dashboard screenshot. We use it to confirm payout routing and unlock the right kit modules.',
+    link: { href: '/case-studies', label: 'See the proof vault' }
+  },
+  {
+    title: 'Pick your launch rituals',
+    description:
+      'Choose from scripted countdowns, lighting cues, and mod prompts. We tailor the onboarding run-of-show to your vibe.',
+    link: { href: '/models', label: 'Preview example builds' }
+  },
+  {
+    title: 'Keep concierge on standby',
+    description:
+      'Check in after shows, adjust offers, and schedule retention pushes. No contracts—just a StartRight desk when you need it.',
+    link: { href: '/about', label: 'Meet the concierge team' }
+  }
+] as const;
+---
+<section class="px-6 py-24">
+  <div class="mx-auto max-w-6xl">
+    <div class="flex flex-col gap-5 text-center">
+      <p class="mx-auto text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">
+        How it works
+      </p>
+      <h2 class="font-display text-[clamp(2.1rem,5vw,3rem)] text-white">Three steps to your StartRight plan</h2>
+      <p class="mx-auto max-w-3xl text-[clamp(0.95rem,1.9vw,1.15rem)] text-white/70">
+        The kit is free after you route your signup through our links and send proof. We keep templates fresh so you can relaunch
+        with confidence whenever your strategy evolves.
+      </p>
+    </div>
+    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {steps.map((step, index) => (
+        <article class="flex h-full flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-7">
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-[clamp(0.95rem,1.8vw,1.1rem)] font-semibold text-rose-gold">
+            {(index + 1).toString().padStart(2, '0')}
+          </span>
+          <h3 class="font-display text-[clamp(1.4rem,3.2vw,1.9rem)] text-white">{step.title}</h3>
+          <p class="text-[clamp(0.95rem,1.7vw,1.1rem)] leading-relaxed text-white/75">{step.description}</p>
+          <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase(step.link.href)}>
+            {step.link.label}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
