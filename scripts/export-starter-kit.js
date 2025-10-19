@@ -7,8 +7,9 @@ import puppeteer from 'puppeteer';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = join(__dirname, '..');
 const outputDir = join(projectRoot, 'exports');
-const outputPath = join(outputDir, 'starter-kit.pdf');
-const targetUrl = process.env.STARTER_KIT_URL ?? 'http://localhost:4321/starter-kit';
+const outputPath = join(outputDir, 'startright-kit.pdf');
+const targetUrl =
+  process.env.STARTRIGHT_KIT_URL ?? process.env.STARTER_KIT_URL ?? 'http://localhost:4321/starter-kit';
 
 const log = (message) => process.stdout.write(`${message}\n`);
 
@@ -37,18 +38,18 @@ try {
     }
 
     if (!loaded) {
-      throw lastError ?? new Error('Could not reach starter kit page');
+      throw lastError ?? new Error('Could not reach StartRight kit page');
     }
 
     await mkdir(outputDir, { recursive: true });
     log(`🖨️  Rendering PDF to ${outputPath}`);
     await page.pdf({ path: outputPath, format: 'A4', printBackground: true });
-    log('✅ Starter kit exported');
+    log('✅ StartRight kit exported');
   } finally {
     await browser.close();
   }
 } catch (error) {
-  console.error('Failed to export starter kit PDF');
+  console.error('Failed to export StartRight kit PDF');
   console.error(error);
   process.exitCode = 1;
 }

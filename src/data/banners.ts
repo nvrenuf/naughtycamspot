@@ -27,7 +27,7 @@ export const BANNERS = {
   },
   post_inline_rect: {
     img: '/ads/rect-300x250.svg',
-    alt: 'Claim your starter kit',
+    alt: 'Claim your StartRight kit',
     href_pages: '/startright',
     href_prod: '/claim/',
     size: { w: 300, h: 250 },
