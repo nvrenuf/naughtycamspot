@@ -1,4 +1,6 @@
-Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+Header set Strict-Transport-Security "max-age=15552000; includeSubDomains" env=HTTPS
 Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
 Header set Referrer-Policy "strict-origin-when-cross-origin"
+Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; frame-ancestors 'self'; frame-src https:"
 Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"

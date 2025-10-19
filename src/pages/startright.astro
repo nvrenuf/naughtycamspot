@@ -6,6 +6,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import { HERO, PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import programs from '../data/programs.json';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
+import { formatDateStamp } from '../utils/links';
 
 const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 const qs = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${today}`;
@@ -19,14 +20,6 @@ interface Program {
 }
 
 const canonicalPath = '/startright';
-
-const formatDateStamp = () => {
-  const now = new Date();
-  const year = String(now.getUTCFullYear());
-  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(now.getUTCDate()).padStart(2, '0');
-  return `${year}${month}${day}`;
-};
 
 const goBase = import.meta.env.IS_PAGES === 'true' ? '' : '/go';
 const modelJoinPath = `${goBase}/model-join.php`.replace(/\/{2,}/g, '/');
