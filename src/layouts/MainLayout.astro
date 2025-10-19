@@ -6,7 +6,7 @@ const {
 } = Astro.props;
 import LinkCTA from '../components/LinkCTA.astro';
 import '../styles/tailwind.css';
-import { PRIMARY_CTA } from '../data/copy';
+import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
 import { NAV_MORE, NAV_PRIMARY } from '../data/nav';
 import { withBase } from '../utils/links';
 
@@ -240,20 +240,23 @@ gtag('config', '${gaMeasurementId}');`}
       </main>
 
       <footer class="border-t border-white/10 bg-black/40 py-10 backdrop-blur-2xl">
-        <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 text-xs uppercase tracking-[0.4em] text-white/45 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex flex-wrap items-center gap-4 text-[0.7rem]">
-            {footerLinks.map((link) => (
-              <a class="transition hover:text-rose-gold" href={withBase(link.href)}>
-                {link.label}
+        <div class="mx-auto flex w-full max-w-6xl flex-col gap-5 px-6 text-xs uppercase tracking-[0.35em] text-white/45">
+          <div class="flex flex-wrap items-center gap-4 text-[0.7rem] sm:justify-between">
+            <div class="flex flex-wrap items-center gap-4">
+              {footerLinks.map((link) => (
+                <a class="transition hover:text-rose-gold" href={withBase(link.href)}>
+                  {link.label}
+                </a>
+              ))}
+            </div>
+            <div class="flex items-center gap-4 text-[0.7rem]">
+              <a class="transition hover:text-rose-gold" href="mailto:concierge@naughtycamspot.com">
+                concierge@naughtycamspot.com
               </a>
-            ))}
+              <span>© NaughtyCamSpot 2025</span>
+            </div>
           </div>
-          <div class="flex items-center gap-4 text-[0.7rem]">
-            <a class="transition hover:text-rose-gold" href="mailto:concierge@naughtycamspot.com">
-              concierge@naughtycamspot.com
-            </a>
-            <span>© NaughtyCamSpot 2025</span>
-          </div>
+          <p class="text-[0.65rem] uppercase tracking-[0.4em] text-white/40">{DISCLOSURE}</p>
         </div>
       </footer>
     </div>
