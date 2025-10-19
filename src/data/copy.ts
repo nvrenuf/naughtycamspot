@@ -19,3 +19,20 @@ export const STARTRIGHT_SKIP = {
     camp: 'startright'
   }
 } as const;
+
+export const KIT = {
+  h1: 'StartRight Kit: your platform-matched launch plan',
+  sub: 'Choose where you were accepted. We assemble only what you need.',
+  claimCTA: {
+    label: 'Claim StartRight Kit',
+    pagesHref: '/claim',
+    prodHref: '/claim/'
+  } as const,
+  joinCTA: {
+    label: 'Join with our links',
+    pagesHref: '/startright',
+    prodHref: '/startright'
+  } as const
+} as const;
+
+export type KitCopy = typeof KIT;
