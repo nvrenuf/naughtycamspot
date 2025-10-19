@@ -5,6 +5,7 @@ import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { HERO, PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import programs from '../data/programs.json';
+import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
 
 const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 const qs = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${today}`;
@@ -13,7 +14,7 @@ interface Program {
   key: string;
   name: string;
   join_base: string;
-  status: 'approved' | 'pending';
+  status: ProgramStatus;
   best_for: string[];
 }
 
@@ -48,13 +49,19 @@ const basePrograms = (programs as Program[]).map((program) => {
   const joinHrefPages = program.join_base;
   const joinHrefProdTemplate = `${modelJoinPath}?src=startright_${program.key}&camp=startright&date=YYYYMMDD`;
   const joinHrefProd = buildJoinHref(program.key, dateStamp);
+  const statusMeta = resolveProgramStatusMeta(program.status);
 
   return {
     ...program,
     joinHrefPages,
     joinHrefProd,
     joinHrefProdTemplate,
-    joinDisabled: program.status !== 'approved' || !/^https?:\/\//i.test(joinHrefPages ?? '')
+    joinDisabled: !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages ?? ''),
+    statusLabel: statusMeta.label,
+    statusTextClass: statusMeta.textClass,
+    statusDisclosure: statusMeta.disclosure,
+    joinDisabledLabel: statusMeta.joinDisabledLabel,
+    statusAllowsJoin: statusMeta.allowsJoin
   };
 });
 
@@ -152,8 +159,13 @@ const clientPrograms = JSON.stringify(
     name: program.name,
     joinHrefPages: program.joinHrefPages,
     joinDisabled: program.joinDisabled,
+    joinDisabledLabel: program.joinDisabledLabel,
     best_for: program.best_for,
-    status: program.status
+    status: program.status,
+    statusLabel: program.statusLabel,
+    statusTextClass: program.statusTextClass,
+    statusDisclosure: program.statusDisclosure,
+    statusAllowsJoin: program.statusAllowsJoin
   }))
 );
 ---
@@ -267,15 +279,17 @@ const clientPrograms = JSON.stringify(
             <header class="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h3 class="font-display text-2xl text-white">{result.name}</h3>
-                {result.status !== 'approved' && (
-                  <p class="text-xs uppercase tracking-[0.35em] text-amber-200">Pending</p>
+                {!result.statusAllowsJoin && (
+                  <p class={`text-xs uppercase tracking-[0.35em] ${result.statusTextClass}`}>
+                    {result.statusLabel}
+                  </p>
                 )}
               </div>
               <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-start">
                   {result.joinDisabled ? (
                     <span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40">
-                      Join path pending
+                      {result.joinDisabledLabel}
                     </span>
                   ) : (
                     <LinkCTA
@@ -323,7 +337,16 @@ const clientPrograms = JSON.stringify(
     const resultsContainer = document.querySelector('#recommend-results');
     const list = document.querySelector('#recommendation-list');
     if (form && resultsContainer && list) {
-      const programs = JSON.parse(resultsContainer.dataset.programs || '[]');
+    const rawPrograms = JSON.parse(resultsContainer.dataset.programs || '[]');
+    const programs = rawPrograms.map((program) => ({
+      ...program,
+      joinDisabled: program.joinDisabled === true,
+      joinDisabledLabel: program.joinDisabledLabel || 'Join path pending',
+      statusLabel: program.statusLabel || 'Pending',
+      statusTextClass: program.statusTextClass || 'text-amber-200',
+      statusAllowsJoin: program.statusAllowsJoin === true,
+      statusDisclosure: program.statusDisclosure || 'Awaiting final affiliate paperwork.'
+    }));
       const isPagesBuild = resultsContainer.dataset.isPages === 'true';
       const primaryLabel = resultsContainer.dataset.primaryLabel || 'Get my plan';
       const primaryPages = resultsContainer.dataset.primaryPages || '/startright';
@@ -472,13 +495,16 @@ const clientPrograms = JSON.stringify(
             const joinHrefProd = result.joinHrefProd;
             const resolvedJoinHref = isPagesBuild ? joinHrefPages : joinHrefProd;
             const joinDisabled =
-              result.joinDisabled || (isPagesBuild ? !/^https?:\/\//i.test(joinHrefPages || '') : !resolvedJoinHref);
+              result.joinDisabled ||
+              !result.statusAllowsJoin ||
+              (isPagesBuild ? !/^https?:\/\//i.test(joinHrefPages || '') : !resolvedJoinHref);
             const joinLabel = 'Join with our links';
             const joinIsExternal = /^https?:\/\//i.test(resolvedJoinHref);
             const joinTarget = joinIsExternal ? '_blank' : '_self';
             const joinRel = joinIsExternal ? 'nofollow noopener' : '';
+            const joinDisabledLabel = result.joinDisabledLabel || 'Join path pending';
             const joinButton = joinDisabled
-              ? `<span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40" aria-disabled="true">${joinLabel}</span>`
+              ? `<span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40" aria-disabled="true">${joinDisabledLabel}</span>`
               : `<a class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1" href="${resolvedJoinHref}" target="${joinTarget}"${joinRel ? ` rel="${joinRel}"` : ''}>${joinLabel}${joinIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
             const primaryHref = isPagesBuild ? primaryPages : primaryProd;
             const primaryIsExternal = /^https?:\/\//i.test(primaryHref);
@@ -490,10 +516,10 @@ const clientPrograms = JSON.stringify(
             const skipTarget = skipIsExternal ? '_blank' : '_self';
             const skipRel = skipIsExternal ? 'nofollow noopener' : '';
             const skipButton = `<a class="inline-flex items-center justify-center rounded-full border border-white/15 bg-transparent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/70 transition hover:-translate-y-1 hover:border-white/30 hover:bg-white/10 hover:text-white" href="${skipHref}" target="${skipTarget}"${skipRel ? ` rel="${skipRel}"` : ''}>${skipLabel}${skipIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
-            const pendingLabel = result.status !== 'approved'
-              ? '<p class="text-xs uppercase tracking-[0.35em] text-amber-200">Pending</p>'
+            const statusLabel = !result.statusAllowsJoin
+              ? `<p class="text-xs uppercase tracking-[0.35em] ${result.statusTextClass || 'text-amber-200'}">${result.statusLabel || 'Pending'}</p>`
               : '';
-            return `<article class="rounded-3xl border border-white/10 bg-black/30 p-5"><header class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="font-display text-2xl text-white">${result.name}</h3>${pendingLabel}</div><div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4"><div class="flex flex-col gap-2 sm:flex-row sm:items-start">${joinButton}</div><div class="flex flex-col gap-2 sm:items-start">${primaryButton}${skipButton}</div></div></header><ul class="mt-4 space-y-2 text-sm text-white/70">${reasons}</ul></article>`;
+            return `<article class="rounded-3xl border border-white/10 bg-black/30 p-5"><header class="flex flex-wrap items-center justify-between gap-3"><div><h3 class="font-display text-2xl text-white">${result.name}</h3>${statusLabel}</div><div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4"><div class="flex flex-col gap-2 sm:flex-row sm:items-start">${joinButton}</div><div class="flex flex-col gap-2 sm:items-start">${primaryButton}${skipButton}</div></div></header><ul class="mt-4 space-y-2 text-sm text-white/70">${reasons}</ul></article>`;
           })
           .join('');
       };

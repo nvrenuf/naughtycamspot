@@ -32,7 +32,10 @@
         "type": "array",
         "items": { "type": "string", "minLength": 1 }
       },
-      "status": { "type": "string", "enum": ["pending", "approved"] }
+      "status": {
+        "type": "string",
+        "enum": ["approved", "pending", "blocked", "low_priority", "research"]
+      }
     }
   }
 }

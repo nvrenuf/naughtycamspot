@@ -32,7 +32,55 @@
     "kyc": "medium",
     "traffic": "high EU/EE",
     "geo": "T1–T4 bounty tiers",
-    "best_for": ["GEO-tuned payouts"],
-    "status": "approved"
+    "best_for": ["GEO-tuned payouts", "regional promos"],
+    "status": "pending"
+  },
+  {
+    "key": "jasmin",
+    "name": "Jasmin",
+    "join_base": "https://modelcenter.jasmin.com/en/signup",
+    "subid_params": [],
+    "payout": "twice monthly",
+    "kyc": "strict",
+    "traffic": "high EU premium",
+    "geo": "EU focus, limited US",
+    "best_for": ["studio-managed creators", "premium cam niches"],
+    "status": "pending"
+  },
+  {
+    "key": "stripchat",
+    "name": "Stripchat",
+    "join_base": "https://stripchat.com/studio/start-streaming",
+    "subid_params": [],
+    "payout": "weekly",
+    "kyc": "medium",
+    "traffic": "global live traffic",
+    "geo": "Global with strong EU/LatAm",
+    "best_for": ["interactive cam formats", "token whales"],
+    "status": "blocked"
+  },
+  {
+    "key": "myclub",
+    "name": "My.Club",
+    "join_base": "https://track.naughtycamspot.com/myclub/models",
+    "subid_params": ["subid"],
+    "payout": "monthly",
+    "kyc": "medium",
+    "traffic": "boutique fanbase",
+    "geo": "T1 studio referrals",
+    "best_for": ["high-touch fan clubs", "established creators"],
+    "status": "low_priority"
+  },
+  {
+    "key": "pornhub",
+    "name": "Pornhub",
+    "join_base": "https://track.naughtycamspot.com/pornhub/models",
+    "subid_params": ["subid"],
+    "payout": "monthly",
+    "kyc": "strict",
+    "traffic": "massive global",
+    "geo": "Global, content-tiered",
+    "best_for": ["multi-platform expansion", "studio catalog monetization"],
+    "status": "research"
   }
 ]
