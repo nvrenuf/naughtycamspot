@@ -7,6 +7,7 @@ import { HERO, PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import programs from '../data/programs.json';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
 import { formatDateStamp } from '../utils/links';
+import { buildPagesJoinHref } from '../utils/programs';
 
 const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 const qs = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${today}`;
@@ -15,6 +16,7 @@ interface Program {
   key: string;
   name: string;
   join_base: string;
+  subid_params: string[];
   status: ProgramStatus;
   best_for: string[];
 }
@@ -39,8 +41,9 @@ const skipHrefPages = `${STARTRIGHT_SKIP.pagesHrefBase}${qs}`;
 const skipHrefProd = skipHrefPages;
 
 const basePrograms = (programs as Program[]).map((program) => {
-  const joinHrefPages = program.join_base;
-  const joinHrefProdTemplate = `${modelJoinPath}?src=startright_${program.key}&camp=startright&date=YYYYMMDD`;
+  const slot = `startright_${program.key}`;
+  const joinHrefPages = buildPagesJoinHref(program, slot);
+  const joinHrefProdTemplate = `${modelJoinPath}?src=${slot}&camp=startright&date=YYYYMMDD`;
   const joinHrefProd = buildJoinHref(program.key, dateStamp);
   const statusMeta = resolveProgramStatusMeta(program.status);
 

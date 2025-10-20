@@ -4,6 +4,7 @@ import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../data/copy';
 import { formatDateStamp } from '../utils/links';
+import { buildPagesJoinHref } from '../utils/programs';
 import programs from '../data/programs.json';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
 
@@ -33,8 +34,9 @@ type ProgramCard = Program & {
 
 const dateStamp = formatDateStamp();
 const programCards: ProgramCard[] = (programs as Program[]).map((program) => {
-  const joinHrefProd = `/go/model-join.php?src=compare_${program.key}&camp=compare&date=${dateStamp}`;
-  const joinHrefPages = program.join_base;
+  const slot = `compare_${program.key}`;
+  const joinHrefProd = `/go/model-join.php?src=${slot}&camp=compare&date=${dateStamp}`;
+  const joinHrefPages = buildPagesJoinHref(program, slot);
   const statusMeta = resolveProgramStatusMeta(program.status);
   const joinDisabled =
     !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages ?? '');
