@@ -4,22 +4,20 @@ import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../data/copy';
 import { formatDateStamp } from '../utils/links';
-import { buildPagesJoinHref } from '../utils/programs';
+import { buildPagesJoinHref, allowsPagesJoin, isProgramApproved, type ProgramRecord } from '../utils/programs';
 import programs from '../data/programs.json';
+import { resolveProgramDetail, type ResolvedProgramDetail } from '../data/programDetails';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
 
-interface Program {
+type ProgramEntry = ProgramRecord & {
   key: string;
-  name: string;
+  type: string;
+  status: ProgramStatus;
   join_base: string;
   subid_params: string[];
-  payout: string;
-  kyc: string;
-  traffic: string;
-  geo: string;
-  best_for: string[];
-  status: ProgramStatus;
-}
+};
+
+type Program = ProgramEntry & ResolvedProgramDetail;
 
 type ProgramCard = Program & {
   joinHrefPages: string;
@@ -33,31 +31,41 @@ type ProgramCard = Program & {
 };
 
 const dateStamp = formatDateStamp();
-const programCards: ProgramCard[] = (programs as Program[]).map((program) => {
-  const slot = `compare_${program.key}`;
-  const joinHrefProd = `/go/model-join.php?src=${slot}&camp=compare&date=${dateStamp}`;
-  const joinHrefPages = buildPagesJoinHref(program, {
-    slot,
-    src: slot,
-    camp: 'compare',
-    date: dateStamp
-  });
-  const statusMeta = resolveProgramStatusMeta(program.status);
-  const joinDisabled =
-    !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages ?? '');
+const enrichedPrograms: Program[] = (programs as ProgramEntry[]).map((program) => ({
+  ...program,
+  ...resolveProgramDetail(program.key)
+}));
 
-  return {
-    ...program,
-    joinHrefPages,
-    joinHrefProd,
-    joinDisabled,
-    subidLine: program.subid_params.length > 0 ? `SubID params: ${program.subid_params.join(', ')}` : 'No subID params yet.',
-    statusLabel: statusMeta.label,
-    statusBadgeClass: statusMeta.badgeClass,
-    statusDisclosure: statusMeta.disclosure,
-    joinDisabledLabel: statusMeta.joinDisabledLabel
-  };
-});
+const programCards: ProgramCard[] = enrichedPrograms
+  .filter((program) => isProgramApproved(program) && allowsPagesJoin(program))
+  .map((program) => {
+    const slot = `compare_${program.key}`;
+    const joinHrefPages = buildPagesJoinHref(program, {
+      slot,
+      src: slot,
+      camp: 'compare',
+      date: dateStamp
+    });
+    const joinHrefProd = joinHrefPages;
+    const statusMeta = resolveProgramStatusMeta(program.status);
+    const joinDisabled =
+      !statusMeta.allowsJoin || !allowsPagesJoin(program) || !/^https?:\/\//i.test(joinHrefPages ?? '');
+
+    return {
+      ...program,
+      joinHrefPages,
+      joinHrefProd,
+      joinDisabled,
+      subidLine:
+        program.subid_params.length > 0
+          ? `SubID params: ${program.subid_params.slice(0, 1).join(', ')}`
+          : 'No subID params yet.',
+      statusLabel: statusMeta.label,
+      statusBadgeClass: statusMeta.badgeClass,
+      statusDisclosure: statusMeta.disclosure,
+      joinDisabledLabel: statusMeta.joinDisabledLabel
+    };
+  });
 ---
 
 <MainLayout title="Compare cam platforms" description="Compare cam platforms tailored for new creators launching with NaughtyCamSpot.">

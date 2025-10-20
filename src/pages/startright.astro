@@ -5,68 +5,67 @@ import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { HERO, PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import programs from '../data/programs.json';
+import { resolveProgramDetail, type ResolvedProgramDetail } from '../data/programDetails';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
 import { formatDateStamp } from '../utils/links';
-import { buildPagesJoinHref } from '../utils/programs';
+import {
+  buildPagesJoinHref,
+  allowsPagesJoin,
+  isProgramApproved,
+  type ProgramRecord
+} from '../utils/programs';
 
 const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 const qs = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${today}`;
 
-interface Program {
+type ProgramEntry = ProgramRecord & {
   key: string;
-  name: string;
+  type: string;
+  status: ProgramStatus;
   join_base: string;
   subid_params: string[];
-  status: ProgramStatus;
-  best_for: string[];
-}
+};
+
+type EnrichedProgram = ProgramEntry & ResolvedProgramDetail;
 
 const canonicalPath = '/startright';
-
-const rawBasePath = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
-const normalizedBasePath = rawBasePath.replace(/\/+$/, '');
-const goBase = `${normalizedBasePath}/go`.replace(/\/{2,}/g, '/');
-const modelJoinPath = `${goBase}/model-join.php`.replace(/\/{2,}/g, '/');
-
-const buildJoinHref = (key: string, date: string) => {
-  const params = new URLSearchParams({
-    src: `startright_${key}`,
-    camp: 'startright',
-    date,
-    slot: `startright_${key}`
-  });
-  return `${modelJoinPath}?${params.toString()}`;
-};
 
 const dateStamp = formatDateStamp();
 const skipHrefPages = `${STARTRIGHT_SKIP.pagesHrefBase}${qs}`;
 const skipHrefProd = skipHrefPages;
 
-const basePrograms = (programs as Program[]).map((program) => {
-  const slot = `startright_${program.key}`;
-  const joinHrefPages = buildPagesJoinHref(program, {
-    slot,
-    src: slot,
-    camp: 'startright',
-    date: dateStamp
-  });
-  const joinHrefProdTemplate = `${modelJoinPath}?src=${slot}&camp=startright&date=YYYYMMDD`;
-  const joinHrefProd = buildJoinHref(program.key, dateStamp);
-  const statusMeta = resolveProgramStatusMeta(program.status);
+const enrichedPrograms: EnrichedProgram[] = (programs as ProgramEntry[]).map((program) => ({
+  ...program,
+  ...resolveProgramDetail(program.key)
+}));
 
-  return {
-    ...program,
-    joinHrefPages,
-    joinHrefProd,
-    joinHrefProdTemplate,
-    joinDisabled: !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages ?? ''),
-    statusLabel: statusMeta.label,
-    statusTextClass: statusMeta.textClass,
-    statusDisclosure: statusMeta.disclosure,
-    joinDisabledLabel: statusMeta.joinDisabledLabel,
-    statusAllowsJoin: statusMeta.allowsJoin
-  };
-});
+const basePrograms = enrichedPrograms
+  .filter((program) => isProgramApproved(program) && allowsPagesJoin(program))
+  .map((program) => {
+    const slot = `startright_${program.key}`;
+    const joinHrefPages = buildPagesJoinHref(program, {
+      slot,
+      src: slot,
+      camp: 'startright',
+      date: dateStamp
+    });
+    const joinHrefProd = joinHrefPages;
+    const statusMeta = resolveProgramStatusMeta(program.status);
+    const joinDisabled =
+      !statusMeta.allowsJoin || !allowsPagesJoin(program) || !/^https?:\/\//i.test(joinHrefPages ?? '');
+
+    return {
+      ...program,
+      joinHrefPages,
+      joinHrefProd,
+      joinDisabled,
+      statusLabel: statusMeta.label,
+      statusTextClass: statusMeta.textClass,
+      statusDisclosure: statusMeta.disclosure,
+      joinDisabledLabel: statusMeta.joinDisabledLabel,
+      statusAllowsJoin: statusMeta.allowsJoin
+    };
+  });
 
 const defaultAnswers = {
   experience: 'new',
@@ -265,7 +264,6 @@ const clientPrograms = JSON.stringify(
       id="startright-results"
       data-programs={clientPrograms}
       data-is-pages={import.meta.env.IS_PAGES === 'true' ? 'true' : 'false'}
-      data-model-join-path={modelJoinPath}
       data-primary-label={PRIMARY_CTA.label}
       data-primary-pages={PRIMARY_CTA.pagesHref}
       data-primary-prod={PRIMARY_CTA.prodHref}
@@ -362,7 +360,6 @@ const clientPrograms = JSON.stringify(
         const now = new Date();
         return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
       };
-      const modelJoinPath = resultsContainer.dataset.modelJoinPath || '/go/model-join.php';
       const searchParams = new URLSearchParams(window.location.search);
       const inboundSrc = searchParams.get('src') || '';
       const inboundCamp = searchParams.get('camp') || '';
@@ -375,21 +372,6 @@ const clientPrograms = JSON.stringify(
           date: inboundDate || date,
           slot: defaults.slot
         };
-      };
-      const buildProdHref = (key) => {
-        const defaults = {
-          src: `startright_${key}`,
-          camp: 'startright',
-          date: formatDateStamp(),
-          slot: `startright_${key}`
-        };
-        const tracking = computeTracking(defaults);
-        const params = new URLSearchParams();
-        if (tracking.src) params.set('src', tracking.src);
-        if (tracking.camp) params.set('camp', tracking.camp);
-        if (tracking.date) params.set('date', tracking.date);
-        if (tracking.slot) params.set('slot', tracking.slot);
-        return `${modelJoinPath}?${params.toString()}`;
       };
       const applyTrackingToPath = (href, defaults) => {
         if (!href || /^https?:\/\//i.test(href)) {
@@ -424,7 +406,6 @@ const clientPrograms = JSON.stringify(
       const evaluate = (answers) => {
         const items = programs.map((program) => ({
           ...program,
-          joinHrefProd: buildProdHref(program.key),
           score: 1,
           reasons: []
         }));

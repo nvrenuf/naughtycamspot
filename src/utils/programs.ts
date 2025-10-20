@@ -1,6 +1,6 @@
-import type { ProgramStatus } from '../data/programStatus';
+import type { ProgramStatus } from "../data/programStatus";
 
-type ProgramRecord = {
+export type ProgramRecord = {
   key?: string;
   join_base?: string;
   subid_params?: string[];
@@ -18,36 +18,42 @@ type TrackingInput =
 
 const isHttpUrl = (value: string) => /^https?:\/\//i.test(value);
 
-const sanitizeParams = (params: string[] | undefined) =>
-  (params ?? [])
+const sanitizeParams = (params: string[] | undefined) => {
+  const sanitized = (params ?? [])
     .map((param) => param.trim())
     .filter((param) => param.length > 0);
+  return sanitized.length > 0 ? [sanitized[0]] : [];
+};
 
 const safeEncode = (value: string) => encodeURIComponent(value.trim());
 
 export const isProgramApproved = (program?: ProgramRecord | null): boolean =>
-  !!program && program.status === 'approved';
+  !!program && program.status === "approved";
 
 export const buildPagesJoinHref = (
   program: ProgramRecord | undefined,
-  tracking: TrackingInput
+  tracking: TrackingInput,
 ): string => {
-  if (!program || typeof program.join_base !== 'string') {
-    return '';
+  if (!program || typeof program.join_base !== "string") {
+    return "";
   }
 
   const baseHref = program.join_base.trim();
   if (!baseHref) {
-    return '';
+    return "";
   }
 
-  const slot = typeof tracking === 'string' ? tracking.trim() : (tracking.slot ?? '').trim();
-  const src = typeof tracking === 'string' ? slot : (tracking.src ?? slot).trim();
-  const camp = typeof tracking === 'string' ? '' : (tracking.camp ?? '').trim();
-  const date = typeof tracking === 'string' ? '' : (tracking.date ?? '').trim();
+  const slot =
+    typeof tracking === "string"
+      ? tracking.trim()
+      : (tracking.slot ?? "").trim();
+  const src =
+    typeof tracking === "string" ? slot : (tracking.src ?? slot).trim();
+  const camp = typeof tracking === "string" ? "" : (tracking.camp ?? "").trim();
+  const date = typeof tracking === "string" ? "" : (tracking.date ?? "").trim();
   const params = sanitizeParams(program.subid_params);
 
-  const subidValue = [src, camp, date].filter(Boolean).join('-') || slot;
+  const subidValue = [src, camp, date].filter(Boolean).join("-") || slot;
 
   if (!slot || params.length === 0) {
     return baseHref;
@@ -65,10 +71,10 @@ export const buildPagesJoinHref = (
     }
   }
 
-  const glue = baseHref.includes('?') ? '&' : '?';
+  const glue = baseHref.includes("?") ? "&" : "?";
   const query = params
     .map((param) => `${safeEncode(param)}=${safeEncode(subidValue)}`)
-    .join('&');
+    .join("&");
 
   return `${baseHref}${glue}${query}`;
 };
@@ -78,7 +84,7 @@ export const allowsPagesJoin = (program?: ProgramRecord | null): boolean => {
     return false;
   }
 
-  const baseHref = typeof program?.join_base === 'string' ? program.join_base.trim() : '';
+  const baseHref =
+    typeof program?.join_base === "string" ? program.join_base.trim() : "";
   return isHttpUrl(baseHref);
 };
-
