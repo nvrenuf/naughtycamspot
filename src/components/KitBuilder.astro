@@ -264,9 +264,6 @@ const defaultLanguage = languageOptions[0]?.value ?? 'EN';
       }
     };
 
-    const timezoneField = form?.querySelector('select[name="timezone"]');
-    const hoursField = form?.querySelector('input[name="hours"]');
-    const languageField = form?.querySelector('select[name="language"]');
     if (timezoneField instanceof HTMLSelectElement) {
       const detected = detectTimezoneRegion();
       const hasMatch = Array.from(timezoneField.options).some((option) => option.value === detected);
