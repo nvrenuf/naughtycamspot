@@ -160,10 +160,13 @@ const defaultLanguage = languageOptions[0]?.value ?? 'EN';
     data-kit-platforms
   >{JSON.stringify(Object.fromEntries(platformOptions.map((platform) => [platform.key, platform.sections])))}</script>
   <script type="application/json" data-kit-platform-labels>{JSON.stringify(Object.fromEntries(platformOptions.map((platform) => [platform.key, platform.label])))}</script>
+  <script type="application/json" data-kit-language-labels>{JSON.stringify(languageLabelMap)}</script>
   <script type="application/json" data-kit-timezone-labels>{JSON.stringify(timezoneLabelMap)}</script>
   <script type="application/json" data-kit-language-labels>{JSON.stringify(languageLabelMap)}</script>
 
   <script>
+    const defaultHours = {defaultHours};
+
     const form = document.querySelector('[data-kit-form]');
     const sectionsContainer = document.querySelector('[data-kit-sections]');
     const summaryEl = document.querySelector('[data-kit-summary]');
@@ -229,6 +232,13 @@ const defaultLanguage = languageOptions[0]?.value ?? 'EN';
     })();
 
     const fieldClass = 'space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl sm:p-8';
+
+    const timezoneField = form?.querySelector('select[name="timezone"]') ?? null;
+    const hoursField = form?.querySelector('input[name="hours"]') ?? null;
+    const languageField = form?.querySelector('select[name="language"]') ?? null;
+    const platformInputs = Array.from(
+      form?.querySelectorAll('input[name="platforms"]') ?? []
+    ).filter((input) => input instanceof HTMLInputElement);
 
     const detectTimezoneRegion = () => {
       try {
@@ -378,7 +388,18 @@ const defaultLanguage = languageOptions[0]?.value ?? 'EN';
       timezoneBadgeEl.textContent = `Timezone: ${label}`;
     }
 
-    function updateSummary(hours, language, hasPlatforms) {
+    function formatPlatformList(platformKeys) {
+      if (!Array.isArray(platformKeys) || platformKeys.length === 0) return '';
+      const labels = platformKeys
+        .map((key) => platformLabels[key] ?? key)
+        .filter((label, index, arr) => arr.indexOf(label) === index);
+      if (labels.length === 0) return '';
+      if (labels.length === 1) return labels[0];
+      if (labels.length === 2) return `${labels[0]} + ${labels[1]}`;
+      return `${labels.slice(0, -1).join(', ')} + ${labels[labels.length - 1]}`;
+    }
+
+    function updateSummary(hours, language, platformKeys) {
       if (!(summaryEl instanceof HTMLElement)) return;
       const hoursLabel = Number.isFinite(hours) && hours > 0 ? hours : defaultHoursValue;
       const languageCode = typeof language === 'string' && language.length > 0 ? language : defaultLanguage;
