@@ -23,7 +23,9 @@ interface Program {
 
 const canonicalPath = '/startright';
 
-const goBase = import.meta.env.IS_PAGES === 'true' ? '' : '/go';
+const rawBasePath = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
+const normalizedBasePath = rawBasePath.replace(/\/+$/, '');
+const goBase = `${normalizedBasePath}/go`.replace(/\/{2,}/g, '/');
 const modelJoinPath = `${goBase}/model-join.php`.replace(/\/{2,}/g, '/');
 
 const buildJoinHref = (key: string, date: string) => {
@@ -258,6 +260,7 @@ const clientPrograms = JSON.stringify(
       id="startright-results"
       data-programs={clientPrograms}
       data-is-pages={import.meta.env.IS_PAGES === 'true' ? 'true' : 'false'}
+      data-model-join-path={modelJoinPath}
       data-primary-label={PRIMARY_CTA.label}
       data-primary-pages={PRIMARY_CTA.pagesHref}
       data-primary-prod={PRIMARY_CTA.prodHref}
@@ -354,7 +357,7 @@ const clientPrograms = JSON.stringify(
         const now = new Date();
         return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
       };
-      const goBase = isPagesBuild ? '' : `/${String.fromCharCode(103, 111)}`;
+      const modelJoinPath = resultsContainer.dataset.modelJoinPath || '/go/model-join.php';
       const searchParams = new URLSearchParams(window.location.search);
       const inboundSrc = searchParams.get('src') || '';
       const inboundCamp = searchParams.get('camp') || '';
@@ -381,8 +384,7 @@ const clientPrograms = JSON.stringify(
         if (tracking.camp) params.set('camp', tracking.camp);
         if (tracking.date) params.set('date', tracking.date);
         if (tracking.slot) params.set('slot', tracking.slot);
-        const joinPath = goBase ? `${goBase}/model-join.php` : '/model-join.php';
-        return `${joinPath}?${params.toString()}`;
+        return `${modelJoinPath}?${params.toString()}`;
       };
       const applyTrackingToPath = (href, defaults) => {
         if (!href || /^https?:\/\//i.test(href)) {
