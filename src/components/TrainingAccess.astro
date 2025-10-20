@@ -1,0 +1,200 @@
+---
+const {
+  accessHash = '',
+  storageKey = 'ncs.training.access',
+  title = 'Concierge access required',
+  description =
+    'Enter the VIP code provided by your concierge producer to unlock the private training vault.',
+  inputLabel = 'Access code',
+  buttonLabel = 'Unlock training',
+  successMessage = 'Vault unlocked. Welcome back to the concierge floor.',
+  contactLabel = 'Need the code? Email concierge@naughtycamspot.com.',
+  contactHref = 'mailto:concierge@naughtycamspot.com'
+} = Astro.props;
+---
+<section
+  class="content-card space-y-6"
+  data-training-access
+  data-access-hash={accessHash}
+  data-storage-key={storageKey}
+>
+  <div class="space-y-4" data-training-locked>
+    <div class="space-y-2">
+      <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">{title}</h2>
+      <p class="text-base text-white/70">{description}</p>
+    </div>
+    <form class="space-y-4" data-gate-form novalidate>
+      <label class="block space-y-2">
+        <span class="text-xs uppercase tracking-[0.3em] text-white/50">{inputLabel}</span>
+        <input
+          type="password"
+          inputmode="text"
+          autocomplete="off"
+          spellcheck="false"
+          class="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-sm text-white shadow-inner shadow-black/50 focus:border-rose-gold focus:outline-none"
+          placeholder="••••••"
+          data-gate-input
+        />
+      </label>
+      <button
+        type="submit"
+        class="inline-flex items-center justify-center gap-2 rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:border-rose-gold/80 hover:bg-rose-gold/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
+        data-gate-submit
+      >
+        {buttonLabel}
+      </button>
+    </form>
+    <p class="hidden text-sm text-rose-200/80" data-gate-error>
+      That code did not match. Double-check with concierge and try again.
+    </p>
+    <p class="text-xs text-white/50">
+      <a class="underline decoration-dotted underline-offset-4 transition hover:text-rose-petal" href={contactHref}>
+        {contactLabel}
+      </a>
+    </p>
+  </div>
+  <div class="hidden space-y-4" data-training-missing>
+    <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Access temporarily offline</h2>
+    <p class="text-base text-white/70">
+      The concierge team has not published the current access code. Reach out to
+      <a class="underline decoration-dotted underline-offset-4 transition hover:text-rose-petal" href={contactHref}
+        >concierge@naughtycamspot.com</a
+      >
+      for the latest credentials.
+    </p>
+  </div>
+  <div class="hidden space-y-4" data-training-success>
+    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-rose-petal/80">{successMessage}</p>
+  </div>
+  <div class="hidden space-y-6" data-training-content>
+    <slot />
+  </div>
+  <noscript>
+    <p class="text-sm text-white/60">
+      JavaScript is required to unlock the training library. Enable scripts or contact the concierge team for an offline brief.
+    </p>
+  </noscript>
+</section>
+<script is:inline>
+  {`(function(){
+  const shell = document.querySelector('[data-training-access]');
+  if (!shell) {
+    return;
+  }
+
+  const requiredHash = (shell.getAttribute('data-access-hash') || '').trim();
+  const storageKey = (shell.getAttribute('data-storage-key') || 'ncs.training.access').trim();
+  const locked = shell.querySelector('[data-training-locked]');
+  const missing = shell.querySelector('[data-training-missing]');
+  const success = shell.querySelector('[data-training-success]');
+  const content = shell.querySelector('[data-training-content]');
+  const form = shell.querySelector('[data-gate-form]');
+  const input = shell.querySelector('[data-gate-input]');
+  const submit = shell.querySelector('[data-gate-submit]');
+  const error = shell.querySelector('[data-gate-error]');
+
+  const setState = (state) => {
+    const isUnlocked = state === 'unlocked';
+    const isMissing = state === 'missing';
+    if (locked) {
+      locked.classList.toggle('hidden', isUnlocked || isMissing);
+    }
+    if (content) {
+      content.classList.toggle('hidden', !isUnlocked);
+    }
+    if (missing) {
+      missing.classList.toggle('hidden', !isMissing);
+    }
+    if (success) {
+      success.classList.toggle('hidden', !isUnlocked);
+    }
+  };
+
+  if (!requiredHash) {
+    setState('missing');
+    return;
+  }
+
+  const toHex = (buffer) => {
+    return Array.from(new Uint8Array(buffer))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+  };
+
+  const digest = async (value) => {
+    if (!window.crypto || !window.crypto.subtle) {
+      throw new Error('Hashing unavailable');
+    }
+    const encoder = new TextEncoder();
+    const encoded = encoder.encode(value);
+    const hash = await window.crypto.subtle.digest('SHA-256', encoded);
+    return toHex(hash);
+  };
+
+  const markUnlocked = () => {
+    setState('unlocked');
+    if (error) {
+      error.classList.add('hidden');
+    }
+    try {
+      window.localStorage.setItem(storageKey, requiredHash);
+    } catch (storageError) {
+      console.warn('Unable to persist training access flag', storageError);
+    }
+  };
+
+  try {
+    const cached = window.localStorage.getItem(storageKey);
+    if (cached && cached === requiredHash) {
+      markUnlocked();
+      return;
+    }
+  } catch (storageError) {
+    console.warn('Unable to read training access flag', storageError);
+  }
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!input) {
+      return;
+    }
+
+    const code = input.value.trim();
+    if (code.length === 0) {
+      input.focus();
+      return;
+    }
+
+    const toggleSubmitting = (active) => {
+      form.classList.toggle('opacity-70', active);
+      form.classList.toggle('pointer-events-none', active);
+      if (submit) {
+        submit.classList.toggle('animate-pulse', active);
+      }
+    };
+
+    toggleSubmitting(true);
+
+    try {
+      const hashed = await digest(code);
+      if (hashed === requiredHash) {
+        markUnlocked();
+        return;
+      }
+      if (error) {
+        error.classList.remove('hidden');
+      }
+    } catch (hashError) {
+      console.error('Training gate failed to hash code', hashError);
+      if (error) {
+        error.classList.remove('hidden');
+        error.textContent = 'We could not verify that code. Please try again later or contact concierge.';
+      }
+    } finally {
+      toggleSubmitting(false);
+      input.value = '';
+      input.focus();
+    }
+  });
+})();`}
+</script>

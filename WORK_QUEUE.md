@@ -4,4 +4,4 @@
 
 ## Queue
 - [x] #42 Remove Compare from nav; add home banner to /compare
-- [ ] #45 Design protected Training area + VIP-only posts (design doc, then implement)
+- [x] #45 Design protected Training area + VIP-only posts (design doc, then implement)
