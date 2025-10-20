@@ -4,6 +4,7 @@ import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../data/copy';
 import { formatDateStamp } from '../utils/links';
+import { buildPagesJoinHref } from '../utils/programs';
 import earnings from '../data/earnings.json';
 import programs from '../data/programs.json';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
@@ -28,8 +29,9 @@ const bandLabels: Record<string, string> = {
 
 const cards = bandEntries.map(([key, bands]) => {
   const program = programIndex.get(key);
-  const joinHrefPages = program?.join_base ?? '';
-  const joinHrefProdTemplate = `/go/model-join.php?src=earnings_${key}&camp=earnings&date=YYYYMMDD`;
+  const slot = `earnings_${key}`;
+  const joinHrefPages = buildPagesJoinHref(program, slot);
+  const joinHrefProdTemplate = `/go/model-join.php?src=${slot}&camp=earnings&date=YYYYMMDD`;
   const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', dateStamp);
   const statusMeta = resolveProgramStatusMeta(program?.status ?? 'pending');
   const joinDisabled = !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages);

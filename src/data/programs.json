@@ -26,6 +26,7 @@
   {
     "key": "bonga",
     "name": "BongaCams",
+    "type": "model_ref",
     "join_base": "https://bongacash.com/model-ref?c=828873",
     "subid_params": ["s1"],
     "payout": "weekly",
@@ -33,7 +34,7 @@
     "traffic": "high EU/EE",
     "geo": "T1–T4 bounty tiers",
     "best_for": ["GEO-tuned payouts", "regional promos"],
-    "status": "pending"
+    "status": "approved"
   },
   {
     "key": "jasmin",
