@@ -30,7 +30,12 @@ const bandLabels: Record<string, string> = {
 const cards = bandEntries.map(([key, bands]) => {
   const program = programIndex.get(key);
   const slot = `earnings_${key}`;
-  const joinHrefPages = buildPagesJoinHref(program, slot);
+  const joinHrefPages = buildPagesJoinHref(program, {
+    slot,
+    src: slot,
+    camp: 'earnings',
+    date: dateStamp
+  });
   const joinHrefProdTemplate = `/go/model-join.php?src=${slot}&camp=earnings&date=YYYYMMDD`;
   const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', dateStamp);
   const statusMeta = resolveProgramStatusMeta(program?.status ?? 'pending');

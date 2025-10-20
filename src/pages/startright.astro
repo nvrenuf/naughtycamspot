@@ -44,7 +44,12 @@ const skipHrefProd = skipHrefPages;
 
 const basePrograms = (programs as Program[]).map((program) => {
   const slot = `startright_${program.key}`;
-  const joinHrefPages = buildPagesJoinHref(program, slot);
+  const joinHrefPages = buildPagesJoinHref(program, {
+    slot,
+    src: slot,
+    camp: 'startright',
+    date: dateStamp
+  });
   const joinHrefProdTemplate = `${modelJoinPath}?src=${slot}&camp=startright&date=YYYYMMDD`;
   const joinHrefProd = buildJoinHref(program.key, dateStamp);
   const statusMeta = resolveProgramStatusMeta(program.status);

@@ -7,6 +7,15 @@ type ProgramRecord = {
   status?: ProgramStatus | (string & {});
 };
 
+type TrackingInput =
+  | string
+  | {
+      slot?: string;
+      src?: string;
+      camp?: string;
+      date?: string;
+    };
+
 const isHttpUrl = (value: string) => /^https?:\/\//i.test(value);
 
 const sanitizeParams = (params: string[] | undefined) =>
@@ -21,7 +30,7 @@ export const isProgramApproved = (program?: ProgramRecord | null): boolean =>
 
 export const buildPagesJoinHref = (
   program: ProgramRecord | undefined,
-  trackingSlot: string
+  tracking: TrackingInput
 ): string => {
   if (!program || typeof program.join_base !== 'string') {
     return '';
@@ -32,8 +41,13 @@ export const buildPagesJoinHref = (
     return '';
   }
 
-  const slot = trackingSlot.trim();
+  const slot = typeof tracking === 'string' ? tracking.trim() : (tracking.slot ?? '').trim();
+  const src = typeof tracking === 'string' ? slot : (tracking.src ?? slot).trim();
+  const camp = typeof tracking === 'string' ? '' : (tracking.camp ?? '').trim();
+  const date = typeof tracking === 'string' ? '' : (tracking.date ?? '').trim();
   const params = sanitizeParams(program.subid_params);
+
+  const subidValue = [src, camp, date].filter(Boolean).join('-') || slot;
 
   if (!slot || params.length === 0) {
     return baseHref;
@@ -43,7 +57,7 @@ export const buildPagesJoinHref = (
     try {
       const url = new URL(baseHref);
       params.forEach((param) => {
-        url.searchParams.set(param, slot);
+        url.searchParams.set(param, subidValue);
       });
       return url.toString();
     } catch (error) {
@@ -53,7 +67,7 @@ export const buildPagesJoinHref = (
 
   const glue = baseHref.includes('?') ? '&' : '?';
   const query = params
-    .map((param) => `${safeEncode(param)}=${safeEncode(slot)}`)
+    .map((param) => `${safeEncode(param)}=${safeEncode(subidValue)}`)
     .join('&');
 
   return `${baseHref}${glue}${query}`;

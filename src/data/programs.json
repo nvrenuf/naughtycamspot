@@ -83,5 +83,17 @@
     "geo": "Global, content-tiered",
     "best_for": ["multi-platform expansion", "studio catalog monetization"],
     "status": "research"
+  },
+  {
+    "key": "crakrevenue",
+    "name": "CrakRevenue",
+    "join_base": "",
+    "subid_params": [],
+    "payout": "net 30",
+    "kyc": "strict",
+    "traffic": "CPA + revshare offers",
+    "geo": "Global, offer-specific",
+    "best_for": ["advanced arbitrage", "multi-offer funnels"],
+    "status": "research"
   }
 ]

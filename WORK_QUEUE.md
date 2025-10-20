@@ -8,8 +8,8 @@
 - Preserve `?src=...&camp=...&date=YYYYMMDD`.
 
 ## Queue
-- [ ] #72 Central programs registry + UI wiring
-- [ ] #39 Affiliate links inventory (CamSoda, Chaturbate, BongaCams)
+- [x] #72 Central programs registry + UI wiring
+- [x] #39 Affiliate links inventory (CamSoda, Chaturbate, BongaCams)
 
 ---
 
