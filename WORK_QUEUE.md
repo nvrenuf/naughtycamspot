@@ -8,6 +8,6 @@
 - Preserve `?src=...&camp=...&date=YYYYMMDD`.
 
 ## Queue
-- [ ] #51 Modular StartRight Kit (dynamic, platform-matched)
+- [x] #51 Modular StartRight Kit (dynamic, platform-matched)
 - [ ] #73 Gear kits page + StartRight gear section
 - [ ] #26 NCS: models collection + dynamic pages

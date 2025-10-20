@@ -30,6 +30,8 @@ const languageOptions = [
   { value: 'Other', label: 'Other' }
 ] as const;
 
+const languageLabelMap = Object.fromEntries(languageOptions.map((option) => [option.value, option.label]));
+
 const defaultHours = 10;
 ---
 <section class="grid gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:items-start lg:gap-12">
@@ -156,9 +158,12 @@ const defaultHours = 10;
     data-kit-platforms
   >{JSON.stringify(Object.fromEntries(platformOptions.map((platform) => [platform.key, platform.sections])))}</script>
   <script type="application/json" data-kit-platform-labels>{JSON.stringify(Object.fromEntries(platformOptions.map((platform) => [platform.key, platform.label])))}</script>
+  <script type="application/json" data-kit-language-labels>{JSON.stringify(languageLabelMap)}</script>
   <script type="application/json" data-kit-timezone-labels>{JSON.stringify(timezoneLabelMap)}</script>
 
   <script>
+    const defaultHours = {defaultHours};
+
     const form = document.querySelector('[data-kit-form]');
     const sectionsContainer = document.querySelector('[data-kit-sections]');
     const summaryEl = document.querySelector('[data-kit-summary]');
@@ -209,7 +214,25 @@ const defaultHours = 10;
       }
     })();
 
+    const languageLabels = (() => {
+      const el = document.querySelector('[data-kit-language-labels]');
+      if (!el) return {};
+      try {
+        return JSON.parse(el.textContent ?? '{}');
+      } catch (error) {
+        console.error('Failed to parse language labels', error);
+        return {};
+      }
+    })();
+
     const fieldClass = 'space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl sm:p-8';
+
+    const timezoneField = form?.querySelector('select[name="timezone"]') ?? null;
+    const hoursField = form?.querySelector('input[name="hours"]') ?? null;
+    const languageField = form?.querySelector('select[name="language"]') ?? null;
+    const platformInputs = Array.from(
+      form?.querySelectorAll('input[name="platforms"]') ?? []
+    ).filter((input) => input instanceof HTMLInputElement);
 
     const detectTimezoneRegion = () => {
       try {
@@ -234,21 +257,6 @@ const defaultHours = 10;
         return 'NA';
       }
     };
-
-    const timezoneField = form?.querySelector('select[name="timezone"]');
-    if (timezoneField instanceof HTMLSelectElement) {
-      const detected = detectTimezoneRegion();
-      const hasMatch = Array.from(timezoneField.options).some((option) => option.value === detected);
-      if (hasMatch) {
-        timezoneField.value = detected;
-        updateTimezoneBadge(detected);
-      }
-
-      timezoneField.addEventListener('change', (event) => {
-        const value = event.target instanceof HTMLSelectElement ? event.target.value : timezoneField.value;
-        updateTimezoneBadge(value || 'NA');
-      });
-    }
 
     function mergeSections(selectedKeys) {
       const merged = genericSections.map((section) => ({
@@ -360,41 +368,89 @@ const defaultHours = 10;
       timezoneBadgeEl.textContent = `Timezone: ${label}`;
     }
 
-    function updateSummary(hours, language, hasPlatforms) {
+    function formatPlatformList(platformKeys) {
+      if (!Array.isArray(platformKeys) || platformKeys.length === 0) return '';
+      const labels = platformKeys
+        .map((key) => platformLabels[key] ?? key)
+        .filter((label, index, arr) => arr.indexOf(label) === index);
+      if (labels.length === 0) return '';
+      if (labels.length === 1) return labels[0];
+      if (labels.length === 2) return `${labels[0]} + ${labels[1]}`;
+      return `${labels.slice(0, -1).join(', ')} + ${labels[labels.length - 1]}`;
+    }
+
+    function updateSummary(hours, language, platformKeys) {
       if (!(summaryEl instanceof HTMLElement)) return;
-      const hoursLabel = Number.isFinite(hours) && hours > 0 ? hours : {defaultHours};
-      const languageLabel = typeof language === 'string' && language.length > 0 ? language : 'EN';
-      if (hasPlatforms) {
-        summaryEl.textContent = `Calibrated for ${hoursLabel} hours/week with ${languageLabel} sessions. Matched sections are live.`;
+      const hoursLabel = Number.isFinite(hours) && hours > 0 ? hours : defaultHours;
+      const languageValue = typeof language === 'string' && language.length > 0 ? language : 'EN';
+      const languageLabel = languageLabels[languageValue] ?? languageValue;
+      const platformSummary = formatPlatformList(platformKeys);
+      if (platformSummary) {
+        summaryEl.textContent = `Calibrated for ${hoursLabel} hours/week with ${languageLabel} sessions. Matched sections live for ${platformSummary}.`;
       } else {
         summaryEl.textContent = `Calibrated for ${hoursLabel} hours/week and ${languageLabel} sessions. Add platforms to unlock matched guidance.`;
       }
     }
 
-    form?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!(form instanceof HTMLFormElement)) return;
-      const formData = new FormData(form);
-      const selectedPlatforms = Array.from(
-        form.querySelectorAll('input[name="platforms"]:checked')
-      ).map((input) => (input instanceof HTMLInputElement ? input.value : ''))
-        .filter(Boolean);
-      const hoursRaw = formData.get('hours');
-      const hoursValue = typeof hoursRaw === 'string' ? parseInt(hoursRaw, 10) : Number(hoursRaw);
-      const timezoneValue = formData.get('timezone');
-      const timezoneLabel = typeof timezoneValue === 'string' ? timezoneValue : 'NA';
-      const languageValue = formData.get('language');
-      const languageLabel = typeof languageValue === 'string' ? languageValue : 'EN';
+    function parseHours(value) {
+      if (typeof value === 'number') {
+        return Number.isFinite(value) ? value : defaultHours;
+      }
+      if (typeof value === 'string') {
+        const parsed = parseInt(value, 10);
+        return Number.isFinite(parsed) ? parsed : defaultHours;
+      }
+      return defaultHours;
+    }
+
+    function collectSelectedPlatforms() {
+      return platformInputs
+        .map((input) => (input instanceof HTMLInputElement && input.checked ? input.value : ''))
+        .filter((value) => typeof value === 'string' && value.length > 0);
+    }
+
+    function refresh() {
+      const selectedPlatforms = collectSelectedPlatforms();
+      const hoursValue = hoursField instanceof HTMLInputElement ? parseHours(hoursField.value) : defaultHours;
+      const timezoneValue = timezoneField instanceof HTMLSelectElement && timezoneField.value
+        ? timezoneField.value
+        : 'NA';
+      const languageValue = languageField instanceof HTMLSelectElement && languageField.value
+        ? languageField.value
+        : 'EN';
 
       const mergedSections = mergeSections(selectedPlatforms);
       renderSections(mergedSections);
-      renderBadges(selectedPlatforms, timezoneLabel);
-      updateSummary(hoursValue, languageLabel, selectedPlatforms.length > 0);
+      renderBadges(selectedPlatforms, timezoneValue);
+      updateSummary(hoursValue, languageValue, selectedPlatforms);
+    }
+
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      refresh();
     });
 
-    // initial render sync
-    renderSections(mergeSections([]));
-    renderBadges([], 'NA');
-    updateSummary({defaultHours}, 'EN', false);
+    platformInputs.forEach((input) => {
+      input.addEventListener('change', refresh);
+    });
+
+    if (hoursField instanceof HTMLInputElement) {
+      hoursField.addEventListener('input', refresh);
+    }
+
+    if (languageField instanceof HTMLSelectElement) {
+      languageField.addEventListener('change', refresh);
+    }
+
+    if (timezoneField instanceof HTMLSelectElement) {
+      const detected = detectTimezoneRegion();
+      const hasMatch = Array.from(timezoneField.options).some((option) => option.value === detected);
+      if (hasMatch) {
+        timezoneField.value = detected;
+      }
+      timezoneField.addEventListener('change', refresh);
+    }
+
+    refresh();
   </script>
 </section>
