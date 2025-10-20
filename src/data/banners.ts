@@ -32,6 +32,14 @@ export const BANNERS = {
     href_prod: '/claim/',
     size: { w: 300, h: 250 },
     note: 'Free 14-day kit after signup proof.'
+  },
+  post_end_strip: {
+    img: '/ads/post_end_strip.svg',
+    alt: 'Finish with the StartRight concierge plan',
+    href_pages: '/startright',
+    href_prod: '/go/model-join.php?src=banner_blog_end&camp=blog&date=YYYYMMDD',
+    size: { w: 900, h: 200 },
+    note: DISCLOSURE
   }
 } as const;
 

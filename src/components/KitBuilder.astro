@@ -233,13 +233,6 @@ const defaultLanguage = languageOptions[0]?.value ?? 'EN';
 
     const fieldClass = 'space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl sm:p-8';
 
-    const timezoneField = form?.querySelector('select[name="timezone"]') ?? null;
-    const hoursField = form?.querySelector('input[name="hours"]') ?? null;
-    const languageField = form?.querySelector('select[name="language"]') ?? null;
-    const platformInputs = Array.from(
-      form?.querySelectorAll('input[name="platforms"]') ?? []
-    ).filter((input) => input instanceof HTMLInputElement);
-
     const detectTimezoneRegion = () => {
       try {
         const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
