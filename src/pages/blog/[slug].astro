@@ -77,7 +77,8 @@ const startRightMessage = isPages
       <Content />
     </div>
 
-    <BannerSlot id="post_inline_rect" class="mt-6" />
+    <!-- SLOT: post_inline_rect -->
+    <BannerSlot id="post_inline_rect" class="mt-6" showNote />
 
     <div class="content-card space-y-5">
       <h2 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Continue your launch</h2>
@@ -99,6 +100,9 @@ const startRightMessage = isPages
       <p class="text-xs text-white/50">{startRightMessage}</p>
     </div>
   </article>
+
+  <!-- SLOT: post_end_strip -->
+  <BannerSlot id="post_end_strip" class="mt-16" showNote />
 
   <!-- SECTION: Related Posts -->
   <section class="space-y-6">
