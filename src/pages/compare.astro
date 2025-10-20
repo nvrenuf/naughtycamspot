@@ -2,6 +2,7 @@
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import Hero from '../partials/home/Hero.astro';
 import { PRIMARY_CTA } from '../data/copy';
 import { formatDateStamp } from '../utils/links';
 import { buildPagesJoinHref, allowsPagesJoin, isProgramApproved, type ProgramRecord } from '../utils/programs';
@@ -69,6 +70,7 @@ const programCards: ProgramCard[] = enrichedPrograms
 ---
 
 <MainLayout title="Compare cam platforms" description="Compare cam platforms tailored for new creators launching with NaughtyCamSpot.">
+  <Hero />
   <section class="space-y-8">
     <Notices />
     <div class="space-y-4">
