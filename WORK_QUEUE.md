@@ -8,6 +8,6 @@
 - Preserve `?src=...&camp=...&date=YYYYMMDD`.
 
 ## Queue
-- [x] #41 Blog banner placements (inline rectangle + end strip)
 - [ ] #40 Blog index + client search
 - [ ] #44 Finalize “More” dropdown + mobile accordion
+- [ ] #43 Fold Earnings highlights into Home
