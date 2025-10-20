@@ -8,35 +8,6 @@
 - Preserve `?src=...&camp=...&date=YYYYMMDD`.
 
 ## Queue
-- [x] #72 Central programs registry + UI wiring
-- [x] #39 Affiliate links inventory (CamSoda, Chaturbate, BongaCams)
-
----
-
-### #72 — Programs registry + UI wiring
-Goal: single `src/data/programs.json`; UI reads statuses.
-Do:
-- Add entries: camsoda, chaturbate, bonga, jasmin, stripchat, myclub, pornhub, crakrevenue.
-- bonga.join_base = `https://bongacash.com/model-ref?c=828873`
-- bonga.subid_params = `["s1"]`
-- Update Compare + StartRight to consume registry; disable non-approved.
-- Add `docs/affiliates.md` table.
-Guardrail: Pages never output `/go/*`.
-Commit_message:
-feat(programs): central registry + UI integration
-
-Closes #72
-
----
-
-### #39 — Affiliate links inventory
-Goal: confirm join bases and subid keys; finalize registry.
-Do:
-- Finalize join_base + subid keys for CamSoda, Chaturbate, Bonga.
-- StartRight/Compare: Bonga is approved; tracked join uses `&s1=<subid>`, where `subid = encodeURIComponent([src,camp,date].filter(Boolean).join('-'))`.
-- Leave Prod `/go` GEO-tier TODO.
-Tests: link builder includes `&s1=` and preserves `c=828873`.
-Commit_message:
-chore(affiliates): finalize join URLs and subid params
-
-Closes #39
+- [ ] #51 Modular StartRight Kit (dynamic, platform-matched)
+- [ ] #73 Gear kits page + StartRight gear section
+- [ ] #26 NCS: models collection + dynamic pages
