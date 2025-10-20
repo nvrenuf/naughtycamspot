@@ -1,99 +1,11 @@
 [
-  {
-    "key": "camsoda",
-    "name": "CamSoda",
-    "join_base": "https://www.camsoda.com/models?id=naughtycamboss",
-    "subid_params": ["subid"],
-    "payout": "weekly",
-    "kyc": "low friction",
-    "traffic": "good in NA",
-    "geo": "T1 US-heavy",
-    "best_for": ["fast start", "simple setup"],
-    "status": "approved"
-  },
-  {
-    "key": "chaturbate",
-    "name": "Chaturbate",
-    "join_base": "https://chaturbate.com/in/?tour=5zjT&campaign=YIOhf&track=default",
-    "subid_params": ["track"],
-    "payout": "weekly",
-    "kyc": "medium",
-    "traffic": "very high",
-    "geo": "global",
-    "best_for": ["largest audience", "broad categories"],
-    "status": "approved"
-  },
-  {
-    "key": "bonga",
-    "name": "BongaCams",
-    "type": "model_ref",
-    "join_base": "https://bongacash.com/model-ref?c=828873",
-    "subid_params": ["s1"],
-    "payout": "weekly",
-    "kyc": "medium",
-    "traffic": "high EU/EE",
-    "geo": "T1–T4 bounty tiers",
-    "best_for": ["GEO-tuned payouts", "regional promos"],
-    "status": "approved"
-  },
-  {
-    "key": "jasmin",
-    "name": "Jasmin",
-    "join_base": "",
-    "subid_params": [],
-    "payout": "twice monthly",
-    "kyc": "strict",
-    "traffic": "high EU premium",
-    "geo": "EU focus, limited US",
-    "best_for": ["studio-managed creators", "premium cam niches"],
-    "status": "pending"
-  },
-  {
-    "key": "stripchat",
-    "name": "Stripchat",
-    "join_base": "",
-    "subid_params": [],
-    "payout": "weekly",
-    "kyc": "medium",
-    "traffic": "global live traffic",
-    "geo": "Global with strong EU/LatAm",
-    "best_for": ["interactive cam formats", "token whales"],
-    "status": "blocked"
-  },
-  {
-    "key": "myclub",
-    "name": "My.Club",
-    "join_base": "",
-    "subid_params": [],
-    "payout": "monthly",
-    "kyc": "medium",
-    "traffic": "boutique fanbase",
-    "geo": "T1 studio referrals",
-    "best_for": ["high-touch fan clubs", "established creators"],
-    "status": "low_priority"
-  },
-  {
-    "key": "pornhub",
-    "name": "Pornhub",
-    "join_base": "",
-    "subid_params": [],
-    "payout": "monthly",
-    "kyc": "strict",
-    "traffic": "massive global",
-    "geo": "Global, content-tiered",
-    "best_for": ["multi-platform expansion", "studio catalog monetization"],
-    "status": "research"
-  },
-  {
-    "key": "crakrevenue",
-    "name": "CrakRevenue",
-    "join_base": "",
-    "subid_params": [],
-    "payout": "net 30",
-    "kyc": "strict",
-    "traffic": "CPA + revshare offers",
-    "geo": "Global, offer-specific",
-    "best_for": ["advanced arbitrage", "multi-offer funnels"],
-    "status": "research"
-  }
+  {"key":"camsoda","type":"model_ref","status":"approved","join_base":"https://www.camsoda.com/models?id=naughtycamboss","subid_params":["subid"]},
+  {"key":"chaturbate","type":"model_ref","status":"approved","join_base":"https://chaturbate.com/in/?tour=5zjT&campaign=YIOhf&track=default","subid_params":["track"]},
+  {"key":"bonga","type":"model_ref","status":"approved","join_base":"https://bongacash.com/model-ref?c=828873","subid_params":["s1"]},
+  {"key":"jasmin","type":"model_ref","status":"apply","join_base":"","subid_params":[]},
+  {"key":"stripchat","type":"model_ref","status":"blocked","join_base":"","subid_params":[]},
+  {"key":"myclub","type":"model_ref","status":"low_prio","join_base":"","subid_params":[]},
+  {"key":"pornhub","type":"model_ref","status":"research","join_base":"","subid_params":[]},
+  {"key":"onlyfans","type":"creator_ref","status":"creator","join_base":"","subid_params":[]},
+  {"key":"manyvids","type":"video_merch","status":"separate","join_base":"","subid_params":[]}
 ]

@@ -1,29 +1,32 @@
 ---
 import programs from '../../data/programs.json';
+import { resolveProgramDetail } from '../../data/programDetails';
+import { resolveProgramStatusMeta, type ProgramStatus } from '../../data/programStatus';
 import { withBase } from '../../utils/links';
+import { allowsPagesJoin, isProgramApproved, type ProgramRecord } from '../../utils/programs';
 
-interface Program {
+type ProgramEntry = ProgramRecord & {
   key: string;
-  name: string;
-  payout: string;
-  traffic: string;
-  best_for: string[];
-  status: string;
-}
+  type: string;
+  status: ProgramStatus;
+  join_base: string;
+  subid_params: string[];
+};
 
-const formatStatus = (status: string) =>
-  status
-    .split('_')
-    .map((token) => (token ? token[0]?.toUpperCase() + token.slice(1) : token))
-    .join(' ');
-
-const curatedPrograms = (programs as Program[])
-  .filter((program) => !['blocked', 'research'].includes(program.status))
-  .slice(0, 4)
+const curatedPrograms = (programs as ProgramEntry[])
   .map((program) => ({
     ...program,
-    statusLabel: formatStatus(program.status)
-  }));
+    ...resolveProgramDetail(program.key)
+  }))
+  .filter((program) => isProgramApproved(program) && allowsPagesJoin(program))
+  .slice(0, 4)
+  .map((program) => {
+    const statusMeta = resolveProgramStatusMeta(program.status);
+    return {
+      ...program,
+      statusLabel: statusMeta.label
+    };
+  });
 ---
 <section class="border-t border-white/5 bg-midnight/40 px-6 py-20">
   <div class="mx-auto flex max-w-6xl flex-col gap-12">
