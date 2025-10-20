@@ -36,7 +36,12 @@ const dateStamp = formatDateStamp();
 const programCards: ProgramCard[] = (programs as Program[]).map((program) => {
   const slot = `compare_${program.key}`;
   const joinHrefProd = `/go/model-join.php?src=${slot}&camp=compare&date=${dateStamp}`;
-  const joinHrefPages = buildPagesJoinHref(program, slot);
+  const joinHrefPages = buildPagesJoinHref(program, {
+    slot,
+    src: slot,
+    camp: 'compare',
+    date: dateStamp
+  });
   const statusMeta = resolveProgramStatusMeta(program.status);
   const joinDisabled =
     !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages ?? '');
