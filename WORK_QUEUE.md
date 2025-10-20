@@ -1,31 +1,42 @@
-# NCS Work Queue (commit directly to main, no PR)
+# NCS — Codex Work Queue
 
-## [#72] Programs registry + UI wiring
-- [ ] Add src/data/programs.json (camsoda approved, chaturbate approved, bonga pending, jasmin pending, stripchat blocked, myclub low_priority, pornhub research)
-- [ ] Compare + StartRight read status; pending = disabled join, approved = join_base (Pages)
-- [ ] Build passes; Pages HTML has no /go/*
+## Rules
+- Branch: main. No PRs.
+- Gate: `npm ci && npm run build` must pass.
+- Commit must include: `Closes #<issue-number>`.
+- Pages must never emit `/go/*`.
+- Preserve `?src=...&camp=...&date=YYYYMMDD`.
 
-## [#] Models data source + pages
-- [ ] Add src/data/models.json (Anna links filled; Mia approved:false)
-- [ ] /models and /models/[slug] render from data; buttons add ?src=model_page&camp=<slug>&date=YYYYMMDD
-- [ ] Build passes
+## Queue
+- [ ] #72 Central programs registry + UI wiring
+- [ ] #39 Affiliate links inventory (CamSoda, Chaturbate, BongaCams)
 
-## [#] Hero strip icon + text
-- [ ] Replace broken image with inline SVG camera icon- [ ] RText: "STARTRIGHT — GE- [ ] RFREE KIT", href "/startright-
-- [ ] Build passes; visible on- [ ] 
-## [#40] Blog index + se## [#[ ] /blog shows list with tag##  [ ] Client-side search across title+excerpt; no external calls
-- [ ] Build passes
+---
 
-## [#] Banner placeholders
-- [ ] Implement slots: home(top,mid,footer), post(top,inline,end), model(sidebar,mid)
-- [ ] src/data/banners.ts with {slot, img, alt, href_pages:'/startright', href_prod:'<kept>'}
-- [ ] Banners render where slots exist; Pages point to /startright
+### #72 — Programs registry + UI wiring
+Goal: single `src/data/programs.json`; UI reads statuses.
+Do:
+- Add entries: camsoda, chaturbate, bonga, jasmin, stripchat, myclub, pornhub, crakrevenue.
+- bonga.join_base = `https://bongacash.com/model-ref?c=828873`
+- bonga.subid_params = `["s1"]`
+- Update Compare + StartRight to consume registry; disable non-approved.
+- Add `docs/affiliates.md` table.
+Guardrail: Pages never output `/go/*`.
+Commit_message:
+feat(programs): central registry + UI integration
 
-## [#] Affiliate inventory doc
-- [ ] Create docs/affiliates.md (Program | Type | Status | Join URL | SubID param | Notes)
-- [ ] Keep programs.json in sync
+Closes #72
 
-## [#] Rotator uses central program map
-- [ ] public/go/programs.map.php with {base, subid_key}
-- [ ] Builders read from the map; headers no-store
-- [ ] Build passes (Pages unaffected)
+---
+
+### #39 — Affiliate links inventory
+Goal: confirm join bases and subid keys; finalize registry.
+Do:
+- Finalize join_base + subid keys for CamSoda, Chaturbate, Bonga.
+- StartRight/Compare: Bonga is approved; tracked join uses `&s1=<subid>`, where `subid = encodeURIComponent([src,camp,date].filter(Boolean).join('-'))`.
+- Leave Prod `/go` GEO-tier TODO.
+Tests: link builder includes `&s1=` and preserves `c=828873`.
+Commit_message:
+chore(affiliates): finalize join URLs and subid params
+
+Closes #39
