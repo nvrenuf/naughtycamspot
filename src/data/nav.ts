@@ -17,6 +17,7 @@ export const NAV_MORE: NavLink[] = [
   { href: '/models', label: 'Models' },
   { href: '/case-studies', label: 'Case Studies' },
   { href: '/starter-kit', label: 'StartRight kit' },
+  { href: '/training', label: 'Training' },
   { href: '/startright', label: 'Join Models', prodHref: '/join-models' },
   { href: '/claim', label: 'Claim' }
 ];
