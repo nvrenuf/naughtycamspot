@@ -30,7 +30,11 @@ const languageOptions = [
   { value: 'Other', label: 'Other' }
 ] as const;
 
+const languageLabelMap = Object.fromEntries(languageOptions.map((option) => [option.value, option.label]));
+
 const defaultHours = 10;
+const defaultTimezone = timezoneOptions[0]?.value ?? 'NA';
+const defaultLanguage = languageOptions[0]?.value ?? 'EN';
 ---
 <section class="grid gap-8 lg:grid-cols-[minmax(0,360px)_1fr] lg:items-start lg:gap-12">
   <form
@@ -112,11 +116,11 @@ const defaultHours = 10;
           data-kit-badge-timezone
           class="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.25em] text-white/60"
         >
-          Timezone: {timezoneLabelMap['NA']}
+          Timezone: {timezoneLabelMap[defaultTimezone]}
         </span>
       </div>
       <p class="mt-4 text-sm text-white/70" data-kit-summary>
-        Calibrated for {defaultHours} hours/week and English sessions. Add platforms to unlock matched guidance.
+        Calibrated for {defaultHours} hours/week and {languageLabelMap[defaultLanguage]} sessions. Add platforms to unlock matched guidance.
       </p>
     </div>
 
@@ -157,6 +161,7 @@ const defaultHours = 10;
   >{JSON.stringify(Object.fromEntries(platformOptions.map((platform) => [platform.key, platform.sections])))}</script>
   <script type="application/json" data-kit-platform-labels>{JSON.stringify(Object.fromEntries(platformOptions.map((platform) => [platform.key, platform.label])))}</script>
   <script type="application/json" data-kit-timezone-labels>{JSON.stringify(timezoneLabelMap)}</script>
+  <script type="application/json" data-kit-language-labels>{JSON.stringify(languageLabelMap)}</script>
 
   <script>
     const form = document.querySelector('[data-kit-form]');
@@ -164,6 +169,9 @@ const defaultHours = 10;
     const summaryEl = document.querySelector('[data-kit-summary]');
     const platformBadgesEl = document.querySelector('[data-kit-badges-platform]');
     const timezoneBadgeEl = document.querySelector('[data-kit-badge-timezone]');
+    const defaultTimezone = '{defaultTimezone}';
+    const defaultLanguage = '{defaultLanguage}';
+    const defaultHoursValue = {defaultHours};
 
     const genericSections = (() => {
       const el = document.querySelector('[data-kit-generic]');
@@ -209,12 +217,23 @@ const defaultHours = 10;
       }
     })();
 
+    const languageLabels = (() => {
+      const el = document.querySelector('[data-kit-language-labels]');
+      if (!el) return {};
+      try {
+        return JSON.parse(el.textContent ?? '{}');
+      } catch (error) {
+        console.error('Failed to parse language labels', error);
+        return {};
+      }
+    })();
+
     const fieldClass = 'space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow backdrop-blur-xl sm:p-8';
 
     const detectTimezoneRegion = () => {
       try {
         const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        if (!tz) return 'NA';
+        if (!tz) return defaultTimezone;
         const [area, location] = tz.split('/') as [string, string | undefined];
         if (area === 'Europe') return 'EU';
         if (area === 'America') {
@@ -223,19 +242,21 @@ const defaultHours = 10;
           if (latAmMatches.some((token) => name.includes(token))) {
             return 'LatAm';
           }
-          return 'NA';
+          return defaultTimezone;
         }
         if (area === 'Asia' || area === 'Australia' || area === 'Pacific' || area === 'Indian') {
           return 'APAC';
         }
-        return 'NA';
+        return defaultTimezone;
       } catch (error) {
         console.warn('Timezone detection failed', error);
-        return 'NA';
+        return defaultTimezone;
       }
     };
 
     const timezoneField = form?.querySelector('select[name="timezone"]');
+    const hoursField = form?.querySelector('input[name="hours"]');
+    const languageField = form?.querySelector('select[name="language"]');
     if (timezoneField instanceof HTMLSelectElement) {
       const detected = detectTimezoneRegion();
       const hasMatch = Array.from(timezoneField.options).some((option) => option.value === detected);
@@ -244,10 +265,7 @@ const defaultHours = 10;
         updateTimezoneBadge(detected);
       }
 
-      timezoneField.addEventListener('change', (event) => {
-        const value = event.target instanceof HTMLSelectElement ? event.target.value : timezoneField.value;
-        updateTimezoneBadge(value || 'NA');
-      });
+      timezoneField.addEventListener('change', handleFormUpdate);
     }
 
     function mergeSections(selectedKeys) {
@@ -362,8 +380,9 @@ const defaultHours = 10;
 
     function updateSummary(hours, language, hasPlatforms) {
       if (!(summaryEl instanceof HTMLElement)) return;
-      const hoursLabel = Number.isFinite(hours) && hours > 0 ? hours : {defaultHours};
-      const languageLabel = typeof language === 'string' && language.length > 0 ? language : 'EN';
+      const hoursLabel = Number.isFinite(hours) && hours > 0 ? hours : defaultHoursValue;
+      const languageCode = typeof language === 'string' && language.length > 0 ? language : defaultLanguage;
+      const languageLabel = languageLabels[languageCode] ?? languageCode;
       if (hasPlatforms) {
         summaryEl.textContent = `Calibrated for ${hoursLabel} hours/week with ${languageLabel} sessions. Matched sections are live.`;
       } else {
@@ -371,30 +390,63 @@ const defaultHours = 10;
       }
     }
 
-    form?.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (!(form instanceof HTMLFormElement)) return;
+    function getFormState() {
+      if (!(form instanceof HTMLFormElement)) return null;
       const formData = new FormData(form);
-      const selectedPlatforms = Array.from(
-        form.querySelectorAll('input[name="platforms"]:checked')
-      ).map((input) => (input instanceof HTMLInputElement ? input.value : ''))
+      const selectedPlatforms = formData
+        .getAll('platforms')
+        .map((value) => (typeof value === 'string' ? value : ''))
         .filter(Boolean);
       const hoursRaw = formData.get('hours');
       const hoursValue = typeof hoursRaw === 'string' ? parseInt(hoursRaw, 10) : Number(hoursRaw);
       const timezoneValue = formData.get('timezone');
-      const timezoneLabel = typeof timezoneValue === 'string' ? timezoneValue : 'NA';
+      const timezoneLabel = typeof timezoneValue === 'string' && timezoneValue.length > 0 ? timezoneValue : defaultTimezone;
       const languageValue = formData.get('language');
-      const languageLabel = typeof languageValue === 'string' ? languageValue : 'EN';
+      const languageLabel = typeof languageValue === 'string' && languageValue.length > 0 ? languageValue : defaultLanguage;
 
+      return {
+        selectedPlatforms,
+        hoursValue,
+        timezoneLabel,
+        languageLabel
+      };
+    }
+
+    function applyState(state) {
+      const { selectedPlatforms, hoursValue, timezoneLabel, languageLabel } = state;
       const mergedSections = mergeSections(selectedPlatforms);
       renderSections(mergedSections);
       renderBadges(selectedPlatforms, timezoneLabel);
       updateSummary(hoursValue, languageLabel, selectedPlatforms.length > 0);
+    }
+
+    function handleFormUpdate() {
+      const state = getFormState();
+      if (!state) return;
+      applyState(state);
+    }
+
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      handleFormUpdate();
     });
 
-    // initial render sync
-    renderSections(mergeSections([]));
-    renderBadges([], 'NA');
-    updateSummary({defaultHours}, 'EN', false);
+    if (form instanceof HTMLFormElement) {
+      const platformFields = form.querySelectorAll('input[name="platforms"]');
+      platformFields.forEach((input) => {
+        input.addEventListener('change', handleFormUpdate);
+      });
+    }
+
+    if (hoursField instanceof HTMLInputElement) {
+      hoursField.addEventListener('input', handleFormUpdate);
+      hoursField.addEventListener('change', handleFormUpdate);
+    }
+
+    if (languageField instanceof HTMLSelectElement) {
+      languageField.addEventListener('change', handleFormUpdate);
+    }
+
+    handleFormUpdate();
   </script>
 </section>
