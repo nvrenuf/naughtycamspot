@@ -8,6 +8,6 @@
 - Preserve `?src=...&camp=...&date=YYYYMMDD`.
 
 ## Queue
-- [ ] #40 Blog index + client search
+- [x] #40 Blog index + client search
 - [ ] #44 Finalize “More” dropdown + mobile accordion
 - [ ] #43 Fold Earnings highlights into Home
