@@ -4,6 +4,7 @@ import Notices from '../components/Notices.astro';
 import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { HERO, PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
+import { gearKits } from '../data/gear-kits';
 import programs from '../data/programs.json';
 import { resolveProgramDetail, type ResolvedProgramDetail } from '../data/programDetails';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
@@ -37,6 +38,18 @@ const skipHrefProd = skipHrefPages;
 const enrichedPrograms: EnrichedProgram[] = (programs as ProgramEntry[]).map((program) => ({
   ...program,
   ...resolveProgramDetail(program.key)
+}));
+
+const startRightGearHighlights = gearKits.map((kit) => ({
+  id: kit.id,
+  name: kit.name,
+  investment: kit.investment,
+  spotlight: kit.spotlight,
+  highlights: kit.items.slice(0, 2).map((item) => ({
+    name: item.name,
+    description: item.description
+  })),
+  conciergeNote: kit.conciergeNote
 }));
 
 const basePrograms = enrichedPrograms
@@ -333,6 +346,41 @@ const clientPrograms = JSON.stringify(
         This is guidance, not a guarantee. Use our links → unlock your StartRight plan.
       </p>
     </section>
+  </section>
+  <section class="content-card space-y-6">
+    <div class="space-y-3">
+      <h2 class="section-heading">StartRight gear concierge</h2>
+      <p class="max-w-3xl text-sm text-white/70">
+        We tailor your setup alongside the platform plan so lighting, audio, and automation all match the rituals inside your
+        StartRight kit. These are the builds we deploy most often for new concierge clients.
+      </p>
+    </div>
+    <div class="grid gap-6 lg:grid-cols-3">
+      {startRightGearHighlights.map((kit) => (
+        <article class="flex h-full flex-col gap-4 rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-2xl">
+          <header class="space-y-2">
+            <h3 class="font-display text-xl text-white">{kit.name}</h3>
+            <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{kit.investment}</p>
+          </header>
+          <p class="text-sm text-white/70">{kit.spotlight}</p>
+          <ul class="space-y-2 text-sm text-white/70">
+            {kit.highlights.map((item) => (
+              <li class="flex items-start gap-2">
+                <span aria-hidden="true" class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-gold"></span>
+                <span>
+                  <span class="font-semibold text-white">{item.name}</span> — {item.description}
+                </span>
+              </li>
+            ))}
+          </ul>
+          {kit.conciergeNote && <p class="text-xs text-white/50">{kit.conciergeNote}</p>}
+        </article>
+      ))}
+    </div>
+    <p class="text-sm text-white/60">
+      Need the full breakdown? <a class="text-rose-gold underline decoration-rose-gold/60 decoration-2 underline-offset-4" href="/gear-kits">Browse the gear kits guide</a>
+      for wiring diagrams and procurement help.
+    </p>
   </section>
   <script is:inline>
     const form = document.querySelector('#startright-form');
