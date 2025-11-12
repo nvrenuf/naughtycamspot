@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import TrainingAccess from '../../components/TrainingAccess.astro';
+import { withBase } from '../../utils/links';
+
+const accessHash =
+  typeof import.meta.env.PUBLIC_TRAINING_ACCESS_HASH === 'string'
+    ? import.meta.env.PUBLIC_TRAINING_ACCESS_HASH.trim()
+    : '';
+
+const rawPosts = await getCollection('training');
+const posts = rawPosts
+  .slice()
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .map((entry, index) => ({
+    slug: entry.slug,
+    title: entry.data.title,
+    excerpt: entry.data.excerpt,
+    category: entry.data.category,
+    author: entry.data.author,
+    date: new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: '2-digit',
+      year: 'numeric'
+    }).format(entry.data.publishDate),
+    image: entry.data.cardImage ?? entry.data.heroImage,
+    animationDelay: index * 0.1
+  }));
+
+const totalPosts = posts.length;
+---
+
+<MainLayout
+  title="Training Vault | NaughtyCamSpot"
+  description="Protected concierge training hub for NaughtyCamSpot partners. Unlock VIP launch briefs, retention cadences, and private ops notes."
+>
+  <section class="hero-shell parallax-veil">
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/60"></div>
+    <div class="relative space-y-6">
+      <span class="hero-tagline">Concierge Vault</span>
+      <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Training &amp; VIP Systems</h1>
+      <p class="max-w-2xl text-base text-white/70">
+        Concierge-only briefs covering launch choreography, VIP retention, and elite guest experience tactics. Unlock the vault with
+        your access code to view the full library.
+      </p>
+    </div>
+  </section>
+
+  <TrainingAccess
+    accessHash={accessHash}
+    title="Concierge access required"
+    description="Enter the code provided by your concierge producer to unlock the private training library."
+    buttonLabel="Unlock library"
+    successMessage="Access granted. Scroll for the latest concierge briefs."
+  >
+    {totalPosts === 0 ? (
+      <p class="text-sm text-white/70">
+        The concierge team is composing the first VIP briefs. Check back soon or message your producer for early drafts.
+      </p>
+    ) : (
+      <div class="space-y-6">
+        <div class="space-y-2">
+          <h2 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">VIP Briefs</h2>
+          <p class="text-base text-white/70">
+            {totalPosts === 1
+              ? '1 concierge note is available right now.'
+              : `${totalPosts} concierge notes are ready in the vault.`}
+          </p>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2">
+          {posts.map((post) => (
+            <article
+              class="content-card group overflow-hidden"
+              style={`animation-delay: ${post.animationDelay}s`}
+            >
+              <div class="relative overflow-hidden rounded-3xl">
+                <img src={post.image} alt={post.title} class="h-52 w-full object-cover" loading="lazy" />
+                <div class="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-80 transition group-hover:opacity-60"></div>
+              </div>
+              <div class="mt-6 space-y-3">
+                <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{post.category}</span>
+                <h3 class="font-display text-2xl text-white">{post.title}</h3>
+                <p class="text-sm text-white/70">{post.excerpt}</p>
+                <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-white/50">
+                  <span>{post.author} • {post.date}</span>
+                  <a
+                    class="uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
+                    href={withBase(`/training/${post.slug}`)}
+                  >
+                    Open Brief ↗
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+  </TrainingAccess>
+</MainLayout>

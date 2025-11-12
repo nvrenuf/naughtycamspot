@@ -7,7 +7,7 @@ const {
 import LinkCTA from '../components/LinkCTA.astro';
 import '../styles/tailwind.css';
 import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
-import { NAV_MORE, NAV_PRIMARY } from '../data/nav';
+import { NAV_MORE, NAV_PRIMARY, type NavLink } from '../data/nav';
 import { withBase } from '../utils/links';
 
 const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
@@ -43,6 +43,24 @@ const organizationJsonLd = {
 
 const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
 
+const normalizePath = (value?: string) => {
+  if (!value) {
+    return '';
+  }
+  const trimmed = value.replace(/\/+$/, '');
+  return trimmed.length === 0 ? '/' : trimmed;
+};
+
+const shouldIncludeNavLink = (link: NavLink) => {
+  const candidates = [link.href, link.pagesHref, link.prodHref]
+    .map((candidate) => normalizePath(candidate))
+    .filter(Boolean);
+  return !candidates.includes('/compare');
+};
+
+const primaryNavLinks = NAV_PRIMARY.filter(shouldIncludeNavLink);
+const moreNavLinks = NAV_MORE.filter(shouldIncludeNavLink);
+
 const isNavActive = (href: string) => {
   const normalizedHref = href.replace(/\/+$/, '') || '/';
   if (normalizedHref === '/') {
@@ -61,10 +79,10 @@ const resolveNavHref = (link) => {
   return link.href;
 };
 
-const moreMenuActive = NAV_MORE.some((link) => isNavActive(resolveNavHref(link)));
+const moreMenuActive = moreNavLinks.some((link) => isNavActive(resolveNavHref(link)));
 
 const footerLinks = [
-  ...NAV_MORE,
+  ...moreNavLinks,
   { href: '/about', label: 'About' },
   { href: '/privacy', label: 'Privacy' },
   { href: '/terms', label: 'Terms' },
@@ -137,7 +155,7 @@ gtag('config', '${gaMeasurementId}');`}
             </div>
           </div>
           <nav class="hidden w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 backdrop-blur-2xl sm:gap-4 sm:text-[0.7rem] sm:tracking-[0.28em] lg:flex lg:flex-nowrap lg:text-sm lg:tracking-[0.3em]" aria-label="Primary">
-            {NAV_PRIMARY.map((link) => {
+            {primaryNavLinks.map((link) => {
               const resolvedHref = resolveNavHref(link);
               const active = isNavActive(resolvedHref);
               return (
@@ -167,7 +185,7 @@ gtag('config', '${gaMeasurementId}');`}
                 tabindex="-1"
               >
                 <ul class="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 lg:text-xs lg:tracking-[0.28em]">
-                  {NAV_MORE.map((link) => {
+                  {moreNavLinks.map((link) => {
                     const resolvedHref = resolveNavHref(link);
                     return (
                       <li>
@@ -207,7 +225,7 @@ gtag('config', '${gaMeasurementId}');`}
                 </button>
               </div>
               <nav class="flex flex-col gap-3 text-white/70" aria-label="Mobile primary">
-                {NAV_PRIMARY.map((link) => {
+                {primaryNavLinks.map((link) => {
                   const resolvedHref = resolveNavHref(link);
                   const active = isNavActive(resolvedHref);
                   return (
@@ -233,7 +251,7 @@ gtag('config', '${gaMeasurementId}');`}
                   <span aria-hidden="true">▾</span>
                 </button>
                 <div class="hidden flex-col gap-2 text-[0.65rem] tracking-[0.28em] text-white/70" data-nav-mobile-more-panel>
-                  {NAV_MORE.map((link) => {
+                  {moreNavLinks.map((link) => {
                     const resolvedHref = resolveNavHref(link);
                     const active = isNavActive(resolvedHref);
                     return (

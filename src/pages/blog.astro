@@ -17,8 +17,35 @@ const posts = rawPosts
       day: '2-digit',
       year: 'numeric'
     }).format(entry.data.publishDate),
-    image: entry.data.cardImage ?? entry.data.heroImage
+    image: entry.data.cardImage ?? entry.data.heroImage,
+    searchIndex: [entry.data.title, entry.data.excerpt, entry.data.category]
+      .map((value) => value?.toString().toLowerCase() ?? '')
+      .join(' ')
   }));
+
+const searchParams = Astro.url.searchParams;
+const trackingKeys = ['src', 'camp', 'date'] as const;
+const trackingParams = new URLSearchParams();
+for (const key of trackingKeys) {
+  const value = searchParams.get(key);
+  if (value) {
+    trackingParams.set(key, value);
+  }
+}
+
+const trackingQuery = trackingParams.toString();
+const buildPostHref = (slug: string) => {
+  const baseHref = withBase(`/blog/${slug}`);
+  if (!trackingQuery) {
+    return baseHref;
+  }
+
+  const glue = baseHref.includes('?') ? '&' : '?';
+  return `${baseHref}${glue}${trackingQuery}`;
+};
+
+const initialQuery = searchParams.get('q') ?? '';
+const totalPosts = posts.length;
 ---
 
 <MainLayout
@@ -37,29 +64,168 @@ const posts = rawPosts
     </div>
   </section>
 
-  <!-- SECTION: Blog Grid -->
-  <section class="grid gap-6 sm:grid-cols-2">
-    {posts.map((post, index) => (
-      <article class="content-card group overflow-hidden" style={`animation-delay: ${index * 0.1}s`}>
-        <div class="relative overflow-hidden rounded-3xl">
-          <img src={post.image} alt={post.title} class="h-52 w-full object-cover" loading="lazy" />
-          <div class="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-80 transition group-hover:opacity-60"></div>
+  <!-- SECTION: Blog Index -->
+  <section class="space-y-6" data-blog-index>
+    <div class="content-card space-y-4">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div class="space-y-1">
+          <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Concierge Library</h2>
+          <p class="text-lg text-white/80">Search across field notes, launch plans, and concierge debriefs.</p>
         </div>
-        <div class="mt-6 space-y-3">
-          <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{post.category}</span>
-          <h2 class="font-display text-2xl text-white">{post.title}</h2>
-          <p class="text-sm text-white/70">{post.excerpt}</p>
-          <div class="flex items-center justify-between text-xs text-white/50">
-            <span>{post.date}</span>
-            <a
-              class="uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
-              href={withBase(`/blog/${post.slug}`)}
+        <label class="relative w-full sm:w-80">
+          <span class="sr-only">Search blog posts</span>
+          <div class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white/80 shadow-glow transition focus-within:border-rose-petal/70 focus-within:shadow-[0_0_20px_rgba(252,184,214,0.35)]">
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              class="h-5 w-5 text-white/40"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
             >
-              Read More ↗
-            </a>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m21 21-4.35-4.35m0 0A7 7 0 1 0 6.65 6.65a7 7 0 0 0 9.9 9.9Z"
+              />
+            </svg>
+            <input
+              type="search"
+              inputmode="search"
+              placeholder="Search articles"
+              value={initialQuery}
+              class="w-full bg-transparent text-base text-white placeholder:text-white/40 focus:outline-none"
+              data-search-input
+              autocomplete="off"
+              spellcheck="false"
+            />
           </div>
-        </div>
-      </article>
-    ))}
+        </label>
+      </div>
+      <p
+        class="text-sm text-white/60"
+        data-results-summary
+        role="status"
+        aria-live="polite"
+      >
+        {initialQuery
+          ? 'Filtering concierge posts…'
+          : `Showing ${totalPosts} ${totalPosts === 1 ? 'article' : 'articles'}`}
+      </p>
+      <p class="hidden text-sm text-white/60" data-empty-state>
+        No posts match that search yet. Try a different keyword or clear the filter to scan every concierge note.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2" data-results-grid>
+      {posts.map((post, index) => (
+        <article
+          class="content-card group overflow-hidden"
+          style={`animation-delay: ${index * 0.1}s`}
+          data-article
+          data-search={post.searchIndex}
+        >
+          <div class="relative overflow-hidden rounded-3xl">
+            <img src={post.image} alt={post.title} class="h-52 w-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-80 transition group-hover:opacity-60"></div>
+          </div>
+          <div class="mt-6 space-y-3">
+            <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{post.category}</span>
+            <h2 class="font-display text-2xl text-white">{post.title}</h2>
+            <p class="text-sm text-white/70">{post.excerpt}</p>
+            <div class="flex items-center justify-between text-xs text-white/50">
+              <span>{post.date}</span>
+              <a
+                class="uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
+                href={buildPostHref(post.slug)}
+                data-article-link
+              >
+                Read More ↗
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
   </section>
+  <script is:inline>
+    {`(function(){
+  const root = document.querySelector('[data-blog-index]');
+  if (!root) {
+    return;
+  }
+
+  const input = root.querySelector('[data-search-input]');
+  const cards = Array.from(root.querySelectorAll('[data-article]'));
+  const summary = root.querySelector('[data-results-summary]');
+  const empty = root.querySelector('[data-empty-state]');
+  const initialQuery = ${JSON.stringify(initialQuery)};
+
+  const setSummary = (visible, hasQuery) => {
+    if (!summary) {
+      return;
+    }
+
+    if (hasQuery) {
+      summary.textContent = visible === 1 ? '1 result' : visible + ' results';
+      return;
+    }
+
+    summary.textContent = visible === 1 ? 'Showing 1 article' : 'Showing ' + visible + ' articles';
+  };
+
+  const applyFilter = (query) => {
+    const normalized = query.trim().toLowerCase();
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const haystack = card.getAttribute('data-search') || '';
+      const matches = !normalized || haystack.includes(normalized);
+      card.classList.toggle('hidden', !matches);
+      if (matches) {
+        visible += 1;
+      }
+    });
+
+    if (empty) {
+      empty.classList.toggle('hidden', visible !== 0);
+    }
+
+    setSummary(visible, normalized.length > 0);
+  };
+
+  const syncQueryParam = (value) => {
+    const params = new URLSearchParams(window.location.search);
+    const trimmed = value.trim();
+
+    if (trimmed) {
+      params.set('q', trimmed);
+    } else {
+      params.delete('q');
+    }
+
+    const next = params.toString();
+    const nextUrl = next ? window.location.pathname + '?' + next : window.location.pathname;
+    window.history.replaceState(null, '', nextUrl);
+  };
+
+  if (input instanceof HTMLInputElement) {
+    if (!input.value && initialQuery) {
+      input.value = initialQuery;
+    }
+
+    input.addEventListener('input', () => {
+      const value = input.value || '';
+      syncQueryParam(value);
+      applyFilter(value);
+    });
+
+    applyFilter(input.value || '');
+  } else {
+    applyFilter(initialQuery || '');
+  }
+})();`}
+  </script>
 </MainLayout>

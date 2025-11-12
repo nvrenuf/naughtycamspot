@@ -3,7 +3,7 @@ import BannerSlot from '../components/BannerSlot.astro';
 import LinkCTA from '../components/LinkCTA.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../data/copy';
-import { getClaimUrl, isPagesBuild } from '../utils/links';
+import { formatDateStamp, getClaimUrl, isPagesBuild } from '../utils/links';
 
 const heroBullets = [
   {
@@ -46,14 +46,6 @@ const faqItems = [
     answer: 'Analytics rollout timeline is being set. We will announce as soon as the dashboards are ready.'
   }
 ];
-
-const formatDateStamp = () => {
-  const now = new Date();
-  const year = String(now.getUTCFullYear());
-  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(now.getUTCDate()).padStart(2, '0');
-  return `${year}${month}${day}`;
-};
 
 const joinHrefPages = PRIMARY_CTA.pagesHref;
 const joinHrefProdTemplate = '/go/model-join.php?src=join_models&camp=landing&date=YYYYMMDD';

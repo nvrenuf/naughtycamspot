@@ -5,65 +5,67 @@ import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { HERO, PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import programs from '../data/programs.json';
+import { resolveProgramDetail, type ResolvedProgramDetail } from '../data/programDetails';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
+import { formatDateStamp } from '../utils/links';
+import {
+  buildPagesJoinHref,
+  allowsPagesJoin,
+  isProgramApproved,
+  type ProgramRecord
+} from '../utils/programs';
 
 const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 const qs = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${today}`;
 
-interface Program {
+type ProgramEntry = ProgramRecord & {
   key: string;
-  name: string;
-  join_base: string;
+  type: string;
   status: ProgramStatus;
-  best_for: string[];
-}
+  join_base: string;
+  subid_params: string[];
+};
+
+type EnrichedProgram = ProgramEntry & ResolvedProgramDetail;
 
 const canonicalPath = '/startright';
-
-const formatDateStamp = () => {
-  const now = new Date();
-  const year = String(now.getUTCFullYear());
-  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(now.getUTCDate()).padStart(2, '0');
-  return `${year}${month}${day}`;
-};
-
-const goBase = import.meta.env.IS_PAGES === 'true' ? '' : '/go';
-const modelJoinPath = `${goBase}/model-join.php`.replace(/\/{2,}/g, '/');
-
-const buildJoinHref = (key: string, date: string) => {
-  const params = new URLSearchParams({
-    src: `startright_${key}`,
-    camp: 'startright',
-    date,
-    slot: `startright_${key}`
-  });
-  return `${modelJoinPath}?${params.toString()}`;
-};
 
 const dateStamp = formatDateStamp();
 const skipHrefPages = `${STARTRIGHT_SKIP.pagesHrefBase}${qs}`;
 const skipHrefProd = skipHrefPages;
 
-const basePrograms = (programs as Program[]).map((program) => {
-  const joinHrefPages = program.join_base;
-  const joinHrefProdTemplate = `${modelJoinPath}?src=startright_${program.key}&camp=startright&date=YYYYMMDD`;
-  const joinHrefProd = buildJoinHref(program.key, dateStamp);
-  const statusMeta = resolveProgramStatusMeta(program.status);
+const enrichedPrograms: EnrichedProgram[] = (programs as ProgramEntry[]).map((program) => ({
+  ...program,
+  ...resolveProgramDetail(program.key)
+}));
 
-  return {
-    ...program,
-    joinHrefPages,
-    joinHrefProd,
-    joinHrefProdTemplate,
-    joinDisabled: !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages ?? ''),
-    statusLabel: statusMeta.label,
-    statusTextClass: statusMeta.textClass,
-    statusDisclosure: statusMeta.disclosure,
-    joinDisabledLabel: statusMeta.joinDisabledLabel,
-    statusAllowsJoin: statusMeta.allowsJoin
-  };
-});
+const basePrograms = enrichedPrograms
+  .filter((program) => isProgramApproved(program) && allowsPagesJoin(program))
+  .map((program) => {
+    const slot = `startright_${program.key}`;
+    const joinHrefPages = buildPagesJoinHref(program, {
+      slot,
+      src: slot,
+      camp: 'startright',
+      date: dateStamp
+    });
+    const joinHrefProd = joinHrefPages;
+    const statusMeta = resolveProgramStatusMeta(program.status);
+    const joinDisabled =
+      !statusMeta.allowsJoin || !allowsPagesJoin(program) || !/^https?:\/\//i.test(joinHrefPages ?? '');
+
+    return {
+      ...program,
+      joinHrefPages,
+      joinHrefProd,
+      joinDisabled,
+      statusLabel: statusMeta.label,
+      statusTextClass: statusMeta.textClass,
+      statusDisclosure: statusMeta.disclosure,
+      joinDisabledLabel: statusMeta.joinDisabledLabel,
+      statusAllowsJoin: statusMeta.allowsJoin
+    };
+  });
 
 const defaultAnswers = {
   experience: 'new',
@@ -95,7 +97,7 @@ const ensureReasons = (rec: Recommendation) => {
     }
   }
   if (rec.reasons.length < 2) {
-    rec.reasons.push('Starter kit unlock keeps resources flowing.');
+    rec.reasons.push('StartRight kit unlock keeps resources flowing.');
   }
   return rec;
 };
@@ -201,7 +203,7 @@ const clientPrograms = JSON.stringify(
         </a>
       </div>
     </div>
-    <form id="recommend-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
+    <form id="startright-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
       <div class="grid gap-4 sm:grid-cols-2">
         <label class="space-y-2 text-sm text-white/70">
           <span class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Experience level</span>
@@ -259,7 +261,7 @@ const clientPrograms = JSON.stringify(
     </form>
     <section
       class="space-y-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl"
-      id="recommend-results"
+      id="startright-results"
       data-programs={clientPrograms}
       data-is-pages={import.meta.env.IS_PAGES === 'true' ? 'true' : 'false'}
       data-primary-label={PRIMARY_CTA.label}
@@ -273,7 +275,7 @@ const clientPrograms = JSON.stringify(
         <h2 class="font-display text-3xl text-white">Your best starting points</h2>
         <p class="text-sm text-white/60">Switch the form inputs to refresh this guidance. We pick the top three matches.</p>
       </div>
-      <div class="space-y-5" id="recommendation-list">
+      <div class="space-y-5" id="startright-list">
         {defaultRecommendations.map((result) => (
           <article class="rounded-3xl border border-white/10 bg-black/30 p-5">
             <header class="flex flex-wrap items-center justify-between gap-3">
@@ -333,9 +335,9 @@ const clientPrograms = JSON.stringify(
     </section>
   </section>
   <script is:inline>
-    const form = document.querySelector('#recommend-form');
-    const resultsContainer = document.querySelector('#recommend-results');
-    const list = document.querySelector('#recommendation-list');
+    const form = document.querySelector('#startright-form');
+    const resultsContainer = document.querySelector('#startright-results');
+    const list = document.querySelector('#startright-list');
     if (form && resultsContainer && list) {
     const rawPrograms = JSON.parse(resultsContainer.dataset.programs || '[]');
     const programs = rawPrograms.map((program) => ({
@@ -358,7 +360,6 @@ const clientPrograms = JSON.stringify(
         const now = new Date();
         return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
       };
-      const goBase = isPagesBuild ? '' : `/${String.fromCharCode(103, 111)}`;
       const searchParams = new URLSearchParams(window.location.search);
       const inboundSrc = searchParams.get('src') || '';
       const inboundCamp = searchParams.get('camp') || '';
@@ -371,22 +372,6 @@ const clientPrograms = JSON.stringify(
           date: inboundDate || date,
           slot: defaults.slot
         };
-      };
-      const buildProdHref = (key) => {
-        const defaults = {
-          src: `startright_${key}`,
-          camp: 'startright',
-          date: formatDateStamp(),
-          slot: `startright_${key}`
-        };
-        const tracking = computeTracking(defaults);
-        const params = new URLSearchParams();
-        if (tracking.src) params.set('src', tracking.src);
-        if (tracking.camp) params.set('camp', tracking.camp);
-        if (tracking.date) params.set('date', tracking.date);
-        if (tracking.slot) params.set('slot', tracking.slot);
-        const joinPath = goBase ? `${goBase}/model-join.php` : '/model-join.php';
-        return `${joinPath}?${params.toString()}`;
       };
       const applyTrackingToPath = (href, defaults) => {
         if (!href || /^https?:\/\//i.test(href)) {
@@ -414,14 +399,13 @@ const clientPrograms = JSON.stringify(
           }
         });
         if (rec.reasons.length < 2) {
-          rec.reasons.push('Starter kit unlock keeps resources flowing.');
+          rec.reasons.push('StartRight kit unlock keeps resources flowing.');
         }
         return rec;
       };
       const evaluate = (answers) => {
         const items = programs.map((program) => ({
           ...program,
-          joinHrefProd: buildProdHref(program.key),
           score: 1,
           reasons: []
         }));

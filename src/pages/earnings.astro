@@ -3,6 +3,8 @@ import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../data/copy';
+import { formatDateStamp } from '../utils/links';
+import { buildPagesJoinHref } from '../utils/programs';
 import earnings from '../data/earnings.json';
 import programs from '../data/programs.json';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
@@ -13,14 +15,6 @@ interface Program {
   join_base: string;
   status: ProgramStatus;
 }
-
-const formatDateStamp = () => {
-  const now = new Date();
-  const year = String(now.getUTCFullYear());
-  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(now.getUTCDate()).padStart(2, '0');
-  return `${year}${month}${day}`;
-};
 
 const dateStamp = formatDateStamp();
 const programIndex = new Map((programs as Program[]).map((program) => [program.key, program]));
@@ -35,8 +29,14 @@ const bandLabels: Record<string, string> = {
 
 const cards = bandEntries.map(([key, bands]) => {
   const program = programIndex.get(key);
-  const joinHrefPages = program?.join_base ?? '';
-  const joinHrefProdTemplate = `/go/model-join.php?src=earnings_${key}&camp=earnings&date=YYYYMMDD`;
+  const slot = `earnings_${key}`;
+  const joinHrefPages = buildPagesJoinHref(program, {
+    slot,
+    src: slot,
+    camp: 'earnings',
+    date: dateStamp
+  });
+  const joinHrefProdTemplate = `/go/model-join.php?src=${slot}&camp=earnings&date=YYYYMMDD`;
   const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', dateStamp);
   const statusMeta = resolveProgramStatusMeta(program?.status ?? 'pending');
   const joinDisabled = !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages);

@@ -6,19 +6,18 @@
     "additionalProperties": false,
     "required": [
       "key",
-      "name",
+      "type",
+      "status",
       "join_base",
-      "subid_params",
-      "payout",
-      "kyc",
-      "traffic",
-      "geo",
-      "best_for",
-      "status"
+      "subid_params"
     ],
     "properties": {
       "key": { "type": "string", "minLength": 1 },
-      "name": { "type": "string", "minLength": 1 },
+      "type": { "type": "string", "enum": ["model_ref", "creator_ref", "video_merch"] },
+      "status": {
+        "type": "string",
+        "enum": ["approved", "apply", "blocked", "low_prio", "research", "creator", "separate", "pending", "low_priority"]
+      },
       "join_base": {
         "type": "string",
         "pattern": "^(?:https?:\\/\\/[^\\s]+)?$",
@@ -27,18 +26,6 @@
       "subid_params": {
         "type": "array",
         "items": { "type": "string", "minLength": 1 }
-      },
-      "payout": { "type": "string", "minLength": 1 },
-      "kyc": { "type": "string", "minLength": 1 },
-      "traffic": { "type": "string", "minLength": 1 },
-      "geo": { "type": "string", "minLength": 1 },
-      "best_for": {
-        "type": "array",
-        "items": { "type": "string", "minLength": 1 }
-      },
-      "status": {
-        "type": "string",
-        "enum": ["approved", "pending", "blocked", "low_priority", "research"]
       }
     }
   }

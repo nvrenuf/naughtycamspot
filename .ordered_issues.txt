@@ -1,0 +1,16 @@
+ 1. 26	NCS: models collection + dynamic pages
+ 2. 48	P1: Rename and relaunch the recommender as **StartRight**
+ 3. 49	P1: Rename and relaunch the recommender as **StartRight**
+ 4. 51	P1: Modular StartRight Kit (dynamic, platform-matched)
+ 5. 54	P1: StartRight app — route, copy, analytics
+ 6. 72	P1: Central programs registry + UI wiring
+ 7. 73	P1: Gear kits page + StartRight gear section
+ 8. 38	P1: Recommender as primary CTA (replace Start Camming target on Pages)
+ 9. 39	P1: Affiliate links inventory (CamSoda, Chaturbate, BongaCams)
+10. 40	P1: Blog index + client search
+11. 41	P1: Blog banner placements (inline rect + end strip)
+12. 42	P2: Remove Compare from nav; add home banner to /compare
+13. 43	P2: Fold Earnings highlights into Home
+14. 44	P2: Finalize “More” dropdown + mobile accordion
+15. 45	P2: Design protected Training area + VIP-only posts
+16. 46	P3: Route generic signup buttons to /recommend on Pages

@@ -3,15 +3,8 @@ import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../data/copy';
+import { formatDateStamp } from '../utils/links';
 import contests from '../data/contests.json';
-
-const formatDateStamp = () => {
-  const now = new Date();
-  const year = String(now.getUTCFullYear());
-  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
-  const day = String(now.getUTCDate()).padStart(2, '0');
-  return `${year}${month}${day}`;
-};
 
 const dateStamp = formatDateStamp();
 const joinHrefProd = `/go/model-join.php?src=contests_banner&camp=contests&date=${dateStamp}`;

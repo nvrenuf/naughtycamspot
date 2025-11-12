@@ -4,7 +4,7 @@ import BannerSlot from '../../components/BannerSlot.astro';
 import LinkCTA from '../../components/LinkCTA.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../../data/copy';
-import { withBase } from '../../utils/links';
+import { formatDateStamp, withBase } from '../../utils/links';
 
 const formatDate = (date: Date) =>
   new Intl.DateTimeFormat('en-US', { month: 'long', day: '2-digit', year: 'numeric' }).format(date);
@@ -25,19 +25,30 @@ export async function getStaticPaths() {
 const { post, related } = Astro.props;
 const { Content } = await post.render();
 
-const formatDateStamp = () => {
-  const now = new Date();
-  return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;
+const isPages = import.meta.env.IS_PAGES === 'true';
+const trackingQuery = new URLSearchParams({
+  src: `blog_${post.slug}`,
+  camp: 'post',
+  date: formatDateStamp()
+}).toString();
+
+const buildTrackedHref = (baseHref?: string) => {
+  const trimmed = typeof baseHref === 'string' ? baseHref.trim() : '';
+  const fallback = '/startright';
+  const target = trimmed.length > 0 ? trimmed : fallback;
+  if (!trackingQuery) {
+    return target;
+  }
+  const glue = target.includes('?') ? '&' : '?';
+  return `${target}${glue}${trackingQuery}`;
 };
 
-const isPages = import.meta.env.IS_PAGES === 'true';
-const joinHrefPages = PRIMARY_CTA.pagesHref;
-const joinHrefProd = `/go/model-join.php?src=blog_${post.slug}&camp=post&date=${formatDateStamp()}`;
-const joinRel = isPages ? undefined : 'nofollow noreferrer';
-const joinCtaLabel = isPages ? 'Join our concierge roster' : 'Join via tracked concierge';
+const joinHrefPages = buildTrackedHref(PRIMARY_CTA.pagesHref);
+const joinHrefProd = buildTrackedHref(PRIMARY_CTA.prodHref);
+const joinCtaLabel = 'Open my StartRight plan';
 const startRightMessage = isPages
-  ? 'Pages builds route through the StartRight concierge hub.'
-  : 'Production routes directly to the on-site StartRight plan.';
+  ? 'Pages builds route through the StartRight concierge hub with post-level tracking.'
+  : 'Production routes directly to the on-site StartRight plan with post-level tracking.';
 ---
 
 <MainLayout
@@ -66,7 +77,8 @@ const startRightMessage = isPages
       <Content />
     </div>
 
-    <BannerSlot id="post_inline_rect" class="mt-6" />
+    <!-- SLOT: post_inline_rect -->
+    <BannerSlot id="post_inline_rect" class="mt-6" showNote />
 
     <div class="content-card space-y-5">
       <h2 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Continue your launch</h2>
@@ -75,10 +87,8 @@ const startRightMessage = isPages
           class="inline-flex items-center justify-center gap-2 border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow"
           pagesHref={joinHrefPages}
           prodHref={joinHrefProd}
-          rel={joinRel}
         >
           {joinCtaLabel}
-          {isPages && <span aria-hidden="true">↗</span>}
         </LinkCTA>
         <LinkCTA
           class="border border-white/20 bg-transparent text-white hover:bg-white/10"
@@ -90,6 +100,9 @@ const startRightMessage = isPages
       <p class="text-xs text-white/50">{startRightMessage}</p>
     </div>
   </article>
+
+  <!-- SLOT: post_end_strip -->
+  <BannerSlot id="post_end_strip" class="mt-16" showNote />
 
   <!-- SECTION: Related Posts -->
   <section class="space-y-6">

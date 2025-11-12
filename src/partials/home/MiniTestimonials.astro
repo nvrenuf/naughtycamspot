@@ -1,0 +1,68 @@
+---
+import { withBase } from '../../utils/links';
+
+const testimonials = [
+  {
+    name: 'Evelyn Noir',
+    role: 'Full-time cam model',
+    quote:
+      'The StartRight kit gave me a full month of themed rooms. I finally feel like I am hosting experiences, not just logging on.',
+    image:
+      'https://images.unsplash.com/photo-1517840933437-c41356892b41?auto=format&fit=crop&w=240&q=80'
+  },
+  {
+    name: 'Nova Lynx',
+    role: 'Hybrid creator',
+    quote:
+      'Concierge check-ins keep me accountable. We iterate on offers every week so fans never feel the copy-paste fatigue.',
+    image:
+      'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=240&q=80'
+  },
+  {
+    name: 'Aria Bloom',
+    role: 'Newly signed',
+    quote:
+      'Their platform breakdowns saved me from messy rev-shares. I knew exactly where to launch and how to protect my time.',
+    image:
+      'https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=240&q=80'
+  }
+] as const;
+---
+<section class="border-t border-white/5 px-6 pb-24 pt-20">
+  <div class="mx-auto max-w-6xl">
+    <div class="flex flex-col gap-4 text-center">
+      <p class="mx-auto text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">
+        Community notes
+      </p>
+      <h2 class="font-display text-[clamp(2rem,4.5vw,2.9rem)] text-white">
+        Quick wins from the concierge desk
+      </h2>
+      <p class="mx-auto max-w-3xl text-[clamp(0.95rem,1.9vw,1.15rem)] text-white/70">
+        Borrow the scripts, lighting recipes, and schedule prompts our models rely on. Peek at the blog when you want deeper
+        playbooks.
+      </p>
+    </div>
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {testimonials.map((testimonial) => (
+        <figure class="flex h-full flex-col gap-5 rounded-3xl border border-white/10 bg-white/5 p-7 text-left">
+          <div class="flex items-center gap-4">
+            <img
+              class="h-14 w-14 rounded-full object-cover"
+              src={testimonial.image}
+              alt={`Portrait of ${testimonial.name}`}
+              loading="lazy"
+            />
+            <figcaption>
+              <p class="font-semibold text-white">{testimonial.name}</p>
+              <p class="text-sm uppercase tracking-[0.3em] text-white/50">{testimonial.role}</p>
+            </figcaption>
+          </div>
+          <blockquote class="text-[clamp(0.95rem,1.7vw,1.1rem)] leading-relaxed text-white/80">“{testimonial.quote}”</blockquote>
+          <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/blog')}>
+            Read the latest playbooks
+          </a>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
