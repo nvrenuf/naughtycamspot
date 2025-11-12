@@ -1,0 +1,98 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const supportedLangs = ['en', 'uk', 'ru'] as const;
+const requestedLang = Astro.url.searchParams.get('lang') ?? 'en';
+const lang = supportedLangs.includes(requestedLang as (typeof supportedLangs)[number])
+  ? (requestedLang as (typeof supportedLangs)[number])
+  : 'en';
+
+const COPY = {
+  en: {
+    title: 'Earnings outlook: the next few weeks',
+    body: `Quick heads up.
+
+With the U.S. government shutdown and recent big-company layoffs, some U.S. viewers will tighten spending for a bit. Expect slower traffic at U.S. peak times and smaller average tips.
+
+What to do now:
+• Keep a consistent schedule. Plan for some slower nights. Don’t stretch long goals.
+• Add low-friction options: $2–$5 tips and simple bundles so cautious tippers can still join in.
+• Use micro-goals: small, fast goals create momentum and social proof.
+• Shift some effort outside the U.S.: add a show for the time zones where you already do well. Localize titles/hashtags and post in their evenings.
+• Run 24–72 hour specials instead of permanent discounts.
+• Nurture regulars: send short DMs to members/recent tippers: “support tonight’s goal.”
+• Stay discoverable: clear room topic, clean thumbnail; refresh every 30–45 minutes.
+
+No reply needed unless you want help.`
+  },
+  uk: {
+    title: 'Прогноз заробітків: найближчі тижні',
+    body: `Коротке повідомлення.
+
+Через призупинку роботи уряду США та нещодавні скорочення у великих компаніях частина глядачів із США тимчасово скоротить витрати. Можливі повільніші вечори в години пік у США та менші середні чайові.
+
+Що робити:
+• Тримайте стабільний графік. Плануйте повільніші ночі. Не тягніть довгі цілі.
+• Додайте “легкі” опції: чайові $2–$5 і прості бандли, щоб обережні глядачі могли підтримати.
+• Використовуйте мікроцілі: невеликі швидкі цілі створюють імпульс і соціальний доказ.
+• Змістіть частину зусиль поза США: додайте ефір під часові пояси країн, де ви вже маєте успіх. Локалізуйте заголовки/хештеги та публікуйте у їхній вечірній час.
+• Робіть акції на 24–72 години замість постійних знижок.
+• Працюйте з постійними: короткі приватні повідомлення учасникам/останнім тіперам з проханням підтримати ціль.
+• Будьте помітними: чітка тема кімнати, охайний прев’ю-кадр; оновлюйте кожні 30–45 хвилин.
+
+Відповідь не потрібна, якщо допомога не потрібна.`
+  },
+  ru: {
+    title: 'Прогноз доходов: ближайшие недели',
+    body: `Коротко.
+
+Из-за приостановки работы правительства США и недавних сокращений в крупных компаниях часть зрителей из США временно уменьшит расходы. Возможны более медленные вечера в часы пик США и меньшие средние чаевые.
+
+Что делать:
+• Держите стабильное расписание. Закладывайте более тихие вечера. Не растягивайте длинные цели.
+• Добавьте “легкие” опции: чаевые $2–$5 и простые наборы, чтобы осторожные зрители могли участвовать.
+• Используйте микроцели: маленькие быстрые цели создают динамику и социальное доказательство.
+• Сместите часть усилий за пределы США: добавьте эфир под часовые пояса стран, где вы уже сильны. Локализуйте заголовки/хэштеги и постьте в их вечер.
+• Делайте акции на 24–72 часа вместо постоянных скидок.
+• Работайте с постоянными: короткие ЛС участникам/недавним типперам с просьбой поддержать цель.
+• Оставайтесь заметными: четкая тема комнаты, аккуратный превью-кадр; обновляйте каждые 30–45 минут.
+
+Отвечать не нужно, если помощь не требуется.`
+  }
+} as const;
+
+const paragraphs = COPY[lang].body.trim().split(/\n\n+/).map((block) => block.trim());
+const paragraphsHtml = paragraphs.map((block) => block.replace(/\n/g, '<br />'));
+
+const title = COPY[lang].title;
+const description = COPY.en.title;
+---
+<MainLayout title={`${title} | NaughtyCamSpot`} description={description}>
+  <section class="mx-auto w-full max-w-3xl space-y-8 px-6 py-16">
+    <div class="text-xs font-semibold uppercase tracking-[0.35em] text-white/50">
+      {supportedLangs.map((code, index) => {
+        const label = code.toUpperCase();
+        const href = `?lang=${code}`;
+        const isActive = code === lang;
+
+        return (
+          <span class="inline-flex items-center" aria-current={isActive ? 'true' : undefined}>
+            {index > 0 && <span class="mx-2 text-white/30">|</span>}
+            {isActive ? (
+              <span class="text-rose-gold">{label}</span>
+            ) : (
+              <a class="text-white/60 transition hover:text-rose-gold" href={href}>{label}</a>
+            )}
+          </span>
+        );
+      })}
+    </div>
+
+    <div class="space-y-6">
+      <h1 class="font-display text-4xl text-white sm:text-5xl">{title}</h1>
+      {paragraphsHtml.map((html, index) => (
+        <p class="text-base leading-relaxed text-white/75" set:html={html} data-paragraph-index={index}></p>
+      ))}
+    </div>
+  </section>
+</MainLayout>

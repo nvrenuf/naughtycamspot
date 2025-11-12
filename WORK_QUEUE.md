@@ -1,11 +1,6 @@
 # NCS — Codex Work Queue
-
 ## Rules
-- Branch: main. No PRs.
-- Gate: `npm ci && npm run build` must pass.
-- Commit must include: `Closes #<issue-number>`.
-- Pages must never emit `/go/*`.
-- Preserve `?src=...&camp=...&date=YYYYMMDD`.
+- Branch: main. No PRs. Build must pass. Commit must include `Closes #<issue-number>`. Pages never emit `/go/*`.
 
 ## Queue
 - [x] #73 Gear kits page + StartRight gear section

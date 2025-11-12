@@ -8,6 +8,101 @@ import MiniTestimonials from '../partials/home/MiniTestimonials.astro';
 
 const canonicalPath = Astro.url.pathname;
 
+const featuredModelEntries = await getCollection('models', (entry) => entry.data.featured);
+const sortedFeaturedModels = featuredModelEntries
+  .sort((a, b) => {
+    const aOrder = a.data.featuredOrder ?? Number.POSITIVE_INFINITY;
+    const bOrder = b.data.featuredOrder ?? Number.POSITIVE_INFINITY;
+
+    if (aOrder === bOrder) {
+      return a.id.localeCompare(b.id);
+    }
+
+    return aOrder - bOrder;
+  });
+
+const featuredMuseTiles = sortedFeaturedModels.map((entry) => ({
+  name: entry.data.name,
+  slug: entry.id,
+  role: entry.data.archetype,
+  summary: entry.data.summary,
+  href: `/models/${entry.id}/`,
+  image: entry.data.cardImage ?? entry.data.heroImage
+}));
+
+const featuredMuseEntry = sortedFeaturedModels[0];
+const featuredMuse = featuredMuseEntry
+  ? {
+      name: featuredMuseEntry.data.name,
+      archetype: featuredMuseEntry.data.archetype,
+      image: featuredMuseEntry.data.heroImage,
+      quote: `${featuredMuseEntry.data.name}'s walkthrough shows how we format storytelling, offers, and lighting notes inside the StartRight kit.`,
+      story: `${featuredMuseEntry.data.name} lives in our example library so you can see how a polished bio, visuals, and schedule might flow. Use it as inspiration—your accounts stay yours, and nothing here is a promise of promotion.`,
+      ctaHref: `/models/${featuredMuseEntry.id}`
+    }
+  : {
+      name: 'Coming Soon',
+      archetype: 'Example muse',
+      image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=960&q=80',
+      quote: 'This placeholder illustrates how we storyboard the StartRight kit resources you’ll receive after sign-up.',
+      story: 'We’re drafting additional example pages to showcase kit tactics. Check back for fresh demos you can borrow from immediately.',
+      ctaHref: '/models'
+    };
+
+const runwayBlueprint = [
+  {
+    title: 'Immersive Welcome Rituals',
+    description:
+      'Signature countdowns, playlist cues, and lighting shifts that frame your entrance like a premiere.'
+  },
+  {
+    title: 'Conversion Choreography',
+    description:
+      'Layered goal pacing, mod-led prompts, and bespoke upsell ladders tuned to your comfort levels.'
+  },
+  {
+    title: 'Aftercare & Retention',
+    description:
+      'Post-show debriefs, VIP touchpoints, and merch drops that keep your universe buzzing between sets.'
+  }
+];
+
+const conciergeHighlights = [
+  {
+    title: 'Concierge Launch Architecture',
+    description:
+      'Signature onboarding rituals, boutique photography direction, and room-energy scripting tuned for luxury audiences.'
+  },
+  {
+    title: 'Audience Chemistry Lab',
+    description:
+      'AI-assisted persona mapping, emotional cadence coaching, and nightly debriefs that turn lurkers into patrons.'
+  },
+  {
+    title: 'Revenue Ecosystems',
+    description:
+      'Layered goal pacing, mod orchestration, and premium upsell frameworks that respect your boundaries and boost lifetime value.'
+  }
+];
+
+const proofCards = [
+  {
+    metric: 'Launch concierge baseline',
+    blurb: 'Outline of the starter rituals, conversion pacing, and sensory cues we document for every debut.',
+    date: 'Status: TBD'
+  },
+  {
+    metric: 'Retention cadence sketch',
+    blurb: 'Placeholder for weekly follow-up rhythms, VIP touchpoints, and aftercare loops ready for publishing.',
+    date: 'Status: TBD'
+  },
+  {
+    metric: 'Merch + crossover notes',
+    blurb: 'Snapshot slot for cross-platform experiments and concierge debriefs queued for the proof vault.',
+    date: 'Status: TBD'
+  }
+];
+
 const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',

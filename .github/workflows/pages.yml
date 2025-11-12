@@ -25,7 +25,7 @@ jobs:
         with:
           fetch-depth: 1
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: npm
@@ -38,7 +38,7 @@ jobs:
       - name: Strip PHP redirectors from Pages artifact
         run: rm -rf dist/go
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: dist
 
