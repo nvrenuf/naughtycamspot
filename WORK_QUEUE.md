@@ -8,16 +8,16 @@
 - Preserve `?src=...&camp=...&date=YYYYMMDD`.
 
 ## Queue
-- [ ] # Home: trim sections + nav cleanup
-- [ ] # Home: First-90-Days block with countdown + slots
-- [ ] # Home: Milestones + Assignments strip
-- [ ] # Home: Payout readiness micro-panel
-- [ ] # VIP: teasers on Home + StartRight
-- [ ] # Gear: cohort urgency banner on /gear
+- [ ] #6 Home: trim sections + nav cleanup
+- [ ] #7 Home: First-90-Days block with countdown + slots
+- [ ] #8 Home: Milestones + Assignments strip
+- [ ] #9 Home: Payout readiness micro-panel
+- [ ] #10 VIP: teasers on Home + StartRight
+- [ ] #11 Gear: cohort urgency banner on /gear
 
 ---
 
-### # — Home: trim sections + nav cleanup
+### #6 — Home: trim sections + nav cleanup
 Goal: remove clutter, keep one primary CTA, merge noncritical rows into one 3-tile strip.
 Do:
 - Nav: remove Contests, Models, Join models, Claim from top nav; move needed links to footer.
@@ -28,11 +28,11 @@ Tests: build green; exactly one primary CTA; grep dist for `/go/` returns nothin
 Commit_message:
 feat(home): trim sections + nav cleanup
 
-Closes #
+Closes #6
 
 ---
 
-### # — Home: First-90-Days block with countdown + slots
+### #7 — Home: First-90-Days block with countdown + slots
 Goal: explain first 90 days and add ethical urgency.
 Do:
 - Add “Your first 90 days” section with 3 bullets (visibility push, weekly assignments, concierge review).
@@ -42,11 +42,11 @@ Tests: build green; countdown + chip render on mobile.
 Commit_message:
 feat(home): first-90-days block with countdown + cohort slots
 
-Closes #
+Closes #7
 
 ---
 
-### # — Home: Milestones + Assignments strip
+### #8 — Home: Milestones + Assignments strip
 Goal: week-by-week plan with progress bar.
 Do:
 - Add horizontal milestones strip with Week 1–4 tasks.
@@ -55,11 +55,11 @@ Tests: build green; strip visible and responsive.
 Commit_message:
 feat(home): milestones + assignments strip
 
-Closes #
+Closes #8
 
 ---
 
-### # — Home: Payout readiness micro-panel
+### #9 — Home: Payout readiness micro-panel
 Goal: reduce payout friction.
 Do:
 - Small panel near bottom: KYC ✅, payout method link to /earnings, “test payout” note.
@@ -68,11 +68,11 @@ Tests: build green; link points to /earnings.
 Commit_message:
 feat(home): payout readiness micro-panel
 
-Closes #
+Closes #9
 
 ---
 
-### # — VIP: teasers on Home + StartRight
+### #10 — VIP: teasers on Home + StartRight
 Goal: surface VIP value without exposing content on Pages.
 Do:
 - Add two teaser tiles: VIP Kit, VIP Posts. If not VIP, show teaser + “Unlock VIP” → /claim.
@@ -81,11 +81,11 @@ Tests: build green; no VIP body in dist; links route correctly.
 Commit_message:
 feat(vip): teasers on Home and StartRight
 
-Closes #
+Closes #10
 
 ---
 
-### # — Gear: cohort banner on /gear
+### #11 — Gear: cohort banner on /gear
 Goal: add cohort countdown + slots without cheapening look.
 Do:
 - Banner at top of /gear with countdown + slots; show VIP badge if `vip=1`.
@@ -94,4 +94,4 @@ Tests: build green; banner visible; VIP badge toggles by query param.
 Commit_message:
 feat(gear): cohort banner with countdown and slots
 
-Closes #
+Closes #11
