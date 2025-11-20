@@ -1,0 +1,6 @@
+- Work on branch: main
+- No PRs
+- npm ci && npm run build must pass
+- Commit must include Closes #<issue-number>
+- Pages must never emit /go/*
+- Preserve src,camp,date
