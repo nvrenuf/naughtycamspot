@@ -8,12 +8,10 @@ export type NavLink = {
 export const NAV_PRIMARY: NavLink[] = [
   { href: '/', label: 'Home' },
   { href: '/startright', label: 'StartRight' },
+  { href: '/compare', label: 'Compare' },
   { href: '/earnings', label: 'Earnings' },
+  { href: '/gear-kits', label: 'Gear kits' },
   { href: '/blog', label: 'Blog' }
 ];
 
-export const NAV_MORE: NavLink[] = [
-  { href: '/case-studies', label: 'Case Studies' },
-  { href: '/gear-kits', label: 'Gear kits' },
-  { href: '/starter-kit', label: 'StartRight kit' }
-];
+export const NAV_MORE: NavLink[] = [];
