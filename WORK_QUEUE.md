@@ -14,7 +14,7 @@
 - [x] #26 Programs registry hardening + tests
 - [x] #27 Banners: data + safe placements
 - [x] #28 Gear Kits V0 (curated, compliant)
-- [ ] #29 StartRight: choose V0 static wizard or fold into page
+- [x] #29 StartRight: choose V0 static wizard or fold into page
 - [ ] #30 Content fill: core pages
 - [ ] #31 Blog: publish 5 Phase-1 posts
 - [ ] #32 SEO & sitemap/robots + OG/Twitter

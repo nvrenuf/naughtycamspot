@@ -41,18 +41,6 @@ const enrichedPrograms: EnrichedProgram[] = (programs as ProgramEntry[]).map((pr
   ...resolveProgramDetail(program.key)
 }));
 
-const startRightGearHighlights = gearKits.map((kit) => ({
-  id: kit.id,
-  name: kit.name,
-  investment: kit.investment,
-  spotlight: kit.spotlight,
-  highlights: kit.items.slice(0, 2).map((item) => ({
-    name: item.name,
-    description: item.description
-  })),
-  conciergeNote: kit.conciergeNote
-}));
-
 const basePrograms = enrichedPrograms
   .filter((program) => isProgramApproved(program) && allowsPagesJoin(program))
   .map((program) => {
@@ -80,6 +68,65 @@ const basePrograms = enrichedPrograms
       statusAllowsJoin: statusMeta.allowsJoin
     };
   });
+
+const startRightGearHighlights = gearKits.map((kit) => ({
+  id: kit.id,
+  name: kit.name,
+  investment: kit.investment,
+  spotlight: kit.spotlight,
+  highlights: kit.items.slice(0, 2).map((item) => ({
+    name: item.name,
+    description: item.description
+  })),
+  conciergeNote: kit.conciergeNote
+}));
+
+type WizardTrack = {
+  id: string;
+  title: string;
+  description: string;
+  primaryKey: string;
+  secondaryKey?: string;
+  emphasis?: string;
+};
+
+const wizardTracks = [
+  {
+    id: 'fast-approval',
+    title: 'Fast approval + quick payouts',
+    description:
+      'You are new or returning after a break and want the least friction possible so you can verify, go live, and fund the first kit upgrades.',
+    primaryKey: 'camsoda',
+    secondaryKey: 'chaturbate',
+    emphasis: 'Keep proof of signup handy so concierge can release the StartRight kit without delays.'
+  },
+  {
+    id: 'na-traffic',
+    title: 'North America traffic first',
+    description:
+      'You have stable hours and want consistent EN-first traffic with room categories that reward longer, well-paced shows.',
+    primaryKey: 'chaturbate',
+    secondaryKey: 'camsoda'
+  },
+  {
+    id: 'regional-bounties',
+    title: 'EU / LatAm with regional promos',
+    description:
+      'You want to lean on regional promos and bounties while keeping the StartRight kit cadence for your first fourteen days.',
+    primaryKey: 'bonga',
+    secondaryKey: 'chaturbate',
+    emphasis: 'Use geo-weighted offers but keep lighting and pacing aligned with the StartRight scripts.'
+  }
+] satisfies WizardTrack[];
+
+const resolvedWizardTracks = wizardTracks
+  .map((track) => {
+    const primary = basePrograms.find((program) => program.key === track.primaryKey);
+    if (!primary) return null;
+    const secondary = basePrograms.find((program) => program.key === track.secondaryKey);
+    return { ...track, primary, secondary };
+  })
+  .filter(Boolean) as Array<WizardTrack & { primary: (typeof basePrograms)[number]; secondary?: (typeof basePrograms)[number] }>;
 
 const defaultAnswers = {
   experience: 'new',
@@ -220,6 +267,78 @@ const clientPrograms = JSON.stringify(
         />
       </div>
     </div>
+    <section class="content-card space-y-5">
+      <div class="space-y-2">
+        <h2 class="section-heading">StartRight quick wizard (static)</h2>
+        <p class="max-w-4xl text-sm text-white/70">
+          Use this zero-JavaScript wizard when you just need a guarded path and kit unlock instructions. Each tile pairs the
+          best-matched program links with the StartRight plan request so concierge can queue your onboarding without waiting
+          for more signals.
+        </p>
+      </div>
+      <div class="grid gap-4 lg:grid-cols-3">
+        {resolvedWizardTracks.map((track) => (
+          <article class="flex h-full flex-col gap-4 rounded-[28px] border border-white/10 bg-white/5 p-5 backdrop-blur-2xl">
+            <div class="space-y-2">
+              <h3 class="font-display text-xl text-white">{track.title}</h3>
+              <p class="text-sm text-white/70">{track.description}</p>
+            </div>
+            <ol class="space-y-2 text-sm text-white/70">
+              <li class="flex items-start gap-2">
+                <span aria-hidden="true" class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-gold"></span>
+                <span>
+                  Step 1: Join {track.primary.name} with our guarded link. Strong fit for {track.primary.best_for.join(', ')}.
+                </span>
+              </li>
+              {track.secondary && (
+                <li class="flex items-start gap-2">
+                  <span aria-hidden="true" class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-gold"></span>
+                  <span>Step 2: If that queue is slow, use {track.secondary.name} as a backup.</span>
+                </li>
+              )}
+              <li class="flex items-start gap-2">
+                <span aria-hidden="true" class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-gold"></span>
+                <span>Step 3: Request your StartRight plan so concierge can prep your kit and scripts.</span>
+              </li>
+            </ol>
+            <div class="flex flex-wrap gap-2">
+              {track.primary.joinDisabled ? (
+                <span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.3em] text-white/50">
+                  {track.primary.joinDisabledLabel}
+                </span>
+              ) : (
+                <LinkCTA
+                  class="border border-rose-gold/60 bg-rose-gold text-midnight"
+                  pagesHref={track.primary.joinHrefPages}
+                  prodHref={track.primary.joinHrefProd}
+                  label={`Join ${track.primary.name}`}
+                />
+              )}
+              {track.secondary &&
+                (track.secondary.joinDisabled ? (
+                  <span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.3em] text-white/50">
+                    {track.secondary.joinDisabledLabel}
+                  </span>
+                ) : (
+                  <LinkCTA
+                    class="border border-white/20 bg-transparent text-white hover:bg-white/10"
+                    pagesHref={track.secondary.joinHrefPages}
+                    prodHref={track.secondary.joinHrefProd}
+                    label={`Backup: ${track.secondary.name}`}
+                  />
+                ))}
+              <LinkCTA
+                class="border border-white/20 bg-transparent text-white hover:bg-white/10"
+                pagesHref={PRIMARY_CTA.pagesHref}
+                prodHref={PRIMARY_CTA.prodHref}
+                label="Request StartRight plan"
+              />
+            </div>
+            {track.emphasis && <p class="text-xs text-white/55">{track.emphasis}</p>}
+          </article>
+        ))}
+      </div>
+    </section>
     <form id="startright-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
       <div class="grid gap-4 sm:grid-cols-2">
         <label class="space-y-2 text-sm text-white/70">
