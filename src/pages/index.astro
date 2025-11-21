@@ -9,6 +9,7 @@ import MiniTestimonials from '../partials/home/MiniTestimonials.astro';
 import PayoutReadiness from '../partials/home/PayoutReadiness.astro';
 import WhatYouGet from '../partials/home/WhatYouGet.astro';
 import FirstNinetyDays from '../partials/home/FirstNinetyDays.astro';
+import VipTeasers from '../components/VipTeasers.astro';
 import { getCollection } from 'astro:content';
 
 const canonicalPath = Astro.url.pathname;
@@ -135,6 +136,7 @@ const websiteJsonLd = {
   <MilestonesStrip />
   <TrustedPrograms />
   <PayoutReadiness />
+  <VipTeasers />
   <HowItWorks />
   <MiniTestimonials />
 </MainLayout>
