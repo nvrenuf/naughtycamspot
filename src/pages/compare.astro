@@ -2,6 +2,7 @@
 import BannerSlot from '../components/BannerSlot.astro';
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import Hero from '../partials/home/Hero.astro';
 import { PRIMARY_CTA } from '../data/copy';
@@ -33,6 +34,7 @@ type ProgramCard = Program & {
 };
 
 const dateStamp = formatDateStamp();
+const canonicalPath = '/compare';
 const enrichedPrograms: Program[] = (programs as ProgramEntry[]).map((program) => ({
   ...program,
   ...resolveProgramDetail(program.key)
@@ -71,6 +73,12 @@ const programCards: ProgramCard[] = enrichedPrograms
 ---
 
 <MainLayout title="Compare cam platforms" description="Compare cam platforms tailored for new creators launching with NaughtyCamSpot.">
+  <SEO
+    slot="head"
+    title="Cam program compare | NaughtyCamSpot"
+    description="Review concierge-approved cam program readiness, geo allowances, and guarded join paths in one table."
+    path={canonicalPath}
+  />
   <Hero />
   <section class="space-y-8">
     <Notices />

@@ -1,6 +1,7 @@
 ---
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../data/copy';
 import { formatDateStamp } from '../utils/links';
@@ -27,6 +28,7 @@ const bandLabels: Record<string, string> = {
   top10: 'Top 10%'
 };
 
+const canonicalPath = '/earnings';
 const cards = bandEntries.map(([key, bands]) => {
   const program = programIndex.get(key);
   const slot = `earnings_${key}`;
@@ -54,6 +56,12 @@ const cards = bandEntries.map(([key, bands]) => {
 ---
 
 <MainLayout title="Earnings benchmarks" description="Understand weekly earnings ranges for NaughtyCamSpot partner platforms.">
+  <SEO
+    slot="head"
+    title="Earnings benchmarks | NaughtyCamSpot"
+    description="Illustrative weekly ranges by platform so you can calibrate StartRight focus areas and guarded join links."
+    path={canonicalPath}
+  />
   <section class="space-y-8">
     <Notices />
     <div class="space-y-4">

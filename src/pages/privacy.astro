@@ -1,5 +1,8 @@
 ---
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+
+const canonicalPath = '/privacy';
 ---
 
 <MainLayout
@@ -7,6 +10,12 @@ import MainLayout from '../layouts/MainLayout.astro';
   description="Privacy policy and data handling practices for NaughtyCamSpot."
   showNavigation={false}
 >
+  <SEO
+    slot="head"
+    title="Privacy policy | NaughtyCamSpot"
+    description="How NaughtyCamSpot handles intake forms, analytics, and StartRight concierge data across every surface."
+    path={canonicalPath}
+  />
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/70"></div>
     <div class="relative space-y-4">

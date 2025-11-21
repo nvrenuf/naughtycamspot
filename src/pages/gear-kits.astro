@@ -1,6 +1,7 @@
 ---
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { PRIMARY_CTA, KIT } from '../data/copy';
 import { gearKits } from '../data/gear-kits';
@@ -28,12 +29,20 @@ const complianceChecklist = [
   'We redact PII from placement photos before storing them in your StartRight binder.',
   'Accessories are non-invasive (no permanent mounting) so rentals and sublets stay damage-free.'
 ];
+
+const canonicalPath = '/gear-kits';
 ---
 
 <MainLayout
   title="Gear kits for cam creators"
   description="Curated StartRight gear kits for performers upgrading their cam studio."
 >
+  <SEO
+    slot="head"
+    title="Gear kits for cam creators | NaughtyCamSpot"
+    description="Curated StartRight gear kits with concierge calibration, compliance guardrails, and tracked intake links."
+    path={canonicalPath}
+  />
   <section class="space-y-8">
     <Notices />
     <div class="rounded-[28px] border border-rose-gold/40 bg-rose-gold/10 p-6 backdrop-blur-xl sm:p-7">

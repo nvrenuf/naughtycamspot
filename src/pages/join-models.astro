@@ -1,6 +1,7 @@
 ---
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { buildTrackedLink } from '../utils/links';
 
@@ -22,6 +23,12 @@ const pagesJoinHref = '/startright';
   title="Join models | NaughtyCamSpot"
   description="Route your signups through guarded links so concierge can unlock your StartRight kit."
 >
+  <SEO
+    slot="head"
+    title="Join models with concierge | NaughtyCamSpot"
+    description="Use guarded join links so concierge can verify your signup, unlock the StartRight kit, and keep tracking clean."
+    path={canonicalPath}
+  />
   <section class="space-y-10">
     <Notices />
     <div class="space-y-4">

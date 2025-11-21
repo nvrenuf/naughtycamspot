@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BannerSlot from '../../components/BannerSlot.astro';
 import LinkCTA from '../../components/LinkCTA.astro';
+import SEO from '../../components/SEO.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { PRIMARY_CTA } from '../../data/copy';
 import { formatDateStamp, withBase } from '../../utils/links';
@@ -34,6 +35,9 @@ const firstParagraph =
     .map((block) => block.trim())
     .find((block) => block && !block.startsWith('#')) ?? post.data.description ?? '';
 
+const metaDescription = post.data.description ?? firstParagraph;
+const canonicalPath = `/blog/${post.slug}`;
+const ogImage = post.data.cardImage ?? post.data.heroImage;
 const isPages = import.meta.env.IS_PAGES === 'true';
 const trackingQuery = new URLSearchParams({
   src: `blog_${post.slug}`,
@@ -64,6 +68,14 @@ const startRightMessage = isPages
   title={`${post.data.title} | NaughtyCamSpot Journal`}
   description={post.data.description}
 >
+  <SEO
+    slot="head"
+    title={`${post.data.title} | NaughtyCamSpot Journal`}
+    description={metaDescription}
+    path={canonicalPath}
+    ogImage={ogImage}
+    ogType="article"
+  />
   <!-- SECTION: Hero -->
   <article class="space-y-10">
     <header class="hero-shell parallax-veil">

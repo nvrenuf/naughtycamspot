@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import { withBase } from '../utils/links';
 
@@ -35,6 +36,7 @@ for (const key of trackingKeys) {
 }
 
 const trackingQuery = trackingParams.toString();
+const canonicalPath = '/blog';
 const buildPostHref = (slug: string) => {
   const baseHref = withBase(`/blog/${slug}`);
   if (!trackingQuery) {
@@ -53,6 +55,12 @@ const totalPosts = posts.length;
   title="Blog | NaughtyCamSpot"
   description="Insights & stories from the NaughtyCamSpot concierge team — luxury growth strategy for performers."
 >
+  <SEO
+    slot="head"
+    title="Blog | NaughtyCamSpot"
+    description="Field notes, launch frameworks, and concierge debriefs from the NaughtyCamSpot team."
+    path={canonicalPath}
+  />
   <!-- SECTION: Blog Hero -->
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/60"></div>

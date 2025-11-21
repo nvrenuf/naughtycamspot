@@ -1,6 +1,7 @@
 ---
 import LinkCTA from '../../components/LinkCTA.astro';
 import Notices from '../../components/Notices.astro';
+import SEO from '../../components/SEO.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { buildTrackedLink } from '../../utils/links';
@@ -21,6 +22,7 @@ const data = model.data;
 const slug = model.slug ?? model.id;
 const canonicalPath = `/models/${slug}`;
 const canonicalUrl = `https://naughtycamspot.com${canonicalPath}`;
+const ogImage = data.cardImage ?? data.heroImage;
 
 const buttonOrder = ['manyvids', 'beacons', 'stripchat', 'chaturbate', 'camsoda', 'pornhub', 'onlyfans', 'myclub'];
 const orderedPlatforms = [
@@ -63,6 +65,14 @@ const jsonLd = {
 ---
 
 <MainLayout title={`${data.name} | NaughtyCamSpot`} description={data.summary}>
+  <SEO
+    slot="head"
+    title={`${data.name} | NaughtyCamSpot`}
+    description={data.summary}
+    path={canonicalPath}
+    ogImage={ogImage}
+    ogType="profile"
+  />
   <section class="space-y-10">
     <Notices />
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start">

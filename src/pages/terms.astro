@@ -1,5 +1,8 @@
 ---
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+
+const canonicalPath = '/terms';
 ---
 
 <MainLayout
@@ -7,6 +10,12 @@ import MainLayout from '../layouts/MainLayout.astro';
   description="Terms and service conditions for NaughtyCamSpot."
   showNavigation={false}
 >
+  <SEO
+    slot="head"
+    title="Terms & conditions | NaughtyCamSpot"
+    description="Terms governing NaughtyCamSpot concierge services, tracked links, and resource access."
+    path={canonicalPath}
+  />
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-bl from-black/60 via-transparent to-black/70"></div>
     <div class="relative space-y-4">

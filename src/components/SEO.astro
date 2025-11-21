@@ -9,7 +9,19 @@ const {
 
 const site = import.meta.env.SITE ?? '';
 const canonicalUrl = site ? new URL(path, site).toString() : path;
-const twitterCard = ogImage ? 'summary_large_image' : 'summary';
+const defaultOgImage = new URL('/og/naughtycamspot-default.svg', site || 'https://naughtycamspot.com').toString();
+const resolvedOgImage = (() => {
+  if (!ogImage) {
+    return defaultOgImage;
+  }
+
+  if (site && !/^https?:\/\//i.test(ogImage)) {
+    return new URL(ogImage, site).toString();
+  }
+
+  return ogImage;
+})();
+const twitterCard = resolvedOgImage ? 'summary_large_image' : 'summary';
 ---
 <title>{title}</title>
 <meta name="description" content={description} />
@@ -18,8 +30,8 @@ const twitterCard = ogImage ? 'summary_large_image' : 'summary';
 <meta property="og:description" content={description} />
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonicalUrl} />
-{ogImage && <meta property="og:image" content={ogImage} />}
+{resolvedOgImage && <meta property="og:image" content={resolvedOgImage} />}
 <meta name="twitter:card" content={twitterCard} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-{ogImage && <meta name="twitter:image" content={ogImage} />}
+{resolvedOgImage && <meta name="twitter:image" content={resolvedOgImage} />}

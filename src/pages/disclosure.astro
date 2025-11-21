@@ -1,11 +1,20 @@
 ---
+import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+
+const canonicalPath = '/disclosure';
 ---
 
 <MainLayout
   title="Affiliate Disclosure | NaughtyCamSpot"
   description="Affiliate disclosure for NaughtyCamSpot model recruitment and outbound links."
 >
+  <SEO
+    slot="head"
+    title="Affiliate disclosure | NaughtyCamSpot"
+    description="How NaughtyCamSpot uses affiliate links to fund the StartRight kit for approved model signups."
+    path={canonicalPath}
+  />
   <section class="content-card space-y-4 text-sm text-white/70">
     <h1 class="section-heading">Affiliate Disclosure</h1>
     <p>
