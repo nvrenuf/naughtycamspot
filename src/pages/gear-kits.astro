@@ -6,7 +6,7 @@ import { PRIMARY_CTA, KIT } from '../data/copy';
 import { gearKits } from '../data/gear-kits';
 
 const heroDescription =
-  'Pick the hardware stack that matches your room, budget, and concierge goals. These kits are field-tested inside StartRight so you launch with reliable lighting, clean audio, and an intentional backdrop.';
+  'Pick the hardware stack that matches your room, budget, and concierge goals. These kits are field-tested inside StartRight so you launch with reliable lighting, clean audio, and an intentional backdrop—without violating platform device policies.';
 
 const targetDate = new Date('2025-12-31T00:00:00Z');
 const now = new Date();
@@ -21,6 +21,13 @@ const countdown = {
 };
 
 const cohort = { current: 12, total: 28 };
+
+const complianceChecklist = [
+  'Every camera has a visible tally light or LED indicator—no covert capture.',
+  'Cabling plans avoid trip hazards and keep power within surge-protected limits.',
+  'We redact PII from placement photos before storing them in your StartRight binder.',
+  'Accessories are non-invasive (no permanent mounting) so rentals and sublets stay damage-free.'
+];
 ---
 
 <MainLayout
@@ -121,6 +128,28 @@ const cohort = { current: 12, total: 28 };
                 ))}
               </ul>
             </div>
+            <div class="space-y-3 text-sm text-white/70">
+              <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Compliance guardrails</p>
+              <ul class="space-y-2">
+                {kit.compliance.map((note) => (
+                  <li class="flex items-start gap-2">
+                    <span aria-hidden="true" class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-gold"></span>
+                    <span>{note}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="space-y-3 text-sm text-white/70">
+              <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Concierge sourcing</p>
+              <ul class="space-y-2">
+                {kit.sourcing.map((note) => (
+                  <li class="flex items-start gap-2">
+                    <span aria-hidden="true" class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-gold"></span>
+                    <span>{note}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
             {kit.conciergeNote && (
               <p class="mt-auto rounded-2xl border border-rose-gold/50 bg-rose-gold/10 p-4 text-xs text-rose-gold/80">
                 {kit.conciergeNote}
@@ -129,6 +158,23 @@ const cohort = { current: 12, total: 28 };
           </article>
         ))}
       </div>
+    </section>
+
+    <section class="content-card space-y-4 text-sm text-white/70">
+      <h2 class="section-heading">Compliance-first builds</h2>
+      <p>
+        Every kit ships with a documented setup so you can prove devices are visible, grounded, and within platform lighting
+        guidelines. Use these checkpoints with mods or venue managers before you go live.
+      </p>
+      <ul class="list-disc space-y-2 pl-5">
+        {complianceChecklist.map((note) => (
+          <li>{note}</li>
+        ))}
+      </ul>
+      <p>
+        Need an audit trail? Concierge logs serial numbers, wiring photos, and signed-off safety notes in your StartRight binder
+        so you can send proof to platforms or landlords without scrambling.
+      </p>
     </section>
 
     <section class="content-card space-y-4 text-sm text-white/70">

@@ -15,6 +15,8 @@ export type GearKit = {
   spotlight: string;
   items: GearItem[];
   conciergeNote?: string;
+  compliance: string[];
+  sourcing: string[];
 };
 
 export const gearKits: GearKit[] = [
@@ -54,7 +56,17 @@ export const gearKits: GearKit[] = [
       }
     ],
     conciergeNote:
-      'We calibrate this kit inside the StartRight walkthrough so you have a plug-and-play look on day one.'
+      'We calibrate this kit inside the StartRight walkthrough so you have a plug-and-play look on day one.',
+    compliance: [
+      'USB-powered gear only so you avoid uncertified power bricks and exposed wiring.',
+      'Visible webcam indicator light with no concealed recording hardware.',
+      'Indoor-rated lighting with diffusers to stay within common platform glare policies.'
+    ],
+    sourcing: [
+      'Ship from first-party or manufacturer stores to preserve warranty support.',
+      'Log serials for the webcam and mic in your StartRight dashboard for replacements.',
+      'If you travel, carry the mic and webcam in a padded pouch to avoid element damage.'
+    ]
   },
   {
     id: 'studio',
@@ -92,7 +104,17 @@ export const gearKits: GearKit[] = [
       }
     ],
     conciergeNote:
-      'During the StartRight concierge call we blueprint OBS scenes around this kit so your automation triggers stay on-brand.'
+      'During the StartRight concierge call we blueprint OBS scenes around this kit so your automation triggers stay on-brand.',
+    compliance: [
+      'HDMI capture is single-cable only—no wireless senders that could conflict with venue policies.',
+      'Mirrorless body is configured for clean HDMI with tally light active while streaming.',
+      'Audio interface gain staging keeps headroom for platform-level compressors.'
+    ],
+    sourcing: [
+      'Preference for used-but-rated camera bodies from trusted resellers with return windows.',
+      'Capture cards should ship with intact tamper seals; we log proof photos during intake.',
+      'Softboxes ship with UL-listed plugs and spare fuses inside the case for quick swap-outs.'
+    ]
   },
   {
     id: 'luxe',
@@ -130,6 +152,16 @@ export const gearKits: GearKit[] = [
       }
     ],
     conciergeNote:
-      'Our concierge engineers integrate this layout with your retention funnels and backstage dashboards.'
+      'Our concierge engineers integrate this layout with your retention funnels and backstage dashboards.',
+    compliance: [
+      'Dual-camera setup uses fixed, visible bodies—no hidden secondary capture angles.',
+      'Balanced lighting scenes avoid strobing or excessive blue light flagged by moderation teams.',
+      'Wireless lavs are set to clear, region-approved frequencies and labelled per performer.'
+    ],
+    sourcing: [
+      'GH5 bodies and Sigma lenses are paired with proof-of-service docs before deployment.',
+      'We add surge-protected power strips rated for the total load of the lighting grid.',
+      'Rodecaster profiles and Stream Deck macros ship preloaded to your StartRight account for auditability.'
+    ]
   }
 ];
