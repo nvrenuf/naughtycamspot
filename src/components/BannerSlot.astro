@@ -1,75 +1,43 @@
 ---
-import LinkCTA from './LinkCTA.astro';
-import { BANNERS, getBannerSlot, type BannerSlotId } from '../data/banners';
-import { formatDateStamp, withBase } from '../utils/links';
+import { banners, type Banner } from '../data/banners';
+import { withBase } from '../utils/links';
 
 interface Props {
-  id: BannerSlotId;
+  id: Banner['id'];
   class?: string;
-  showNote?: boolean;
+  placement?: string;
 }
 
-const { id, class: className = '', showNote = false } = Astro.props as Props;
-const slot = getBannerSlot(id);
+const { id, class: className = '', placement } = Astro.props as Props;
 
-if (!slot) {
-  const available = Object.keys(BANNERS).join(', ');
+const banner = banners.find((entry) => entry.id === id);
+
+if (!banner) {
+  const available = banners.map((entry) => entry.id).join(', ');
   throw new Error(`Banner slot "${id}" is not defined. Available slots: ${available}`);
 }
 
-const resolveHostname = (value: string | undefined) => {
-  if (!value) {
-    return '';
-  }
-
-  try {
-    return new URL(value).hostname;
-  } catch {
-    return String(value).replace(/^https?:\/\//, '').split('/')[0];
-  }
-};
-
-const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
 const isPagesBuild = import.meta.env.IS_PAGES === 'true';
-const isProdSite = siteHostname === 'naughtycamspot.com';
-const shouldTrackClicks = isProdSite && !isPagesBuild;
+const isGoSlug = banner.href.startsWith('/go/');
+const safeHref = isPagesBuild && isGoSlug ? '/join-models' : banner.href;
+const anchorHref = withBase(safeHref);
+const imgSrc = withBase(banner.img);
 
-const hydrateProdHref = (value: string) => value.replace('YYYYMMDD', formatDateStamp());
-
-const hrefPages = slot.href_pages;
-const hrefProd = hydrateProdHref(slot.href_prod);
 const anchorClass = [
   'banner-slot block overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 text-center shadow-glow transition hover:-translate-y-1',
   className
 ]
   .filter(Boolean)
   .join(' ');
-
-const imageSrc = slot.img.startsWith('http') ? slot.img : withBase(slot.img);
-const rel = 'sponsored';
 ---
-<div class="space-y-3">
-  <LinkCTA
-    class={anchorClass}
-    pagesHref={hrefPages}
-    prodHref={hrefProd}
-    label={slot.alt}
-    rel={rel}
-    data-track={shouldTrackClicks ? 'click' : undefined}
-    data-slot={shouldTrackClicks ? id : undefined}
-    data-camp={shouldTrackClicks ? 'banner' : undefined}
-  >
-    <img
-      src={imageSrc}
-      alt={slot.alt}
-      width={slot.size.w}
-      height={slot.size.h}
-      loading="lazy"
-      decoding="async"
-      class="h-auto w-full object-cover"
-    />
-  </LinkCTA>
-  {showNote && slot.note && (
-    <p class="text-xs uppercase tracking-[0.3em] text-white/45">{slot.note}</p>
-  )}
-</div>
+<a class={anchorClass} href={anchorHref} aria-label={banner.alt} data-placement={placement}>
+  <img
+    src={imgSrc}
+    alt={banner.alt}
+    width={banner.width}
+    height={banner.height}
+    loading="lazy"
+    decoding="async"
+    class="h-auto w-full object-cover"
+  />
+</a>

@@ -28,6 +28,12 @@ export async function getStaticPaths() {
 const { post, related } = Astro.props;
 const { Content } = await post.render();
 
+const firstParagraph =
+  post.body
+    .split(/\n\s*\n/)
+    .map((block) => block.trim())
+    .find((block) => block && !block.startsWith('#')) ?? post.data.description ?? '';
+
 const isPages = import.meta.env.IS_PAGES === 'true';
 const trackingQuery = new URLSearchParams({
   src: `blog_${post.slug}`,
@@ -76,12 +82,18 @@ const startRightMessage = isPages
       <img src={post.data.heroImage} alt={post.data.heroImageAlt ?? post.data.title} class="h-80 w-full object-cover" loading="lazy" />
     </div>
 
-    <div class="space-y-6 text-base leading-relaxed text-white/70">
+    {firstParagraph && (
+      <div class="space-y-6 text-base leading-relaxed text-white/70">
+        <p>{firstParagraph}</p>
+        <div class="mt-6">
+          <BannerSlot id="placeholder-rect" class="w-full" placement={`blog-inline-${post.slug}`} />
+        </div>
+      </div>
+    )}
+
+    <div class="article-body space-y-6 text-base leading-relaxed text-white/70">
       <Content />
     </div>
-
-    <!-- SLOT: post_inline_rect -->
-    <BannerSlot id="post_inline_rect" class="mt-6" showNote />
 
     <div class="content-card space-y-5">
       <h2 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Continue your launch</h2>
@@ -104,9 +116,6 @@ const startRightMessage = isPages
     </div>
   </article>
 
-  <!-- SLOT: post_end_strip -->
-  <BannerSlot id="post_end_strip" class="mt-16" showNote />
-
   <!-- SECTION: Related Posts -->
   <section class="space-y-6">
     <h2 class="section-heading">Related Posts</h2>
@@ -123,4 +132,10 @@ const startRightMessage = isPages
       ))}
     </div>
   </section>
+
+  <style>
+    .article-body > p:first-of-type {
+      display: none;
+    }
+  </style>
 </MainLayout>

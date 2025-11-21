@@ -72,8 +72,6 @@ const programCards: ProgramCard[] = enrichedPrograms
 
 <MainLayout title="Compare cam platforms" description="Compare cam platforms tailored for new creators launching with NaughtyCamSpot.">
   <Hero />
-  <!-- SLOT: home_top_leaderboard -->
-  <BannerSlot id="home_top_leaderboard" class="mx-auto max-w-full" />
   <section class="space-y-8">
     <Notices />
     <div class="space-y-4">
@@ -82,6 +80,9 @@ const programCards: ProgramCard[] = enrichedPrograms
         These quick-reference cards show our current onboarding guardrails. Use them to decide where to launch, then join via the
         guarded links so we can ship your StartRight kit.
       </p>
+    </div>
+    <div class="flex justify-center">
+      <BannerSlot id="placeholder-wide" class="max-w-full" placement="compare-platform-breakdown" />
     </div>
     <div class="grid gap-8 lg:grid-cols-3">
       {programCards.map((program) => (

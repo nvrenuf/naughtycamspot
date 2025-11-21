@@ -1,5 +1,4 @@
 ---
-import BannerSlot from '../../components/BannerSlot.astro';
 import LinkCTA from '../../components/LinkCTA.astro';
 import Notices from '../../components/Notices.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
@@ -71,8 +70,6 @@ const rangeLabels: Record<string, string> = {
       </div>
 
       <aside class="space-y-4">
-        <!-- SLOT: model_sidebar_tall -->
-        <BannerSlot id="model_sidebar_tall" class="w-full" />
         <div class="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
           <h3 class="font-display text-xl text-white">Need a concierge walkthrough?</h3>
           <p class="mt-2 text-sm text-white/70">
