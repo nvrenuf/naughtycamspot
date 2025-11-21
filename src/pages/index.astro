@@ -32,7 +32,7 @@ const featuredMuseTiles = sortedFeaturedModels.map((entry) => ({
   slug: entry.id,
   role: entry.data.archetype,
   summary: entry.data.summary,
-  href: `/models/${entry.id}/`,
+  href: '/startright',
   image: entry.data.cardImage ?? entry.data.heroImage
 }));
 
@@ -44,7 +44,7 @@ const featuredMuse = featuredMuseEntry
       image: featuredMuseEntry.data.heroImage,
       quote: `${featuredMuseEntry.data.name}'s walkthrough shows how we format storytelling, offers, and lighting notes inside the StartRight kit.`,
       story: `${featuredMuseEntry.data.name} lives in our example library so you can see how a polished bio, visuals, and schedule might flow. Use it as inspiration—your accounts stay yours, and nothing here is a promise of promotion.`,
-      ctaHref: `/models/${featuredMuseEntry.id}`
+      ctaHref: '/startright'
     }
   : {
       name: 'Coming Soon',
@@ -52,7 +52,7 @@ const featuredMuse = featuredMuseEntry
       image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=960&q=80',
       quote: 'This placeholder illustrates how we storyboard the StartRight kit resources you’ll receive after sign-up.',
       story: 'We’re drafting additional example pages to showcase kit tactics. Check back for fresh demos you can borrow from immediately.',
-      ctaHref: '/models'
+      ctaHref: '/startright'
     };
 
 const runwayBlueprint = [
