@@ -1,2 +1,3 @@
+# NaughtyCamSpot preview robots
 User-agent: *
 Disallow: /

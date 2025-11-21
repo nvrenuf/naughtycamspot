@@ -240,7 +240,7 @@ const clientPrograms = JSON.stringify(
   <SEO
     slot="head"
     title="StartRight for models | NaughtyCamSpot"
-    description="Skip the guesswork. Pick the right platforms and get a tailored launch kit — free."
+    description="Pick the right platforms, unlock a concierge-run StartRight kit, and launch with a calm, sequenced plan."
     path={canonicalPath}
   />
   <section class="space-y-8">
@@ -249,8 +249,8 @@ const clientPrograms = JSON.stringify(
       <h1 class="font-display text-4xl text-white sm:text-5xl">{HERO.title}</h1>
       <p class="max-w-3xl text-base text-white/70">{HERO.sub}</p>
       <p class="max-w-3xl text-base text-white/65">
-        Tune the inputs to match your situation. We&apos;ll translate those signals into a ranked list of partner programs, share
-        why they fit, and route you to the guarded links you need to unlock the StartRight launch kit.
+        Tune the inputs to match your schedule and comfort level. We translate your signals into a ranked list of partner
+        programs, explain why they fit, and route you to the guarded links you need to unlock the StartRight launch kit.
       </p>
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
         <LinkCTA
@@ -272,8 +272,8 @@ const clientPrograms = JSON.stringify(
         <h2 class="section-heading">StartRight quick wizard (static)</h2>
         <p class="max-w-4xl text-sm text-white/70">
           Use this zero-JavaScript wizard when you just need a guarded path and kit unlock instructions. Each tile pairs the
-          best-matched program links with the StartRight plan request so concierge can queue your onboarding without waiting
-          for more signals.
+          best-matched program links with a StartRight plan request so concierge can queue your onboarding without waiting for
+          extra back-and-forth.
         </p>
       </div>
       <div class="grid gap-4 lg:grid-cols-3">
@@ -287,7 +287,8 @@ const clientPrograms = JSON.stringify(
               <li class="flex items-start gap-2">
                 <span aria-hidden="true" class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-gold"></span>
                 <span>
-                  Step 1: Join {track.primary.name} with our guarded link. Strong fit for {track.primary.best_for.join(', ')}.
+                  Step 1: Join {track.primary.name} with our guarded link to unlock concierge. Strong fit for
+                  {track.primary.best_for.join(', ')}.
                 </span>
               </li>
               {track.secondary && (
@@ -409,7 +410,10 @@ const clientPrograms = JSON.stringify(
     >
       <div class="space-y-2">
         <h2 class="font-display text-3xl text-white">Your best starting points</h2>
-        <p class="text-sm text-white/60">Switch the form inputs to refresh this guidance. We pick the top three matches.</p>
+        <p class="text-sm text-white/60">
+          Switch the form inputs to refresh this guidance. We highlight the top three matches with clear reasons and guarded
+          join paths.
+        </p>
       </div>
       <div class="space-y-5" id="startright-list">
         {defaultRecommendations.map((result) => (
@@ -475,7 +479,7 @@ const clientPrograms = JSON.stringify(
     <div class="space-y-3">
       <h2 class="section-heading">StartRight gear concierge</h2>
       <p class="max-w-3xl text-sm text-white/70">
-        We tailor your setup alongside the platform plan so lighting, audio, and automation all match the rituals inside your
+        We map gear choices to your platform plan so lighting, audio, and automation align with the rituals inside your
         StartRight kit. These are the builds we deploy most often for new concierge clients.
       </p>
     </div>

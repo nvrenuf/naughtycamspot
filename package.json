@@ -21,7 +21,7 @@
     "sec:all": "npm run sec:audit || true && npm run sec:scan || true"
   },
   "engines": {
-    "node": "^20.17.0",
+    "node": ">=20.17.0",
     "npm": "^10.8.2"
   },
   "dependencies": {

@@ -1,0 +1,74 @@
+---
+import SEO from '../components/SEO.astro';
+import Notices from '../components/Notices.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const canonicalPath = '/about';
+---
+
+<MainLayout title="About NaughtyCamSpot" description="The concierge launch desk for independent models who want structure without contracts.">
+  <SEO
+    slot="head"
+    title="About NaughtyCamSpot"
+    description="Learn how the NaughtyCamSpot concierge collective builds StartRight kits, protects referrals, and keeps creators in control."
+    path={canonicalPath}
+  />
+  <section class="space-y-10">
+    <Notices />
+    <div class="space-y-4">
+      <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Who we are</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Concierge for models who want calm, documented growth</h1>
+      <p class="max-w-3xl text-base text-white/70">
+        NaughtyCamSpot is a referral-first concierge collective. We document every launch ritual, align payouts and compliance,
+        and keep creators in control of their accounts while we assemble StartRight kits that actually ship.
+      </p>
+    </div>
+    <div class="grid gap-6 md:grid-cols-3">
+      <article class="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">What we do</p>
+        <h2 class="font-display text-2xl text-white">Launch blueprints</h2>
+        <p class="text-sm text-white/70">
+          StartRight kits pair platform-specific scripts, lighting cues, and pacing with the guarded links you use to join. Each
+          kit is timestamped and refreshed so you always know which version shipped.
+        </p>
+      </article>
+      <article class="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">How we help</p>
+        <h2 class="font-display text-2xl text-white">Concierge on standby</h2>
+        <p class="text-sm text-white/70">
+          We keep a small desk available for check-ins, debriefs, and link hygiene. No contracts or agency grabs—just a team
+          that respects your boundaries and keeps your rooms stable.
+        </p>
+      </article>
+      <article class="space-y-3 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Proof first</p>
+        <h2 class="font-display text-2xl text-white">Receipts you can see</h2>
+        <p class="text-sm text-white/70">
+          We publish payout and approval receipts in the proof vault, with redactions when needed. If a program slows or changes
+          terms, we note it so you know what to expect before launching.
+        </p>
+      </article>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2">
+      <article class="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        <h2 class="font-display text-2xl text-white">Principles</h2>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li>Creators stay owners of every account, payout route, and credential.</li>
+          <li>Launch pacing should feel calm—no pressure tactics or surprise automation.</li>
+          <li>Documentation beats promises. Every ritual and checklist lives in your kit.</li>
+        </ul>
+      </article>
+      <article class="space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        <h2 class="font-display text-2xl text-white">How to reach us</h2>
+        <p class="text-sm text-white/70">
+          Already joined? Send proof to concierge@naughtycamspot.com. Deciding where to start? Head to the StartRight page for a
+          quick match and to unlock your kit.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a class="btn btn-primary" href="/startright">StartRight concierge</a>
+          <a class="btn btn-secondary" href="/disclosure">Read our disclosures</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</MainLayout>

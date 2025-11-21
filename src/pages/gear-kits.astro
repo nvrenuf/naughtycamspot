@@ -7,7 +7,7 @@ import { PRIMARY_CTA, KIT } from '../data/copy';
 import { gearKits } from '../data/gear-kits';
 
 const heroDescription =
-  'Pick the hardware stack that matches your room, budget, and concierge goals. These kits are field-tested inside StartRight so you launch with reliable lighting, clean audio, and an intentional backdrop—without violating platform device policies.';
+  'Pick the hardware stack that matches your room, budget, and concierge goals. Each kit maps to a StartRight path—starter, momentum, and luxe—so you launch with reliable lighting, clean audio, and an intentional backdrop without violating platform device policies.';
 
 const targetDate = new Date('2025-12-31T00:00:00Z');
 const now = new Date();
@@ -94,12 +94,13 @@ const canonicalPath = '/gear-kits';
 
     <section class="space-y-6">
       <div class="space-y-3">
-        <h2 class="section-heading">Choose the kit that fits your room</h2>
-        <p class="max-w-3xl text-sm text-white/60">
-          Every package includes wiring diagrams, OBS scene templates, and placement notes. We calibrate each kit with you during
-          StartRight onboarding so upgrades never feel guessy.
-        </p>
-      </div>
+      <h2 class="section-heading">Choose the kit that fits your room</h2>
+      <p class="max-w-3xl text-sm text-white/60">
+        Every package includes wiring diagrams, OBS scene templates, and placement notes. Starter stays USB-simple, Momentum
+        adds mirrorless clarity, and Luxe layers redundancy. We calibrate each kit with you during StartRight onboarding so
+        upgrades never feel guessy.
+      </p>
+    </div>
       <div class="grid gap-6 lg:grid-cols-3">
         {gearKits.map((kit) => (
           <article class="flex h-full flex-col gap-5 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">

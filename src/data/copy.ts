@@ -1,8 +1,8 @@
 export const DISCLOSURE = "Contains affiliate links. Not an agency. No earnings guarantee.";
 
 export const HERO = {
-  title: 'StartRight for models',
-  sub: 'Skip the guesswork. Pick the right platforms and get a tailored launch kit — free.'
+  title: 'StartRight concierge for models',
+  sub: 'Pick the right platforms, unlock a curated launch kit, and keep concierge on-call without agency lock-ins.'
 } as const;
 
 export const PRIMARY_CTA = {

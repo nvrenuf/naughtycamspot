@@ -1,3 +1,4 @@
+# NaughtyCamSpot production robots
 User-agent: *
 Allow: /
 Sitemap: https://naughtycamspot.com/sitemap-index.xml
