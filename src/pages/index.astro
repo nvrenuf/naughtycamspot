@@ -5,6 +5,7 @@ import Hero from '../partials/home/Hero.astro';
 import TrustedPrograms from '../partials/home/TrustedPrograms.astro';
 import HowItWorks from '../partials/home/HowItWorks.astro';
 import MiniTestimonials from '../partials/home/MiniTestimonials.astro';
+import WhatYouGet from '../partials/home/WhatYouGet.astro';
 
 const canonicalPath = Astro.url.pathname;
 
@@ -125,6 +126,7 @@ const websiteJsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 
   <Hero />
+  <WhatYouGet />
   <TrustedPrograms />
   <HowItWorks />
   <MiniTestimonials />

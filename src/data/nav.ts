@@ -13,11 +13,7 @@ export const NAV_PRIMARY: NavLink[] = [
 ];
 
 export const NAV_MORE: NavLink[] = [
-  { href: '/contests', label: 'Contests' },
-  { href: '/models', label: 'Models' },
   { href: '/case-studies', label: 'Case Studies' },
   { href: '/gear-kits', label: 'Gear kits' },
-  { href: '/starter-kit', label: 'StartRight kit' },
-  { href: '/startright', label: 'Join Models', prodHref: '/join-models' },
-  { href: '/claim', label: 'Claim' }
+  { href: '/starter-kit', label: 'StartRight kit' }
 ];

@@ -1,0 +1,48 @@
+---
+import { withBase } from '../../utils/links';
+
+const tiles = [
+  {
+    title: 'Proof vault + blog preview',
+    description:
+      'Peek at recent launch receipts and a rotating blog snippet so you know the tone, pacing, and scripts we’re iterating on.',
+    link: { href: '/case-studies', label: 'Explore proof vault' }
+  },
+  {
+    title: 'Example builds inside StartRight',
+    description:
+      'Borrow room flows, lighting notes, and offer stacks from curated example builds. Remix them once your kit unlocks.',
+    link: { href: '/models', label: 'See example builds' }
+  },
+  {
+    title: 'Concierge desk on standby',
+    description:
+      'Keep a concierge thread for boundary-friendly pacing, weekly check-ins, and refinement before you scale.',
+    link: { href: '/about', label: 'Meet the concierge' }
+  }
+] as const;
+---
+<section class="border-t border-white/5 bg-black/30 px-6 py-20">
+  <div class="mx-auto max-w-6xl">
+    <div class="flex flex-col gap-4 text-center">
+      <p class="mx-auto text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">
+        What you get
+      </p>
+      <h2 class="font-display text-[clamp(2rem,4.5vw,2.9rem)] text-white">Proof, builds, and concierge in one strip</h2>
+      <p class="mx-auto max-w-3xl text-[clamp(0.95rem,1.9vw,1.15rem)] text-white/70">
+        Stop jumping between sections. StartRight keeps the proof vault, example builds, and concierge touchpoints together so you know exactly what unlocks after sign-up.
+      </p>
+    </div>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {tiles.map((tile) => (
+        <article class="flex h-full flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-7">
+          <h3 class="font-display text-[clamp(1.4rem,3.2vw,1.9rem)] text-white">{tile.title}</h3>
+          <p class="text-[clamp(0.95rem,1.7vw,1.1rem)] leading-relaxed text-white/75">{tile.description}</p>
+          <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase(tile.link.href)}>
+            {tile.link.label}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

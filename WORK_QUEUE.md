@@ -8,7 +8,7 @@
 - Preserve `?src=...&camp=...&date=YYYYMMDD`.
 
 ## Queue
-- [ ] #6 Home: trim sections + nav cleanup
+- [x] #6 Home: trim sections + nav cleanup
 - [ ] #7 Home: First-90-Days block with countdown + slots
 - [ ] #8 Home: Milestones + Assignments strip
 - [ ] #9 Home: Payout readiness micro-panel
