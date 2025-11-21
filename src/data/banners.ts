@@ -29,7 +29,7 @@ export const BANNERS = {
     img: '/ads/rect-300x250.svg',
     alt: 'Claim your StartRight kit',
     href_pages: '/startright',
-    href_prod: '/claim/',
+    href_prod: '/startright',
     size: { w: 300, h: 250 },
     note: 'Free 14-day kit after signup proof.'
   },
