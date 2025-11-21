@@ -1,22 +1,57 @@
-# NCS — Codex Work Queue (Phase 1)
+# NCS — Phase-1 Content Work Queue
 
 ## Rules
-- Branch: **main**. **No PRs.**
-- Always start with: `git checkout -f main && git pull --rebase origin main`.
-- Build gate: `npm ci || npm install` then `npm run build` must pass.
-- Pages must **never** emit `/go/*` (check with `grep -R "/go/" dist`).
-- Commit must include: `Closes #<issue-number>`.
-- After finishing an item, mark it checked here and commit with:
-  `chore(queue): mark #<issue-number> done`.
-- On any failure (build/tests/git), STOP and print the failing command + output.
+- Branch: main. No PRs.
+- Build gate: `npm ci && npm run build` must pass.
+- Text-only edits unless explicitly noted.
+- No layout changes without instruction.
+- Commit message must include `Closes #<id>`.
+
+---
 
 ## Queue
-- [x] #26 Programs registry hardening + tests
-- [x] #27 Banners: data + safe placements
-- [x] #28 Gear Kits V0 (curated, compliant)
-- [x] #29 StartRight: choose V0 static wizard or fold into page
-- [x] #30 Content fill: core pages
-- [x] #31 Blog: publish 5 Phase-1 posts
-- [x] #32 SEO & sitemap/robots + OG/Twitter
-- [x] #33 Analytics (env-gated)
-- [x] #34 CI: pin Node 20.17 + build + /go/ guardrail
+
+- [ ] #44 — Home Page: Final Copy Pass
+- [ ] #45 — StartRight Page: Full Content Rewrite
+- [ ] #46 — Compare Platforms: Content Pass
+- [ ] #47 — Join Models: Referral Explanation Page
+- [ ] #48 — About Page: High-End Rewrite
+- [ ] #49 — Gear Kits: Starter / Midrange / Pro Content
+- [ ] #31 — Blog: publish 5 Phase-1 posts
+- [ ] #32 — SEO & sitemap/robots + OG/Twitter
+
+---
+
+## Commit_message templates
+
+### Home Page (#44)
+feat(content): final home page copy pass  
+Closes #44
+
+### StartRight (#45)
+feat(content): rewrite StartRight funnel copy  
+Closes #45
+
+### Compare Platforms (#46)
+feat(content): update compare platforms page  
+Closes #46
+
+### Join Models (#47)
+feat(content): add referral explanation content  
+Closes #47
+
+### About (#48)
+feat(content): rewrite About page  
+Closes #48
+
+### Gear Kits (#49)
+feat(content): add gear kit tier content  
+Closes #49
+
+### Blog Posts (#31)
+feat(blog): add 5 Phase-1 posts  
+Closes #31
+
+### SEO (#32)
+feat(seo): add sitemap, robots, OG/Twitter metadata  
+Closes #32
