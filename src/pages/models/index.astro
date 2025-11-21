@@ -1,6 +1,7 @@
 ---
 import LinkCTA from '../../components/LinkCTA.astro';
 import Notices from '../../components/Notices.astro';
+import SEO from '../../components/SEO.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { withBase } from '../../utils/links';
@@ -23,9 +24,16 @@ const rangeLabels: Record<string, string> = {
   top25: 'Top 25%',
   top10: 'Top 10%'
 };
+const canonicalPath = '/models';
 ---
 
 <MainLayout title="Model walkthroughs" description="Example model walkthroughs and concierge launch playbooks.">
+  <SEO
+    slot="head"
+    title="Model walkthroughs | NaughtyCamSpot"
+    description="Concierge-managed model walkthroughs with archetypes, guarded join paths, and StartRight notes."
+    path={canonicalPath}
+  />
   <section class="space-y-10">
     <Notices />
     <div class="space-y-3">
