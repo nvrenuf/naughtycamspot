@@ -11,7 +11,7 @@
 - On any failure (build/tests/git), STOP and print the failing command + output.
 
 ## Queue
-- [ ] #26 Programs registry hardening + tests
+- [x] #26 Programs registry hardening + tests
 - [ ] #27 Banners: data + safe placements
 - [ ] #28 Gear Kits V0 (curated, compliant)
 - [ ] #29 StartRight: choose V0 static wizard or fold into page
