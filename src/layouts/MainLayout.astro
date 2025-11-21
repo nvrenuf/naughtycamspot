@@ -26,9 +26,13 @@ const resolveHostname = (value) => {
   }
 };
 
+const analyticsEnvFlag =
+  typeof import.meta.env.PUBLIC_ENABLE_ANALYTICS === 'string'
+    ? import.meta.env.PUBLIC_ENABLE_ANALYTICS.trim().toLowerCase() === 'true'
+    : false;
 const siteHostname = resolveHostname(import.meta.env.SITE ?? '');
 const isProdSite = siteHostname === 'naughtycamspot.com';
-const shouldTrackClicks = isProdSite && !isPagesBuild;
+const shouldTrackClicks = analyticsEnvFlag && isProdSite && !isPagesBuild;
 const gaMeasurementId =
   typeof import.meta.env.PUBLIC_GA4_ID === 'string'
     ? import.meta.env.PUBLIC_GA4_ID.trim()
