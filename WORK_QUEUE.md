@@ -12,7 +12,7 @@
 
 ## Queue
 - [x] #26 Programs registry hardening + tests
-- [ ] #27 Banners: data + safe placements
+- [x] #27 Banners: data + safe placements
 - [ ] #28 Gear Kits V0 (curated, compliant)
 - [ ] #29 StartRight: choose V0 static wizard or fold into page
 - [ ] #30 Content fill: core pages
