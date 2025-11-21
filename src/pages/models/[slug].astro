@@ -1,0 +1,159 @@
+---
+import BannerSlot from '../../components/BannerSlot.astro';
+import LinkCTA from '../../components/LinkCTA.astro';
+import Notices from '../../components/Notices.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { buildTrackedLink } from '../../utils/links';
+
+type ModelEntry = CollectionEntry<'models'>;
+
+export async function getStaticPaths() {
+  const models = await getCollection('models');
+  return models.map((entry) => ({
+    params: { slug: entry.slug ?? entry.id },
+    props: { model: entry }
+  }));
+}
+
+const { model } = Astro.props as { model: ModelEntry };
+const data = model.data;
+
+const slug = model.slug ?? model.id;
+const canonicalPath = `/models/${slug}`;
+const canonicalUrl = `https://naughtycamspot.com${canonicalPath}`;
+
+const buttonOrder = ['manyvids', 'beacons', 'stripchat', 'chaturbate', 'camsoda', 'pornhub', 'onlyfans', 'myclub'];
+const orderedPlatforms = [
+  ...buttonOrder.map((value) => data.platforms.find((platform) => platform.slug === value)).filter(Boolean),
+  ...data.platforms.filter((platform) => !buttonOrder.includes(platform.slug))
+];
+
+const slotPrefix = data.tracking?.slotPrefix ?? slug.replace(/-/g, '_');
+const profileCamp = data.tracking?.profileCamp ?? slug;
+const beaconsCamp = data.tracking?.beaconsCamp ?? profileCamp;
+
+const platformButtons = orderedPlatforms.map((platform) => {
+  const active = platform?.active !== false;
+  const slot = platform?.kind === 'beacons' ? 'model_page' : `${slotPrefix}_${platform?.slug}`;
+  const camp = platform?.kind === 'beacons' ? beaconsCamp : profileCamp;
+
+  return {
+    ...platform,
+    active,
+    camp,
+    slot,
+    href: active
+      ? buildTrackedLink({
+          path: platform?.path ?? '',
+          slot,
+          camp,
+          placeholder: platform?.placeholder ?? ''
+        })
+      : ''
+  };
+});
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: data.name,
+  url: canonicalUrl,
+  sameAs: data.profiles
+};
+---
+
+<MainLayout title={`${data.name} | NaughtyCamSpot`} description={data.summary}>
+  <section class="space-y-10">
+    <Notices />
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start">
+      <div class="space-y-6">
+        <div class="space-y-3">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{data.archetype}</p>
+          <h1 class="font-display text-4xl text-white sm:text-5xl">{data.name}</h1>
+          <p class="max-w-3xl text-base text-white/70">{data.summary}</p>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          {platformButtons.map((platform) =>
+            platform?.active ? (
+              <a
+                class="flex items-center justify-between rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm text-white/80 transition hover:-translate-y-1 hover:border-rose-gold/60 hover:text-white"
+                data-platform={platform.slug}
+                href={platform.href}
+              >
+                <span>{platform.name}</span>
+                <span class="text-xs uppercase tracking-[0.3em] text-white/50">
+                  src={platform.slot} · camp={platform.camp}
+                </span>
+              </a>
+            ) : (
+              <span
+                class="flex items-center justify-between rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-white/50"
+                data-platform={platform?.slug}
+              >
+                {platform?.name} — Inactive
+              </span>
+            )
+          )}
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+          <h2 class="font-display text-xl text-white">Concierge note</h2>
+          <p class="mt-2 text-sm text-white/70">
+            Track every click through our guarded paths so the StartRight kit unlock stays attached to your account. If you
+            already joined, send receipts to concierge@naughtycamspot.com with subject “Proof: {data.name}”.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <LinkCTA
+              class="border border-rose-gold/60 bg-rose-gold text-midnight shadow-glow"
+              pagesHref="/startright"
+              prodHref="/startright"
+              label="Claim StartRight kit"
+            />
+            <LinkCTA
+              class="border border-white/20 bg-transparent text-white hover:bg-white/10"
+              pagesHref="/join-models"
+              prodHref="/join-models"
+              label="Join with concierge"
+            />
+          </div>
+        </div>
+      </div>
+
+      <aside class="space-y-5">
+        <div class="overflow-hidden rounded-[28px] border border-white/10 bg-white/5">
+          <img class="h-72 w-full object-cover" src={data.heroImage} alt={data.name} loading="lazy" />
+        </div>
+        <!-- SLOT: model_sidebar_tall -->
+        <BannerSlot id="model_sidebar_tall" class="w-full" />
+        <!-- SLOT: model_mid_rectangle -->
+        <BannerSlot id="model_mid_rectangle" class="w-full" />
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-white/65 backdrop-blur">
+          <p class="mb-2 text-xs uppercase tracking-[0.35em] text-rose-petal/70">Profiles</p>
+          <ul class="space-y-2">
+            {data.profiles?.map((profile) => (
+              <li class="truncate text-white/70">
+                <a class="hover:text-rose-gold" href={profile} target="_blank" rel="nofollow noopener">
+                  {profile}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-3">
+      {data.gallery.map((image) => (
+        <div class="overflow-hidden rounded-3xl border border-white/10">
+          <img class="h-full w-full object-cover" src={image} alt={`${data.name} gallery`} loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <script type="application/ld+json">
+    {JSON.stringify(jsonLd)}
+  </script>
+</MainLayout>

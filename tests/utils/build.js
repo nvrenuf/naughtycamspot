@@ -27,21 +27,25 @@ const ensureBuild = async (mode) => {
     return buildCache.get(mode);
   }
 
-  const outDirName = resolveOutDirName(mode);
-  const outDir = path.join(projectRoot, outDirName);
-  await rm(outDir, { recursive: true, force: true });
+  const buildPromise = (async () => {
+    const outDirName = resolveOutDirName(mode);
+    const outDir = path.join(projectRoot, outDirName);
+    await rm(outDir, { recursive: true, force: true });
 
-  const command =
-    mode === 'pages'
-      ? `npx astro build --config astro.config.pages.mjs --outDir ${outDirName}`
-      : `npx astro build --outDir ${outDirName}`;
+    const command =
+      mode === 'pages'
+        ? `npx astro build --config astro.config.pages.mjs --outDir ${outDirName}`
+        : `npx astro build --outDir ${outDirName}`;
 
-  execSync(command, { cwd: projectRoot, stdio: 'pipe' });
+    execSync(command, { cwd: projectRoot, stdio: 'pipe' });
 
-  const result = { outDir, outDirName, mode };
-  buildCache.set(mode, result);
-  cleanupDirs.add(outDir);
-  return result;
+    const result = { outDir, outDirName, mode };
+    cleanupDirs.add(outDir);
+    return result;
+  })();
+
+  buildCache.set(mode, buildPromise);
+  return buildPromise;
 };
 
 export const readOutputFile = async (mode, segments) => {
@@ -56,9 +60,6 @@ export const readOutputFile = async (mode, segments) => {
 };
 
 export const cleanupBuilds = async () => {
-  for (const dir of cleanupDirs) {
-    await rm(dir, { recursive: true, force: true });
-  }
   cleanupDirs.clear();
   buildCache.clear();
 };

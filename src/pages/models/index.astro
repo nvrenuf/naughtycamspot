@@ -1,0 +1,124 @@
+---
+import BannerSlot from '../../components/BannerSlot.astro';
+import LinkCTA from '../../components/LinkCTA.astro';
+import Notices from '../../components/Notices.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { withBase } from '../../utils/links';
+
+const models = await getCollection('models');
+
+const featured = models
+  .filter((entry) => entry.data.featured)
+  .sort((a, b) => (a.data.featuredOrder ?? 99) - (b.data.featuredOrder ?? 99));
+
+const library = models
+  .filter((entry) => !entry.data.featured)
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+const resolveSlug = (entry: CollectionEntry<'models'>) => entry.slug ?? entry.id;
+const makeHref = (entry: CollectionEntry<'models'>) => withBase(`/models/${resolveSlug(entry)}`);
+const rangeLabels: Record<string, string> = {
+  new: 'New creator lane',
+  growing: 'Growing momentum',
+  top25: 'Top 25%',
+  top10: 'Top 10%'
+};
+---
+
+<MainLayout title="Model walkthroughs" description="Example model walkthroughs and concierge launch playbooks.">
+  <section class="space-y-10">
+    <Notices />
+    <div class="space-y-3">
+      <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Library</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Example model walkthroughs</h1>
+      <p class="max-w-3xl text-base text-white/70">
+        Browse concierge-managed walkthroughs for creator archetypes. These aren&apos;t promises — they show how StartRight pairs
+        the right platforms, rituals, and tracking so you can move fast without burning subs.
+      </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.6fr)]">
+      <div class="space-y-6">
+        <h2 class="font-display text-2xl text-white">Featured</h2>
+        <div class="grid gap-6 md:grid-cols-2">
+          {featured.map((entry) => (
+            <a
+              class="group flex h-full flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur transition hover:-translate-y-1 hover:border-rose-gold/60"
+              data-model={resolveSlug(entry)}
+              href={makeHref(entry)}
+            >
+              <img
+                class="h-40 w-full rounded-2xl object-cover"
+                src={entry.data.cardImage ?? entry.data.heroImage}
+                alt={entry.data.name}
+                loading="lazy"
+              />
+              <div class="space-y-1">
+                <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Featured model</p>
+                <h3 class="font-display text-xl text-white group-hover:text-rose-gold">{entry.data.name}</h3>
+                <p class="text-sm text-white/70">{entry.data.archetype}</p>
+              </div>
+              <p class="text-sm text-white/65">{entry.data.summary}</p>
+              {entry.data.range_band && (
+                <p class="mt-auto text-[0.75rem] uppercase tracking-[0.3em] text-white/50">
+                  {rangeLabels[entry.data.range_band] ?? entry.data.range_band}
+                </p>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <aside class="space-y-4">
+        <!-- SLOT: model_sidebar_tall -->
+        <BannerSlot id="model_sidebar_tall" class="w-full" />
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur">
+          <h3 class="font-display text-xl text-white">Need a concierge walkthrough?</h3>
+          <p class="mt-2 text-sm text-white/70">
+            Tell us your stack and we&apos;ll map the right platforms, guard your tracking, and ship the StartRight kit when your
+            proof lands.
+          </p>
+          <div class="mt-4">
+            <LinkCTA
+              class="border border-rose-gold/60 bg-rose-gold text-midnight shadow-glow"
+              pagesHref="/startright"
+              prodHref="/startright"
+              label="Claim StartRight kit"
+            />
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="space-y-4">
+      <h2 class="font-display text-2xl text-white">Library</h2>
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {library.map((entry) => (
+          <a
+            class="group flex h-full flex-col gap-3 rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur transition hover:-translate-y-1 hover:border-rose-gold/60"
+            data-model={resolveSlug(entry)}
+            href={makeHref(entry)}
+          >
+            <img
+              class="h-32 w-full rounded-2xl object-cover"
+              src={entry.data.cardImage ?? entry.data.heroImage}
+              alt={entry.data.name}
+              loading="lazy"
+            />
+            <div class="space-y-1">
+              <h3 class="font-display text-lg text-white group-hover:text-rose-gold">{entry.data.name}</h3>
+              <p class="text-sm text-white/65">{entry.data.archetype}</p>
+            </div>
+            <p class="text-sm text-white/60">{entry.data.summary}</p>
+            {entry.data.consent === false && (
+              <p class="mt-auto text-[0.75rem] uppercase tracking-[0.3em] text-amber-300/80">
+                Consent pending listing
+              </p>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</MainLayout>

@@ -1,0 +1,65 @@
+---
+import LinkCTA from '../components/LinkCTA.astro';
+import Notices from '../components/Notices.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import { buildTrackedLink } from '../utils/links';
+
+const isPagesBuild =
+  (typeof import.meta.env.IS_PAGES === 'string' && import.meta.env.IS_PAGES === 'true') ||
+  (typeof import.meta.env.BASE_URL === 'string' && import.meta.env.BASE_URL !== '/');
+
+const canonicalPath = '/join-models';
+const prodJoinHref = buildTrackedLink({
+  path: '/go/model-join.php',
+  slot: 'join_models',
+  camp: 'landing',
+  placeholder: '/startright'
+});
+const pagesJoinHref = '/startright';
+---
+
+<MainLayout
+  title="Join models | NaughtyCamSpot"
+  description="Route your signups through guarded links so concierge can unlock your StartRight kit."
+>
+  <section class="space-y-10">
+    <Notices />
+    <div class="space-y-4">
+      <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Concierge guardrail</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Join the right way, unlock StartRight</h1>
+      <p class="max-w-3xl text-base text-white/70">
+        Use the guarded join link below so concierge can confirm your signup, route the StartRight kit, and keep your tracking
+        clean. Pages previews stay sandboxed; production switches to our tracked redirect endpoint automatically.
+      </p>
+    </div>
+    <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+      <LinkCTA
+        class="border border-rose-gold/70 bg-rose-gold text-midnight shadow-glow"
+        pagesHref={pagesJoinHref}
+        prodHref={prodJoinHref}
+        label="Join models with concierge"
+        data-cta="join-models"
+      />
+      <p class="text-sm uppercase tracking-[0.25em] text-white/50">
+        Tagged slot: join_models · Camp: landing
+      </p>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        <h2 class="font-display text-2xl text-white">What concierge handles</h2>
+        <ul class="mt-3 space-y-2 text-sm text-white/70">
+          <li>Routing your proof to StartRight without leaks</li>
+          <li>Shielding tracked links on Pages builds</li>
+          <li>Preserving subIDs for payouts and kit unlocks</li>
+        </ul>
+      </div>
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        <h2 class="font-display text-2xl text-white">If you already joined</h2>
+        <p class="mt-3 text-sm text-white/70">
+          Forward your welcome emails to concierge@naughtycamspot.com with subject <strong>“Proof: Join Models”</strong>. Include
+          your platform usernames and we&apos;ll attach the kit within one business day.
+        </p>
+      </div>
+    </div>
+  </section>
+</MainLayout>

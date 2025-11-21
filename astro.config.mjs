@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [tailwind({ applyBaseStyles: false }), sitemap()],
   vite: {
     define: {
-      'import.meta.env.IS_PAGES': 'false'
+      'import.meta.env.IS_PAGES': JSON.stringify(process.env.IS_PAGES === 'true')
     }
   }
 });

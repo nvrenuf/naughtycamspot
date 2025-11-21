@@ -9,7 +9,14 @@ const envBaseUrl =
     : undefined;
 
 const BASE_URL = runtimeBaseUrl ?? envBaseUrl ?? '/';
-const IS_PAGES_BUILD = BASE_URL !== '/';
+const IS_PAGES_FLAG =
+  (typeof import.meta !== 'undefined' && typeof import.meta.env?.IS_PAGES === 'string'
+    ? import.meta.env.IS_PAGES === 'true'
+    : false) ||
+  (typeof process !== 'undefined' && typeof process.env?.IS_PAGES === 'string'
+    ? process.env.IS_PAGES === 'true'
+    : false);
+const IS_PAGES_BUILD = IS_PAGES_FLAG || BASE_URL !== '/';
 
 const CLAIM_FORM_EXTERNAL_URL = 'https://tally.so/r/claim-startright-kit';
 const CLAIM_FORM_INTERNAL_PATH = '/startright';
