@@ -16,7 +16,7 @@ create_issue() {
 }
 
 # ----------------------------
-# CONTENT ISSUES
+# CONTENT + SEO ISSUES
 # ----------------------------
 
 create_issue \
@@ -49,6 +49,10 @@ create_issue \
 "Write well-structured gear kit content with 3 tiers and supporting recommendations. No affiliate links yet. Codex edits gear-kits.astro." \
 "content,phase1,gear,affiliates"
 
+# ----------------------------
+# BLOG POSTS
+# ----------------------------
+
 create_issue \
 "Blog Post: First 30 Days Blueprint" \
 "700–1,000 words. Beginner roadmap with sections, guidance, and StartRight crosslink. Codex adds markdown blog file." \
@@ -74,4 +78,13 @@ create_issue \
 "600–900 words. Pre-stream tactics, goals, and gear tie-ins. Codex adds markdown blog file." \
 "content,phase1,blog,seo"
 
-echo "All content issues created."
+# ----------------------------
+# SEO / ROBOTS / OG TAGS (missing issue added)
+# ----------------------------
+
+create_issue \
+"SEO & sitemap/robots + OG/Twitter" \
+"Implement sitemap, robots.txt, canonical tags, OpenGraph/Twitter meta. Ensure high-end preview cards for all major pages. Codex updates astro.config.mjs, layouts, and adds sitemap/robots as needed." \
+"phase1,seo"
+
+echo "All missing issues created (content + blog + SEO)."
