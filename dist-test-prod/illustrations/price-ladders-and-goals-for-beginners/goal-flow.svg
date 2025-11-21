@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" role="img" aria-labelledby="title" aria-describedby="desc">
+  <title id="title">Session goal flow</title>
+  <desc id="desc">Three connected nodes reading Hook, Goal, and Thank-you with directional arrows.</desc>
+  <style>
+    :root {
+      color: #141420;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color: #f7f7fc;
+      }
+    }
+    .node {
+      fill: currentColor;
+      opacity: 0.08;
+      stroke: currentColor;
+      stroke-opacity: 0.32;
+      stroke-width: 3;
+      rx: 32px;
+    }
+    text {
+      fill: currentColor;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .arrow {
+      stroke: currentColor;
+      stroke-width: 8;
+      fill: none;
+      marker-end: url(#arrow-head);
+      stroke-linecap: round;
+    }
+  </style>
+  <defs>
+    <marker id="arrow-head" markerWidth="16" markerHeight="16" refX="12" refY="8" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L16,8 L0,16 Z" fill="currentColor" />
+    </marker>
+  </defs>
+  <g transform="translate(60,70)">
+    <rect class="node" width="150" height="90" />
+    <text x="40" y="58">Hook</text>
+  </g>
+  <g transform="translate(240,70)">
+    <rect class="node" width="150" height="90" />
+    <text x="32" y="58">Goal</text>
+  </g>
+  <g transform="translate(420,70)">
+    <rect class="node" width="170" height="90" />
+    <text x="16" y="58">Thank-you</text>
+  </g>
+  <line class="arrow" x1="210" y1="115" x2="240" y2="115" />
+  <line class="arrow" x1="390" y1="115" x2="420" y2="115" />
+</svg>

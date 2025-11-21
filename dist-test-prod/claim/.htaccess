@@ -1,0 +1,29 @@
+<IfModule mod_authz_core.c>
+  <LimitExcept GET POST>
+    Require all denied
+  </LimitExcept>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <LimitExcept GET POST>
+    Deny from all
+  </LimitExcept>
+</IfModule>
+
+Options -ExecCGI -Indexes
+
+<IfModule mod_headers.c>
+  Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+  Header always set Pragma "no-cache"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^uploads/ - [E=NCS_UPLOADS:1]
+  RewriteRule ^uploads/.*\.(?:php|phtml|phar|cgi|pl|py|rb|sh)$ - [F,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0" env=NCS_UPLOADS
+  Header always set Pragma "no-cache" env=NCS_UPLOADS
+  Header always set Content-Disposition "attachment" env=NCS_UPLOADS
+</IfModule>
