@@ -18,9 +18,12 @@ if (!banner) {
 }
 
 const isPagesBuild = import.meta.env.IS_PAGES === 'true';
+const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
 const isGoSlug = banner.href.startsWith('/go/');
 const safeHref = isPagesBuild && isGoSlug ? '/join-models' : banner.href;
-const anchorHref = withBase(safeHref);
+const isAbsoluteHref = /^https?:\/\//i.test(safeHref);
+const hasBasePrefix = !isAbsoluteHref && typeof baseUrl === 'string' && baseUrl !== '/' && safeHref.startsWith(baseUrl);
+const anchorHref = isAbsoluteHref || hasBasePrefix ? safeHref : withBase(safeHref);
 const imgSrc = withBase(banner.img);
 
 const anchorClass = [
