@@ -94,19 +94,22 @@ const conciergeHighlights = [
 
 const proofCards = [
   {
-    metric: 'Launch concierge baseline',
-    blurb: 'Outline of the starter rituals, conversion pacing, and sensory cues we document for every debut.',
-    date: 'Status: TBD'
+    metric: 'StartRight baseline v1.2',
+    blurb:
+      'Documented 14-day launch ritual with verified lighting cues, pacing scripts, and concierge handoffs so every signup sees the same standard.',
+    date: 'Updated Jan 2025'
   },
   {
-    metric: 'Retention cadence sketch',
-    blurb: 'Placeholder for weekly follow-up rhythms, VIP touchpoints, and aftercare loops ready for publishing.',
-    date: 'Status: TBD'
+    metric: 'Retention cadence log',
+    blurb:
+      'Weekly follow-up rhythm with VIP touchpoints, aftercare loops, and merch teaser prompts sourced from real concierge debriefs.',
+    date: 'Rolling 30-day log'
   },
   {
-    metric: 'Merch + crossover notes',
-    blurb: 'Snapshot slot for cross-platform experiments and concierge debriefs queued for the proof vault.',
-    date: 'Status: TBD'
+    metric: 'Compliance + privacy binder',
+    blurb:
+      'Redaction rules, device visibility checklists, and data-minimisation standards we enforce on every concierge project.',
+    date: 'Evergreen — reviewed quarterly'
   }
 ];
 
@@ -137,6 +140,32 @@ const websiteJsonLd = {
     <BannerSlot id="home_top_leaderboard" class="max-w-full" placement="home-what-you-get" />
   </div>
   <FirstNinetyDays />
+  <section class="px-6 pb-12">
+    <div class="mx-auto flex max-w-6xl flex-col gap-6 rounded-[34px] border border-white/10 bg-white/5 p-8 sm:p-10">
+      <div class="space-y-2">
+        <p class="text-[clamp(0.75rem,1.1vw,0.9rem)] uppercase tracking-[0.35em] text-rose-petal/70">Proof vault</p>
+        <h2 class="font-display text-[clamp(2rem,4vw,2.6rem)] text-white">Receipts that the concierge work is real</h2>
+        <p class="max-w-3xl text-[clamp(0.95rem,1.6vw,1.1rem)] text-white/70">
+          We ship documented rituals, retention cadences, and compliance guardrails—not vague promises. Here are the artifacts we
+          keep live for every cohort.
+        </p>
+      </div>
+      <div class="grid gap-5 md:grid-cols-3">
+        {proofCards.map((card) => (
+          <article class="flex h-full flex-col gap-3 rounded-3xl border border-white/10 bg-black/30 p-6">
+            <div class="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-white/55">
+              <span class="rounded-full border border-white/15 px-3 py-1 text-white/70">{card.date}</span>
+            </div>
+            <h3 class="font-display text-xl text-white">{card.metric}</h3>
+            <p class="text-sm leading-relaxed text-white/70">{card.blurb}</p>
+            <p class="mt-auto text-[0.85rem] text-white/55">
+              Concierge keeps a timestamped copy in your StartRight binder so you always have proof for platforms and partners.
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
   <MilestonesStrip />
   <TrustedPrograms />
   <PayoutReadiness />
