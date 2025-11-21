@@ -1,0 +1,60 @@
+---
+const targetDate = new Date('2025-12-31T00:00:00Z');
+const now = new Date();
+const diff = Math.max(targetDate.getTime() - now.getTime(), 0);
+const dayMs = 1000 * 60 * 60 * 24;
+const hourMs = 1000 * 60 * 60;
+const minuteMs = 1000 * 60;
+const days = Math.floor(diff / dayMs);
+const hours = Math.floor((diff % dayMs) / hourMs);
+const minutes = Math.floor((diff % hourMs) / minuteMs);
+
+const cohort = { current: 18, total: 50 };
+
+const phases = [
+  {
+    title: 'Visibility push',
+    description: 'Schedule your launch rituals, align lighting and sound cues, and queue the first offers for your primary program.'
+  },
+  {
+    title: 'Weekly assignments',
+    description: 'Ship one themed segment per week with boundary-safe upsells, plus lightweight rewrites for your bio and panels.'
+  },
+  {
+    title: 'Concierge review',
+    description: 'Recap every Sunday with concierge. We adjust scripts, pacing, and banners based on your comfort and early results.'
+  }
+];
+---
+<section class="px-6 pb-20 pt-10">
+  <div class="mx-auto flex max-w-6xl flex-col gap-10 rounded-[34px] border border-white/10 bg-white/5 p-8 sm:p-10">
+    <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+      <div class="space-y-3">
+        <p class="text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">Your first 90 days</p>
+        <h2 class="font-display text-[clamp(2.1rem,5vw,3rem)] text-white">StartRight roadmap with ethical urgency</h2>
+        <p class="max-w-3xl text-[clamp(0.95rem,1.8vw,1.1rem)] text-white/70">
+          We push for confident momentum without cheap pressure. Expect a clear launch order, weekly assignments, and concierge
+          reviews so you never wonder what’s next.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-5 text-sm uppercase tracking-[0.32em] text-white/80">
+        <span class="rounded-full bg-rose-gold/20 px-4 py-2 text-rose-gold">Countdown</span>
+        <span class="text-lg font-semibold text-white">{days}d {hours}h {minutes}m</span>
+        <span class="rounded-full border border-white/20 px-4 py-2 text-white/70">{cohort.current}/{cohort.total} kits left</span>
+      </div>
+    </div>
+    <div class="grid gap-5 md:grid-cols-3">
+      {phases.map((phase, index) => (
+        <article class="flex h-full flex-col gap-3 rounded-3xl border border-white/10 bg-white/5 p-6">
+          <div class="flex items-center gap-3 text-[clamp(0.9rem,1.6vw,1.05rem)] uppercase tracking-[0.32em] text-rose-gold">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-base font-semibold text-white">
+              {(index + 1).toString().padStart(2, '0')}
+            </span>
+            {phase.title}
+          </div>
+          <p class="text-[clamp(0.95rem,1.7vw,1.1rem)] leading-relaxed text-white/75">{phase.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

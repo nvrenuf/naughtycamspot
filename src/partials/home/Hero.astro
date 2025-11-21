@@ -3,21 +3,9 @@ import LinkCTA from '../../components/LinkCTA.astro';
 import { HERO, PRIMARY_CTA } from '../../data/copy';
 import { withBase } from '../../utils/links';
 
-const highlightLinks = [
-  { href: '/case-studies', label: 'Proof vault updates' },
-  { href: '/models', label: 'Example builds' },
-  { href: '/about', label: 'Concierge touch' },
-  { href: '/blog', label: 'Blog preview' }
-] as const;
-
 const primaryCta = {
   label: PRIMARY_CTA.label,
   href: PRIMARY_CTA.pagesHref
-};
-
-const secondaryCta = {
-  label: 'Join models',
-  href: '/join-models'
 };
 ---
 <section class="relative isolate overflow-hidden px-6 pb-24 pt-20 sm:pb-28 sm:pt-24">
@@ -40,25 +28,12 @@ const secondaryCta = {
           Trade management promises for concierge guidance. We map the right platforms, script your launch rituals, and send the
           StartRight kit once your proof lands.
         </p>
-        <div class="flex flex-col gap-4 sm:flex-row">
-          <LinkCTA
-            class="border border-rose-gold/70 bg-rose-gold text-midnight shadow-glow"
-            pagesHref={primaryCta.href}
-            prodHref={primaryCta.href}
-            label={primaryCta.label}
-          />
-          <LinkCTA
-            class="border border-white/15 bg-white/10 text-white/85 hover:bg-white/15"
-            pagesHref={secondaryCta.href}
-            prodHref={secondaryCta.href}
-            label={secondaryCta.label}
-          />
-        </div>
-        <div class="flex flex-wrap gap-4 text-[clamp(0.8rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold/80">
-          {highlightLinks.map((link) => (
-            <a class="transition hover:text-white" href={withBase(link.href)}>{link.label}</a>
-          ))}
-        </div>
+        <LinkCTA
+          class="inline-flex border border-rose-gold/70 bg-rose-gold px-6 py-3 text-lg text-midnight shadow-glow"
+          pagesHref={primaryCta.href}
+          prodHref={primaryCta.href}
+          label={primaryCta.label}
+        />
       </div>
       <div class="grid gap-6">
         <div class="relative overflow-hidden rounded-[34px] border border-white/10 bg-white/5 p-6 backdrop-blur">

@@ -81,8 +81,16 @@ const resolveNavHref = (link) => {
 
 const moreMenuActive = moreNavLinks.some((link) => isNavActive(resolveNavHref(link)));
 
+const archivedNavLinks = [
+  { href: '/contests', label: 'Contests' },
+  { href: '/models', label: 'Models' },
+  { href: '/join-models', label: 'Join Models' },
+  { href: '/claim', label: 'Claim' }
+];
+
 const footerLinks = [
   ...moreNavLinks,
+  ...archivedNavLinks,
   { href: '/about', label: 'About' },
   { href: '/privacy', label: 'Privacy' },
   { href: '/terms', label: 'Terms' },
