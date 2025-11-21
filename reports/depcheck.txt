@@ -1,0 +1,9 @@
+Unused dependencies
+* autoprefixer
+* postcss
+Unused devDependencies
+* concurrently
+* depcheck
+* unimported
+Missing dependencies
+* astro:content: ./src/content/config.ts
