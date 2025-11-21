@@ -66,8 +66,9 @@ branch has diverged, the script will warn so you can handle the merge manually.
 
 ## Analytics & click beacons
 
+- Enable analytics explicitly by setting `PUBLIC_ENABLE_ANALYTICS=true` in the environment; when unset or false, the site skips both GA and beacon scripts.
 - Set the GA4 measurement ID through the `PUBLIC_GA4_ID` environment variable (for example, add `PUBLIC_GA4_ID=G-XXXXXXX` to your ViceTemple `.env`).
-- The GA snippet only renders when `import.meta.env.SITE` resolves to `https://naughtycamspot.com` **and** `IS_PAGES` is not flagged, so GitHub Pages previews never emit tracking.
+- The GA snippet only renders when analytics are enabled, `import.meta.env.SITE` resolves to `https://naughtycamspot.com`, **and** `IS_PAGES` is not flagged, so GitHub Pages previews never emit tracking.
 - Click beacons fire for any element marked with `data-track="click"` (homepage hero CTA and all banner slots in production) and send lightweight GET requests to `/go/click.php` with the slot, campaign, and timestamp.
 - ViceTemple writes those beacon hits to `logs/clicks.log` (see `public/go/click.php`). Pages builds keep the PHP handler inert because the environment never executes the file.
 
