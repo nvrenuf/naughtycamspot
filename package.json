@@ -28,8 +28,6 @@
     "@astrojs/sitemap": "file:vendor/astrojs-sitemap",
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^4.10.0",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.47",
     "tailwindcss": "^3.4.13"
   },
   "devDependencies": {
