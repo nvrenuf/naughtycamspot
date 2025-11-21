@@ -35,7 +35,11 @@ done
 make_issue() {
   local title="$1"; local body="$2"; shift 2
   local tmp; tmp="$(mktemp)"; printf "%s\n" "$body" > "$tmp"
-  gh issue create --repo "$REPO" --title "$title" --body-file "$tmp" --label "$@" >/dev/null || {
+  local label_flags=()
+  for label in "$@"; do
+    label_flags+=(--label "$label")
+  done
+  gh issue create --repo "$REPO" --title "$title" --body-file "$tmp" "${label_flags[@]}" >/dev/null || {
     echo "Failed to create: $title" >&2; rm -f "$tmp"; exit 1;
   }
   rm -f "$tmp"
