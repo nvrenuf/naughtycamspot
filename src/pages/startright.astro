@@ -3,6 +3,7 @@ import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import VipTeasers from '../components/VipTeasers.astro';
 import { HERO, PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import { gearKits } from '../data/gear-kits';
 import programs from '../data/programs.json';
@@ -347,6 +348,7 @@ const clientPrograms = JSON.stringify(
       </p>
     </section>
   </section>
+  <VipTeasers />
   <section class="content-card space-y-6">
     <div class="space-y-3">
       <h2 class="section-heading">StartRight gear concierge</h2>

@@ -6,5 +6,5 @@
 - [x] #13 Home: First-90-Days block with countdown + slots
 - [x] #14 Home: Milestones + Assignments strip
 - [x] #15 Home: Payout readiness micro-panel
-- [ ] #16 VIP: teasers on Home + StartRight
-- [ ] #17 Gear: cohort urgency banner on /gear
+- [x] #16 VIP: teasers on Home + StartRight
+- [x] #17 Gear: cohort urgency banner on /gear
