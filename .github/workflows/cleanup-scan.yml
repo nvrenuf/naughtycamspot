@@ -1,0 +1,21 @@
+name: Cleanup Scan
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ cleanup/phase1-hard-prune ]
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20.17.0', cache: 'npm' }
+      - run: |
+          printf "registry=https://registry.npmjs.org/\n@astrojs:registry=https://registry.npmjs.org/\n" > .npmrc
+      - run: npm i -D unimported depcheck
+      - run: npx unimported --ignore 'src/_archive/**' || true
+      - run: npx depcheck || true
+      - run: npx unimported --ignore 'src/_archive/**' > unimported.txt || true
+      - run: npx depcheck > depcheck.txt || true
+      - uses: actions/upload-artifact@v4
+        with: { name: cleanup-reports, path: "unimported.txt\ndepcheck.txt" }
