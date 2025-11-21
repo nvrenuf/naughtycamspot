@@ -19,4 +19,4 @@
 - [x] #31 Blog: publish 5 Phase-1 posts
 - [x] #32 SEO & sitemap/robots + OG/Twitter
 - [x] #33 Analytics (env-gated)
-- [ ] #34 CI: pin Node 20.17 + build + /go/ guardrail
+- [x] #34 CI: pin Node 20.17 + build + /go/ guardrail
