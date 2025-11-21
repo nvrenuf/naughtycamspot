@@ -1,5 +1,4 @@
 ---
-import BannerSlot from '../../components/BannerSlot.astro';
 import LinkCTA from '../../components/LinkCTA.astro';
 import Notices from '../../components/Notices.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
@@ -125,10 +124,6 @@ const jsonLd = {
         <div class="overflow-hidden rounded-[28px] border border-white/10 bg-white/5">
           <img class="h-72 w-full object-cover" src={data.heroImage} alt={data.name} loading="lazy" />
         </div>
-        <!-- SLOT: model_sidebar_tall -->
-        <BannerSlot id="model_sidebar_tall" class="w-full" />
-        <!-- SLOT: model_mid_rectangle -->
-        <BannerSlot id="model_mid_rectangle" class="w-full" />
         <div class="rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-white/65 backdrop-blur">
           <p class="mb-2 text-xs uppercase tracking-[0.35em] text-rose-petal/70">Profiles</p>
           <ul class="space-y-2">

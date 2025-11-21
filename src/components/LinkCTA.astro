@@ -30,7 +30,11 @@ const resolvedProdHref = typeof prodHref === 'string' && prodHref.trim().length 
 
 const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
 const isPagesFlag = typeof import.meta.env.IS_PAGES === 'string' ? import.meta.env.IS_PAGES === 'true' : false;
-const isPagesBuild = isPagesFlag || baseUrl !== '/';
+const isPagesProcessFlag =
+  typeof process !== 'undefined' && typeof process.env?.IS_PAGES === 'string'
+    ? process.env.IS_PAGES === 'true'
+    : false;
+const isPagesBuild = isPagesFlag || isPagesProcessFlag || baseUrl !== '/';
 const candidateHref = isPagesBuild ? (resolvedPagesHref ?? resolvedProdHref) : (resolvedProdHref ?? resolvedPagesHref);
 const rawHref = candidateHref ?? '';
 const trimmedHref = typeof rawHref === 'string' ? rawHref.trim() : '';

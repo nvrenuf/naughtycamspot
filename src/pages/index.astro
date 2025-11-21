@@ -10,6 +10,7 @@ import PayoutReadiness from '../partials/home/PayoutReadiness.astro';
 import WhatYouGet from '../partials/home/WhatYouGet.astro';
 import FirstNinetyDays from '../partials/home/FirstNinetyDays.astro';
 import VipTeasers from '../components/VipTeasers.astro';
+import BannerSlot from '../components/BannerSlot.astro';
 import { getCollection } from 'astro:content';
 
 const canonicalPath = Astro.url.pathname;
@@ -132,6 +133,9 @@ const websiteJsonLd = {
 
   <Hero />
   <WhatYouGet />
+  <div class="my-12 flex justify-center">
+    <BannerSlot id="placeholder-wide" class="max-w-full" placement="home-what-you-get" />
+  </div>
   <FirstNinetyDays />
   <MilestonesStrip />
   <TrustedPrograms />
