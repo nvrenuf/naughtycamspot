@@ -18,6 +18,9 @@ const trackingSchema = z
   })
   .optional();
 
+const localPath = z.string().refine((val) => val.startsWith('/'), { message: 'Must start with / for local assets' });
+const urlOrPath = z.union([z.string().url(), localPath]);
+
 const models = defineCollection({
   type: 'data',
   schema: z.object({
@@ -47,9 +50,9 @@ const blog = defineCollection({
     publishDate: z.date(),
     category: z.string(),
     author: z.string(),
-    heroImage: z.string().url(),
+    heroImage: urlOrPath,
     heroImageAlt: z.string().optional(),
-    cardImage: z.string().url().optional()
+    cardImage: urlOrPath.optional()
   })
 });
 

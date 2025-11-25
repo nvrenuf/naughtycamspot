@@ -26,6 +26,7 @@ const { post, related } = Astro.props;
 const { Content } = await post.render();
 
 const isPages = import.meta.env.IS_PAGES === 'true';
+const suppressCtas = post.slug === 'thanksgiving-week-strategy';
 const trackingQuery = new URLSearchParams({
   src: `blog_${post.slug}`,
   camp: 'post',
@@ -77,32 +78,40 @@ const startRightMessage = isPages
       <Content />
     </div>
 
-    <!-- SLOT: post_inline_rect -->
-    <BannerSlot id="post_inline_rect" class="mt-6" showNote />
+    {!suppressCtas && (
+      <>
+        <!-- SLOT: post_inline_rect -->
+        <BannerSlot id="post_inline_rect" class="mt-6" showNote />
 
-    <div class="content-card space-y-5">
-      <h2 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Continue your launch</h2>
-      <div class="flex flex-col gap-3 sm:flex-row">
-        <LinkCTA
-          class="inline-flex items-center justify-center gap-2 border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow"
-          pagesHref={joinHrefPages}
-          prodHref={joinHrefProd}
-        >
-          {joinCtaLabel}
-        </LinkCTA>
-        <LinkCTA
-          class="border border-white/20 bg-transparent text-white hover:bg-white/10"
-          pagesHref={PRIMARY_CTA.pagesHref}
-          prodHref={PRIMARY_CTA.prodHref}
-          label={PRIMARY_CTA.label}
-        />
-      </div>
-      <p class="text-xs text-white/50">{startRightMessage}</p>
-    </div>
+        <div class="content-card space-y-5">
+          <h2 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Continue your launch</h2>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <LinkCTA
+              class="inline-flex items-center justify-center gap-2 border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow"
+              pagesHref={joinHrefPages}
+              prodHref={joinHrefProd}
+            >
+              {joinCtaLabel}
+            </LinkCTA>
+            <LinkCTA
+              class="border border-white/20 bg-transparent text-white hover:bg-white/10"
+              pagesHref={PRIMARY_CTA.pagesHref}
+              prodHref={PRIMARY_CTA.prodHref}
+              label={PRIMARY_CTA.label}
+            />
+          </div>
+          <p class="text-xs text-white/50">{startRightMessage}</p>
+        </div>
+      </>
+    )}
   </article>
 
-  <!-- SLOT: post_end_strip -->
-  <BannerSlot id="post_end_strip" class="mt-16" showNote />
+  {!suppressCtas && (
+    <>
+      <!-- SLOT: post_end_strip -->
+      <BannerSlot id="post_end_strip" class="mt-16" showNote />
+    </>
+  )}
 
   <!-- SECTION: Related Posts -->
   <section class="space-y-6">
