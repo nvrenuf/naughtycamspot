@@ -3,6 +3,7 @@ import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
 import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import VipTeasers from '../components/VipTeasers.astro';
 import { HERO, PRIMARY_CTA, STARTRIGHT_SKIP } from '../data/copy';
 import { gearKits } from '../data/gear-kits';
 import programs from '../data/programs.json';
@@ -211,9 +212,12 @@ const clientPrograms = JSON.stringify(
           prodHref={PRIMARY_CTA.prodHref}
           label={PRIMARY_CTA.label}
         />
-        <a href={`/join-models${qs}`} class="btn btn-secondary w-full sm:w-auto">
-          Skip — pick my platforms
-        </a>
+        <LinkCTA
+          class="btn btn-secondary w-full sm:w-auto"
+          pagesHref={skipHrefPages}
+          prodHref={skipHrefProd}
+          label={STARTRIGHT_SKIP.label}
+        />
       </div>
     </div>
     <form id="startright-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
@@ -347,6 +351,7 @@ const clientPrograms = JSON.stringify(
       </p>
     </section>
   </section>
+  <VipTeasers />
   <section class="content-card space-y-6">
     <div class="space-y-3">
       <h2 class="section-heading">StartRight gear concierge</h2>
@@ -402,8 +407,8 @@ const clientPrograms = JSON.stringify(
       const primaryPages = resultsContainer.dataset.primaryPages || '/startright';
       const primaryProd = resultsContainer.dataset.primaryProd || '/startright';
       const skipLabel = resultsContainer.dataset.skipLabel || 'Skip — pick my platforms';
-      const skipPages = resultsContainer.dataset.skipPages || '/join-models';
-      const skipProd = resultsContainer.dataset.skipProd || '/join-models';
+      const skipPages = resultsContainer.dataset.skipPages || '/startright';
+      const skipProd = resultsContainer.dataset.skipProd || '/startright';
       const formatDateStamp = () => {
         const now = new Date();
         return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;

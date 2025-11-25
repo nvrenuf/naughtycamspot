@@ -1,0 +1,51 @@
+---
+import { withBase } from '../../utils/links';
+
+const checklist = [
+  {
+    label: 'KYC ready',
+    description: 'Keep your ID and address docs handy so the partner portal clears compliance without delays.'
+  },
+  {
+    label: 'Payout method selected',
+    description: 'Review supported rails, thresholds, and fees before launch so your first deposits land where you want.',
+    href: '/earnings'
+  },
+  {
+    label: 'Test payout',
+    description: 'Send a small test once the account unlocks. Better to catch routing issues before a big push.'
+  }
+];
+---
+<section class="px-6 pb-20 pt-6">
+  <div class="mx-auto max-w-6xl">
+    <div class="flex flex-col gap-6 rounded-[28px] border border-white/10 bg-white/5 p-7 shadow-glow backdrop-blur md:flex-row md:items-center md:justify-between md:gap-10 md:p-8">
+      <div class="space-y-3">
+        <p class="text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">Payout readiness</p>
+        <h3 class="font-display text-[clamp(1.8rem,3.8vw,2.4rem)] text-white">No payout stalls when you launch</h3>
+        <p class="max-w-2xl text-[clamp(0.95rem,1.8vw,1.1rem)] text-white/70">
+          Neutral, checklist-style prep so payouts flow smoothly. Keep the admin work light and focus on your room.
+        </p>
+      </div>
+      <div class="grid gap-3 md:min-w-[280px]">
+        {checklist.map((item) => (
+          <div class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/40 p-4">
+            <span class="mt-0.5 inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/20 bg-white/10 text-[0.9rem] font-semibold text-rose-gold">
+              ✓
+            </span>
+            <div class="space-y-1">
+              <p class="text-[clamp(0.95rem,1.7vw,1.1rem)] font-semibold text-white">{item.label}</p>
+              {item.href ? (
+                <a class="text-[clamp(0.9rem,1.6vw,1.05rem)] text-rose-gold transition hover:text-white" href={withBase(item.href)}>
+                  {item.description}
+                </a>
+              ) : (
+                <p class="text-[clamp(0.9rem,1.6vw,1.05rem)] text-white/75">{item.description}</p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

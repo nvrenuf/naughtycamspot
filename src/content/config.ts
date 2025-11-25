@@ -52,7 +52,8 @@ const blog = defineCollection({
     author: z.string(),
     heroImage: urlOrPath,
     heroImageAlt: z.string().optional(),
-    cardImage: urlOrPath.optional()
+    cardImage: urlOrPath.optional(),
+    vipOnly: z.boolean().default(false)
   })
 });
 

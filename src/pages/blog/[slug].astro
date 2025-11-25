@@ -11,7 +11,10 @@ const formatDate = (date: Date) =>
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  const sorted = posts.slice().sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+  const sorted = posts
+    .filter((entry) => !entry.data.vipOnly)
+    .slice()
+    .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
 
   return sorted.map((entry) => ({
     params: { slug: entry.slug },

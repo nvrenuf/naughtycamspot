@@ -1,0 +1,79 @@
+---
+const milestones = [
+  {
+    week: 'Week 1',
+    title: 'Proof + concierge intake',
+    assignment: 'Send your approval screenshot, confirm payout IDs, and set your concierge contact cadence.'
+  },
+  {
+    week: 'Week 2',
+    title: 'Launch rituals live',
+    assignment: 'Run the first themed segment, swap in boundary-safe upsells, and align overlays with your kit.'
+  },
+  {
+    week: 'Week 3',
+    title: 'Retention wiring',
+    assignment: 'Schedule VIP follow-ups, prep aftercare notes, and tune playlist cues that keep your room warm.'
+  },
+  {
+    week: 'Week 4',
+    title: 'Refinement + review',
+    assignment: 'Share results with concierge, rotate creative, and lock your re-run schedule for the next sprint.'
+  }
+];
+
+const progress = {
+  percent: 48,
+  label: 'Week 2 check-in — assignments on track'
+};
+---
+<section class="border-t border-white/5 bg-midnight/40 px-6 py-16">
+  <div class="mx-auto flex max-w-6xl flex-col gap-8">
+    <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+      <div class="space-y-3">
+        <p class="text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">Milestones</p>
+        <h2 class="font-display text-[clamp(2rem,4vw,2.8rem)] text-white">Milestones + assignments strip</h2>
+        <p class="max-w-2xl text-[clamp(0.95rem,1.8vw,1.1rem)] text-white/70">
+          A four-week runway so you always know what ships next. These checkpoints stay light, with concierge adjusting your
+          scripts and pacing based on how your audience responds.
+        </p>
+      </div>
+      <div class="w-full max-w-sm space-y-3 rounded-3xl border border-white/10 bg-white/5 p-5 shadow-glow backdrop-blur">
+        <div class="flex items-center justify-between text-[clamp(0.85rem,1.5vw,1rem)] text-white/75">
+          <span>Progress</span>
+          <span class="font-semibold text-white">Week 2 of 4</span>
+        </div>
+        <div class="h-3 rounded-full bg-white/10">
+          <div
+            class="h-full rounded-full bg-gradient-to-r from-rose-gold via-rose-petal to-rose-gold"
+            style={`width: ${progress.percent}%`}
+            aria-hidden="true"
+          ></div>
+        </div>
+        <p class="text-[clamp(0.85rem,1.5vw,1rem)] text-white/75">{progress.label}</p>
+      </div>
+    </div>
+    <div
+      class="grid grid-flow-col gap-4 overflow-x-auto pb-3 md:grid-flow-row md:grid-cols-4 md:overflow-visible"
+      role="list"
+    >
+      {milestones.map((milestone, index) => (
+        <article
+          class="flex h-full min-w-[240px] flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-6"
+          role="listitem"
+        >
+          <div class="flex items-center gap-3">
+            <span class="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-base font-semibold text-rose-gold">
+              {(index + 1).toString().padStart(2, '0')}
+            </span>
+            <div>
+              <p class="text-[clamp(0.8rem,1.4vw,0.95rem)] uppercase tracking-[0.35em] text-rose-petal/80">{milestone.week}</p>
+              <h3 class="font-display text-[clamp(1.25rem,2.6vw,1.6rem)] text-white">{milestone.title}</h3>
+            </div>
+          </div>
+          <p class="text-[clamp(0.95rem,1.7vw,1.1rem)] leading-relaxed text-white/75">{milestone.assignment}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

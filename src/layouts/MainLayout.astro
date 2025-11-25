@@ -51,15 +51,8 @@ const normalizePath = (value?: string) => {
   return trimmed.length === 0 ? '/' : trimmed;
 };
 
-const shouldIncludeNavLink = (link: NavLink) => {
-  const candidates = [link.href, link.pagesHref, link.prodHref]
-    .map((candidate) => normalizePath(candidate))
-    .filter(Boolean);
-  return !candidates.includes('/compare');
-};
-
-const primaryNavLinks = NAV_PRIMARY.filter(shouldIncludeNavLink);
-const moreNavLinks = NAV_MORE.filter(shouldIncludeNavLink);
+const primaryNavLinks = NAV_PRIMARY;
+const moreNavLinks = NAV_MORE;
 
 const isNavActive = (href: string) => {
   const normalizedHref = href.replace(/\/+$/, '') || '/';
@@ -82,11 +75,14 @@ const resolveNavHref = (link) => {
 const moreMenuActive = moreNavLinks.some((link) => isNavActive(resolveNavHref(link)));
 
 const footerLinks = [
-  ...moreNavLinks,
-  { href: '/about', label: 'About' },
+  { href: '/startright', label: 'StartRight' },
+  { href: '/compare', label: 'Compare' },
+  { href: '/earnings', label: 'Earnings' },
+  { href: '/gear-kits', label: 'Gear kits' },
+  { href: '/blog', label: 'Blog' },
   { href: '/privacy', label: 'Privacy' },
   { href: '/terms', label: 'Terms' },
-  { href: '/contact', label: 'Contact' }
+  { href: '/disclosure', label: 'Disclosure' }
 ];
 
 const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
@@ -168,40 +164,42 @@ gtag('config', '${gaMeasurementId}');`}
                 </a>
               );
             })}
-            <div class="relative" data-nav-more>
-              <button
-                type="button"
-                class={`flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:text-sm lg:tracking-[0.3em] ${moreMenuActive ? 'text-rose-gold' : 'text-white/70'}`}
-                data-nav-more-trigger
-                aria-haspopup="menu"
-                aria-expanded="false"
-              >
-                More
-              </button>
-              <div
-                class="pointer-events-none invisible absolute right-0 top-full mt-3 w-56 origin-top-right rounded-3xl border border-white/10 bg-black/90 p-3 opacity-0 shadow-glow backdrop-blur-2xl transition [--menu-duration:150ms]"
-                data-nav-more-panel
-                role="menu"
-                tabindex="-1"
-              >
-                <ul class="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 lg:text-xs lg:tracking-[0.28em]">
-                  {moreNavLinks.map((link) => {
-                    const resolvedHref = resolveNavHref(link);
-                    return (
-                      <li>
-                        <a
-                          class="block rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-rose-gold"
-                          href={withBase(resolvedHref)}
-                          role="menuitem"
-                        >
-                          {link.label}
-                        </a>
-                      </li>
-                    );
-                  })}
-                </ul>
+            {moreNavLinks.length > 0 && (
+              <div class="relative" data-nav-more>
+                <button
+                  type="button"
+                  class={`flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:text-sm lg:tracking-[0.3em] ${moreMenuActive ? 'text-rose-gold' : 'text-white/70'}`}
+                  data-nav-more-trigger
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                >
+                  More
+                </button>
+                <div
+                  class="pointer-events-none invisible absolute right-0 top-full mt-3 w-56 origin-top-right rounded-3xl border border-white/10 bg-black/90 p-3 opacity-0 shadow-glow backdrop-blur-2xl transition [--menu-duration:150ms]"
+                  data-nav-more-panel
+                  role="menu"
+                  tabindex="-1"
+                >
+                  <ul class="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 lg:text-xs lg:tracking-[0.28em]">
+                    {moreNavLinks.map((link) => {
+                      const resolvedHref = resolveNavHref(link);
+                      return (
+                        <li>
+                          <a
+                            class="block rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-rose-gold"
+                            href={withBase(resolvedHref)}
+                            role="menuitem"
+                          >
+                            {link.label}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
-            </div>
+            )}
           </nav>
           <div class="lg:hidden">
             <div
@@ -240,32 +238,34 @@ gtag('config', '${gaMeasurementId}');`}
                   );
                 })}
               </nav>
-              <div class="flex flex-col gap-3" data-nav-mobile-more>
-                <button
-                  type="button"
-                  class={`flex items-center justify-between rounded-full border px-4 py-3 text-[0.65rem] tracking-[0.28em] transition hover:border-white/20 hover:text-rose-gold ${moreMenuActive ? 'border-rose-gold/50 text-rose-gold' : 'border-white/10 text-white/70'}`}
-                  data-nav-mobile-more-trigger
-                  aria-expanded="false"
-                >
-                  <span>More</span>
-                  <span aria-hidden="true">▾</span>
-                </button>
-                <div class="hidden flex-col gap-2 text-[0.65rem] tracking-[0.28em] text-white/70" data-nav-mobile-more-panel>
-                  {moreNavLinks.map((link) => {
-                    const resolvedHref = resolveNavHref(link);
-                    const active = isNavActive(resolvedHref);
-                    return (
-                      <a
-                        class={`rounded-full border border-white/10 px-4 py-3 transition hover:border-white/20 hover:text-rose-gold ${active ? 'border-rose-gold/50 text-rose-gold' : 'text-white/70'}`}
-                        href={withBase(resolvedHref)}
-                        data-nav-mobile-link
-                      >
-                        {link.label}
-                      </a>
-                    );
-                  })}
+              {moreNavLinks.length > 0 && (
+                <div class="flex flex-col gap-3" data-nav-mobile-more>
+                  <button
+                    type="button"
+                    class={`flex items-center justify-between rounded-full border px-4 py-3 text-[0.65rem] tracking-[0.28em] transition hover:border-white/20 hover:text-rose-gold ${moreMenuActive ? 'border-rose-gold/50 text-rose-gold' : 'border-white/10 text-white/70'}`}
+                    data-nav-mobile-more-trigger
+                    aria-expanded="false"
+                  >
+                    <span>More</span>
+                    <span aria-hidden="true">▾</span>
+                  </button>
+                  <div class="hidden flex-col gap-2 text-[0.65rem] tracking-[0.28em] text-white/70" data-nav-mobile-more-panel>
+                    {moreNavLinks.map((link) => {
+                      const resolvedHref = resolveNavHref(link);
+                      const active = isNavActive(resolvedHref);
+                      return (
+                        <a
+                          class={`rounded-full border border-white/10 px-4 py-3 transition hover:border-white/20 hover:text-rose-gold ${active ? 'border-rose-gold/50 text-rose-gold' : 'text-white/70'}`}
+                          href={withBase(resolvedHref)}
+                          data-nav-mobile-link
+                        >
+                          {link.label}
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </header>

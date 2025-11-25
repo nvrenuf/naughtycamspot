@@ -7,6 +7,20 @@ import { gearKits } from '../data/gear-kits';
 
 const heroDescription =
   'Pick the hardware stack that matches your room, budget, and concierge goals. These kits are field-tested inside StartRight so you launch with reliable lighting, clean audio, and an intentional backdrop.';
+
+const targetDate = new Date('2025-12-31T00:00:00Z');
+const now = new Date();
+const diff = Math.max(targetDate.getTime() - now.getTime(), 0);
+const dayMs = 1000 * 60 * 60 * 24;
+const hourMs = 1000 * 60 * 60;
+const minuteMs = 1000 * 60;
+const countdown = {
+  days: Math.floor(diff / dayMs),
+  hours: Math.floor((diff % dayMs) / hourMs),
+  minutes: Math.floor((diff % hourMs) / minuteMs)
+};
+
+const cohort = { current: 12, total: 28 };
 ---
 
 <MainLayout
@@ -15,6 +29,33 @@ const heroDescription =
 >
   <section class="space-y-8">
     <Notices />
+    <div class="rounded-[28px] border border-rose-gold/40 bg-rose-gold/10 p-6 backdrop-blur-xl sm:p-7">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="space-y-2">
+          <p class="text-[0.75rem] uppercase tracking-[0.35em] text-rose-gold/80">Gear cohort</p>
+          <h2 class="font-display text-2xl text-white sm:text-3xl">Reserve your concierge calibration slot</h2>
+          <p class="max-w-3xl text-sm text-white/70">
+            We stage each upgrade in limited batches so lighting, audio, and automation stay aligned with your StartRight rituals.
+            Claim a slot before the intake closes.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.32em] text-white/80">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-white">
+            <span class="text-rose-gold">⏳</span>
+            {countdown.days}d {countdown.hours}h {countdown.minutes}m
+          </span>
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-white">
+            {cohort.current}/{cohort.total} slots filled
+          </span>
+          <span
+            data-gear-vip-badge
+            class="hidden items-center gap-2 rounded-full border border-rose-gold/60 bg-rose-gold/15 px-4 py-2 text-rose-gold"
+          >
+            VIP priority
+          </span>
+        </div>
+      </div>
+    </div>
     <div class="content-card space-y-6">
       <span class="hero-tagline">StartRight gear concierge</span>
       <h1 class="font-display text-4xl text-white sm:text-5xl">Gear kits for every launch stage</h1>
@@ -102,9 +143,19 @@ const heroDescription =
         <li>Running a team? Ask us to duplicate kits across rooms and sync lighting scenes with your show calendar.</li>
       </ul>
       <p>
-        Ready to deploy? <a class="text-rose-gold underline decoration-rose-gold/60 decoration-2 underline-offset-4" href="/contact">Book a concierge consult</a>
+        Ready to deploy? <a class="text-rose-gold underline decoration-rose-gold/60 decoration-2 underline-offset-4" href="mailto:concierge@naughtycamspot.com">Book a concierge consult</a>
         and we&apos;ll stage the entire upgrade inside your StartRight plan.
       </p>
     </section>
   </section>
+  <script is:inline>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('vip') === '1') {
+      const badge = document.querySelector('[data-gear-vip-badge]');
+      if (badge) {
+        badge.classList.remove('hidden');
+        badge.classList.add('inline-flex');
+      }
+    }
+  </script>
 </MainLayout>

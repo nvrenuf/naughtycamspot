@@ -13,7 +13,7 @@ export const PRIMARY_CTA = {
 
 export const STARTRIGHT_SKIP = {
   label: 'Skip — pick my platforms',
-  pagesHrefBase: '/join-models',
+  pagesHrefBase: '/startright',
   tracking: {
     src: 'startright_skip',
     camp: 'startright'
@@ -25,8 +25,8 @@ export const KIT = {
   sub: 'Choose where you were accepted. We assemble only what you need.',
   claimCTA: {
     label: 'Claim StartRight Kit',
-    pagesHref: '/claim',
-    prodHref: '/claim/'
+    pagesHref: '/startright',
+    prodHref: '/startright'
   } as const,
   joinCTA: {
     label: 'Join with our links',

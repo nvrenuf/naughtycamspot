@@ -12,7 +12,7 @@ const BASE_URL = runtimeBaseUrl ?? envBaseUrl ?? '/';
 const IS_PAGES_BUILD = BASE_URL !== '/';
 
 const CLAIM_FORM_EXTERNAL_URL = 'https://tally.so/r/claim-startright-kit';
-const CLAIM_FORM_INTERNAL_PATH = '/claim/';
+const CLAIM_FORM_INTERNAL_PATH = '/startright';
 
 const sanitizePlaceholder = (placeholder) => {
   if (!placeholder) {
