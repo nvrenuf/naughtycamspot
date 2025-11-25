@@ -5,8 +5,8 @@ set -euo pipefail
 ZIP_NAME="ncs_dist_$(date +%Y%m%d_%H%M).zip"
 
 # --- sanity checks
-if ! command -v git >/dev/null || ! command -v npm >/dev/null || ! command -v zip >/dev/null; then
-  echo "Missing git/npm/zip"; exit 1
+if ! command -v git >/dev/null || ! command -v npm >/dev/null; then
+  echo "Missing git or npm"; exit 1
 fi
 if [ ! -f "package.json" ] || [ ! -f "astro.config.mjs" ]; then
   echo "Run from repo root"; exit 1
@@ -40,7 +40,12 @@ done
 
 # --- zip artifact
 cd dist
-zip -r "../$ZIP_NAME" . -x "*.DS_Store"
+if command -v zip >/dev/null; then
+  zip -r "../$ZIP_NAME" . -x "*.DS_Store"
+else
+  # Windows fallback: use PowerShell's Compress-Archive if zip CLI is unavailable
+  powershell.exe -NoLogo -Command "Compress-Archive -Path * -DestinationPath ..\\$ZIP_NAME -Force"
+fi
 cd -
 
 echo "Built and zipped: $ZIP_NAME"
