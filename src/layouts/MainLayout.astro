@@ -549,7 +549,7 @@ gtag('config', '${gaMeasurementId}');`}
     {shouldTrackClicks && (
       <script is:inline>
         {`(function(){
-  const endpoint = `/${String.fromCharCode(103, 111)}/click.php`;
+  const endpoint = '/' + String.fromCharCode(103, 111) + '/click.php';
   const sendBeacon = (slot, camp) => {
     const params = new URLSearchParams({
       e: 'click',
