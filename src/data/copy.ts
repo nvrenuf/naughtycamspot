@@ -1,12 +1,12 @@
 export const DISCLOSURE = "Contains affiliate links. Not an agency. No earnings guarantee.";
 
 export const HERO = {
-  title: 'StartRight for models',
-  sub: 'Skip the guesswork. Pick the right platforms and get a tailored launch kit — free.'
+  title: 'Start Smart. Cam Confidently.',
+  sub: 'Join one of the fastest ways to earn online — with expert-backed support from day one. NaughtyCamSpot is your VIP gateway to launching a successful cam career.'
 } as const;
 
 export const PRIMARY_CTA = {
-  label: 'Get my plan',
+  label: 'Sign Up Now – Get the Kit →',
   pagesHref: '/startright',
   prodHref: '/startright'
 } as const;
