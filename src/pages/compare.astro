@@ -6,7 +6,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import Hero from '../partials/home/Hero.astro';
 import { PRIMARY_CTA } from '../data/copy';
 import { formatDateStamp } from '../utils/links';
-import { buildPagesJoinHref, allowsPagesJoin, isProgramApproved, type ProgramRecord } from '../utils/programs';
+import { buildPagesJoinHref, allowsPagesJoin, isProgramApproved, type ProgramRecord } from '../utils/programs.js';
 import programs from '../data/programs.json';
 import { resolveProgramDetail, type ResolvedProgramDetail } from '../data/programDetails';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
