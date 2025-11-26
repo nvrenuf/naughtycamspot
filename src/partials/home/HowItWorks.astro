@@ -3,22 +3,28 @@ import { withBase } from '../../utils/links';
 
 const steps = [
   {
-    title: 'Share proof of acceptance',
+    title: 'Pick a cam platform and sign up',
     description:
-      'Send your welcome email or dashboard screenshot. We use it to confirm payout routing and unlock the right kit modules.',
-    link: { href: '/startright', label: 'Unlock StartRight kit' }
+      'Choose a trusted partner platform and complete signup using our affiliate link so we can track your bonus and unlock your perks.',
+    link: { href: '/compare', label: 'Choose a platform' }
   },
   {
-    title: 'Pick your launch rituals',
+    title: 'Submit proof and get your StartRight Kit',
     description:
-      'Choose from scripted countdowns, lighting cues, and mod prompts. We tailor the onboarding run-of-show to your vibe.',
-    link: { href: '/gear-kits', label: 'Review gear kits' }
+      'Send quick proof of signup to unlock the StartRight Kit with curated guides, templates, and onboarding tips.',
+    link: { href: '/startright', label: 'Get the kit' }
   },
   {
-    title: 'Keep concierge on standby',
+    title: 'Access VIP tools and support',
     description:
-      'Check in after shows, adjust offers, and schedule retention pushes. No contracts—just a StartRight desk when you need it.',
-    link: { href: '/blog', label: 'Browse field notes' }
+      'Tap into concierge-backed resources, pacing prompts, and templates that help you run your room with confidence.',
+    link: { href: '/blog', label: 'Browse tools' }
+  },
+  {
+    title: 'Reach milestones and get featured',
+    description:
+      'Hit performance milestones to unlock spotlight opportunities and direct links to your room on our Featured Model pages.',
+    link: { href: '/startright', label: 'Start Earning – Join Now →' }
   }
 ] as const;
 ---
@@ -28,10 +34,10 @@ const steps = [
       <p class="mx-auto text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">
         How it works
       </p>
-      <h2 class="font-display text-[clamp(2.1rem,5vw,3rem)] text-white">Three steps to your StartRight plan</h2>
+      <h2 class="font-display text-[clamp(2.1rem,5vw,3rem)] text-white">Four steps to launch with NCS</h2>
       <p class="mx-auto max-w-3xl text-[clamp(0.95rem,1.9vw,1.15rem)] text-white/70">
-        The kit is free after you route your signup through our links and send proof. We keep templates fresh so you can relaunch
-        with confidence whenever your strategy evolves.
+        Follow the StartRight path: choose a platform, send proof, unlock your kit, and keep concierge tools on standby while you
+        build momentum.
       </p>
     </div>
     <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
