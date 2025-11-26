@@ -1,6 +1,7 @@
+import { test } from 'node:test';
 import { strict as assert } from 'node:assert';
-import programs from '../src/data/programs.json';
-import { buildPagesJoinHref } from '../src/utils/programs';
+import programs from '../src/data/programs.json' with { type: 'json' };
+import { buildPagesJoinHref } from '../src/utils/programs.js';
 
 test('Bonga Pages join retains affiliate query parameters', () => {
   const program = programs.find((entry) => entry.key === 'bonga');

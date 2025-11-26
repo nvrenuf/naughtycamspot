@@ -3,7 +3,7 @@ import programs from '../../data/programs.json';
 import { resolveProgramDetail } from '../../data/programDetails';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../../data/programStatus';
 import { withBase } from '../../utils/links';
-import { allowsPagesJoin, isProgramApproved, type ProgramRecord } from '../../utils/programs';
+import { allowsPagesJoin, isProgramApproved, type ProgramRecord } from '../../utils/programs.js';
 
 type ProgramEntry = ProgramRecord & {
   key: string;

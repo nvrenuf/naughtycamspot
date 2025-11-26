@@ -15,7 +15,7 @@ import {
   allowsPagesJoin,
   isProgramApproved,
   type ProgramRecord
-} from '../utils/programs';
+} from '../utils/programs.js';
 
 const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
 const qs = `?src=${STARTRIGHT_SKIP.tracking.src}&camp=${STARTRIGHT_SKIP.tracking.camp}&date=${today}`;

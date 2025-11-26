@@ -7,6 +7,7 @@ const primaryCta = {
   label: PRIMARY_CTA.label,
   href: PRIMARY_CTA.pagesHref
 };
+const joinModelsHref = withBase('/join-models');
 ---
 <section class="relative isolate overflow-hidden px-6 pb-24 pt-20 sm:pb-28 sm:pt-24">
   <div class="absolute inset-x-0 top-0 -z-10 flex justify-center">
@@ -28,12 +29,20 @@ const primaryCta = {
           Sign up through our trusted partners and unlock your StartRight Kit. We map the right platforms, script your launch
           rituals, and deliver concierge-backed support from day one.
         </p>
-        <LinkCTA
-          class="inline-flex border border-rose-gold/70 bg-rose-gold px-6 py-3 text-lg text-midnight shadow-glow"
-          pagesHref={primaryCta.href}
-          prodHref={primaryCta.href}
-          label={primaryCta.label}
-        />
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <LinkCTA
+            class="inline-flex border border-rose-gold/70 bg-rose-gold px-6 py-3 text-lg text-midnight shadow-glow"
+            pagesHref={primaryCta.href}
+            prodHref={primaryCta.href}
+            label={primaryCta.label}
+          />
+          <LinkCTA
+            class="inline-flex border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white hover:border-white/40 hover:text-white"
+            pagesHref={joinModelsHref}
+            prodHref={joinModelsHref}
+            label="Join models"
+          />
+        </div>
       </div>
       <div class="grid gap-6">
         <div class="relative overflow-hidden rounded-[34px] border border-white/10 bg-white/5 p-6 backdrop-blur">
