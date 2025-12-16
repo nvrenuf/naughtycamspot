@@ -35,49 +35,87 @@ const curatedPrograms = (programs as ProgramEntry[])
   });
 
 const spacing = compact ? 'py-16' : 'py-20';
-const titleCopy = compact ? 'Concierge-vetted programs' : 'Platforms we actively launch on';
+const titleCopy = compact ? 'Trusted programs' : 'Platforms we actively launch on';
 const subCopy = compact
-  ? 'Tight shortlist of partner teams we trust for clean onboarding and fast responses.'
+  ? ''
   : 'We only recommend programs with responsive partner teams, reliable payouts, and concierge access so you can escalate questions within hours.';
 const gridCols = compact ? 'sm:grid-cols-2 lg:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-4';
+
+const COMPACT_PROGRAM_KEYS = ['chaturbate', 'camsoda', 'bonga'] as const;
+const compactPrograms = COMPACT_PROGRAM_KEYS.map((key) => {
+  const detail = resolveProgramDetail(key);
+  const bestFor = Array.isArray(detail.best_for) && detail.best_for.length > 0
+    ? `Best for ${detail.best_for.join(' and ')}.`
+    : 'Best for getting started.';
+
+  return {
+    key,
+    name: detail.name,
+    bestFor
+  };
+});
 ---
 <section class={`border-t border-white/5 bg-midnight/40 px-6 ${spacing}`}>
-  <div class="mx-auto flex max-w-6xl flex-col gap-12">
-    <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-      <div class="max-w-2xl space-y-3">
+  {compact ? (
+    <div class="mx-auto flex max-w-6xl flex-col gap-8">
+      <div class="space-y-3 text-center">
         <p class="text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">
           Trusted programs
         </p>
-        <h2 class="font-display text-[clamp(2rem,4vw,2.8rem)] leading-snug text-white">
-          {titleCopy}
-        </h2>
-        <p class="text-[clamp(0.95rem,1.8vw,1.1rem)] text-white/70">{subCopy}</p>
+        <h2 class="font-display text-[clamp(2rem,4vw,2.6rem)] leading-snug text-white">{titleCopy}</h2>
       </div>
-      <a class="text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/compare')}>
-        Compare all programs
-      </a>
+      <div class={`grid gap-5 ${gridCols}`}>
+        {compactPrograms.map((program) => (
+          <article class="rounded-3xl border border-white/10 bg-white/5 p-6 text-left shadow-glow">
+            <h3 class="font-display text-[clamp(1.3rem,3vw,1.7rem)] text-white">{program.name}</h3>
+            <p class="mt-3 text-[clamp(0.95rem,1.6vw,1.05rem)] leading-relaxed text-white/75">{program.bestFor}</p>
+          </article>
+        ))}
+      </div>
+      <div class="text-center">
+        <a class="text-[clamp(0.85rem,1.5vw,0.95rem)] uppercase tracking-[0.32em] text-rose-gold transition hover:text-white" href={withBase('/compare')}>
+          Compare all programs →
+        </a>
+      </div>
     </div>
-    <div class={`grid gap-6 ${gridCols}`}>
-      {curatedPrograms.map((program) => (
-        <article class="flex h-full flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-6">
-          <div>
-            <p class="text-[clamp(0.8rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-petal/70">{program.statusLabel}</p>
-            <h3 class="font-display text-[clamp(1.35rem,3vw,1.8rem)] text-white">{program.name}</h3>
-          </div>
-          <ul class="space-y-2 text-[clamp(0.9rem,1.6vw,1.05rem)] text-white/75">
-            <li><span class="text-white/50">Payout:</span> {program.payout}</li>
-            <li><span class="text-white/50">Traffic:</span> {program.traffic}</li>
-            <li>
-              <span class="text-white/50">Best for:</span>
-              {' '}
-              {program.best_for.join(', ')}
-            </li>
-          </ul>
-          <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase(`/compare#${program.key}`)}>
-            Review concierge notes
-          </a>
-        </article>
-      ))}
+  ) : (
+    <div class="mx-auto flex max-w-6xl flex-col gap-12">
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div class="max-w-2xl space-y-3">
+          <p class="text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">
+            Trusted programs
+          </p>
+          <h2 class="font-display text-[clamp(2rem,4vw,2.8rem)] leading-snug text-white">
+            {titleCopy}
+          </h2>
+          <p class="text-[clamp(0.95rem,1.8vw,1.1rem)] text-white/70">{subCopy}</p>
+        </div>
+        <a class="text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/compare')}>
+          Compare all programs
+        </a>
+      </div>
+      <div class={`grid gap-6 ${gridCols}`}>
+        {curatedPrograms.map((program) => (
+          <article class="flex h-full flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-6">
+            <div>
+              <p class="text-[clamp(0.8rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-petal/70">{program.statusLabel}</p>
+              <h3 class="font-display text-[clamp(1.35rem,3vw,1.8rem)] text-white">{program.name}</h3>
+            </div>
+            <ul class="space-y-2 text-[clamp(0.9rem,1.6vw,1.05rem)] text-white/75">
+              <li><span class="text-white/50">Payout:</span> {program.payout}</li>
+              <li><span class="text-white/50">Traffic:</span> {program.traffic}</li>
+              <li>
+                <span class="text-white/50">Best for:</span>
+                {' '}
+                {program.best_for.join(', ')}
+              </li>
+            </ul>
+            <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase(`/compare#${program.key}`)}>
+              Review concierge notes
+            </a>
+          </article>
+        ))}
+      </div>
     </div>
-  </div>
+  )}
 </section>
