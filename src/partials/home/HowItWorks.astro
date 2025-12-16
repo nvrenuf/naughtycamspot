@@ -1,56 +1,87 @@
 ---
 import { withBase } from '../../utils/links';
 
-const steps = [
-  {
-    title: 'Pick a cam platform and sign up',
-    description:
-      'Choose a trusted partner platform and complete signup using our affiliate link so we can track your bonus and unlock your perks.',
-    link: { href: '/compare', label: 'Choose a platform' }
-  },
-  {
-    title: 'Submit proof and get your StartRight Kit',
-    description:
-      'Send quick proof of signup to unlock the StartRight Kit with curated guides, templates, and onboarding tips.',
-    link: { href: '/startright', label: 'Get the kit' }
-  },
-  {
-    title: 'Access VIP tools and support',
-    description:
-      'Tap into concierge-backed resources, pacing prompts, and templates that help you run your room with confidence.',
-    link: { href: '/blog', label: 'Browse tools' }
-  },
-  {
-    title: 'Reach milestones and get featured',
-    description:
-      'Hit performance milestones to unlock spotlight opportunities and direct links to your room on our Featured Model pages.',
-    link: { href: '/startright', label: 'Start Earning – Join Now →' }
-  }
-] as const;
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props as Props;
+
+const steps = compact
+  ? [
+      {
+        title: 'Pick where to launch',
+        description: 'Choose your platform match and sign up with our tracked link so perks route to you.'
+      },
+      {
+        title: 'Prove your signup',
+        description: 'Send the quick proof request — no long form — so concierge can unlock your StartRight kit.'
+      },
+      {
+        title: 'Go live with support',
+        description: 'Use the scripts and pacing notes to go live with confidence; we stay available for tweaks.'
+      }
+    ]
+  : [
+      {
+        title: 'Pick a cam platform and sign up',
+        description:
+          'Choose a trusted partner platform and complete signup using our affiliate link so we can track your bonus and unlock your perks.',
+        link: { href: '/compare', label: 'Choose a platform' }
+      },
+      {
+        title: 'Submit proof and get your StartRight Kit',
+        description:
+          'Send quick proof of signup to unlock the StartRight Kit with curated guides, templates, and onboarding tips.',
+        link: { href: '/startright', label: 'Get the kit' }
+      },
+      {
+        title: 'Access VIP tools and support',
+        description:
+          'Tap into concierge-backed resources, pacing prompts, and templates that help you run your room with confidence.',
+        link: { href: '/blog', label: 'Browse tools' }
+      },
+      {
+        title: 'Reach milestones and get featured',
+        description:
+          'Hit performance milestones to unlock spotlight opportunities and direct links to your room on our Featured Model pages.',
+        link: { href: '/startright', label: 'Start Earning – Join Now →' }
+      }
+    ];
+
+const spacing = compact ? 'py-16' : 'py-24';
+const gridCols = compact ? 'md:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-3';
+const cardPadding = compact ? 'p-6' : 'p-7';
+const titleCopy = compact ? 'Launch in three quick moves' : 'Four steps to launch with NCS';
+const subCopy = compact
+  ? 'The shortest path: pick, prove, and unlock the StartRight kit with concierge notes so you can stream without guesswork.'
+  : 'Follow the StartRight path: choose a platform, send proof, unlock your kit, and keep concierge tools on standby while you build momentum.';
 ---
-<section class="px-6 py-24">
+<section class={`px-6 ${spacing}`}>
   <div class="mx-auto max-w-6xl">
     <div class="flex flex-col gap-5 text-center">
       <p class="mx-auto text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">
         How it works
       </p>
-      <h2 class="font-display text-[clamp(2.1rem,5vw,3rem)] text-white">Four steps to launch with NCS</h2>
-      <p class="mx-auto max-w-3xl text-[clamp(0.95rem,1.9vw,1.15rem)] text-white/70">
-        Follow the StartRight path: choose a platform, send proof, unlock your kit, and keep concierge tools on standby while you
-        build momentum.
-      </p>
+      <h2 class="font-display text-[clamp(2.1rem,5vw,3rem)] text-white">{titleCopy}</h2>
+      <p class="mx-auto max-w-3xl text-[clamp(0.95rem,1.9vw,1.15rem)] text-white/70">{subCopy}</p>
     </div>
-    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div class={`mt-12 grid gap-5 sm:gap-6 ${gridCols}`}>
       {steps.map((step, index) => (
-        <article class="flex h-full flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-7">
+        <article class={`flex h-full flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 ${cardPadding}`}>
           <span class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-[clamp(0.95rem,1.8vw,1.1rem)] font-semibold text-rose-gold">
             {(index + 1).toString().padStart(2, '0')}
           </span>
           <h3 class="font-display text-[clamp(1.4rem,3.2vw,1.9rem)] text-white">{step.title}</h3>
           <p class="text-[clamp(0.95rem,1.7vw,1.1rem)] leading-relaxed text-white/75">{step.description}</p>
-          <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase(step.link.href)}>
-            {step.link.label}
-          </a>
+          {step.link && (
+            <a
+              class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white"
+              href={withBase(step.link.href)}
+            >
+              {step.link.label}
+            </a>
+          )}
         </article>
       ))}
     </div>
