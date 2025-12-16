@@ -15,9 +15,10 @@ test('Primary CTA routes to StartRight in all environments', async () => {
   assert.ok(copySource.includes("prodHref: '/startright'"), 'Production href should point to /startright');
 });
 
-test('Hero partial wires secondary CTA to Join Models', async () => {
+test('Hero partial keeps a single StartRight CTA', async () => {
   const heroSource = await readSource('src/partials/home/Hero.astro');
-  assert.ok(heroSource.includes("'/join-models'"), 'Hero partial should link to /join-models');
+  assert.ok(heroSource.includes('Get my StartRight Kit →'), 'Hero partial should show the StartRight CTA label');
+  assert.ok(!heroSource.includes('/join-models'), 'Hero partial should not link to /join-models');
 });
 
 test('Hero partial avoids tracked /go/ links', async () => {

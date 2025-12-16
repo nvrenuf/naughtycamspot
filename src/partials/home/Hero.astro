@@ -1,13 +1,5 @@
 ---
 import LinkCTA from '../../components/LinkCTA.astro';
-import { HERO, PRIMARY_CTA } from '../../data/copy';
-import { withBase } from '../../utils/links';
-
-const primaryCta = {
-  label: PRIMARY_CTA.label,
-  href: PRIMARY_CTA.pagesHref
-};
-const joinModelsHref = withBase('/join-models');
 ---
 <section class="relative isolate overflow-hidden px-6 pb-24 pt-20 sm:pb-28 sm:pt-24">
   <div class="absolute inset-x-0 top-0 -z-10 flex justify-center">
@@ -20,50 +12,32 @@ const joinModelsHref = withBase('/join-models');
           StartRight concierge
         </p>
         <h1 class="font-display text-[clamp(2.8rem,6vw,4.25rem)] leading-[1.05] text-white">
-          {HERO.title}
+          Set your hours. Earn directly. Keep full control.
         </h1>
         <p class="max-w-xl text-[clamp(1.05rem,2.3vw,1.35rem)] text-white/80">
-          {HERO.sub}
-        </p>
-        <p class="max-w-xl text-[clamp(0.95rem,2vw,1.1rem)] text-white/70">
-          Sign up through our trusted partners and unlock your StartRight Kit. We map the right platforms, script your launch
-          rituals, and deliver concierge-backed support from day one.
+          Join through our partner links to unlock the free StartRight Kit + VIP tips and updates. No contracts. You own every
+          account.
         </p>
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
           <LinkCTA
             class="inline-flex border border-rose-gold/70 bg-rose-gold px-6 py-3 text-lg text-midnight shadow-glow"
-            pagesHref={primaryCta.href}
-            prodHref={primaryCta.href}
-            label={primaryCta.label}
-          />
-          <LinkCTA
-            class="inline-flex border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white hover:border-white/40 hover:text-white"
-            pagesHref={joinModelsHref}
-            prodHref={joinModelsHref}
-            label="Join models"
+            pagesHref="/startright"
+            prodHref="/startright"
+            label="Get my StartRight Kit →"
           />
         </div>
+        <p class="max-w-xl text-[clamp(0.78rem,1.4vw,0.9rem)] text-white/60">
+          Not an agency or studio. No earnings guarantee. We earn only from partner signups.
+        </p>
       </div>
-      <div class="grid gap-6">
-        <div class="relative overflow-hidden rounded-[34px] border border-white/10 bg-white/5 p-6 backdrop-blur">
+      <div class="grid">
+        <div class="relative overflow-hidden rounded-[34px] border border-white/10 bg-white/5 p-6 backdrop-blur shadow-glow">
           <img
             class="h-full w-full rounded-3xl object-cover"
             src="/images/home-hero.webp"
             alt="Smiling red-haired model sitting in a white gaming chair, looking at the camera."
             loading="lazy"
           />
-        </div>
-        <div class="glass relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-6">
-          <p class="text-[clamp(0.75rem,1.5vw,0.95rem)] uppercase tracking-[0.4em] text-rose-petal/80">
-            Why models stay →
-          </p>
-          <p class="mt-3 text-[clamp(0.95rem,2vw,1.1rem)] leading-relaxed text-white/75">
-            Concierge support without contracts. Tap the StartRight desk, get growth rituals you can actually reuse, and stay in
-            control of every account.
-          </p>
-          <a class="mt-5 inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/disclosure')}>
-            Read the concierge disclosure
-          </a>
         </div>
       </div>
     </div>
