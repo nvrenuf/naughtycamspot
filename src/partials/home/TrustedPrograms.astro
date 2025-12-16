@@ -73,8 +73,8 @@ const compactPrograms = COMPACT_PROGRAM_KEYS.map((key) => {
         ))}
       </div>
       <div class="text-center">
-        <a class="text-[clamp(0.85rem,1.5vw,0.95rem)] uppercase tracking-[0.32em] text-rose-gold transition hover:text-white" href={withBase('/compare')}>
-          Compare all programs →
+        <a class="text-[clamp(0.85rem,1.5vw,0.95rem)] uppercase tracking-[0.32em] text-rose-gold transition hover:text-white" href={withBase('/earnings')}>
+          See earning potential →
         </a>
       </div>
     </div>
@@ -90,8 +90,8 @@ const compactPrograms = COMPACT_PROGRAM_KEYS.map((key) => {
           </h2>
           <p class="text-[clamp(0.95rem,1.8vw,1.1rem)] text-white/70">{subCopy}</p>
         </div>
-        <a class="text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/compare')}>
-          Compare all programs
+        <a class="text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/earnings')}>
+          See earning potential
         </a>
       </div>
       <div class={`grid gap-6 ${gridCols}`}>
@@ -110,8 +110,8 @@ const compactPrograms = COMPACT_PROGRAM_KEYS.map((key) => {
                 {program.best_for.join(', ')}
               </li>
             </ul>
-            <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase(`/compare#${program.key}`)}>
-              Review concierge notes
+            <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/earnings')}>
+              See earning potential
             </a>
           </article>
         ))}
