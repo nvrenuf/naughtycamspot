@@ -1,61 +1,27 @@
 ---
 import { withBase } from '../../utils/links';
 
-interface Props {
-  compact?: boolean;
-}
+const steps = [
+  {
+    title: 'Pick a platform',
+    description: 'Pick your best-fit platform with concierge notes.',
+    link: { href: '/compare', label: 'Compare platforms' }
+  },
+  {
+    title: 'Sign up with our link',
+    description: 'This is how we track your VIP unlock.'
+  },
+  {
+    title: 'Send proof → unlock VIP',
+    description: 'Send quick proof to unlock your StartRight kit and VIP support.',
+    link: { href: '/startright', label: 'Unlock my kit' }
+  }
+];
 
-const { compact = false } = Astro.props as Props;
-
-const steps = compact
-  ? [
-      {
-        title: 'Pick where to launch',
-        description: 'Choose your platform match and sign up with our tracked link so perks route to you.'
-      },
-      {
-        title: 'Prove your signup',
-        description: 'Send the quick proof request — no long form — so concierge can unlock your StartRight kit.'
-      },
-      {
-        title: 'Go live with support',
-        description: 'Use the scripts and pacing notes to go live with confidence; we stay available for tweaks.'
-      }
-    ]
-  : [
-      {
-        title: 'Pick a cam platform and sign up',
-        description:
-          'Choose a trusted partner platform and complete signup using our affiliate link so we can track your bonus and unlock your perks.',
-        link: { href: '/compare', label: 'Choose a platform' }
-      },
-      {
-        title: 'Submit proof and get your StartRight Kit',
-        description:
-          'Send quick proof of signup to unlock the StartRight Kit with curated guides, templates, and onboarding tips.',
-        link: { href: '/startright', label: 'Get the kit' }
-      },
-      {
-        title: 'Access VIP tools and support',
-        description:
-          'Tap into concierge-backed resources, pacing prompts, and templates that help you run your room with confidence.',
-        link: { href: '/blog', label: 'Browse tools' }
-      },
-      {
-        title: 'Reach milestones and get featured',
-        description:
-          'Hit performance milestones to unlock spotlight opportunities and direct links to your room on our Featured Model pages.',
-        link: { href: '/startright', label: 'Start Earning – Join Now →' }
-      }
-    ];
-
-const spacing = compact ? 'py-16' : 'py-24';
-const gridCols = compact ? 'md:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-3';
-const cardPadding = compact ? 'p-6' : 'p-7';
-const titleCopy = compact ? 'Launch in three quick moves' : 'Four steps to launch with NCS';
-const subCopy = compact
-  ? 'The shortest path: pick, prove, and unlock the StartRight kit with concierge notes so you can stream without guesswork.'
-  : 'Follow the StartRight path: choose a platform, send proof, unlock your kit, and keep concierge tools on standby while you build momentum.';
+const spacing = 'py-16';
+const gridCols = 'md:grid-cols-3';
+const cardPadding = 'p-6';
+const titleCopy = 'Three steps. Mobile-first.';
 ---
 <section class={`px-6 ${spacing}`}>
   <div class="mx-auto max-w-6xl">
@@ -64,9 +30,8 @@ const subCopy = compact
         How it works
       </p>
       <h2 class="font-display text-[clamp(2.1rem,5vw,3rem)] text-white">{titleCopy}</h2>
-      <p class="mx-auto max-w-3xl text-[clamp(0.95rem,1.9vw,1.15rem)] text-white/70">{subCopy}</p>
     </div>
-    <div class={`mt-12 grid gap-5 sm:gap-6 ${gridCols}`}>
+    <div class={`mt-10 grid gap-5 sm:gap-6 ${gridCols}`}>
       {steps.map((step, index) => (
         <article class={`flex h-full flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 ${cardPadding}`}>
           <span class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-[clamp(0.95rem,1.8vw,1.1rem)] font-semibold text-rose-gold">
