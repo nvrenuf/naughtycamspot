@@ -29,7 +29,7 @@ const { post, related } = Astro.props;
 const { Content } = await post.render();
 
 const isPages = import.meta.env.IS_PAGES === 'true';
-const suppressCtas = post.slug === 'thanksgiving-week-strategy';
+const suppressCtas = post.data.suppressCtas || post.slug === 'thanksgiving-week-strategy';
 const trackingQuery = new URLSearchParams({
   src: `blog_${post.slug}`,
   camp: 'post',
