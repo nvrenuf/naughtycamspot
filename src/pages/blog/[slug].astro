@@ -1,10 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import BannerSlot from '../../components/BannerSlot.astro';
-import LinkCTA from '../../components/LinkCTA.astro';
 import MainLayout from '../../layouts/MainLayout.astro';
-import { PRIMARY_CTA } from '../../data/copy';
-import { formatDateStamp, withBase } from '../../utils/links';
+import { withBase } from '../../utils/links';
 
 const formatDate = (date: Date) =>
   new Intl.DateTimeFormat('en-US', { month: 'long', day: '2-digit', year: 'numeric' }).format(date);
@@ -28,31 +26,7 @@ export async function getStaticPaths() {
 const { post, related } = Astro.props;
 const { Content } = await post.render();
 
-const isPages = import.meta.env.IS_PAGES === 'true';
 const suppressCtas = post.data.suppressCtas || post.slug === 'thanksgiving-week-strategy';
-const trackingQuery = new URLSearchParams({
-  src: `blog_${post.slug}`,
-  camp: 'post',
-  date: formatDateStamp()
-}).toString();
-
-const buildTrackedHref = (baseHref?: string) => {
-  const trimmed = typeof baseHref === 'string' ? baseHref.trim() : '';
-  const fallback = '/startright';
-  const target = trimmed.length > 0 ? trimmed : fallback;
-  if (!trackingQuery) {
-    return target;
-  }
-  const glue = target.includes('?') ? '&' : '?';
-  return `${target}${glue}${trackingQuery}`;
-};
-
-const joinHrefPages = buildTrackedHref(PRIMARY_CTA.pagesHref);
-const joinHrefProd = buildTrackedHref(PRIMARY_CTA.prodHref);
-const joinCtaLabel = 'Open my StartRight plan';
-const startRightMessage = isPages
-  ? 'Pages builds route through the StartRight concierge hub with post-level tracking.'
-  : 'Production routes directly to the on-site StartRight plan with post-level tracking.';
 ---
 
 <MainLayout
@@ -85,26 +59,6 @@ const startRightMessage = isPages
       <>
         <!-- SLOT: post_inline_rect -->
         <BannerSlot id="post_inline_rect" class="mt-6" showNote />
-
-        <div class="content-card space-y-5">
-          <h2 class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Continue your launch</h2>
-          <div class="flex flex-col gap-3 sm:flex-row">
-            <LinkCTA
-              class="inline-flex items-center justify-center gap-2 border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow"
-              pagesHref={joinHrefPages}
-              prodHref={joinHrefProd}
-            >
-              {joinCtaLabel}
-            </LinkCTA>
-            <LinkCTA
-              class="border border-white/20 bg-transparent text-white hover:bg-white/10"
-              pagesHref={PRIMARY_CTA.pagesHref}
-              prodHref={PRIMARY_CTA.prodHref}
-              label={PRIMARY_CTA.label}
-            />
-          </div>
-          <p class="text-xs text-white/50">{startRightMessage}</p>
-        </div>
       </>
     )}
   </article>
