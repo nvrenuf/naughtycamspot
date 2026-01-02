@@ -31,6 +31,14 @@ export const privateModels: PrivatePromoModel[] = [
     links: [
       { label: 'Chaturbate', url: 'https://chaturbate.com/in/?tour=YrCr&campaign=YIOhf&track=default&room=stellapearl' }
     ]
+  },
+  {
+    slug: 'naughtykathie',
+    name: 'Naughty Kathie',
+    image: '/images/naughtykathie.png',
+    links: [
+      { label: 'Chaturbate', url: 'https://chaturbate.com/in/?tour=YrCr&campaign=YIOhf&track=default&room=naughtykathie' }
+    ]
   }
 ];
 
