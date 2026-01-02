@@ -53,6 +53,7 @@ const startRightGearHighlights = gearKits.map((kit) => ({
   conciergeNote: kit.conciergeNote
 }));
 
+const desiredUsername = Astro.url.searchParams.get('desiredUsername');
 const basePrograms = enrichedPrograms
   .filter((program) => isProgramApproved(program) && allowsPagesJoin(program))
   .map((program) => {
@@ -205,7 +206,7 @@ const clientPrograms = JSON.stringify(
         Tune the inputs to match your situation. We&apos;ll translate those signals into a ranked list of partner programs, share
         why they fit, and route you to the guarded links you need to unlock the StartRight launch kit.
       </p>
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         <LinkCTA
           class="border border-rose-gold/60 bg-rose-gold text-midnight text-sm tracking-[0.2em] shadow-glow"
           pagesHref={PRIMARY_CTA.pagesHref}
@@ -218,7 +219,19 @@ const clientPrograms = JSON.stringify(
           prodHref={skipHrefProd}
           label={STARTRIGHT_SKIP.label}
         />
+        <LinkCTA
+          class="btn btn-secondary w-full sm:w-auto"
+          pagesHref="/startright/name-check"
+          prodHref="/startright/name-check"
+          label="Step 2: Check Name Availability"
+        />
       </div>
+      {desiredUsername && (
+        <div class="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-500/10 px-4 py-2 text-sm text-emerald-100">
+          <span class="text-xs uppercase tracking-[0.35em] text-emerald-200">Selected username</span>
+          <span class="font-semibold text-white">{desiredUsername}</span>
+        </div>
+      )}
     </div>
     <form id="startright-form" class="grid gap-6 rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-2xl">
       <div class="grid gap-4 sm:grid-cols-2">
