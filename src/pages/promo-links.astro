@@ -1,0 +1,95 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+type PromoLink = {
+  label: string;
+  url: string;
+};
+
+type PromoModel = {
+  name: string;
+  image: string;
+  links: PromoLink[];
+};
+
+const models: PromoModel[] = [
+  {
+    name: 'Anna Prince',
+    image: '/images/home-hero.webp',
+    links: [
+      { label: 'Stripchat', url: 'https://stripchat.com/Anna_Prince' },
+      { label: 'Chaturbate', url: 'https://chaturbate.com/b/anna_prince/' },
+      { label: 'CamSoda', url: 'https://www.camsoda.com/annaprince' },
+      { label: 'ManyVids Live', url: 'https://www.manyvids.com/live/cam/anna_prince' },
+      { label: 'OnlyFans', url: 'https://onlyfans.com/sabrinagreat' },
+      { label: 'Pornhub', url: 'https://pornhub.com/model/sabrina_great' }
+    ]
+  },
+  {
+    name: 'Placeholder Model',
+    image: '/images/home-hero.webp',
+    // Replace these placeholder URLs with real tracked promo links manually.
+    links: [
+      { label: 'Primary promo link', url: 'https://example.com/?src=ncs_demo' },
+      { label: 'Backup promo link', url: 'https://example.net/?src=ncs_demo_backup' }
+    ]
+  }
+];
+---
+
+<MainLayout
+  title="Promo Links (Internal)"
+  description="Internal-only promo link verification for NaughtyCamSpot."
+  showNavigation={false}
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
+  <section class="space-y-8 px-6 pb-16 pt-6">
+    <div class="content-card space-y-3">
+      <p class="text-[clamp(0.8rem,1.3vw,0.95rem)] uppercase tracking-[0.35em] text-rose-petal/70">Internal</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Promo link verification</h1>
+      <p class="text-base text-white/70">
+        Direct-access page for the site owner to verify affiliate tracking links. Not linked anywhere public. Keep this URL
+        private and update links manually.
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {models.map((model) => (
+        <article class="content-card space-y-4">
+          <div class="space-y-3">
+            <div class="overflow-hidden rounded-2xl border border-white/10">
+              <img
+                src={model.image}
+                alt={`${model.name} promo thumbnail`}
+                class="h-36 w-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Model</p>
+              <h2 class="font-display text-2xl text-white">{model.name}</h2>
+            </div>
+          </div>
+          <ul class="space-y-3 text-sm text-white/75">
+            {model.links.map((link) => (
+              <li>
+                <a
+                  class="inline-flex items-center gap-2 text-rose-gold underline-offset-4 transition hover:text-white hover:underline"
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>
