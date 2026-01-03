@@ -1,53 +1,8 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import SEO from '../components/SEO.astro';
-import { buildTrackedLink, withBase } from '../utils/links';
+import { versionedPath } from '../data/versioning';
 
-const canonicalPath = '/join-models';
-const joinHref = buildTrackedLink({
-  path: '/go/model-join.php',
-  slot: 'join_models',
-  camp: 'landing',
-  placeholder: '/startright'
-});
-const startRightHref = withBase('/startright');
+const target = versionedPath('/join-models');
+
+export const prerender = true;
+return Astro.redirect(target, 308);
 ---
-
-<MainLayout
-  title="Join models | NaughtyCamSpot"
-  description="Join the NaughtyCamSpot talent roster and unlock the StartRight concierge links."
->
-  <SEO
-    slot="head"
-    title="Join models | NaughtyCamSpot"
-    description="Claim a tracked join link and unlock the StartRight concierge desk."
-    path={canonicalPath}
-  />
-
-  <section class="content-card space-y-4">
-    <p class="hero-tagline">Join our roster</p>
-    <h1 class="font-display text-4xl text-white sm:text-5xl">Apply with a tracked concierge link</h1>
-    <p class="max-w-2xl text-base text-white/70">
-      Use our guarded join path to lock in StartRight support. We keep the tracking tight, route qualified models to the right
-      lane, and unlock the concierge desk once you land.
-    </p>
-    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-      <a
-        data-cta="join-models"
-        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-        href={joinHref}
-      >
-        Join models
-      </a>
-      <a
-        class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
-        href={startRightHref}
-      >
-        Prep with StartRight
-      </a>
-    </div>
-    <p class="text-xs uppercase tracking-[0.35em] text-white/50">
-      No /go/ tracking appears in Pages builds. Production builds add src, camp, and date parameters.
-    </p>
-  </section>
-</MainLayout>

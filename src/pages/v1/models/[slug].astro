@@ -1,0 +1,9 @@
+---
+export { getStaticPaths } from '../../v2/models/[slug].astro';
+
+const { slug } = Astro.params;
+const target = `/v2/models/${slug}`;
+
+export const prerender = true;
+return Astro.redirect(target, 308);
+---

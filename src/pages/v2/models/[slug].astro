@@ -1,0 +1,101 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { versionedPath } from '../../../data/versioning';
+import SEO from '../../../components/SEO.astro';
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { buildTrackedLink, withBase } from '../../../utils/links';
+
+type ModelEntry = CollectionEntry<'models'>;
+
+export async function getStaticPaths() {
+  const models = await getCollection('models');
+
+  return models.map((model) => ({
+    params: { slug: model.id },
+    props: { model }
+  }));
+}
+
+const { model } = Astro.props as { model: ModelEntry };
+const data = model.data;
+
+const canonicalPath = versionedPath(`/models/${model.id}`);
+const slotPrefix = data.tracking?.slotPrefix?.trim() || model.id.replace(/-/g, '_');
+const profileCamp = data.tracking?.profileCamp?.trim() || `${slotPrefix}_profile`;
+const beaconsCamp = data.tracking?.beaconsCamp?.trim() || model.id;
+const fallbackPlaceholder = versionedPath('/startright');
+
+const buildHref = (platform: ModelEntry['data']['platforms'][number]) => {
+  const placeholder = platform?.placeholder ?? fallbackPlaceholder;
+  const path = platform?.path ?? '';
+  const slot = platform?.slug === 'beacons' ? 'model_page' : `${slotPrefix}_${platform?.slug ?? 'cta'}`;
+  const camp = platform?.slug === 'beacons' ? beaconsCamp : profileCamp;
+
+  return buildTrackedLink({
+    path,
+    slot,
+    camp,
+    placeholder
+  });
+};
+---
+
+<MainLayout
+  title={`${data.name} | NaughtyCamSpot Model Profile`}
+  description={`Discover ${data.name} - ${data.archetype} within the NaughtyCamSpot concierge gallery.`}
+>
+  <SEO
+    slot="head"
+    title={`${data.name} | NaughtyCamSpot Model Profile`}
+    description={`Discover ${data.name}'s curated rituals and concierge-run conversions.`}
+    path={canonicalPath}
+  />
+
+  <section class="glass overflow-hidden rounded-[36px] px-8 py-10">
+    <div class="space-y-6">
+      <p class="hero-tagline">Concierge example</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">{data.name}</h1>
+      <p class="text-sm uppercase tracking-[0.3em] text-rose-petal/80">{data.archetype}</p>
+      <p class="max-w-3xl text-base leading-relaxed text-white/75">{data.summary}</p>
+      <p class="text-xs uppercase tracking-[0.3em] text-white/55">
+        Demo only - not a representation. Use the StartRight kit to tailor your own profile.
+      </p>
+      <div class="space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Platform lineup</p>
+        <div class="flex flex-wrap gap-3" data-test={`${model.id}-platform-buttons`}>
+          {data.platforms.map((platform) =>
+            platform.active === false ? (
+              <span
+                data-platform={platform.slug}
+                class="rounded-full border border-white/15 bg-white/5 px-6 py-2 text-xs uppercase tracking-[0.28em] text-white/40"
+                aria-disabled="true"
+              >
+                {platform.name} - Inactive
+              </span>
+            ) : (
+              <a
+                data-platform={platform.slug}
+                class={`rounded-full border px-6 py-2 text-xs font-semibold uppercase tracking-[0.28em] shadow-glow transition hover:-translate-y-1 ${
+                  platform.variant === 'primary'
+                    ? 'border-rose-gold/60 bg-rose-gold text-midnight'
+                    : 'border-rose-gold/40 bg-rose-gold/15 text-rose-petal hover:bg-rose-gold/25'
+                }`}
+                href={buildHref(platform)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {platform.name}
+              </a>
+            )
+          )}
+        </div>
+      </div>
+      <a
+        class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
+        href={withBase(versionedPath('/models'))}
+      >
+        Back to example library ->
+      </a>
+    </div>
+  </section>
+</MainLayout>

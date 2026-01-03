@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import { versionedPath } from '../../../data/versioning';
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { withBase } from '../../../utils/links';
+
+const models = await getCollection('models');
+
+const featured = models
+  .filter((entry) => entry.data.featured)
+  .sort((a, b) => {
+    const orderA = typeof a.data.featuredOrder === 'number' ? a.data.featuredOrder : Number.POSITIVE_INFINITY;
+    const orderB = typeof b.data.featuredOrder === 'number' ? b.data.featuredOrder : Number.POSITIVE_INFINITY;
+    if (orderA === orderB) {
+      return a.id.localeCompare(b.id);
+    }
+    return orderA - orderB;
+  });
+
+const library = models
+  .filter((entry) => !entry.data.featured)
+  .sort((a, b) => a.data.name.localeCompare(b.data.name));
+
+const buildHref = (slug: string) => withBase(versionedPath(`/models/${slug}`));
+---
+
+<MainLayout
+  title="Example Models | NaughtyCamSpot"
+  description="Explore example cam model walkthroughs for the NaughtyCamSpot StartRight kit."
+>
+  <section class="hero-shell parallax-veil">
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/40"></div>
+    <div class="relative space-y-6">
+      <span class="hero-tagline">Example Library</span>
+      <h1 class="font-display text-5xl leading-tight text-white sm:text-6xl">Example model walkthroughs</h1>
+      <p class="max-w-2xl text-base text-white/70">
+        These demo pages showcase how to apply the StartRight kit. Use them to draft your own profile once you claim the kit.
+      </p>
+    </div>
+  </section>
+
+  <section class="space-y-10">
+    <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      {featured.map((model, index) => (
+        <article class="content-card overflow-hidden" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="relative overflow-hidden rounded-3xl">
+            <img
+              src={model.data.cardImage ?? model.data.heroImage}
+              alt={model.data.name}
+              loading="lazy"
+              class="h-64 w-full object-cover opacity-90 transition duration-700 ease-out hover:scale-105 hover:opacity-100"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-60"></div>
+          </div>
+          <div class="mt-6 space-y-3">
+            <h2 class="font-display text-2xl text-white">{model.data.name}</h2>
+            <p class="text-sm text-white/70">{model.data.summary}</p>
+            <a
+              class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
+              data-model={model.id}
+              href={buildHref(model.id)}
+            >
+              View example ->
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {library.length > 0 && (
+    <section class="space-y-8">
+      <div class="space-y-3">
+        <h2 class="section-heading">Library previews</h2>
+        <p class="max-w-2xl text-sm text-white/60">
+          These additional walkthroughs are staged examples. Full visuals unlock once each creator opts in.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {library.map((model, index) => (
+          <article class="content-card overflow-hidden" style={`animation-delay: ${index * 0.08}s`}>
+            <div class="relative overflow-hidden rounded-3xl">
+              <img
+                src={model.data.cardImage ?? model.data.heroImage}
+                alt={model.data.name}
+                loading="lazy"
+                class={`h-60 w-full object-cover transition duration-700 ease-out hover:scale-105 ${
+                  model.data.consent ? 'opacity-90 hover:opacity-100' : 'opacity-40 hover:opacity-60'
+                }`}
+              />
+              {!model.data.consent && (
+                <div class="absolute inset-0 bg-gradient-to-t from-midnight via-black/40 to-transparent"></div>
+              )}
+            </div>
+            <div class="mt-6 space-y-3">
+              <h3 class="font-display text-xl text-white">{model.data.name}</h3>
+              <p class="text-sm text-white/65">{model.data.summary}</p>
+              <p class="text-xs uppercase tracking-[0.35em] text-white/45">
+                {model.data.consent ? 'Example ready' : 'Consent pending listing'}
+              </p>
+              <a
+                class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-rose-petal transition hover:text-rose-gold"
+                data-model={model.id}
+                href={buildHref(model.id)}
+              >
+                {model.data.consent ? 'View example ->' : 'View listing ->'}
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+</MainLayout>

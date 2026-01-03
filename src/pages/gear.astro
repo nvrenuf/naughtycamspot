@@ -1,3 +1,8 @@
 ---
-return Astro.redirect('/startright', 301);
+import { versionedPath } from '../data/versioning';
+
+const target = versionedPath('/gear');
+
+export const prerender = true;
+return Astro.redirect(target, 308);
 ---
