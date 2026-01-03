@@ -8,6 +8,8 @@ author: 'Mara, Performance Lead'
 heroImage: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1600&q=80'
 heroImageAlt: 'Performer reviewing notes with a coach'
 cardImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80'
+topics: ['work-money']
+version: 2
 ---
 
 Every recruitment push starts with the levers we can pull without asking the platform for mercy. We audit your baseline, surface two quick wins, and model the compounding effect before we ever add a new traffic source.

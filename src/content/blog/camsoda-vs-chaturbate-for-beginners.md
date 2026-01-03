@@ -8,6 +8,8 @@ author: 'Concierge Team'
 heroImage: 'https://images.unsplash.com/photo-1530035415919-d499f3fbeaa4?auto=format&fit=crop&w=1600&q=80'
 heroImageAlt: 'Performer framed by two neon spotlights in a dark studio'
 cardImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80'
+topics: ['work-money']
+version: 2
 ---
 
 ## Why this decision matters
