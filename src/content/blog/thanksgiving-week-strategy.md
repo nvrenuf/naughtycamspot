@@ -9,7 +9,6 @@ heroImage: "/illustrations/thanksgiving-week-strategy/thanksgiving-week-strategy
 heroImageAlt: "Model preparing a Thanksgiving streaming schedule with a planner and laptop"
 cardImage: "/illustrations/thanksgiving-week-strategy/thanksgiving-week-strategy-hero.png"
 topics: ['work-money']
-version: 2
 ---
 
 # Thanksgiving Week: Simple Strategy Guide for Models

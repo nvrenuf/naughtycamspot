@@ -1,5 +1,3 @@
-import { versionedPath } from './versioning';
-
 export type NavLink = {
   href: string;
   label: string;
@@ -8,9 +6,9 @@ export type NavLink = {
 };
 
 export const NAV_PRIMARY: NavLink[] = [
-  { href: versionedPath('/'), label: 'Home' },
-  { href: versionedPath('/earnings'), label: 'Earnings' },
-  { href: versionedPath('/blog'), label: 'Blog' }
+  { href: '/', label: 'Home' },
+  { href: '/earnings', label: 'Earnings' },
+  { href: '/posts', label: 'Posts' }
 ];
 
 export const NAV_MORE: NavLink[] = [];

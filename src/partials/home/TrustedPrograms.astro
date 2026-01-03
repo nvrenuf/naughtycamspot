@@ -2,7 +2,6 @@
 import programs from '../../data/programs.json';
 import { resolveProgramDetail } from '../../data/programDetails';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../../data/programStatus';
-import { versionedPath } from '../../data/versioning';
 import { withBase } from '../../utils/links';
 import { allowsPagesJoin, isProgramApproved, type ProgramRecord } from '../../utils/programs.js';
 
@@ -74,7 +73,7 @@ const compactPrograms = COMPACT_PROGRAM_KEYS.map((key) => {
         ))}
       </div>
       <div class="text-center">
-        <a class="text-[clamp(0.85rem,1.5vw,0.95rem)] uppercase tracking-[0.32em] text-rose-gold transition hover:text-white" href={withBase(versionedPath('/earnings'))}>
+        <a class="text-[clamp(0.85rem,1.5vw,0.95rem)] uppercase tracking-[0.32em] text-rose-gold transition hover:text-white" href={withBase('/earnings')}>
           See earning potential →
         </a>
       </div>
@@ -91,7 +90,7 @@ const compactPrograms = COMPACT_PROGRAM_KEYS.map((key) => {
           </h2>
           <p class="text-[clamp(0.95rem,1.8vw,1.1rem)] text-white/70">{subCopy}</p>
         </div>
-        <a class="text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase(versionedPath('/earnings'))}>
+        <a class="text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/earnings')}>
           See earning potential
         </a>
       </div>
@@ -111,7 +110,7 @@ const compactPrograms = COMPACT_PROGRAM_KEYS.map((key) => {
                 {program.best_for.join(', ')}
               </li>
             </ul>
-            <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase(versionedPath('/earnings'))}>
+            <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/earnings')}>
               See earning potential
             </a>
           </article>

@@ -9,7 +9,6 @@ heroImage: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=fo
 heroImageAlt: 'Daily planner with handwritten show schedule'
 cardImage: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80'
 topics: ['work-money']
-version: 2
 ---
 
 ## Phase 1: Orientation (Days 1–3)

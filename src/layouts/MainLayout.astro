@@ -8,7 +8,6 @@ import LinkCTA from '../components/LinkCTA.astro';
 import '../styles/tailwind.css';
 import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
 import { NAV_MORE, NAV_PRIMARY, type NavLink } from '../data/nav';
-import { versionedPath } from '../data/versioning';
 import { withBase } from '../utils/links';
 
 const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
@@ -42,8 +41,6 @@ const organizationJsonLd = {
   url: import.meta.env.SITE ?? 'https://naughtycamspot.com'
 };
 
-const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
-
 const normalizePath = (value?: string) => {
   if (!value) {
     return '';
@@ -52,11 +49,23 @@ const normalizePath = (value?: string) => {
   return trimmed.length === 0 ? '/' : trimmed;
 };
 
+const normalizedBasePath = normalizePath(baseUrl) || '/';
+const stripBase = (value: string) => {
+  const normalized = normalizePath(value);
+  if (normalizedBasePath !== '/' && normalized.startsWith(normalizedBasePath)) {
+    const remainder = normalized.slice(normalizedBasePath.length);
+    return normalizePath(remainder) || '/';
+  }
+  return normalized || '/';
+};
+
+const currentPath = stripBase(Astro.url.pathname);
+
 const primaryNavLinks = NAV_PRIMARY;
 const moreNavLinks = NAV_MORE;
 
 const isNavActive = (href: string) => {
-  const normalizedHref = href.replace(/\/+$/, '') || '/';
+  const normalizedHref = stripBase(href);
   if (normalizedHref === '/') {
     return currentPath === '/';
   }
@@ -76,12 +85,12 @@ const resolveNavHref = (link) => {
 const moreMenuActive = moreNavLinks.some((link) => isNavActive(resolveNavHref(link)));
 
 const footerLinks = [
-  { href: versionedPath('/startright'), label: 'StartRight' },
-  { href: versionedPath('/earnings'), label: 'Earnings' },
-  { href: versionedPath('/blog'), label: 'Blog' },
-  { href: versionedPath('/privacy'), label: 'Privacy' },
-  { href: versionedPath('/terms'), label: 'Terms' },
-  { href: versionedPath('/disclosure'), label: 'Disclosure' }
+  { href: '/startright', label: 'StartRight' },
+  { href: '/earnings', label: 'Earnings' },
+  { href: '/posts', label: 'Posts' },
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/terms', label: 'Terms' },
+  { href: '/disclosure', label: 'Disclosure' }
 ];
 
 const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
@@ -123,7 +132,7 @@ gtag('config', '${gaMeasurementId}');`}
         <header class="mx-auto flex w-full max-w-6xl flex-col gap-5 px-6 pt-10 lg:flex-row lg:items-center lg:justify-between lg:gap-6" data-site-nav>
           <div class="flex w-full items-center justify-between gap-3">
             <a
-              href={withBase(versionedPath('/'))}
+              href={withBase('/')}
               class="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.32em] text-rose-gold"
             >
               <span class="flex h-11 w-11 items-center justify-center rounded-full border border-rose-gold/60 bg-white/10 shadow-glow backdrop-blur-lg">

@@ -9,7 +9,6 @@ heroImage: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=fo
 heroImageAlt: 'Wall calendar with sticky notes'
 cardImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80'
 topics: ['work-money']
-version: 2
 ---
 
 The first month should feel like a guided runway, not a scramble. We split your tasks into four weekly packets so you always know what matters right now.
