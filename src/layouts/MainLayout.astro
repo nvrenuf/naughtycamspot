@@ -8,6 +8,7 @@ import LinkCTA from '../components/LinkCTA.astro';
 import '../styles/tailwind.css';
 import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
 import { NAV_MORE, NAV_PRIMARY, type NavLink } from '../data/nav';
+import { versionedPath } from '../data/versioning';
 import { withBase } from '../utils/links';
 
 const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
@@ -75,12 +76,12 @@ const resolveNavHref = (link) => {
 const moreMenuActive = moreNavLinks.some((link) => isNavActive(resolveNavHref(link)));
 
 const footerLinks = [
-  { href: '/startright', label: 'StartRight' },
-  { href: '/earnings', label: 'Earnings' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/privacy', label: 'Privacy' },
-  { href: '/terms', label: 'Terms' },
-  { href: '/disclosure', label: 'Disclosure' }
+  { href: versionedPath('/startright'), label: 'StartRight' },
+  { href: versionedPath('/earnings'), label: 'Earnings' },
+  { href: versionedPath('/blog'), label: 'Blog' },
+  { href: versionedPath('/privacy'), label: 'Privacy' },
+  { href: versionedPath('/terms'), label: 'Terms' },
+  { href: versionedPath('/disclosure'), label: 'Disclosure' }
 ];
 
 const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
@@ -122,7 +123,7 @@ gtag('config', '${gaMeasurementId}');`}
         <header class="mx-auto flex w-full max-w-6xl flex-col gap-5 px-6 pt-10 lg:flex-row lg:items-center lg:justify-between lg:gap-6" data-site-nav>
           <div class="flex w-full items-center justify-between gap-3">
             <a
-              href={withBase('/')}
+              href={withBase(versionedPath('/'))}
               class="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.32em] text-rose-gold"
             >
               <span class="flex h-11 w-11 items-center justify-center rounded-full border border-rose-gold/60 bg-white/10 shadow-glow backdrop-blur-lg">

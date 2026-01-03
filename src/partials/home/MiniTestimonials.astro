@@ -1,4 +1,5 @@
 ---
+import { versionedPath } from '../../data/versioning';
 import { withBase } from '../../utils/links';
 
 const testimonials = [
@@ -42,7 +43,7 @@ const testimonials = [
             </figcaption>
           </div>
           <blockquote class="text-[clamp(0.95rem,1.7vw,1.1rem)] leading-relaxed text-white/80">“{testimonial.quote}”</blockquote>
-          <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/startright')}>
+          <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase(versionedPath('/startright'))}>
             Become a Featured Model →
           </a>
         </figure>

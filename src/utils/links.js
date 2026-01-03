@@ -1,3 +1,5 @@
+import { versionedPath } from '../data/versioning.js';
+
 const runtimeBaseUrl =
   typeof import.meta !== 'undefined' && typeof import.meta.env !== 'undefined'
     ? import.meta.env.BASE_URL
@@ -12,7 +14,7 @@ const BASE_URL = runtimeBaseUrl ?? envBaseUrl ?? '/';
 const IS_PAGES_BUILD = BASE_URL !== '/';
 
 const CLAIM_FORM_EXTERNAL_URL = 'https://tally.so/r/claim-startright-kit';
-const CLAIM_FORM_INTERNAL_PATH = '/startright';
+const CLAIM_FORM_INTERNAL_PATH = versionedPath('/startright');
 
 const sanitizePlaceholder = (placeholder) => {
   if (!placeholder) {
@@ -49,7 +51,7 @@ export const withBase = (path = '') => {
   return `${BASE_URL}${cleanedPath}`;
 };
 
-const PAGES_FALLBACK_PATH = '/startright';
+const PAGES_FALLBACK_PATH = versionedPath('/startright');
 
 export const buildTrackedLink = ({ path, slot, camp, placeholder }) => {
   if (IS_PAGES_BUILD) {
