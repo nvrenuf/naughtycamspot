@@ -9,7 +9,6 @@ heroImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=fo
 heroImageAlt: 'Global map with highlighted regions'
 cardImage: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80'
 topics: ['work-money']
-version: 2
 ---
 
 Our concierge tracker pulls hourly breakouts from the partner networks, so we see when each geography comes alive. Slot your hero shows where the bars are darkest and keep lighter programming in the low bands.

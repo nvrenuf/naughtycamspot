@@ -1,4 +1,3 @@
-import { versionedPath } from './versioning';
 export const DISCLOSURE = "Contains affiliate links. Not an agency. No earnings guarantee.";
 
 export const HERO = {
@@ -8,13 +7,13 @@ export const HERO = {
 
 export const PRIMARY_CTA = {
   label: 'Sign Up Now – Get the Kit →',
-  pagesHref: versionedPath('/startright'),
-  prodHref: versionedPath('/startright')
+  pagesHref: '/startright',
+  prodHref: '/startright'
 } as const;
 
 export const STARTRIGHT_SKIP = {
   label: 'Skip — pick my platforms',
-  pagesHrefBase: versionedPath('/startright'),
+  pagesHrefBase: '/startright',
   tracking: {
     src: 'startright_skip',
     camp: 'startright'
@@ -26,13 +25,13 @@ export const KIT = {
   sub: 'Choose where you were accepted. We assemble only what you need.',
   claimCTA: {
     label: 'Claim StartRight Kit',
-    pagesHref: versionedPath('/startright'),
-    prodHref: versionedPath('/startright')
+    pagesHref: '/startright',
+    prodHref: '/startright'
   } as const,
   joinCTA: {
     label: 'Join with our links',
-    pagesHref: versionedPath('/startright'),
-    prodHref: versionedPath('/startright')
+    pagesHref: '/startright',
+    prodHref: '/startright'
   } as const
 } as const;
 

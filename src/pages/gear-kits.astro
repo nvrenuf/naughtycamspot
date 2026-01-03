@@ -1,8 +1,4 @@
 ---
-import { versionedPath } from '../data/versioning';
-
-const target = versionedPath('/gear-kits');
-
 export const prerender = true;
-return Astro.redirect(target, 308);
+return Astro.redirect('/startright', 301);
 ---

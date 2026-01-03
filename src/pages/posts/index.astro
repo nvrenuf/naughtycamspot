@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import MainLayout from '../../layouts/MainLayout.astro';
 import { withBase } from '../../utils/links';
-import { versionedPath } from '../../data/versioning';
 
 const rawPosts = await getCollection('blog');
 const posts = rawPosts
@@ -37,7 +36,7 @@ for (const key of trackingKeys) {
 
 const trackingQuery = trackingParams.toString();
 const buildPostHref = (slug: string) => {
-  const baseHref = withBase(versionedPath(`/blog/${slug}`));
+  const baseHref = withBase(`/posts/${slug}`);
   if (!trackingQuery) {
     return baseHref;
   }
@@ -51,7 +50,7 @@ const totalPosts = posts.length;
 ---
 
 <MainLayout
-  title="Blog | NaughtyCamSpot"
+  title="Posts | NaughtyCamSpot"
   description="Insights & stories from the NaughtyCamSpot concierge team — luxury growth strategy for performers."
 >
   <!-- SECTION: Blog Hero -->

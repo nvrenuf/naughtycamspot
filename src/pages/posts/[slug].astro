@@ -1,9 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import BannerSlot from '../../../components/BannerSlot.astro';
-import MainLayout from '../../../layouts/MainLayout.astro';
-import { versionedPath } from '../../../data/versioning';
-import { withBase } from '../../../utils/links';
+import BannerSlot from '../../components/BannerSlot.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
+import { withBase } from '../../utils/links';
 
 const formatDate = (date: Date) =>
   new Intl.DateTimeFormat('en-US', { month: 'long', day: '2-digit', year: 'numeric' }).format(date);
@@ -76,7 +75,7 @@ const suppressCtas = post.data.suppressCtas || post.slug === 'thanksgiving-week-
     <h2 class="section-heading">Related Posts</h2>
     <div class="grid gap-6 sm:grid-cols-3">
       {related.map((item) => (
-        <a class="content-card space-y-3" href={withBase(versionedPath(`/blog/${item.slug}`))}>
+        <a class="content-card space-y-3" href={withBase(`/posts/${item.slug}`)}>
           <img src={item.data.cardImage ?? item.data.heroImage} alt={item.data.heroImageAlt ?? item.data.title} class="h-40 w-full rounded-3xl object-cover" loading="lazy" />
           <div>
             <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{item.data.category}</p>

@@ -56,7 +56,6 @@ const blog = defineCollection({
     heroImageAlt: z.string().optional(),
     cardImage: urlOrPath.optional(),
     topics: z.array(topicEnum).min(1),
-    version: z.number().int().min(1),
     suppressCtas: z.boolean().default(false),
     vipOnly: z.boolean().default(false)
   })
