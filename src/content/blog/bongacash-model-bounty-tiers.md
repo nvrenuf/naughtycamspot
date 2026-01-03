@@ -8,6 +8,8 @@ author: 'Elena, Head of Growth'
 heroImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80'
 heroImageAlt: 'Close-up of a performer planning strategy on a glass board'
 cardImage: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80'
+topics: ['work-money']
+version: 2
 ---
 
 ## How the bounty ladder works

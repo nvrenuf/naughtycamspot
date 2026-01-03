@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { topicKeys } from '../data/categories';
 
 const platformSchema = z.object({
   name: z.string(),
@@ -20,6 +21,7 @@ const trackingSchema = z
 
 const localPath = z.string().refine((val) => val.startsWith('/'), { message: 'Must start with / for local assets' });
 const urlOrPath = z.union([z.string().url(), localPath]);
+const topicEnum = z.enum(topicKeys);
 
 const models = defineCollection({
   type: 'data',
@@ -53,6 +55,8 @@ const blog = defineCollection({
     heroImage: urlOrPath,
     heroImageAlt: z.string().optional(),
     cardImage: urlOrPath.optional(),
+    topics: z.array(topicEnum).min(1),
+    version: z.number().int().min(1),
     suppressCtas: z.boolean().default(false),
     vipOnly: z.boolean().default(false)
   })

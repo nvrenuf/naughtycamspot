@@ -8,6 +8,8 @@ author: 'Milo, Community Director'
 heroImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80'
 heroImageAlt: 'Budget-friendly streaming setup with tripod light and laptop'
 cardImage: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80'
+topics: ['work-money']
+version: 2
 ---
 
 ## Set the foundation

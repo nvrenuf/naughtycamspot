@@ -8,6 +8,8 @@ author: 'Jules, Conversion Coach'
 heroImage: 'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1600&q=80'
 heroImageAlt: 'Performer arranging tip menu cards'
 cardImage: 'https://images.unsplash.com/photo-1545239351-ef35f43d514b?auto=format&fit=crop&w=1200&q=80'
+topics: ['work-money']
+version: 2
 ---
 
 We onboard new models with the most repeatable structure we have: three prices, three experiences, and one story arc per stream. It eliminates decision fatigue and keeps your pacing clean.

@@ -9,6 +9,8 @@ heroImage: "/illustrations/top-supporter-recognition/top-supporter-recognition-h
 heroImageAlt: "Year-end appreciation from a model to top supporters with VIP recognition and festive gratitude"
 cardImage: "/illustrations/top-supporter-recognition/top-supporter-recognition-hero.png"
 suppressCtas: true
+topics: ['work-money']
+version: 2
 ---
 
 Year-end appreciation is one of the **highest-leverage moments** a model has — *if it’s done correctly*.
