@@ -417,7 +417,7 @@ const clientPrograms = JSON.stringify(
       for wiring diagrams and procurement help.
     </p>
   </section>
-  <script is:inline>
+  <script is:inline define:vars={{ canonicalPath }}>
     const form = document.querySelector('#startright-form');
     const resultsContainer = document.querySelector('#startright-results');
     const list = document.querySelector('#startright-list');
@@ -434,11 +434,11 @@ const clientPrograms = JSON.stringify(
     }));
       const isPagesBuild = resultsContainer.dataset.isPages === 'true';
       const primaryLabel = resultsContainer.dataset.primaryLabel || 'Get my plan';
-      const primaryPages = resultsContainer.dataset.primaryPages || ${JSON.stringify(canonicalPath)};
-      const primaryProd = resultsContainer.dataset.primaryProd || ${JSON.stringify(canonicalPath)};
+      const primaryPages = resultsContainer.dataset.primaryPages || canonicalPath;
+      const primaryProd = resultsContainer.dataset.primaryProd || canonicalPath;
       const skipLabel = resultsContainer.dataset.skipLabel || 'Skip — pick my platforms';
-      const skipPages = resultsContainer.dataset.skipPages || ${JSON.stringify(canonicalPath)};
-      const skipProd = resultsContainer.dataset.skipProd || ${JSON.stringify(canonicalPath)};
+      const skipPages = resultsContainer.dataset.skipPages || canonicalPath;
+      const skipProd = resultsContainer.dataset.skipProd || canonicalPath;
       const formatDateStamp = () => {
         const now = new Date();
         return `${now.getUTCFullYear()}${String(now.getUTCMonth() + 1).padStart(2, '0')}${String(now.getUTCDate()).padStart(2, '0')}`;

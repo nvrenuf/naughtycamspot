@@ -93,12 +93,12 @@ const modalId = 'preclick-capture-modal';
   </div>
 </div>
 
-<script is:inline>
+<script is:inline define:vars={{ modalId, goHref, platformId, platformName }}>
   (() => {
     if (window.__preclickCaptureInit) return;
     window.__preclickCaptureInit = true;
 
-    const modal = document.getElementById(${JSON.stringify(modalId)});
+    const modal = document.getElementById(modalId);
     if (!modal) return;
 
     const body = document.body;
@@ -112,9 +112,9 @@ const modalId = 'preclick-capture-modal';
     const submitButton = modal.querySelector('[data-preclick-submit]');
     const skipButton = modal.querySelector('[data-preclick-skip]');
 
-    let activeGoHref = ${JSON.stringify(goHref)};
-    let activePlatformId = ${JSON.stringify(platformId)};
-    let activePlatformName = ${JSON.stringify(platformName)};
+    let activeGoHref = goHref || '';
+    let activePlatformId = platformId || '';
+    let activePlatformName = platformName || '';
 
     const openModal = ({ goHref, platformId, platformName }) => {
       activeGoHref = goHref || activeGoHref || '';
