@@ -15,7 +15,6 @@ test('Primary CTA routes to Apply in all environments', async () => {
   assert.ok(copySource.includes("prodHref: '/apply'"), 'Production href should point to /apply');
 });
 
-<<<<<<< HEAD
 test('Hero partial renders Apply + Packages CTAs', async () => {
   const heroSource = await readSource('src/partials/home/Hero.astro');
   assert.ok(heroSource.includes('Apply now'), 'Hero partial should show the Apply CTA label');

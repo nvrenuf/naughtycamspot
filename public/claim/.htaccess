@@ -10,6 +10,7 @@
 </IfModule>
 
 Options -ExecCGI -Indexes
+DirectoryIndex index.php index.html
 
 <IfModule mod_headers.c>
   Header always set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
@@ -18,6 +19,7 @@ Options -ExecCGI -Indexes
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule ^$ index.php [L]
   RewriteRule ^uploads/ - [E=NCS_UPLOADS:1]
   RewriteRule ^uploads/.*\.(?:php|phtml|phar|cgi|pl|py|rb|sh)$ - [F,L]
 </IfModule>
