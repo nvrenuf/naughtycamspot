@@ -186,7 +186,7 @@ gtag('config', '${gaMeasurementId}');`}
                   Resources
                 </button>
                 <div
-                  class="pointer-events-none invisible absolute right-0 top-full mt-3 max-h-72 w-56 origin-top-right overflow-y-auto rounded-3xl border border-white/10 bg-black/90 p-3 opacity-0 shadow-glow backdrop-blur-2xl transition [--menu-duration:150ms] group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100"
+                  class="pointer-events-none invisible absolute right-0 top-full mt-3 max-h-[70vh] w-56 origin-top-right overflow-y-auto overscroll-contain rounded-3xl border border-white/10 bg-black/90 p-3 pr-1 opacity-0 shadow-glow backdrop-blur-2xl transition [--menu-duration:150ms] group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100"
                   data-nav-more-panel
                   role="menu"
                   tabindex="-1"
@@ -495,6 +495,19 @@ gtag('config', '${gaMeasurementId}');`}
     moreButton.addEventListener('click', () => {
       setMoreOpen(!moreOpen);
     });
+    morePanel.addEventListener('wheel', (event) => {
+      const canScroll = morePanel.scrollHeight > morePanel.clientHeight;
+      if (!canScroll) {
+        return;
+      }
+      event.stopPropagation();
+      const atTop = morePanel.scrollTop === 0;
+      const atBottom =
+        morePanel.scrollTop + morePanel.clientHeight >= morePanel.scrollHeight - 1;
+      if ((atTop && event.deltaY < 0) || (atBottom && event.deltaY > 0)) {
+        event.preventDefault();
+      }
+    }, { passive: false });
     // Keep dropdown controlled by click + outside click to avoid closing on scroll.
     document.addEventListener('click', handleDocumentClick);
     if (moreLinks.length > 0) {
