@@ -4,3 +4,8 @@ Header set X-Frame-Options "SAMEORIGIN"
 Header set Referrer-Policy "strict-origin-when-cross-origin"
 Header set Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; script-src 'self' https: 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; frame-ancestors 'self'; frame-src https:"
 Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^(join-models|apply|packages|how-it-works|platforms)$ $1/ [R=301,L]
+</IfModule>

@@ -16,6 +16,7 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 - Run a local production build and upload the generated `dist/` directory to ViceTemple.
 - Treat `/public/go` as the canonical source inside the repo — never hand-edit PHP on the server.
 - The Pages workflow deletes `dist/go`, so GitHub Pages never ships the PHP redirectors.
+- ViceTemple Apache normalizes `/join-models`, `/apply`, `/packages`, `/how-it-works`, and `/platforms` to their trailing-slash routes.
 
 ## Project structure
 
