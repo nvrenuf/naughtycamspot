@@ -9,6 +9,7 @@ export const NAV_PRIMARY: NavLink[] = [
   { href: '/', label: 'Home' },
   { href: '/apply', label: 'Apply' },
   { href: '/vip-kit', label: 'VIP Kit' },
+  { href: '/proof/', label: 'Proof' },
   { href: '/packages', label: 'Packages' },
   { href: '/how-it-works', label: 'How It Works' },
   { href: '/platforms', label: 'Platforms' },
