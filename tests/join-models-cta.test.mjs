@@ -43,24 +43,21 @@ const extractCtaHref = (html) => {
   return match ? match[1] : undefined;
 };
 
-test('Pages build routes Join Models CTA to StartRight', async () => {
+test('Pages build routes Join Models CTA to Apply', async () => {
   const { html } = await buildJoinModelsPage('pages');
   const href = extractCtaHref(html);
 
   assert.ok(href, 'CTA href should be present');
   assert.ok(!href.startsWith('/go/'), 'Pages CTA must not start with /go/');
-  assert.equal(href, '/naughtycamspot/startright', 'Pages CTA should point to StartRight');
+  assert.equal(href, '/naughtycamspot/apply', 'Pages CTA should point to Apply');
 });
 
-test('Production build uses tracked /go/ link for Join Models CTA', async () => {
+test('Production build routes Join Models CTA to Apply', async () => {
   const { html } = await buildJoinModelsPage('prod');
   const href = extractCtaHref(html);
 
   assert.ok(href, 'CTA href should be present');
-  assert.ok(href.startsWith('/go/model-join.php'), 'Prod CTA should use /go/model-join.php');
-  assert.ok(href.includes('src=join_models'), 'Prod CTA should include src=join_models');
-  assert.ok(href.includes('camp=landing'), 'Prod CTA should include camp=landing');
-  assert.ok(href.includes('date='), 'Prod CTA should include date stamp');
+  assert.equal(href, '/apply', 'Prod CTA should point to Apply');
 });
 
 after(async () => {

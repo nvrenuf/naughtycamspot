@@ -1,0 +1,87 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/packages';
+const applyHref = withBase('/apply');
+---
+
+<MainLayout
+  title="Packages | NaughtyCamSpot"
+  description="Promotion and ops packages for cam models."
+>
+  <SEO
+    slot="head"
+    title="Packages | NaughtyCamSpot"
+    description="Promotion and ops packages for cam models."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-10">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Promotion Packages</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Choose the level of support you want.</h1>
+      <p class="max-w-2xl text-base text-white/70">
+        Every package includes automated promotion, concierge onboarding, and weekly performance notes. Apply to get matched to
+        the right tier for your schedule and goals.
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          href={applyHref}
+        >
+          Apply now
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
+          href={withBase('/how-it-works')}
+        >
+          How it works
+        </a>
+      </div>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-3">
+      <article class="content-card space-y-4">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Launch</p>
+        <h2 class="font-display text-2xl text-white">Starter Boost</h2>
+        <p class="text-sm text-white/70">
+          Platform matching, profile launch checklist, and automated promo setup for your first 30 days.
+        </p>
+        <ul class="text-sm text-white/70">
+          <li>Onboarding call + asset checklist</li>
+          <li>Promo automation starter set</li>
+          <li>Weekly optimization notes</li>
+        </ul>
+      </article>
+
+      <article class="content-card space-y-4">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Growth</p>
+        <h2 class="font-display text-2xl text-white">Momentum Builder</h2>
+        <p class="text-sm text-white/70">
+          Multi-platform rollout, weekly ops support, and coordinated promo schedules across socials.
+        </p>
+        <ul class="text-sm text-white/70">
+          <li>Multi-platform launch calendar</li>
+          <li>Automated promotion + reposts</li>
+          <li>Retention and upsell playbooks</li>
+        </ul>
+      </article>
+
+      <article class="content-card space-y-4">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Scale</p>
+        <h2 class="font-display text-2xl text-white">Ops Concierge</h2>
+        <p class="text-sm text-white/70">
+          Dedicated ops support, priority growth experiments, and custom automation workflows.
+        </p>
+        <ul class="text-sm text-white/70">
+          <li>Dedicated ops manager</li>
+          <li>Advanced automations + reporting</li>
+          <li>Monthly growth strategy review</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</MainLayout>
+

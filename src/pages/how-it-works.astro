@@ -1,0 +1,76 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/how-it-works';
+---
+
+<MainLayout
+  title="How It Works | NaughtyCamSpot"
+  description="How NCS promotion + ops works for cam models."
+>
+  <SEO
+    slot="head"
+    title="How It Works | NaughtyCamSpot"
+    description="How NCS promotion + ops works for cam models."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-10">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">How It Works</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Promotion + ops built around your schedule.</h1>
+      <p class="max-w-2xl text-base text-white/70">
+        We combine automated promotion, platform playbooks, and daily ops support so you can focus on shows. The process is
+        lightweight, transparent, and built for model-owned accounts.
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          href={withBase('/apply')}
+        >
+          Apply now
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
+          href={withBase('/packages')}
+        >
+          View packages
+        </a>
+      </div>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-3">
+      <article class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Step 1</p>
+        <h2 class="font-display text-2xl text-white">Apply + Match</h2>
+        <p class="text-sm text-white/70">
+          Tell us your goals and platforms. We map the right automation stack, onboarding flow, and ops tier.
+        </p>
+      </article>
+      <article class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Step 2</p>
+        <h2 class="font-display text-2xl text-white">Launch + Automate</h2>
+        <p class="text-sm text-white/70">
+          We deploy promotion workflows, schedule templates, and growth checkpoints while you focus on performance.
+        </p>
+      </article>
+      <article class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Step 3</p>
+        <h2 class="font-display text-2xl text-white">Optimize + Scale</h2>
+        <p class="text-sm text-white/70">
+          Weekly ops notes and performance reviews keep your growth compounding across platforms.
+        </p>
+      </article>
+    </div>
+
+    <div class="content-card space-y-3">
+      <h2 class="font-display text-2xl text-white">What we never ask for</h2>
+      <p class="text-sm text-white/70">
+        We never ask for account passwords, we do not require exclusivity, and you can cancel anytime.
+      </p>
+    </div>
+  </section>
+</MainLayout>
+

@@ -1,0 +1,72 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { PLATFORMS } from '../data/platforms';
+import { isPagesBuild, withBase } from '../utils/links';
+
+const canonicalPath = '/platforms';
+const useGoLinks = !isPagesBuild();
+---
+
+<MainLayout
+  title="Platforms | NaughtyCamSpot"
+  description="Supported platforms for automated promotion."
+>
+  <SEO
+    slot="head"
+    title="Platforms | NaughtyCamSpot"
+    description="Supported platforms for automated promotion."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-10">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Platforms</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">We focus on the platforms that convert.</h1>
+      <p class="max-w-2xl text-base text-white/70">
+        Each platform gets a tailored ops plan, automation flow, and promo cadence. Apply and we will recommend the best fit.
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          href={withBase('/apply')}
+        >
+          Apply now
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
+          href={withBase('/packages')}
+        >
+          Packages
+        </a>
+      </div>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      {PLATFORMS.map((platform) => {
+        const href = useGoLinks ? platform.goPath : withBase('/apply');
+        return (
+          <article class="content-card space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="font-display text-2xl text-white">{platform.name}</h2>
+              <span class="rounded-full border border-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-rose-petal/70">
+                {platform.statusLabel}
+              </span>
+            </div>
+            <p class="text-sm text-white/70">{platform.note}</p>
+            <div>
+              <a
+                class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white"
+                href={href}
+                data-platform={platform.slug}
+              >
+                View requirements
+              </a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+</MainLayout>
+

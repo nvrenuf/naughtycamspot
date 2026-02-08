@@ -1,0 +1,61 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/proof';
+---
+
+<MainLayout
+  title="Proof | NaughtyCamSpot"
+  description="Proof points and operating principles behind the NCS promotion stack."
+>
+  <SEO
+    slot="head"
+    title="Proof | NaughtyCamSpot"
+    description="Proof points and operating principles behind the NCS promotion stack."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-10">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Proof</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Growth that is measurable, repeatable, and transparent.</h1>
+      <p class="max-w-2xl text-base text-white/70">
+        We focus on operational discipline: consistent promotion, weekly review loops, and platform-specific playbooks. Below is
+        the structure we apply to every model we onboard.
+      </p>
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+        href={withBase('/apply')}
+      >
+        Apply now
+      </a>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-3">
+      <article class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Signal</p>
+        <h2 class="font-display text-2xl text-white">Weekly ops review</h2>
+        <p class="text-sm text-white/70">
+          Every model receives a weekly review covering promo cadence, conversion notes, and next-week focus points.
+        </p>
+      </article>
+      <article class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Process</p>
+        <h2 class="font-display text-2xl text-white">Automated promo stack</h2>
+        <p class="text-sm text-white/70">
+          Scheduled promotion keeps traffic consistent without requiring extra daily manual work.
+        </p>
+      </article>
+      <article class="content-card space-y-3">
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Support</p>
+        <h2 class="font-display text-2xl text-white">Hands-on concierge</h2>
+        <p class="text-sm text-white/70">
+          We stay available for platform questions, changes, and launch adjustments.
+        </p>
+      </article>
+    </div>
+  </section>
+</MainLayout>
+

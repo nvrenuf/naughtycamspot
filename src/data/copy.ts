@@ -6,9 +6,9 @@ export const HERO = {
 } as const;
 
 export const PRIMARY_CTA = {
-  label: 'Sign Up Now – Get the Kit →',
-  pagesHref: '/startright',
-  prodHref: '/startright'
+  label: 'Apply now',
+  pagesHref: '/apply',
+  prodHref: '/apply'
 } as const;
 
 export const STARTRIGHT_SKIP = {

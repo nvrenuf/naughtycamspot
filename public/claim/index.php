@@ -29,6 +29,44 @@ $values = [
 $errors = [];
 $uploadMeta = null;
 
+$leadValues = [
+    'telegram' => '',
+    'email' => '',
+    'whatsapp' => '',
+    'platforms' => [],
+    'consent' => false,
+    'src' => request_string('src'),
+    'camp' => request_string('camp'),
+    'date' => request_string('date'),
+];
+
+if (request_method_is('POST') && request_string('lead_form') === '1') {
+    $leadValues['telegram'] = sanitize_text($_POST['telegram'] ?? '', 120);
+    $leadValues['email'] = sanitize_text($_POST['email'] ?? '', 200);
+    $leadValues['whatsapp'] = sanitize_text($_POST['whatsapp'] ?? '', 120);
+    $leadValues['platforms'] = sanitize_platform_list($_POST['platforms'] ?? []);
+    $leadValues['consent'] = isset($_POST['consent']) && $_POST['consent'] !== '';
+    $leadValues['src'] = sanitize_tracking($_POST['src'] ?? $leadValues['src']);
+    $leadValues['camp'] = sanitize_tracking($_POST['camp'] ?? $leadValues['camp']);
+    $leadValues['date'] = sanitize_tracking($_POST['date'] ?? $leadValues['date']);
+
+    $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+    $logEntry = build_lead_log_entry($now, $leadValues);
+    $logDirectory = dirname(__DIR__) . '/logs';
+    $logPath = $logDirectory . '/leads.jsonl';
+
+    if (!is_dir($logDirectory)) {
+        @mkdir($logDirectory, 0755, true);
+    }
+
+    if ($logEntry !== '' && is_dir($logDirectory)) {
+        @file_put_contents($logPath, $logEntry . PHP_EOL, FILE_APPEND | LOCK_EX);
+    }
+
+    header('Location: /claim/success.html', true, 302);
+    exit;
+}
+
 if (request_method_is('POST')) {
     $values['name'] = sanitize_text($_POST['name'] ?? '', 200);
     $values['email'] = sanitize_text($_POST['email'] ?? '', 200);
@@ -194,6 +232,23 @@ function sanitize_tracking(mixed $value): string
     return (string) preg_replace('/[^a-zA-Z0-9_\-]/', '', $text);
 }
 
+function sanitize_platform_list(mixed $value): array
+{
+    if (!is_array($value)) {
+        return [];
+    }
+
+    $items = [];
+    foreach ($value as $entry) {
+        $slug = sanitize_tracking($entry);
+        if ($slug !== '') {
+            $items[] = $slug;
+        }
+    }
+
+    return array_values(array_unique($items));
+}
+
 function detect_mime_type(string $path): string
 {
     if (!is_file($path)) {
@@ -213,6 +268,30 @@ function detect_mime_type(string $path): string
     }
 
     return $mime;
+}
+
+function build_lead_log_entry(DateTimeImmutable $timestamp, array $values): string
+{
+    $log = [
+        'timestamp' => $timestamp->format(DateTimeInterface::ATOM),
+        'telegram' => normalize_log_value($values['telegram'] ?? ''),
+        'email' => normalize_log_value($values['email'] ?? ''),
+        'whatsapp' => normalize_log_value($values['whatsapp'] ?? ''),
+        'platforms' => array_values($values['platforms'] ?? []),
+        'consent' => (bool) ($values['consent'] ?? false),
+        'src' => normalize_log_value($values['src'] ?? ''),
+        'camp' => normalize_log_value($values['camp'] ?? ''),
+        'date' => normalize_log_value($values['date'] ?? ''),
+        'ip' => normalize_log_value($_SERVER['REMOTE_ADDR'] ?? ''),
+        'user_agent' => normalize_log_value($_SERVER['HTTP_USER_AGENT'] ?? ''),
+    ];
+
+    $json = json_encode($log, JSON_UNESCAPED_SLASHES);
+    if (!is_string($json)) {
+        return '';
+    }
+
+    return $json;
 }
 
 function build_log_entry(DateTimeImmutable $timestamp, string $relativePath, array $values, array $uploadMeta, array $platformOptions): string

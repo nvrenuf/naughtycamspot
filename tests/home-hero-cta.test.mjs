@@ -9,17 +9,18 @@ const resolveFixturePath = (relativePath) =>
 
 const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relativePath), 'utf8');
 
-test('Primary CTA routes to StartRight in all environments', async () => {
+test('Primary CTA routes to Apply in all environments', async () => {
   const copySource = await readSource('src/data/copy.ts');
-  assert.ok(copySource.includes("pagesHref: '/startright'"), 'Pages href should point to /startright');
-  assert.ok(copySource.includes("prodHref: '/startright'"), 'Production href should point to /startright');
+  assert.ok(copySource.includes("pagesHref: '/apply'"), 'Pages href should point to /apply');
+  assert.ok(copySource.includes("prodHref: '/apply'"), 'Production href should point to /apply');
 });
 
-test('Hero partial surfaces the model signup CTA', async () => {
+<<<<<<< HEAD
+test('Hero partial renders Apply + Packages CTAs', async () => {
   const heroSource = await readSource('src/partials/home/Hero.astro');
-  assert.ok(heroSource.includes('Model Signup — Start Here'), 'Hero partial should show the model signup CTA label');
-  assert.ok(heroSource.includes('pagesHref=\"/join-models\"'), 'Hero partial should link to /join-models for Pages builds');
-  assert.ok(heroSource.includes('prodHref=\"/join-models\"'), 'Hero partial should link to /join-models for production builds');
+  assert.ok(heroSource.includes('Apply now'), 'Hero partial should show the Apply CTA label');
+  assert.ok(heroSource.includes('/apply'), 'Hero partial should link to /apply');
+  assert.ok(heroSource.includes('/packages'), 'Hero partial should link to /packages');
 });
 
 test('Hero partial avoids tracked /go/ links', async () => {

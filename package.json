@@ -11,7 +11,7 @@
     "build": "astro build",
     "build:pages": "astro build --config astro.config.pages.mjs",
     "preview": "astro preview",
-    "test": "node --test \"tests/**/*.mjs\" && vitest run",
+    "test": "node --test --test-concurrency=1 \"tests/**/*.mjs\" && vitest run",
     "test:pages-safety": "node scripts/test-pages-safety.mjs",
     "check:schemas": "node scripts/validate-json.mjs",
     "test:snapshot": "node scripts/snapshot-hero.mjs",
