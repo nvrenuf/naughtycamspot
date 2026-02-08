@@ -1,0 +1,192 @@
+---
+interface Props {
+  goHref?: string;
+  platformId?: string;
+  platformName?: string;
+}
+
+const { goHref = '', platformId = '', platformName = '' } = Astro.props as Props;
+const modalId = 'preclick-capture-modal';
+---
+
+<div id={modalId} class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-preclick-overlay></div>
+  <div class="relative w-full max-w-xl rounded-[28px] border border-white/10 bg-[#0a0b10]/95 p-6 shadow-2xl">
+    <button
+      type="button"
+      class="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-white/30 hover:text-white"
+      aria-label="Close"
+      data-preclick-close
+    >
+      ×
+    </button>
+    <div class="space-y-2">
+      <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">StartRight pre-check</p>
+      <h2 class="font-display text-2xl text-white">Get updates + unlock VIP</h2>
+      <p class="text-sm text-white/70">
+        Leave one contact channel so we can send your StartRight kit checklist and concierge updates.
+      </p>
+      <p class="text-xs uppercase tracking-[0.35em] text-white/50">
+        Platform interest: <span class="text-white" data-preclick-platform>{platformName || 'Selected platform'}</span>
+      </p>
+    </div>
+    <form class="mt-4 grid gap-4" data-preclick-form>
+      <input type="hidden" name="lead_form" value="1" />
+      <input type="hidden" name="source" value="preclick" />
+      <input type="hidden" name="src" value="preclick" />
+      <input type="hidden" name="platform" value={platformId} data-preclick-platform-id />
+      <input type="hidden" name="platforms[]" value={platformId} data-preclick-platforms />
+      <label class="flex flex-col gap-2 text-sm text-white/70">
+        Telegram
+        <input
+          class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+          type="text"
+          name="telegram"
+          placeholder="@yourhandle"
+          autocomplete="off"
+        />
+      </label>
+      <label class="flex flex-col gap-2 text-sm text-white/70">
+        Email
+        <input
+          class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+          type="email"
+          name="email"
+          placeholder="you@domain.com"
+          autocomplete="email"
+        />
+      </label>
+      <label class="flex flex-col gap-2 text-sm text-white/70">
+        WhatsApp
+        <input
+          class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+          type="text"
+          name="whatsapp"
+          placeholder="+1 555 000 0000"
+          autocomplete="tel"
+        />
+      </label>
+      <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs uppercase tracking-[0.28em] text-white/70">
+        <input class="mt-1 h-4 w-4 accent-rose-gold" type="checkbox" name="consent" data-preclick-consent />
+        I agree to receive onboarding messages from NaughtyCamSpot.
+      </label>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          data-preclick-submit
+        >
+          Continue to signup
+        </button>
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-full border border-white/15 bg-transparent px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white/70 transition hover:-translate-y-1 hover:border-white/30 hover:bg-white/10 hover:text-white"
+          data-preclick-skip
+        >
+          Skip
+        </button>
+      </div>
+      <p class="text-[0.7rem] uppercase tracking-[0.35em] text-white/50">
+        Consent unlocks VIP updates. Skip if you prefer.
+      </p>
+    </form>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    if (window.__preclickCaptureInit) return;
+    window.__preclickCaptureInit = true;
+
+    const modal = document.getElementById(${JSON.stringify(modalId)});
+    if (!modal) return;
+
+    const body = document.body;
+    const overlay = modal.querySelector('[data-preclick-overlay]');
+    const closeButtons = modal.querySelectorAll('[data-preclick-close]');
+    const form = modal.querySelector('[data-preclick-form]');
+    const platformLabel = modal.querySelector('[data-preclick-platform]');
+    const platformIdInput = modal.querySelector('[data-preclick-platform-id]');
+    const platformsInput = modal.querySelector('[data-preclick-platforms]');
+    const consentInput = modal.querySelector('[data-preclick-consent]');
+    const submitButton = modal.querySelector('[data-preclick-submit]');
+    const skipButton = modal.querySelector('[data-preclick-skip]');
+
+    let activeGoHref = ${JSON.stringify(goHref)};
+    let activePlatformId = ${JSON.stringify(platformId)};
+    let activePlatformName = ${JSON.stringify(platformName)};
+
+    const openModal = ({ goHref, platformId, platformName }) => {
+      activeGoHref = goHref || activeGoHref || '';
+      activePlatformId = platformId || activePlatformId || '';
+      activePlatformName = platformName || activePlatformName || '';
+      if (platformLabel) platformLabel.textContent = activePlatformName || 'Selected platform';
+      if (platformIdInput) platformIdInput.value = activePlatformId;
+      if (platformsInput) platformsInput.value = activePlatformId;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      body.classList.add('overflow-hidden');
+    };
+
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      body.classList.remove('overflow-hidden');
+    };
+
+    const openTarget = (href) => {
+      if (!href) return;
+      window.open(href, '_blank', 'noopener');
+    };
+
+    document.addEventListener('click', (event) => {
+      const trigger = event.target.closest('[data-preclick-trigger]');
+      if (!trigger) return;
+      const goHref = trigger.getAttribute('data-go-href') || trigger.getAttribute('href') || '';
+      const platformId = trigger.getAttribute('data-platform-id') || '';
+      const platformName = trigger.getAttribute('data-platform-name') || '';
+      if (!goHref) return;
+      event.preventDefault();
+      openModal({ goHref, platformId, platformName });
+    });
+
+    overlay?.addEventListener('click', closeModal);
+    closeButtons.forEach((btn) => btn.addEventListener('click', closeModal));
+
+    submitButton?.addEventListener('click', async () => {
+      const telegram = form?.querySelector('input[name="telegram"]')?.value?.trim() || '';
+      const email = form?.querySelector('input[name="email"]')?.value?.trim() || '';
+      const whatsapp = form?.querySelector('input[name="whatsapp"]')?.value?.trim() || '';
+      const hasContact = Boolean(telegram || email || whatsapp);
+      const consent = Boolean(consentInput?.checked);
+
+      if (hasContact && consent) {
+        try {
+          const payload = new FormData(form || undefined);
+          payload.set('lead_form', '1');
+          payload.set('source', 'preclick');
+          payload.set('src', 'preclick');
+          if (activePlatformId) {
+            payload.set('platform', activePlatformId);
+            payload.set('platforms[]', activePlatformId);
+          }
+          await fetch('/claim/index.php', {
+            method: 'POST',
+            body: payload,
+            credentials: 'same-origin'
+          });
+        } catch (error) {
+          // Continue regardless of capture issues.
+        }
+      }
+
+      openTarget(activeGoHref);
+      closeModal();
+    });
+
+    skipButton?.addEventListener('click', () => {
+      openTarget(activeGoHref);
+      closeModal();
+    });
+  })();
+</script>
