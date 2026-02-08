@@ -34,6 +34,17 @@ $leadValues = [
     'email' => '',
     'whatsapp' => '',
     'platforms' => [],
+    'timezone' => '',
+    'days' => [],
+    'time_start' => '',
+    'time_end' => '',
+    'platforms_active' => [],
+    'platforms_interested' => [],
+    'style' => [],
+    'hard_no' => [],
+    'notes' => '',
+    'asset_link' => '',
+    'preferred_contact' => '',
     'consent' => false,
     'click_id' => '',
     'platform' => '',
@@ -50,6 +61,17 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
     $leadValues['email'] = sanitize_text($_POST['email'] ?? '', 200);
     $leadValues['whatsapp'] = sanitize_text($_POST['whatsapp'] ?? '', 120);
     $leadValues['platforms'] = sanitize_platform_list($_POST['platforms'] ?? []);
+    $leadValues['timezone'] = sanitize_text($_POST['timezone'] ?? '', 20);
+    $leadValues['days'] = sanitize_day_list($_POST['days'] ?? []);
+    $leadValues['time_start'] = sanitize_time_value($_POST['time_start'] ?? '');
+    $leadValues['time_end'] = sanitize_time_value($_POST['time_end'] ?? '');
+    $leadValues['platforms_active'] = sanitize_platform_list($_POST['platforms_active'] ?? []);
+    $leadValues['platforms_interested'] = sanitize_platform_list($_POST['platforms_interested'] ?? []);
+    $leadValues['style'] = sanitize_allowed_list($_POST['style'] ?? [], allowed_style_values());
+    $leadValues['hard_no'] = sanitize_allowed_list($_POST['hard_no'] ?? [], allowed_hard_no_values());
+    $leadValues['notes'] = sanitize_multiline($_POST['notes'] ?? '', 2000);
+    $leadValues['asset_link'] = sanitize_text($_POST['asset_link'] ?? '', 200);
+    $leadValues['preferred_contact'] = sanitize_allowed_value($_POST['preferred_contact'] ?? '', allowed_contact_values());
     $leadValues['consent'] = isset($_POST['consent']) && $_POST['consent'] !== '';
     $leadValues['click_id'] = sanitize_text($_POST['click_id'] ?? '', 80);
     $leadValues['platform'] = sanitize_tracking($_POST['platform'] ?? '');
@@ -262,6 +284,71 @@ function sanitize_platform_list(mixed $value): array
     return array_values(array_unique($items));
 }
 
+function sanitize_day_list(mixed $value): array
+{
+    return sanitize_allowed_list($value, ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']);
+}
+
+function sanitize_time_value(mixed $value): string
+{
+    if (!is_scalar($value)) {
+        return '';
+    }
+    $candidate = trim((string) $value);
+    if ($candidate === '') {
+        return '';
+    }
+    if (preg_match('/^\d{2}:\d{2}$/', $candidate) !== 1) {
+        return '';
+    }
+    return $candidate;
+}
+
+function allowed_style_values(): array
+{
+    return ['gfe', 'tease', 'domme', 'roleplay', 'couples', 'fetish', 'gnd', 'other'];
+}
+
+function allowed_hard_no_values(): array
+{
+    return ['meetups', 'face', 'public', 'custom', 'off_platform', 'extreme', 'explicit', 'dom'];
+}
+
+function allowed_contact_values(): array
+{
+    return ['telegram', 'email', 'whatsapp'];
+}
+
+function sanitize_allowed_value(mixed $value, array $allowed): string
+{
+    if (!is_scalar($value)) {
+        return '';
+    }
+    $candidate = trim((string) $value);
+    if ($candidate === '') {
+        return '';
+    }
+    return in_array($candidate, $allowed, true) ? $candidate : '';
+}
+
+function sanitize_allowed_list(mixed $value, array $allowed): array
+{
+    if (!is_array($value)) {
+        return [];
+    }
+    $items = [];
+    foreach ($value as $entry) {
+        if (!is_scalar($entry)) {
+            continue;
+        }
+        $candidate = trim((string) $entry);
+        if ($candidate !== '' && in_array($candidate, $allowed, true)) {
+            $items[] = $candidate;
+        }
+    }
+    return array_values(array_unique($items));
+}
+
 function detect_mime_type(string $path): string
 {
     if (!is_file($path)) {
@@ -291,6 +378,17 @@ function build_lead_log_entry(DateTimeImmutable $timestamp, array $values): stri
         'email' => normalize_log_value($values['email'] ?? ''),
         'whatsapp' => normalize_log_value($values['whatsapp'] ?? ''),
         'platforms' => array_values($values['platforms'] ?? []),
+        'timezone' => normalize_log_value($values['timezone'] ?? ''),
+        'days' => array_values($values['days'] ?? []),
+        'time_start' => normalize_log_value($values['time_start'] ?? ''),
+        'time_end' => normalize_log_value($values['time_end'] ?? ''),
+        'platforms_active' => array_values($values['platforms_active'] ?? []),
+        'platforms_interested' => array_values($values['platforms_interested'] ?? []),
+        'style' => array_values($values['style'] ?? []),
+        'hard_no' => array_values($values['hard_no'] ?? []),
+        'notes' => normalize_log_value($values['notes'] ?? ''),
+        'asset_link' => normalize_log_value($values['asset_link'] ?? ''),
+        'preferred_contact' => normalize_log_value($values['preferred_contact'] ?? ''),
         'consent' => (bool) ($values['consent'] ?? false),
         'click_id' => normalize_log_value($values['click_id'] ?? ''),
         'platform' => normalize_log_value($values['platform'] ?? ''),

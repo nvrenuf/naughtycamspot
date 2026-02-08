@@ -12,6 +12,60 @@ const date = searchParams.get('date') ?? '';
 const kitUnlock = searchParams.get('kit') === '1';
 const success = searchParams.get('success') === '1';
 const formAction = withBase('/claim/index.php');
+const timezoneOptions = [
+  'PT',
+  'MT',
+  'CT',
+  'ET',
+  'AK',
+  'HI',
+  'UTC',
+  'Other'
+];
+const dayOptions = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const timeOptions = [
+  '06:00',
+  '07:00',
+  '08:00',
+  '09:00',
+  '10:00',
+  '11:00',
+  '12:00',
+  '13:00',
+  '14:00',
+  '15:00',
+  '16:00',
+  '17:00',
+  '18:00',
+  '19:00',
+  '20:00',
+  '21:00',
+  '22:00',
+  '23:00',
+  '00:00',
+  '01:00',
+  '02:00'
+];
+const styleOptions = [
+  { value: 'gfe', label: 'GFE' },
+  { value: 'tease', label: 'Tease' },
+  { value: 'domme', label: 'Domme/Femdom' },
+  { value: 'roleplay', label: 'Roleplay' },
+  { value: 'couples', label: 'Couples' },
+  { value: 'fetish', label: 'Fetish' },
+  { value: 'gnd', label: 'Girl-next-door' },
+  { value: 'other', label: 'Other' }
+];
+const hardNoOptions = [
+  { value: 'meetups', label: 'Meetups' },
+  { value: 'face', label: 'Face reveal' },
+  { value: 'public', label: 'Public shows' },
+  { value: 'custom', label: 'Custom requests' },
+  { value: 'off_platform', label: 'Off-platform contact' },
+  { value: 'extreme', label: 'Extreme fetish' },
+  { value: 'explicit', label: 'Explicit content' },
+  { value: 'dom', label: 'D/s themes' }
+];
 ---
 
 <MainLayout
@@ -83,24 +137,150 @@ const formAction = withBase('/claim/index.php');
         />
       </label>
 
-      <div class="space-y-3 sm:col-span-2">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Platforms you want to grow</p>
-        <div class="grid gap-3 sm:grid-cols-2">
-          {PLATFORMS.map((platform) => (
-            <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
-              <input
-                class="h-4 w-4 accent-rose-gold"
-                type="checkbox"
-                name="platforms[]"
-                value={platform.slug}
-              />
-              <span class="text-white">{platform.name}</span>
-              <span class="ml-auto text-[0.65rem] uppercase tracking-[0.25em] text-white/45">
-                {platform.statusLabel}
-              </span>
-            </label>
-          ))}
+      <div class="space-y-4 sm:col-span-2">
+        <div class="space-y-2">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">
+            Quick intake (optional, helps us help you faster)
+          </p>
+          <p class="text-xs uppercase tracking-[0.3em] text-white/45">
+            Optional fields increase the quality of our recommendations.
+          </p>
         </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="flex flex-col gap-2 text-sm text-white/70">
+            Timezone
+            <select class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" name="timezone">
+              <option value="">Select timezone</option>
+              {timezoneOptions.map((tz) => (
+                <option value={tz}>{tz}</option>
+              ))}
+            </select>
+          </label>
+          <label class="flex flex-col gap-2 text-sm text-white/70">
+            Preferred contact
+            <div class="flex flex-wrap gap-3">
+              {['telegram', 'email', 'whatsapp'].map((option) => (
+                <label class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/70">
+                  <input class="h-4 w-4 accent-rose-gold" type="radio" name="preferred_contact" value={option} />
+                  {option}
+                </label>
+              ))}
+            </div>
+          </label>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="flex flex-col gap-2 text-sm text-white/70">
+            Typical start time
+            <select class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" name="time_start">
+              <option value="">Start time</option>
+              {timeOptions.map((time) => (
+                <option value={time}>{time}</option>
+              ))}
+            </select>
+          </label>
+          <label class="flex flex-col gap-2 text-sm text-white/70">
+            Typical end time
+            <select class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" name="time_end">
+              <option value="">End time</option>
+              {timeOptions.map((time) => (
+                <option value={time}>{time}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <div class="space-y-3">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Typical streaming days</p>
+          <div class="flex flex-wrap gap-3">
+            {dayOptions.map((day) => (
+              <label class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/70">
+                <input class="h-4 w-4 accent-rose-gold" type="checkbox" name="days[]" value={day} />
+                {day}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="space-y-3">
+            <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Already on</p>
+            <div class="grid gap-2">
+              {PLATFORMS.map((platform) => (
+                <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
+                  <input
+                    class="h-4 w-4 accent-rose-gold"
+                    type="checkbox"
+                    name="platforms_active[]"
+                    value={platform.slug}
+                  />
+                  <span class="text-white">{platform.name}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+          <div class="space-y-3">
+            <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Interested in</p>
+            <div class="grid gap-2">
+              {PLATFORMS.map((platform) => (
+                <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
+                  <input
+                    class="h-4 w-4 accent-rose-gold"
+                    type="checkbox"
+                    name="platforms_interested[]"
+                    value={platform.slug}
+                  />
+                  <span class="text-white">{platform.name}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Content style</p>
+          <div class="flex flex-wrap gap-3">
+            {styleOptions.map((style) => (
+              <label class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/70">
+                <input class="h-4 w-4 accent-rose-gold" type="checkbox" name="style[]" value={style.value} />
+                {style.label}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Hard no list</p>
+          <div class="flex flex-wrap gap-3">
+            {hardNoOptions.map((item) => (
+              <label class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/70">
+                <input class="h-4 w-4 accent-rose-gold" type="checkbox" name="hard_no[]" value={item.value} />
+                {item.label}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <label class="flex flex-col gap-2 text-sm text-white/70">
+          Asset link (Drive/Dropbox/Link page)
+          <input
+            class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+            type="url"
+            name="asset_link"
+            placeholder="https://"
+            autocomplete="off"
+          />
+        </label>
+
+        <label class="flex flex-col gap-2 text-sm text-white/70">
+          Anything else we should know?
+          <textarea
+            class="min-h-[120px] rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+            name="notes"
+            placeholder="Optional boundaries, goals, or context."
+          ></textarea>
+        </label>
       </div>
 
       <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-xs uppercase tracking-[0.28em] text-white/70 sm:col-span-2">
