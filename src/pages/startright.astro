@@ -38,6 +38,20 @@ const skipHrefPages = `${STARTRIGHT_SKIP.pagesHrefBase}${qs}`;
 const skipHrefProd = skipHrefPages;
 const preclickGoLinks = ['/go/bonga', '/go/camsoda', '/go/chaturbate'];
 
+const resolveHostname = (value: string | undefined) => {
+  if (!value) {
+    return '';
+  }
+  try {
+    return new URL(value).hostname;
+  } catch {
+    return String(value).replace(/^https?:\/\//, '').split('/')[0];
+  }
+};
+
+const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
+const isProdSite = siteHostname === 'naughtycamspot.com';
+
 const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
 const isPagesFlag = typeof import.meta.env.IS_PAGES === 'string' ? import.meta.env.IS_PAGES === 'true' : false;
 const isPagesBuild = isPagesFlag || baseUrl !== '/';
@@ -79,7 +93,7 @@ const basePrograms = enrichedPrograms
       ...program,
       joinHrefPages,
       joinHrefProd,
-      joinHrefResolved: isPagesBuild ? joinHrefPages : joinHrefProd,
+      joinHrefResolved: isPagesBuild || !isProdSite ? joinHrefPages : joinHrefProd,
       joinDisabled,
       statusLabel: statusMeta.label,
       statusTextClass: statusMeta.textClass,

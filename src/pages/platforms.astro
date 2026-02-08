@@ -5,7 +5,20 @@ import { PLATFORMS } from '../data/platforms';
 import { isPagesBuild, withBase } from '../utils/links';
 
 const canonicalPath = '/platforms';
-const useGoLinks = !isPagesBuild();
+const resolveHostname = (value: string | undefined) => {
+  if (!value) {
+    return '';
+  }
+  try {
+    return new URL(value).hostname;
+  } catch {
+    return String(value).replace(/^https?:\/\//, '').split('/')[0];
+  }
+};
+
+const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
+const isProdSite = siteHostname === 'naughtycamspot.com';
+const useGoLinks = !isPagesBuild() && isProdSite;
 ---
 
 <MainLayout

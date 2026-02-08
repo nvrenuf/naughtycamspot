@@ -27,6 +27,20 @@ const bandLabels: Record<string, string> = {
   top10: 'Top 10%'
 };
 
+const resolveHostname = (value: string | undefined) => {
+  if (!value) {
+    return '';
+  }
+  try {
+    return new URL(value).hostname;
+  } catch {
+    return String(value).replace(/^https?:\/\//, '').split('/')[0];
+  }
+};
+
+const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
+const isProdSite = siteHostname === 'naughtycamspot.com';
+
 const cards = bandEntries.map(([key, bands]) => {
   const program = programIndex.get(key);
   const slot = `earnings_${key}`;
@@ -38,7 +52,7 @@ const cards = bandEntries.map(([key, bands]) => {
   });
   const joinHrefProdTemplate = `/go/model-join.php?src=${slot}&camp=earnings&date=YYYYMMDD`;
   const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', dateStamp);
-  const joinHrefResolved = isPagesBuild() ? joinHrefPages : joinHrefProd;
+  const joinHrefResolved = isPagesBuild() || !isProdSite ? joinHrefPages : joinHrefProd;
   const statusMeta = resolveProgramStatusMeta(program?.status ?? 'pending');
   const joinDisabled = !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages);
 
