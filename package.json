@@ -10,6 +10,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "build:pages": "astro build --config astro.config.pages.mjs",
+    "logs:summary": "node scripts/summarize-logs.mjs",
     "preview": "astro preview",
     "test": "node --test --test-concurrency=1 \"tests/**/*.mjs\" && vitest run",
     "test:pages-safety": "node scripts/test-pages-safety.mjs",

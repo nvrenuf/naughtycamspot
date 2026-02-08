@@ -35,6 +35,10 @@ $leadValues = [
     'whatsapp' => '',
     'platforms' => [],
     'consent' => false,
+    'click_id' => '',
+    'platform' => '',
+    'source' => '',
+    'page' => '',
     'src' => request_string('src'),
     'camp' => request_string('camp'),
     'date' => request_string('date'),
@@ -46,6 +50,10 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
     $leadValues['whatsapp'] = sanitize_text($_POST['whatsapp'] ?? '', 120);
     $leadValues['platforms'] = sanitize_platform_list($_POST['platforms'] ?? []);
     $leadValues['consent'] = isset($_POST['consent']) && $_POST['consent'] !== '';
+    $leadValues['click_id'] = sanitize_text($_POST['click_id'] ?? '', 80);
+    $leadValues['platform'] = sanitize_tracking($_POST['platform'] ?? '');
+    $leadValues['source'] = sanitize_text($_POST['source'] ?? '', 40);
+    $leadValues['page'] = sanitize_text($_POST['page'] ?? '', 200);
     $leadValues['src'] = sanitize_tracking($_POST['src'] ?? $leadValues['src']);
     $leadValues['camp'] = sanitize_tracking($_POST['camp'] ?? $leadValues['camp']);
     $leadValues['date'] = sanitize_tracking($_POST['date'] ?? $leadValues['date']);
@@ -279,6 +287,10 @@ function build_lead_log_entry(DateTimeImmutable $timestamp, array $values): stri
         'whatsapp' => normalize_log_value($values['whatsapp'] ?? ''),
         'platforms' => array_values($values['platforms'] ?? []),
         'consent' => (bool) ($values['consent'] ?? false),
+        'click_id' => normalize_log_value($values['click_id'] ?? ''),
+        'platform' => normalize_log_value($values['platform'] ?? ''),
+        'source' => normalize_log_value($values['source'] ?? ''),
+        'page' => normalize_log_value($values['page'] ?? ''),
         'src' => normalize_log_value($values['src'] ?? ''),
         'camp' => normalize_log_value($values['camp'] ?? ''),
         'date' => normalize_log_value($values['date'] ?? ''),

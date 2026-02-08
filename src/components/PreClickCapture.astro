@@ -37,6 +37,7 @@ const modalId = 'preclick-capture-modal';
       <input type="hidden" name="page" value="" data-preclick-page />
       <input type="hidden" name="platform" value={platformId} data-preclick-platform-id />
       <input type="hidden" name="platforms[]" value={platformId} data-preclick-platforms />
+      <input type="hidden" name="click_id" value="" data-preclick-click-id />
       <label class="flex flex-col gap-2 text-sm text-white/70">
         Telegram
         <input
@@ -110,6 +111,7 @@ const modalId = 'preclick-capture-modal';
     const platformIdInput = modal.querySelector('[data-preclick-platform-id]');
     const platformsInput = modal.querySelector('[data-preclick-platforms]');
     const pageInput = modal.querySelector('[data-preclick-page]');
+    const clickIdInput = modal.querySelector('[data-preclick-click-id]');
     const consentInput = modal.querySelector('[data-preclick-consent]');
     const submitButton = modal.querySelector('[data-preclick-submit]');
     const skipButton = modal.querySelector('[data-preclick-skip]');
@@ -117,6 +119,24 @@ const modalId = 'preclick-capture-modal';
     let activeGoHref = goHref || '';
     let activePlatformId = platformId || '';
     let activePlatformName = platformName || '';
+
+    const generateClickId = () => {
+      if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+        return crypto.randomUUID();
+      }
+      return `cid_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+    };
+
+    const attachClickId = () => {
+      const clickId = generateClickId();
+      try {
+        sessionStorage.setItem('ncs_click_id', clickId);
+      } catch (error) {
+        // Ignore storage failures.
+      }
+      if (clickIdInput) clickIdInput.value = clickId;
+      return clickId;
+    };
 
     const openModal = ({ goHref, platformId, platformName }) => {
       activeGoHref = goHref || activeGoHref || '';
@@ -126,6 +146,7 @@ const modalId = 'preclick-capture-modal';
       if (platformIdInput) platformIdInput.value = activePlatformId;
       if (platformsInput) platformsInput.value = activePlatformId;
       if (pageInput) pageInput.value = window.location.pathname || '';
+      attachClickId();
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       body.classList.add('overflow-hidden');
@@ -137,9 +158,20 @@ const modalId = 'preclick-capture-modal';
       body.classList.remove('overflow-hidden');
     };
 
-    const openTarget = (href) => {
+    const openTarget = (href, clickId) => {
       if (!href) return;
-      window.open(href, '_blank', 'noopener');
+      let resolved = href;
+      if (clickId) {
+        try {
+          const url = new URL(href, window.location.origin);
+          url.searchParams.set('cid', clickId);
+          resolved = `${url.pathname}${url.search}${url.hash}`;
+        } catch (error) {
+          const glue = href.includes('?') ? '&' : '?';
+          resolved = `${href}${glue}cid=${encodeURIComponent(clickId)}`;
+        }
+      }
+      window.open(resolved, '_blank', 'noopener');
     };
 
     document.addEventListener('click', (event) => {
@@ -185,12 +217,14 @@ const modalId = 'preclick-capture-modal';
         }
       }
 
-      openTarget(activeGoHref);
+      const clickId = clickIdInput?.value || '';
+      openTarget(activeGoHref, clickId);
       closeModal();
     });
 
     skipButton?.addEventListener('click', () => {
-      openTarget(activeGoHref);
+      const clickId = clickIdInput?.value || attachClickId();
+      openTarget(activeGoHref, clickId);
       closeModal();
     });
   })();
