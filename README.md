@@ -10,6 +10,7 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 - Pages safety scan: `npm run test:pages-safety`
 - JSON schema validation: `npm run check:schemas`
 - Homepage snapshot check: `npm run test:snapshot`
+- E2E smoke tests (dev): `npm run dev` then `BASE_URL=http://localhost:4321 npm run test:e2e`
 
 ## Deploy model
 
@@ -17,6 +18,25 @@ Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
 - Treat `/public/go` as the canonical source inside the repo — never hand-edit PHP on the server.
 - The Pages workflow deletes `dist/go`, so GitHub Pages never ships the PHP redirectors.
 - ViceTemple Apache normalizes `/join-models`, `/apply`, `/packages`, `/how-it-works`, and `/platforms` to their trailing-slash routes.
+
+## E2E smoke tests
+
+Dev mode (Astro):
+
+```bash
+npm run dev
+BASE_URL=http://localhost:4321 npm run test:e2e
+```
+
+PHP mode (claim endpoints):
+
+```bash
+npm run build
+php -S localhost:8080 -t dist
+BASE_URL=http://localhost:8080 npm run test:e2e
+```
+
+Note: local PHP does not emulate Apache `.htaccess` rewrites.
 
 ## Project structure
 

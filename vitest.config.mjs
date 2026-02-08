@@ -2,7 +2,6 @@ import { configDefaults, defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    exclude: [...configDefaults.exclude, 'tests/**/*.mjs']
+    exclude: [...configDefaults.exclude, 'tests/**/*.mjs', 'tests/e2e/**']
   }
 });
-
