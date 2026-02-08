@@ -5,6 +5,7 @@ const {
   showNavigation = true
 } = Astro.props;
 import LinkCTA from '../components/LinkCTA.astro';
+import PreClickCapture from '../components/PreClickCapture.astro';
 import '../styles/tailwind.css';
 import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
 import { NAV_MORE, NAV_PRIMARY, type NavLink } from '../data/nav';
@@ -126,6 +127,7 @@ gtag('config', '${gaMeasurementId}');`}
     <div class="pointer-events-none fixed inset-0 z-0 bg-aurora opacity-80"></div>
     <div class="pointer-events-none absolute -left-24 top-32 h-72 w-72 rounded-full bg-rose-gold/20 blur-3xl"></div>
     <div class="pointer-events-none absolute -right-32 top-12 h-80 w-80 rounded-full bg-rose-gold/25 blur-3xl"></div>
+    <PreClickCapture />
 
     <div class="relative z-10 flex min-h-screen flex-col">
       {showNavigation && (

@@ -45,6 +45,8 @@ const useGoLinks = !isPagesBuild();
     <div class="grid gap-6 lg:grid-cols-2">
       {PLATFORMS.map((platform) => {
         const href = useGoLinks ? platform.goPath : withBase('/apply');
+        const target = useGoLinks ? '_blank' : undefined;
+        const rel = useGoLinks ? 'noopener noreferrer' : undefined;
         return (
           <article class="content-card space-y-4">
             <div class="flex items-center justify-between">
@@ -58,7 +60,13 @@ const useGoLinks = !isPagesBuild();
               <a
                 class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white"
                 href={href}
+                target={target}
+                rel={rel}
                 data-platform={platform.slug}
+                data-preclick={useGoLinks ? '1' : undefined}
+                data-go-href={useGoLinks ? platform.goPath : undefined}
+                data-platform-id={platform.slug}
+                data-platform-name={platform.name}
               >
                 View requirements
               </a>
@@ -69,4 +77,3 @@ const useGoLinks = !isPagesBuild();
     </div>
   </section>
 </MainLayout>
-

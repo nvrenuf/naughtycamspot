@@ -1,7 +1,6 @@
 ---
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
-import PreClickCapture from '../components/PreClickCapture.astro';
 import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import VipTeasers from '../components/VipTeasers.astro';
@@ -206,7 +205,6 @@ const clientPrograms = JSON.stringify(
     description="Skip the guesswork. Pick the right platforms and get a tailored launch kit — free."
     path={canonicalPath}
   />
-  <PreClickCapture />
   <div class="hidden" data-preclick-go-links={preclickGoLinks.join(',')} aria-hidden="true"></div>
   <section class="space-y-8">
     <Notices />
@@ -339,8 +337,8 @@ const clientPrograms = JSON.stringify(
                       class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
                       href={result.joinHrefResolved}
                       target="_blank"
-                      rel="noopener"
-                      data-preclick-trigger="true"
+                      rel="noopener noreferrer"
+                      data-preclick="1"
                       data-go-href={result.joinHrefResolved}
                       data-platform-id={result.key}
                       data-platform-name={result.name}
@@ -567,11 +565,11 @@ const clientPrograms = JSON.stringify(
               (isPagesBuild ? !/^https?:\/\//i.test(joinHrefPages || '') : !resolvedJoinHref);
             const joinLabel = 'Join with our links';
             const joinIsExternal = /^https?:\/\//i.test(resolvedJoinHref);
-            const joinRel = joinIsExternal ? 'nofollow noopener' : 'noopener';
+            const joinRel = joinIsExternal ? 'nofollow noopener noreferrer' : 'noopener noreferrer';
             const joinDisabledLabel = result.joinDisabledLabel || 'Join path pending';
             const joinButton = joinDisabled
               ? `<span class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/40" aria-disabled="true">${joinDisabledLabel}</span>`
-              : `<a class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1" href="${resolvedJoinHref}" target="_blank" rel="${joinRel}" data-preclick-trigger="true" data-go-href="${resolvedJoinHref}" data-platform-id="${result.key}" data-platform-name="${result.name}">${joinLabel}${joinIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
+              : `<a class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1" href="${resolvedJoinHref}" target="_blank" rel="${joinRel}" data-preclick="1" data-go-href="${resolvedJoinHref}" data-platform-id="${result.key}" data-platform-name="${result.name}">${joinLabel}${joinIsExternal ? '<span class="ml-2" aria-hidden="true">↗</span>' : ''}</a>`;
             const primaryHref = isPagesBuild ? primaryPages : primaryProd;
             const primaryIsExternal = /^https?:\/\//i.test(primaryHref);
             const primaryTarget = primaryIsExternal ? '_blank' : '_self';

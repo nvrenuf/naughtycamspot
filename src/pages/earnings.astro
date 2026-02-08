@@ -6,7 +6,7 @@ import programs from '../data/programs.json';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
 import MainLayout from '../layouts/MainLayout.astro';
 import earnings from '../data/earnings.json';
-import { formatDateStamp } from '../utils/links';
+import { formatDateStamp, isPagesBuild } from '../utils/links';
 import { buildPagesJoinHref } from '../utils/programs.js';
 
 interface Program {
@@ -38,6 +38,7 @@ const cards = bandEntries.map(([key, bands]) => {
   });
   const joinHrefProdTemplate = `/go/model-join.php?src=${slot}&camp=earnings&date=YYYYMMDD`;
   const joinHrefProd = joinHrefProdTemplate.replace('YYYYMMDD', dateStamp);
+  const joinHrefResolved = isPagesBuild() ? joinHrefPages : joinHrefProd;
   const statusMeta = resolveProgramStatusMeta(program?.status ?? 'pending');
   const joinDisabled = !statusMeta.allowsJoin || !/^https?:\/\//i.test(joinHrefPages);
 
@@ -47,6 +48,7 @@ const cards = bandEntries.map(([key, bands]) => {
     bands,
     joinHrefPages,
     joinHrefProd,
+    joinHrefResolved,
     joinDisabled,
     joinDisabledLabel: statusMeta.joinDisabledLabel
   };
@@ -87,12 +89,18 @@ const cards = bandEntries.map(([key, bands]) => {
                   {card.joinDisabledLabel}
                 </span>
               ) : (
-                <LinkCTA
-                  class="border border-rose-gold/60 bg-rose-gold text-midnight"
-                  pagesHref={card.joinHrefPages}
-                  prodHref={card.joinHrefProd}
-                  label="Join with our links"
-                />
+                <a
+                  class="inline-flex items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+                  href={card.joinHrefResolved}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-preclick="1"
+                  data-go-href={card.joinHrefResolved}
+                  data-platform-id={card.key}
+                  data-platform-name={card.name}
+                >
+                  Join with our links
+                </a>
               )}
               <LinkCTA
                 class="border border-white/20 bg-transparent text-white hover:bg-white/10"

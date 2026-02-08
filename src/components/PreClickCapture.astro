@@ -34,6 +34,7 @@ const modalId = 'preclick-capture-modal';
       <input type="hidden" name="lead_form" value="1" />
       <input type="hidden" name="source" value="preclick" />
       <input type="hidden" name="src" value="preclick" />
+      <input type="hidden" name="page" value="" data-preclick-page />
       <input type="hidden" name="platform" value={platformId} data-preclick-platform-id />
       <input type="hidden" name="platforms[]" value={platformId} data-preclick-platforms />
       <label class="flex flex-col gap-2 text-sm text-white/70">
@@ -108,6 +109,7 @@ const modalId = 'preclick-capture-modal';
     const platformLabel = modal.querySelector('[data-preclick-platform]');
     const platformIdInput = modal.querySelector('[data-preclick-platform-id]');
     const platformsInput = modal.querySelector('[data-preclick-platforms]');
+    const pageInput = modal.querySelector('[data-preclick-page]');
     const consentInput = modal.querySelector('[data-preclick-consent]');
     const submitButton = modal.querySelector('[data-preclick-submit]');
     const skipButton = modal.querySelector('[data-preclick-skip]');
@@ -123,6 +125,7 @@ const modalId = 'preclick-capture-modal';
       if (platformLabel) platformLabel.textContent = activePlatformName || 'Selected platform';
       if (platformIdInput) platformIdInput.value = activePlatformId;
       if (platformsInput) platformsInput.value = activePlatformId;
+      if (pageInput) pageInput.value = window.location.pathname || '';
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       body.classList.add('overflow-hidden');
@@ -140,7 +143,7 @@ const modalId = 'preclick-capture-modal';
     };
 
     document.addEventListener('click', (event) => {
-      const trigger = event.target.closest('[data-preclick-trigger]');
+      const trigger = event.target.closest('[data-preclick-trigger],[data-preclick="1"]');
       if (!trigger) return;
       const goHref = trigger.getAttribute('data-go-href') || trigger.getAttribute('href') || '';
       const platformId = trigger.getAttribute('data-platform-id') || '';
@@ -162,10 +165,12 @@ const modalId = 'preclick-capture-modal';
 
       if (hasContact && consent) {
         try {
-          const payload = new FormData(form || undefined);
+          const payload = form ? new FormData(form) : new FormData();
           payload.set('lead_form', '1');
           payload.set('source', 'preclick');
           payload.set('src', 'preclick');
+          payload.set('page', window.location.pathname || '');
+          payload.set('consent', 'true');
           if (activePlatformId) {
             payload.set('platform', activePlatformId);
             payload.set('platforms[]', activePlatformId);
