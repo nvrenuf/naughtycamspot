@@ -4,58 +4,136 @@ import SEO from '../components/SEO.astro';
 import { withBase } from '../utils/links';
 
 const canonicalPath = '/proof';
+const weeklyReportHref = withBase('/proof/sample-weekly-report.md');
+const captionPackHref = withBase('/proof/sample-caption-pack.txt');
+const calendarHref = withBase('/proof/sample-content-calendar.md');
+const ladderHref = withBase('/proof/sample-room-goal-ladder.txt');
 ---
 
 <MainLayout
-  title="Proof | NaughtyCamSpot"
-  description="Proof points and operating principles behind the NCS promotion stack."
+  title="Proof & Templates | NaughtyCamSpot"
+  description="Examples and templates from the NCS operating stack: weekly reports, caption packs, and content calendars."
 >
   <SEO
     slot="head"
-    title="Proof | NaughtyCamSpot"
-    description="Proof points and operating principles behind the NCS promotion stack."
+    title="Proof & Templates | NaughtyCamSpot"
+    description="Examples and templates from the NCS operating stack: weekly reports, caption packs, and content calendars."
     path={canonicalPath}
   />
 
   <section class="space-y-10">
     <div class="content-card space-y-4">
       <p class="hero-tagline">Proof</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">Growth that is measurable, repeatable, and transparent.</h1>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Examples + templates you can deploy right away.</h1>
       <p class="max-w-2xl text-base text-white/70">
         We focus on operational discipline: consistent promotion, weekly review loops, and platform-specific playbooks. Below is
-        the structure we apply to every model we onboard.
+        a snapshot of the materials we send inside the concierge workflow.
       </p>
-      <a
-        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-        href={withBase('/apply')}
-      >
-        Apply now
-      </a>
     </div>
 
-    <div class="grid gap-6 lg:grid-cols-3">
-      <article class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Signal</p>
-        <h2 class="font-display text-2xl text-white">Weekly ops review</h2>
-        <p class="text-sm text-white/70">
-          Every model receives a weekly review covering promo cadence, conversion notes, and next-week focus points.
-        </p>
+    <div class="content-card space-y-4">
+      <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">What you receive weekly</h2>
+      <ul class="grid gap-3 text-sm text-white/70 md:grid-cols-2">
+        <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Weekly performance recap + next actions</li>
+        <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Promo cadence prompts and captions</li>
+        <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Content calendar adjustments</li>
+        <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Goal ladder scripts for high-intent sessions</li>
+      </ul>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <article class="content-card space-y-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Sample weekly report</p>
+          <h2 class="font-display text-2xl text-white">Weekly ops review excerpt</h2>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/70">
+          <p class="font-semibold text-white">Highlights</p>
+          <ul class="mt-2 space-y-1">
+            <li>Cadence hit target sessions for the week</li>
+            <li>Peak traffic window identified and reinforced</li>
+            <li>Next-week focus: new opening scripts + retention prompts</li>
+          </ul>
+        </div>
+        <a class="text-sm uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={weeklyReportHref}>
+          Download sample report
+        </a>
       </article>
-      <article class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Process</p>
-        <h2 class="font-display text-2xl text-white">Automated promo stack</h2>
-        <p class="text-sm text-white/70">
-          Scheduled promotion keeps traffic consistent without requiring extra daily manual work.
-        </p>
+
+      <article class="content-card space-y-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Caption pack examples</p>
+          <h2 class="font-display text-2xl text-white">Promo-ready captions</h2>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/70">
+          <p class="font-semibold text-white">Example lines</p>
+          <ul class="mt-2 space-y-1">
+            <li>“Live in 10 — warm lighting, chill energy, and a new tip menu.”</li>
+            <li>“Tonight: goal ladder + surprise unlocks.”</li>
+            <li>“Short session, high energy — see you in 5.”</li>
+          </ul>
+        </div>
+        <a class="text-sm uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={captionPackHref}>
+          Download caption pack
+        </a>
       </article>
-      <article class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Support</p>
-        <h2 class="font-display text-2xl text-white">Hands-on concierge</h2>
-        <p class="text-sm text-white/70">
-          We stay available for platform questions, changes, and launch adjustments.
-        </p>
+
+      <article class="content-card space-y-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Content calendar example</p>
+          <h2 class="font-display text-2xl text-white">Weekly cadence outline</h2>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/70">
+          <p class="font-semibold text-white">Week flow</p>
+          <ul class="mt-2 space-y-1">
+            <li>Mon: Launch post + teaser clip</li>
+            <li>Thu: Retention-focused stream night</li>
+            <li>Sun: Schedule update + next-week goals</li>
+          </ul>
+        </div>
+        <a class="text-sm uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={calendarHref}>
+          Download calendar
+        </a>
       </article>
+
+      <article class="content-card space-y-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Room goal ladder scripts</p>
+          <h2 class="font-display text-2xl text-white">Structured session goals</h2>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/70">
+          <p class="font-semibold text-white">Goal ladder sample</p>
+          <ul class="mt-2 space-y-1">
+            <li>Warm-up → outfit switch → VIP tease</li>
+            <li>Timed unlocks every 20 minutes</li>
+            <li>Fan-requested mini-show</li>
+          </ul>
+        </div>
+        <a class="text-sm uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={ladderHref}>
+          Download goal ladder
+        </a>
+      </article>
+    </div>
+
+    <div class="content-card flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Ready for the full kit?</p>
+        <p class="text-sm text-white/70">Apply to unlock concierge guidance and personalized workflows.</p>
+      </div>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          href={withBase('/apply')}
+        >
+          Apply now
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
+          href={withBase('/packages')}
+        >
+          View packages
+        </a>
+      </div>
     </div>
   </section>
 </MainLayout>
-
