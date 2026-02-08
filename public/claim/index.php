@@ -45,6 +45,7 @@ $leadValues = [
 ];
 
 if (request_method_is('POST') && request_string('lead_form') === '1') {
+    $kitUnlock = request_string('kit_unlock') === '1';
     $leadValues['telegram'] = sanitize_text($_POST['telegram'] ?? '', 120);
     $leadValues['email'] = sanitize_text($_POST['email'] ?? '', 200);
     $leadValues['whatsapp'] = sanitize_text($_POST['whatsapp'] ?? '', 120);
@@ -71,7 +72,11 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
         @file_put_contents($logPath, $logEntry . PHP_EOL, FILE_APPEND | LOCK_EX);
     }
 
-    header('Location: /claim/success.html', true, 302);
+    if ($kitUnlock && $leadValues['consent']) {
+        header('Location: /vip-kit-unlocked/', true, 302);
+    } else {
+        header('Location: /claim/success.html', true, 302);
+    }
     exit;
 }
 

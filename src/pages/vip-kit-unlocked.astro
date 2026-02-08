@@ -1,0 +1,54 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/vip-kit-unlocked';
+const checklistHref = withBase('/vip/ncs-starter-checklist.pdf');
+const weekPlanHref = withBase('/vip/first-week-plan.pdf');
+const captionsHref = withBase('/vip/promo-caption-pack.txt');
+---
+
+<MainLayout
+  title="VIP Kit Unlocked | NaughtyCamSpot"
+  description="Download the VIP Starter Kit assets."
+  showNavigation={false}
+>
+  <SEO
+    slot="head"
+    title="VIP Kit Unlocked | NaughtyCamSpot"
+    description="Download the VIP Starter Kit assets."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-6 text-sm text-white/70">
+    <div class="space-y-2">
+      <p class="hero-tagline">Unlocked</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Your VIP Starter Kit</h1>
+      <p>
+        These files are placeholders for now. We&apos;ll replace them with the final kit assets after the concierge rollout.
+      </p>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      <a
+        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition hover:border-rose-gold/60 hover:text-rose-gold"
+        href={checklistHref}
+      >
+        Download starter checklist (PDF)
+      </a>
+      <a
+        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition hover:border-rose-gold/60 hover:text-rose-gold"
+        href={weekPlanHref}
+      >
+        Download first-week plan (PDF)
+      </a>
+      <a
+        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white transition hover:border-rose-gold/60 hover:text-rose-gold"
+        href={captionsHref}
+      >
+        Download promo caption pack (TXT)
+      </a>
+    </div>
+  </section>
+</MainLayout>
