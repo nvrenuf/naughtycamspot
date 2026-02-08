@@ -175,22 +175,13 @@ gtag('config', '${gaMeasurementId}');`}
               );
             })}
             {moreNavLinks.length > 0 && (
-              <div class="relative group" data-nav-more>
-                <button
-                  type="button"
-                  class={`flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:text-sm lg:tracking-[0.3em] ${moreMenuActive ? 'text-rose-gold' : 'text-white/70'}`}
-                  data-nav-more-trigger
-                  aria-haspopup="menu"
-                  aria-expanded="false"
+              <details class="relative">
+                <summary
+                  class={`list-none [&::-webkit-details-marker]:hidden flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:text-sm lg:tracking-[0.3em] ${moreMenuActive ? 'text-rose-gold' : 'text-white/70'}`}
                 >
                   Resources
-                </button>
-                <div
-                  class="pointer-events-none invisible absolute right-0 top-full mt-3 max-h-[70vh] w-56 origin-top-right overflow-y-auto overscroll-contain rounded-3xl border border-white/10 bg-black/90 p-3 pr-1 opacity-0 shadow-glow backdrop-blur-2xl transition [--menu-duration:150ms]"
-                  data-nav-more-panel
-                  role="menu"
-                  tabindex="-1"
-                >
+                </summary>
+                <div class="absolute right-0 top-full mt-3 max-h-[70vh] w-56 overflow-y-auto overscroll-contain rounded-3xl border border-white/10 bg-black/90 p-3 pr-1 shadow-glow backdrop-blur-2xl">
                   <ul class="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 lg:text-xs lg:tracking-[0.28em]">
                     {moreNavLinks.map((link) => {
                       const resolvedHref = resolveNavHref(link);
@@ -199,7 +190,6 @@ gtag('config', '${gaMeasurementId}');`}
                           <a
                             class="block rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-rose-gold"
                             href={withBase(resolvedHref)}
-                            role="menuitem"
                           >
                             {link.label}
                           </a>
@@ -208,7 +198,7 @@ gtag('config', '${gaMeasurementId}');`}
                     })}
                   </ul>
                 </div>
-              </div>
+              </details>
             )}
           </nav>
           <div class="lg:hidden">
@@ -315,10 +305,6 @@ gtag('config', '${gaMeasurementId}');`}
     return;
   }
 
-  const moreContainer = navRoot.querySelector('[data-nav-more]');
-  const moreButton = moreContainer ? moreContainer.querySelector('[data-nav-more-trigger]') : null;
-  const morePanel = moreContainer ? moreContainer.querySelector('[data-nav-more-panel]') : null;
-  const moreLinks = morePanel ? Array.from(morePanel.querySelectorAll('a[href]')) : [];
   const mobileToggle = navRoot.querySelector('[data-nav-mobile-toggle]');
   const mobileDrawer = navRoot.querySelector('[data-nav-mobile-drawer]');
   const mobileOverlay = navRoot.querySelector('[data-nav-mobile-overlay]');
@@ -327,108 +313,12 @@ gtag('config', '${gaMeasurementId}');`}
   const mobileMoreTrigger = navRoot.querySelector('[data-nav-mobile-more-trigger]');
   const mobileMorePanel = navRoot.querySelector('[data-nav-mobile-more-panel]');
 
-  let moreOpen = false;
   let drawerOpen = false;
   let mobileMoreOpen = false;
-
-  const getMoreFocusable = () => {
-    if (!morePanel) {
-      return [];
-    }
-    return Array.from(
-      morePanel.querySelectorAll(
-        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      )
-    );
-  };
-
-  const focusMoreFirstItem = () => {
-    if (!moreButton || document.activeElement !== moreButton) {
-      return;
-    }
-    const focusable = getMoreFocusable();
-    if (focusable.length > 0) {
-      focusable[0].focus();
-      return;
-    }
-    if (morePanel) {
-      morePanel.focus();
-    }
-  };
-
-  const handleMoreKeydown = (event) => {
-    if (event.key !== 'Tab') {
-      return;
-    }
-    const focusable = getMoreFocusable();
-    if (focusable.length === 0) {
-      return;
-    }
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    const active = document.activeElement;
-    if (event.shiftKey) {
-      if (active === first) {
-        event.preventDefault();
-        last.focus();
-      }
-    } else if (active === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  };
-
-  const setMoreOpen = (open) => {
-    if (!moreButton || !morePanel) {
-      return;
-    }
-    if (moreOpen === open) {
-      return;
-    }
-    moreOpen = open;
-    moreButton.setAttribute('aria-expanded', open ? 'true' : 'false');
-    if (open) {
-      morePanel.classList.remove('pointer-events-none');
-      morePanel.classList.remove('invisible');
-      window.requestAnimationFrame(() => {
-        morePanel.classList.remove('opacity-0');
-      });
-      focusMoreFirstItem();
-      morePanel.addEventListener('keydown', handleMoreKeydown);
-    } else {
-      morePanel.classList.add('pointer-events-none');
-      morePanel.classList.add('opacity-0');
-      window.setTimeout(() => {
-        if (!moreOpen) {
-          morePanel.classList.add('invisible');
-        }
-      }, 150);
-      morePanel.removeEventListener('keydown', handleMoreKeydown);
-      const active = document.activeElement;
-      if (active && (active === moreButton || (morePanel && morePanel.contains(active)))) {
-        moreButton.focus({ preventScroll: true });
-      }
-    }
-  };
-
-  const closeMore = () => setMoreOpen(false);
-
-  const handleDocumentClick = (event) => {
-    if (!moreOpen || !moreContainer) {
-      return;
-    }
-    if (moreContainer.contains(event.target)) {
-      return;
-    }
-    closeMore();
-  };
 
   const handleEscape = (event) => {
     if (event.key !== 'Escape') {
       return;
-    }
-    if (moreOpen) {
-      closeMore();
     }
     if (drawerOpen) {
       setDrawerOpen(false);
@@ -490,32 +380,6 @@ gtag('config', '${gaMeasurementId}');`}
       }
     }
   };
-
-  if (moreButton && morePanel) {
-    moreButton.addEventListener('click', () => {
-      setMoreOpen(!moreOpen);
-    });
-    morePanel.addEventListener('wheel', (event) => {
-      const canScroll = morePanel.scrollHeight > morePanel.clientHeight;
-      if (!canScroll) {
-        return;
-      }
-      event.stopPropagation();
-      const atTop = morePanel.scrollTop === 0;
-      const atBottom =
-        morePanel.scrollTop + morePanel.clientHeight >= morePanel.scrollHeight - 1;
-      if ((atTop && event.deltaY < 0) || (atBottom && event.deltaY > 0)) {
-        event.preventDefault();
-      }
-    }, { passive: false });
-    // Keep dropdown controlled by click + outside click to avoid closing on scroll.
-    document.addEventListener('click', handleDocumentClick);
-    if (moreLinks.length > 0) {
-      moreLinks.forEach((link) => {
-        link.addEventListener('click', closeMore);
-      });
-    }
-  }
 
   if (mobileToggle) {
     mobileToggle.addEventListener('click', () => {
