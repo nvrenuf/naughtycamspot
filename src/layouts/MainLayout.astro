@@ -175,7 +175,7 @@ gtag('config', '${gaMeasurementId}');`}
               );
             })}
             {moreNavLinks.length > 0 && (
-              <div class="relative" data-nav-more>
+              <div class="relative group" data-nav-more>
                 <button
                   type="button"
                   class={`flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:text-sm lg:tracking-[0.3em] ${moreMenuActive ? 'text-rose-gold' : 'text-white/70'}`}
@@ -186,7 +186,7 @@ gtag('config', '${gaMeasurementId}');`}
                   Resources
                 </button>
                 <div
-                  class="pointer-events-none invisible absolute right-0 top-full mt-3 max-h-72 w-56 origin-top-right overflow-y-auto rounded-3xl border border-white/10 bg-black/90 p-3 opacity-0 shadow-glow backdrop-blur-2xl transition [--menu-duration:150ms]"
+                  class="pointer-events-none invisible absolute right-0 top-full mt-3 max-h-72 w-56 origin-top-right overflow-y-auto rounded-3xl border border-white/10 bg-black/90 p-3 opacity-0 shadow-glow backdrop-blur-2xl transition [--menu-duration:150ms] group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100"
                   data-nav-more-panel
                   role="menu"
                   tabindex="-1"
