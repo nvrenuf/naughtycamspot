@@ -1,7 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
 import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
 import { withBase } from '../../utils/links';
+
+const canonicalPath = '/posts';
 
 const rawPosts = await getCollection('blog');
 const posts = rawPosts
@@ -53,6 +56,13 @@ const totalPosts = posts.length;
   title="Posts | NaughtyCamSpot"
   description="Insights & stories from the NaughtyCamSpot concierge team — luxury growth strategy for performers."
 >
+  <SEO
+    slot="head"
+    title="Posts | NaughtyCamSpot"
+    description="Insights and stories from NaughtyCamSpot on recruiting, promotion, and performer growth strategy."
+    path={canonicalPath}
+  />
+
   <!-- SECTION: Blog Hero -->
   <section class="hero-shell parallax-veil">
     <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/60"></div>

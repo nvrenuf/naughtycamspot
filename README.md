@@ -78,6 +78,17 @@ branch has diverged, the script will warn so you can handle the merge manually.
 - ViceTemple security headers are shipped via `public/.htaccess` — keep updates scoped there so Pages previews remain unaffected.
 - Page-level titles, descriptions, OG, and canonical tags are centralized in `src/components/SEO.astro`. Pull this component into new pages and provide unique copy per surface.
 
+### Adding SEO to a new page or post
+
+1. Import `SEO` from `src/components/SEO.astro`.
+2. Render `<SEO slot="head" ... />` inside the page layout with:
+   - unique `title`
+   - unique `description`
+   - canonical `path` (for example `/startright` or `/posts/my-slug`)
+3. Add `ogImage` for pages/posts that have a share image and set `ogType="article"` on article detail pages.
+4. Run `npm run build` and confirm the route appears in `dist/sitemap-index.xml` / `dist/sitemap-0.xml`.
+5. Keep `public/robots.prod.txt` and `public/robots.pages.txt` aligned with the intended crawl policy.
+
 ## Tracked links in prod vs Pages
 
 - Use the shared `buildTrackedLink` helper whenever a `/go/*` slug is involved (homepage hero CTA, `<BannerSlot>`, model profile buttons).
