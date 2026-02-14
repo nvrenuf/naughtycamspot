@@ -1,5 +1,5 @@
 # naughtycamspot
-Luxury gallery frontend for Naughty Cam Spot, built with Astro and Tailwind CSS.
+Recruiting + promotion frontend for NaughtyCamSpot, built with Astro and Tailwind CSS.
 
 ## Commands
 
@@ -41,7 +41,7 @@ Note: local PHP does not emulate Apache `.htaccess` rewrites.
 ## Project structure
 
 - `src/layouts/MainLayout.astro` — shared chrome, fonts, and ambient gradients
-- `src/pages/index.astro` — luxury gallery homepage experience
+- `src/pages/index.astro` — dual-path homepage for recruiting (affiliate links) and paid promotion services
 - `src/pages/join-models.astro` — recruitment landing with concierge bullets, tracked CTA, FAQ placeholders, and banner slot
 - `src/pages/disclosure.astro` — affiliate disclosure copy surfaced in the global footer
 - `src/styles/tailwind.css` — Tailwind layers plus glassmorphism utility classes

@@ -2,7 +2,7 @@
 
 This document defines the recommended order for Codex to tackle the outstanding issues for the NaughtyCamSpot site.  Addressing them in this sequence will ensure that core messaging and navigation updates are completed before more incremental improvements.
 
-1. **Clarify dual purpose (recruiting vs. promotion) — see issue #80**
+1. [x] **Clarify dual purpose (recruiting vs. promotion) — see issue #80**
 
    Update the site’s messaging so visitors immediately understand NaughtyCamSpot is both a model recruitment platform (via affiliate partnerships) and a paid promotion service (where models pay for marketing).  Adjust the homepage hero, meta description and CTAs accordingly:contentReference[oaicite:0]{index=0}.
 
