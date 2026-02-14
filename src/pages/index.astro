@@ -6,6 +6,7 @@ import WhyCam from '../partials/home/WhyCam.astro';
 import TrustedPrograms from '../partials/home/TrustedPrograms.astro';
 import HowItWorks from '../partials/home/HowItWorks.astro';
 import FinalCTA from '../partials/home/FinalCTA.astro';
+import MiniTestimonials from '../partials/home/MiniTestimonials.astro';
 
 const canonicalPath = '/';
 
@@ -18,13 +19,13 @@ const websiteJsonLd = {
 ---
 
 <MainLayout
-  title="NaughtyCamSpot | Recruiting + Promotion for Cam Models"
-  description="NaughtyCamSpot helps cam models in two ways: affiliate recruiting links for platform signup and paid promotion services for audience growth."
+  title="NaughtyCamSpot | Elevate Your Cam Career with Recruiting + Promotion"
+  description="Benefit-driven growth for cam models: choose recruiting guidance, paid promotion support, or both."
 >
   <SEO
     slot="head"
-    title="NaughtyCamSpot | Recruiting + Promotion for Cam Models"
-    description="Join partner platforms through NaughtyCamSpot recruiting links or purchase paid promotion packages to grow your traffic."
+    title="NaughtyCamSpot | Elevate Your Cam Career with Recruiting + Promotion"
+    description="Get expert recruiting guidance and paid promotion options with clear trust standards and model-first account ownership."
     path={canonicalPath}
     ogImage="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1280&q=80"
   />
@@ -34,5 +35,6 @@ const websiteJsonLd = {
   <WhyCam />
   <HowItWorks compact />
   <TrustedPrograms compact />
+  <MiniTestimonials />
   <FinalCTA />
 </MainLayout>

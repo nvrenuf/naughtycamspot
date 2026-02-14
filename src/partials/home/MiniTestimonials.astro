@@ -3,28 +3,47 @@ import { withBase } from '../../utils/links';
 
 const testimonials = [
   {
-    name: 'Featured Model Spotlight',
-    role: 'Placeholder profile',
-    quote:
-      'Meet real NCS models making real progress. Our Featured Model pages highlight top performers and link directly to their rooms.',
+    name: 'Anna, new recruit',
+    role: 'Recruiting track',
+    quote: 'I picked a platform in one day instead of guessing for weeks. The onboarding checklist made launch simple.',
     image:
       'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=240&q=80'
+  },
+  {
+    name: 'Maya, growth client',
+    role: 'Promotion track',
+    quote: 'The promo package gave me a schedule and content plan I could actually follow every week.',
+    image:
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&q=80'
   }
+] as const;
+
+const trustMetrics = [
+  { label: 'Paths available', value: '2' },
+  { label: 'Partner platforms', value: '4+' },
+  { label: 'Account ownership', value: 'Model-first' }
 ] as const;
 ---
 <section class="border-t border-white/5 px-6 pb-24 pt-20">
   <div class="mx-auto max-w-6xl">
     <div class="flex flex-col gap-4 text-center">
       <p class="mx-auto text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-petal/70">
-        Featured Model spotlight
+        Trust signals
       </p>
       <h2 class="font-display text-[clamp(2rem,4.5vw,2.9rem)] text-white">
-        Meet the models leading the way
+        Proof-minded, model-first execution
       </h2>
       <p class="mx-auto max-w-3xl text-[clamp(0.95rem,1.9vw,1.15rem)] text-white/70">
-        Meet real NCS models making real progress. Spotlight features link directly to their rooms and showcase how StartRight
-        support translates into momentum.
+        We keep the trust posture explicit: no account takeovers, no exclusivity lock-ins, and no earnings guarantees.
       </p>
+    </div>
+    <div class="mt-10 grid gap-4 sm:grid-cols-3">
+      {trustMetrics.map((metric) => (
+        <article class="rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
+          <p class="text-[clamp(1.4rem,3vw,2rem)] font-semibold text-white">{metric.value}</p>
+          <p class="mt-1 text-xs uppercase tracking-[0.3em] text-white/55">{metric.label}</p>
+        </article>
+      ))}
     </div>
     <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {testimonials.map((testimonial) => (
@@ -42,8 +61,8 @@ const testimonials = [
             </figcaption>
           </div>
           <blockquote class="text-[clamp(0.95rem,1.7vw,1.1rem)] leading-relaxed text-white/80">“{testimonial.quote}”</blockquote>
-          <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/startright')}>
-            Become a Featured Model →
+          <a class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white" href={withBase('/proof/')}>
+            Review proof →
           </a>
         </figure>
       ))}

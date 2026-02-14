@@ -14,7 +14,7 @@ This document defines the recommended order for Codex to tackle the outstanding 
 
    Create a `/recruiting` page listing partner platforms (Chaturbate, CamSoda, etc.) with descriptions and affiliate links, and a `/promotion` page outlining marketing packages with features, pricing and sign‑up forms.  Cross‑link these pages and update CTAs to point at them.
 
-4. **Rewrite homepage & hero section — see issue #83**
+4. [x] **Rewrite homepage & hero section — see issue #83**
 
    Overhaul the homepage copy and visuals to clearly communicate the benefits of using NaughtyCamSpot.  Add a benefit‑driven hero headline and sub‑heading, a section comparing recruiting vs. promotion, and trust signals (non‑negotiables and testimonials).
 

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 const routes = [
-  { path: '/', heading: 'We help cam models grow' },
+  { path: '/', heading: 'Elevate your cam career with expert recruiting guidance and paid promotion support' },
   { path: '/join-models/', heading: 'Apply for concierge support' },
   { path: '/apply/', heading: 'Get matched to the right promo stack.' },
   { path: '/startright/', heading: 'Start Smart. Cam Confidently.' },

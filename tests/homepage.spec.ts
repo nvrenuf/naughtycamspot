@@ -8,7 +8,7 @@ const readPostsIndex = (mode: 'pages' | 'prod') => readOutputFile(mode, ['posts'
 describe('Homepage routing', () => {
   it('builds the homepage at the root without v2 prefixes', async () => {
     const { html } = await readHome('prod');
-    expect(html).toContain('NaughtyCamSpot | Recruiting + Promotion for Cam Models');
+    expect(html).toContain('NaughtyCamSpot | Elevate Your Cam Career with Recruiting + Promotion');
     expect(html).not.toContain('/v2/');
   }, BUILD_TIMEOUT);
 
