@@ -14,5 +14,5 @@ This list defines the order to address the remaining issues after closing duplic
 10. [x] Content Fill: Core Pages — see issue #30
 11. [x] Blog: Publish 5 Phase-1 Posts — see issue #31
 12. [x] SEO & Sitemap/Robots + OG/Twitter — see issue #32
-13. Analytics (Env-Gated) — see issue #33
-14. CI: Pin Node 20.17 + Build + /go/ Guardrail — see issue #34
+13. [x] Analytics (Env-Gated) — see issue #33
+14. [x] CI: Pin Node 20.17 + Build + /go/ Guardrail — see issue #34
