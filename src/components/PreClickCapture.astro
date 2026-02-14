@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../utils/links';
+
 interface Props {
   goHref?: string;
   platformId?: string;
@@ -7,6 +9,7 @@ interface Props {
 
 const { goHref = '', platformId = '', platformName = '' } = Astro.props as Props;
 const modalId = 'preclick-capture-modal';
+const csrfEndpoint = withBase('/api/csrf.php');
 ---
 
 <div id={modalId} class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8">
@@ -38,6 +41,7 @@ const modalId = 'preclick-capture-modal';
       <input type="hidden" name="platform" value={platformId} data-preclick-platform-id />
       <input type="hidden" name="platforms[]" value={platformId} data-preclick-platforms />
       <input type="hidden" name="click_id" value="" data-preclick-click-id />
+      <input type="hidden" name="csrf_token" value="" data-preclick-csrf />
       <label class="flex flex-col gap-2 text-sm text-white/70">
         Telegram
         <input
@@ -95,7 +99,7 @@ const modalId = 'preclick-capture-modal';
   </div>
 </div>
 
-<script is:inline define:vars={{ modalId, goHref, platformId, platformName }}>
+<script is:inline define:vars={{ modalId, goHref, platformId, platformName, csrfEndpoint }}>
   (() => {
     const init = () => {
       if (window.__preclickCaptureInit) return;
@@ -113,6 +117,7 @@ const modalId = 'preclick-capture-modal';
       const platformsInput = modal.querySelector('[data-preclick-platforms]');
       const pageInput = modal.querySelector('[data-preclick-page]');
       const clickIdInput = modal.querySelector('[data-preclick-click-id]');
+      const csrfInput = modal.querySelector('[data-preclick-csrf]');
       const consentInput = modal.querySelector('[data-preclick-consent]');
       const submitButton = modal.querySelector('[data-preclick-submit]');
       const skipButton = modal.querySelector('[data-preclick-skip]');
@@ -137,6 +142,33 @@ const modalId = 'preclick-capture-modal';
         }
         if (clickIdInput) clickIdInput.value = clickId;
         return clickId;
+      };
+
+      const ensureCsrfToken = async () => {
+        if (csrfInput instanceof HTMLInputElement && csrfInput.value.trim() !== '') {
+          return csrfInput.value.trim();
+        }
+
+        if (!csrfEndpoint) {
+          return '';
+        }
+
+        try {
+          const response = await fetch(csrfEndpoint, { credentials: 'same-origin' });
+          if (!response.ok) {
+            return '';
+          }
+          const data = await response.json();
+          if (!data || typeof data.csrfToken !== 'string') {
+            return '';
+          }
+          if (csrfInput instanceof HTMLInputElement) {
+            csrfInput.value = data.csrfToken;
+          }
+          return data.csrfToken;
+        } catch (error) {
+          return '';
+        }
       };
 
       const openModal = ({ goHref, platformId, platformName }) => {
@@ -204,6 +236,10 @@ const modalId = 'preclick-capture-modal';
             payload.set('src', 'preclick');
             payload.set('page', window.location.pathname || '');
             payload.set('consent', 'true');
+            const csrfToken = await ensureCsrfToken();
+            if (csrfToken) {
+              payload.set('csrf_token', csrfToken);
+            }
             if (activePlatformId) {
               payload.set('platform', activePlatformId);
               payload.set('platforms[]', activePlatformId);

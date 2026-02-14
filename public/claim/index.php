@@ -4,6 +4,17 @@ declare(strict_types=1);
 
 header('X-Robots-Tag: noindex', true);
 
+init_session();
+$csrfToken = ensure_csrf_token();
+$csrfError = '';
+
+$privateDataRoot = dirname(__DIR__, 2) . '/private_data';
+$leadLogDirectory = $privateDataRoot . '/logs';
+$leadLogPath = $leadLogDirectory . '/leads.jsonl';
+$claimsLogDirectory = $privateDataRoot . '/claims';
+$claimsLogPath = $claimsLogDirectory . '/claims.log';
+$uploadRoot = $privateDataRoot . '/uploads/claims';
+
 $platformOptions = [
     'bonga' => 'Bonga',
     'camsoda' => 'CamSoda',
@@ -55,7 +66,18 @@ $leadValues = [
     'date' => request_string('date'),
 ];
 
+if (request_method_is('POST')) {
+    $csrfError = validate_csrf_request($_POST['csrf_token'] ?? '', $_SERVER['HTTP_ORIGIN'] ?? '', $_SERVER['HTTP_REFERER'] ?? '');
+}
+
 if (request_method_is('POST') && request_string('lead_form') === '1') {
+    if ($csrfError !== '') {
+        http_response_code(403);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['error' => $csrfError], JSON_UNESCAPED_SLASHES);
+        exit;
+    }
+
     $kitUnlock = request_string('kit_unlock') === '1';
     $leadValues['telegram'] = sanitize_text($_POST['telegram'] ?? '', 120);
     $leadValues['email'] = sanitize_text($_POST['email'] ?? '', 200);
@@ -83,16 +105,15 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
 
     $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
     $logEntry = build_lead_log_entry($now, $leadValues);
-    $logDirectory = dirname(__DIR__) . '/logs';
-    $logPath = $logDirectory . '/leads.jsonl';
-
-    if (!is_dir($logDirectory)) {
-        @mkdir($logDirectory, 0755, true);
+    if (!is_dir($leadLogDirectory)) {
+        @mkdir($leadLogDirectory, 0750, true);
     }
 
-    if ($logEntry !== '' && is_dir($logDirectory)) {
-        @file_put_contents($logPath, $logEntry . PHP_EOL, FILE_APPEND | LOCK_EX);
+    if ($logEntry !== '' && is_dir($leadLogDirectory)) {
+        @file_put_contents($leadLogPath, $logEntry . PHP_EOL, FILE_APPEND | LOCK_EX);
     }
+
+    maybe_run_retention_maintenance($leadLogPath, $claimsLogPath, $uploadRoot);
 
     if ($kitUnlock && $leadValues['consent']) {
         header('Location: /vip-kit-unlocked/', true, 302);
@@ -103,6 +124,10 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
 }
 
 if (request_method_is('POST')) {
+    if ($csrfError !== '') {
+        $errors['general'] = 'Security check failed. Refresh and submit the form again.';
+    }
+
     $values['name'] = sanitize_text($_POST['name'] ?? '', 200);
     $values['email'] = sanitize_text($_POST['email'] ?? '', 200);
     $values['platform'] = sanitize_text($_POST['platform'] ?? '', 20);
@@ -165,9 +190,9 @@ if (request_method_is('POST')) {
         $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
         $year = $now->format('Y');
         $month = $now->format('m');
-        $uploadDirectory = __DIR__ . '/uploads/' . $year . '/' . $month;
+        $uploadDirectory = $uploadRoot . '/' . $year . '/' . $month;
 
-        if (!is_dir($uploadDirectory) && !mkdir($uploadDirectory, 0755, true) && !is_dir($uploadDirectory)) {
+        if (!is_dir($uploadDirectory) && !mkdir($uploadDirectory, 0750, true) && !is_dir($uploadDirectory)) {
             $errors['general'] = 'We could not store your upload right now. Please try again later or email concierge@naughtycamspot.com.';
         } else {
             $randomBytes = bin2hex(random_bytes(16));
@@ -177,12 +202,15 @@ if (request_method_is('POST')) {
             if (!move_uploaded_file($uploadMeta['tmp_name'], $destination)) {
                 $errors['general'] = 'We could not save your upload. Please try again.';
             } else {
-                @chmod($destination, 0644);
-                $relativePath = 'uploads/' . $year . '/' . $month . '/' . $filename;
+                @chmod($destination, 0640);
+                $relativePath = 'private_data/uploads/claims/' . $year . '/' . $month . '/' . $filename;
 
                 $logEntry = build_log_entry($now, $relativePath, $values, $uploadMeta, $platformOptions);
-                $logPath = __DIR__ . '/claims.log';
-                if ($logEntry === '' || file_put_contents($logPath, $logEntry . PHP_EOL, FILE_APPEND | LOCK_EX) === false) {
+                if (!is_dir($claimsLogDirectory)) {
+                    @mkdir($claimsLogDirectory, 0750, true);
+                }
+
+                if ($logEntry === '' || file_put_contents($claimsLogPath, $logEntry . PHP_EOL, FILE_APPEND | LOCK_EX) === false) {
                     $errors['general'] = 'We saved your upload but could not log the claim. Please contact concierge@naughtycamspot.com.';
                     @unlink($destination);
                 } else {
@@ -199,6 +227,7 @@ if (request_method_is('POST')) {
                     }
 
                     @mail('admin@naughtycamspot.com', $subject, $emailBody, implode("\r\n", $headers));
+                    maybe_run_retention_maintenance($leadLogPath, $claimsLogPath, $uploadRoot);
 
                     header('Location: /claim/success.html', true, 302);
                     exit;
@@ -225,6 +254,73 @@ function request_string(string $key): string
     }
 
     return trim((string) $value);
+}
+
+function init_session(): void
+{
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        return;
+    }
+
+    $secure = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'secure' => $secure,
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
+    session_start();
+}
+
+function ensure_csrf_token(): string
+{
+    $token = $_SESSION['csrf_token'] ?? '';
+    if (is_string($token) && preg_match('/^[a-f0-9]{64}$/', $token) === 1) {
+        return $token;
+    }
+
+    $token = bin2hex(random_bytes(32));
+    $_SESSION['csrf_token'] = $token;
+    return $token;
+}
+
+function validate_csrf_request(mixed $tokenValue, string $originHeader, string $refererHeader): string
+{
+    $sessionToken = ensure_csrf_token();
+    if (!is_string($tokenValue) || !hash_equals($sessionToken, trim($tokenValue))) {
+        return 'Invalid security token.';
+    }
+
+    if (!validate_same_origin($originHeader, $refererHeader)) {
+        return 'Invalid request origin.';
+    }
+
+    return '';
+}
+
+function validate_same_origin(string $originHeader, string $refererHeader): bool
+{
+    $expectedHost = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+    if ($expectedHost === '') {
+        return true;
+    }
+
+    $candidate = trim($originHeader);
+    if ($candidate === '') {
+        $candidate = trim($refererHeader);
+    }
+
+    if ($candidate === '') {
+        return false;
+    }
+
+    $host = parse_url($candidate, PHP_URL_HOST);
+    if (!is_string($host) || $host === '') {
+        return false;
+    }
+
+    return strtolower($host) === $expectedHost;
 }
 
 function sanitize_text(mixed $value, int $maxLength): string
@@ -456,6 +552,69 @@ function build_email_body(DateTimeImmutable $timestamp, string $relativePath, ar
     return implode("\n", $lines) . "\n";
 }
 
+function maybe_run_retention_maintenance(string $leadLogPath, string $claimsLogPath, string $uploadRoot): void
+{
+    if (random_int(1, 25) !== 1) {
+        return;
+    }
+
+    $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+    $leadCutoff = $now->sub(new DateInterval('P90D'))->getTimestamp();
+    $claimCutoff = $now->sub(new DateInterval('P180D'))->getTimestamp();
+
+    prune_jsonl_file($leadLogPath, $leadCutoff);
+    prune_jsonl_file($claimsLogPath, $claimCutoff);
+    prune_upload_tree($uploadRoot, $claimCutoff);
+}
+
+function prune_jsonl_file(string $path, int $cutoffTimestamp): void
+{
+    if (!is_file($path) || !is_readable($path)) {
+        return;
+    }
+
+    $lines = @file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if (!is_array($lines)) {
+        return;
+    }
+
+    $kept = [];
+    foreach ($lines as $line) {
+        $decoded = json_decode($line, true);
+        if (!is_array($decoded)) {
+            continue;
+        }
+        $timestamp = strtotime((string) ($decoded['timestamp'] ?? ''));
+        if ($timestamp === false || $timestamp >= $cutoffTimestamp) {
+            $kept[] = $line;
+        }
+    }
+
+    $payload = $kept === [] ? '' : implode(PHP_EOL, $kept) . PHP_EOL;
+    @file_put_contents($path, $payload, LOCK_EX);
+}
+
+function prune_upload_tree(string $root, int $cutoffTimestamp): void
+{
+    if (!is_dir($root)) {
+        return;
+    }
+
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($root, FilesystemIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::CHILD_FIRST
+    );
+
+    foreach ($iterator as $item) {
+        $path = $item->getPathname();
+        if ($item->isFile() && $item->getMTime() < $cutoffTimestamp) {
+            @unlink($path);
+        } elseif ($item->isDir()) {
+            @rmdir($path);
+        }
+    }
+}
+
 function normalize_log_value(string $value): string
 {
     $normalized = (string) preg_replace('/[\r\n\t]+/', ' ', $value);
@@ -679,6 +838,7 @@ function field_error(array $errors, string $key): string
       <?php endif; ?>
 
       <form method="post" enctype="multipart/form-data" novalidate>
+        <input type="hidden" name="csrf_token" value="<?php echo esc($csrfToken); ?>" />
         <input type="hidden" name="src" value="<?php echo esc($values['src']); ?>" />
         <input type="hidden" name="camp" value="<?php echo esc($values['camp']); ?>" />
         <input type="hidden" name="date" value="<?php echo esc($values['date']); ?>" />

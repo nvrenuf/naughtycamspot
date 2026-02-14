@@ -30,7 +30,7 @@ This document defines the recommended order for Codex to tackle the outstanding 
 
    Preload fonts, compress and lazy‑load images, enable Tailwind’s purge of unused styles, defer non‑essential JavaScript and configure caching headers.  Remove unused trackers or analytics.
 
-8. **Strengthen privacy & security — see issue #87**
+8. [x] **Strengthen privacy & security — see issue #87**
 
    Add CSRF tokens and input validation to all forms; restrict accepted file types and move uploads outside the web root; set security headers (CSP, HSTS, X‑Frame‑Options, etc.); and update privacy/terms pages to clarify data handling practices.
 

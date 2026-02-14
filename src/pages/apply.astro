@@ -12,6 +12,7 @@ const date = searchParams.get('date') ?? '';
 const kitUnlock = searchParams.get('kit') === '1';
 const success = searchParams.get('success') === '1';
 const formAction = withBase('/claim/index.php');
+const csrfEndpoint = withBase('/api/csrf.php');
 const timezoneOptions = [
   'PT',
   'MT',
@@ -99,6 +100,7 @@ const hardNoOptions = [
 
     <form class="grid gap-6 sm:grid-cols-2" method="post" action={formAction}>
       <input type="hidden" name="lead_form" value="1" />
+      <input type="hidden" name="csrf_token" value="" data-csrf-token />
       <input type="hidden" name="src" value={src} />
       <input type="hidden" name="camp" value={camp} />
       <input type="hidden" name="date" value={date} />
@@ -301,4 +303,24 @@ const hardNoOptions = [
       </div>
     </form>
   </section>
+  <script is:inline define:vars={{ csrfEndpoint }}>
+    {`(function () {
+  const tokenInput = document.querySelector('[data-csrf-token]');
+  if (!(tokenInput instanceof HTMLInputElement) || !csrfEndpoint) {
+    return;
+  }
+
+  fetch(csrfEndpoint, { credentials: 'same-origin' })
+    .then((response) => (response.ok ? response.json() : null))
+    .then((data) => {
+      if (!data || typeof data.csrfToken !== 'string') {
+        return;
+      }
+      tokenInput.value = data.csrfToken;
+    })
+    .catch(() => {
+      // CSRF token fetch failures are handled by backend validation.
+    });
+})();`}
+  </script>
 </MainLayout>
