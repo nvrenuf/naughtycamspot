@@ -59,7 +59,16 @@ const suppressCtas = post.data.suppressCtas || post.slug === 'thanksgiving-week-
     </header>
 
     <div class="glass overflow-hidden rounded-[42px]">
-      <img src={post.data.heroImage} alt={post.data.heroImageAlt ?? post.data.title} class="h-80 w-full object-cover" loading="lazy" />
+      <img
+        src={post.data.heroImage}
+        alt={post.data.heroImageAlt ?? post.data.title}
+        class="h-80 w-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        width="1600"
+        height="900"
+      />
     </div>
 
     <div class="space-y-6 text-base leading-relaxed text-white/70">
@@ -87,7 +96,15 @@ const suppressCtas = post.data.suppressCtas || post.slug === 'thanksgiving-week-
     <div class="grid gap-6 sm:grid-cols-3">
       {related.map((item) => (
         <a class="content-card space-y-3" href={withBase(`/posts/${item.slug}`)}>
-          <img src={item.data.cardImage ?? item.data.heroImage} alt={item.data.heroImageAlt ?? item.data.title} class="h-40 w-full rounded-3xl object-cover" loading="lazy" />
+          <img
+            src={item.data.cardImage ?? item.data.heroImage}
+            alt={item.data.heroImageAlt ?? item.data.title}
+            class="h-40 w-full rounded-3xl object-cover"
+            loading="lazy"
+            decoding="async"
+            width="800"
+            height="600"
+          />
           <div>
             <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{item.data.category}</p>
             <p class="font-display text-xl text-white">{item.data.title}</p>
