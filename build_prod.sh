@@ -23,7 +23,9 @@ git pull --ff-only
 
 # --- clean build
 rm -rf dist node_modules
-npm ci
+# Tailwind v4 + @astrojs/tailwind v6 currently trips npm peer resolution on clean installs.
+# Use legacy peer resolution for reproducible production packaging until deps are aligned.
+npm ci --legacy-peer-deps
 # build with PROD config (not the Pages config)
 npx astro build
 
