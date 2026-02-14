@@ -27,4 +27,6 @@ test('Homepage route composes trust section', async () => {
   const source = await readSource('src/pages/index.astro');
   assert.ok(source.includes('import MiniTestimonials'), 'Homepage should import trust/testimonial partial');
   assert.ok(source.includes('<MiniTestimonials />'), 'Homepage should render trust/testimonial partial');
+  assert.ok(source.includes('import LeadMagnet'), 'Homepage should import lead magnet partial');
+  assert.ok(source.includes('<LeadMagnet />'), 'Homepage should render lead magnet partial');
 });

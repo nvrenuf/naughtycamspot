@@ -2,6 +2,7 @@
 import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
 import Hero from '../partials/home/Hero.astro';
+import LeadMagnet from '../partials/home/LeadMagnet.astro';
 import WhyCam from '../partials/home/WhyCam.astro';
 import TrustedPrograms from '../partials/home/TrustedPrograms.astro';
 import HowItWorks from '../partials/home/HowItWorks.astro';
@@ -20,19 +21,20 @@ const websiteJsonLd = {
 ---
 
 <MainLayout
-  title="NaughtyCamSpot | Elevate Your Cam Career with Recruiting + Promotion"
-  description="Benefit-driven growth for cam models: choose recruiting guidance, paid promotion support, or both."
+  title="NaughtyCamSpot | Recruiting + Promotion for Cam Models"
+  description="Start with recruiting links, add promotion packages when ready, and keep full account ownership."
 >
   <SEO
     slot="head"
-    title="NaughtyCamSpot | Elevate Your Cam Career with Recruiting + Promotion"
-    description="Get expert recruiting guidance and paid promotion options with clear trust standards and model-first account ownership."
+    title="NaughtyCamSpot | Recruiting + Promotion for Cam Models"
+    description="Choose recruiting guidance, paid promotion, or both. No passwords, no exclusivity, and full account ownership."
     path={canonicalPath}
     ogImage="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1280&q=80"
   />
   <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 
   <Hero />
+  <LeadMagnet />
   <WhyCam />
   <HowItWorks compact />
   <TrustedPrograms compact />
