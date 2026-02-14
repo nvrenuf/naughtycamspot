@@ -3,12 +3,14 @@ const {
   title = 'NaughtyCamSpot',
   description = 'Recruiting portal plus paid promotion services for cam models.',
   path = '/',
-  ogImage,
+  ogImage: ogImageProp,
   ogType = 'website'
 } = Astro.props;
 
 const site = import.meta.env.SITE ?? '';
 const canonicalUrl = site ? new URL(path, site).toString() : path;
+const defaultOgImage = site ? new URL('/images/home-hero-1280.jpg', site).toString() : '/images/home-hero-1280.jpg';
+const ogImage = typeof ogImageProp === 'string' && ogImageProp.trim().length > 0 ? ogImageProp : defaultOgImage;
 const twitterCard = ogImage ? 'summary_large_image' : 'summary';
 ---
 <title>{title}</title>
