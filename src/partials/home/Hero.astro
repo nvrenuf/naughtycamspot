@@ -54,8 +54,14 @@ import LinkCTA from '../../components/LinkCTA.astro';
           <img
             class="h-full w-full rounded-3xl object-cover"
             src="/images/home-hero.webp"
+            srcset="/images/home-hero-768.jpg 768w, /images/home-hero-1280.jpg 1280w, /images/home-hero.webp 1600w"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 42vw"
             alt="Smiling red-haired model sitting in a white gaming chair, looking at the camera."
-            loading="lazy"
+            width="1600"
+            height="1067"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
           />
         </div>
       </div>

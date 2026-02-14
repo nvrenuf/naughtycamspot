@@ -26,7 +26,7 @@ This document defines the recommended order for Codex to tackle the outstanding 
 
    Adjust typography and colour contrast for better readability; adopt consistent casing in navigation labels; add focus states and ARIA attributes; and ensure alt text and labels for images and forms.  Aim for WCAG‑AA compliance.
 
-7. **Optimise performance — see issue #86**
+7. [x] **Optimise performance — see issue #86**
 
    Preload fonts, compress and lazy‑load images, enable Tailwind’s purge of unused styles, defer non‑essential JavaScript and configure caching headers.  Remove unused trackers or analytics.
 

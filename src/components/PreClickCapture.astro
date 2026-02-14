@@ -97,135 +97,143 @@ const modalId = 'preclick-capture-modal';
 
 <script is:inline define:vars={{ modalId, goHref, platformId, platformName }}>
   (() => {
-    if (window.__preclickCaptureInit) return;
-    window.__preclickCaptureInit = true;
+    const init = () => {
+      if (window.__preclickCaptureInit) return;
+      window.__preclickCaptureInit = true;
 
-    const modal = document.getElementById(modalId);
-    if (!modal) return;
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
 
-    const body = document.body;
-    const overlay = modal.querySelector('[data-preclick-overlay]');
-    const closeButtons = modal.querySelectorAll('[data-preclick-close]');
-    const form = modal.querySelector('[data-preclick-form]');
-    const platformLabel = modal.querySelector('[data-preclick-platform]');
-    const platformIdInput = modal.querySelector('[data-preclick-platform-id]');
-    const platformsInput = modal.querySelector('[data-preclick-platforms]');
-    const pageInput = modal.querySelector('[data-preclick-page]');
-    const clickIdInput = modal.querySelector('[data-preclick-click-id]');
-    const consentInput = modal.querySelector('[data-preclick-consent]');
-    const submitButton = modal.querySelector('[data-preclick-submit]');
-    const skipButton = modal.querySelector('[data-preclick-skip]');
+      const body = document.body;
+      const overlay = modal.querySelector('[data-preclick-overlay]');
+      const closeButtons = modal.querySelectorAll('[data-preclick-close]');
+      const form = modal.querySelector('[data-preclick-form]');
+      const platformLabel = modal.querySelector('[data-preclick-platform]');
+      const platformIdInput = modal.querySelector('[data-preclick-platform-id]');
+      const platformsInput = modal.querySelector('[data-preclick-platforms]');
+      const pageInput = modal.querySelector('[data-preclick-page]');
+      const clickIdInput = modal.querySelector('[data-preclick-click-id]');
+      const consentInput = modal.querySelector('[data-preclick-consent]');
+      const submitButton = modal.querySelector('[data-preclick-submit]');
+      const skipButton = modal.querySelector('[data-preclick-skip]');
 
-    let activeGoHref = goHref || '';
-    let activePlatformId = platformId || '';
-    let activePlatformName = platformName || '';
+      let activeGoHref = goHref || '';
+      let activePlatformId = platformId || '';
+      let activePlatformName = platformName || '';
 
-    const generateClickId = () => {
-      if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
-        return crypto.randomUUID();
-      }
-      return `cid_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
-    };
-
-    const attachClickId = () => {
-      const clickId = generateClickId();
-      try {
-        sessionStorage.setItem('ncs_click_id', clickId);
-      } catch (error) {
-        // Ignore storage failures.
-      }
-      if (clickIdInput) clickIdInput.value = clickId;
-      return clickId;
-    };
-
-    const openModal = ({ goHref, platformId, platformName }) => {
-      activeGoHref = goHref || activeGoHref || '';
-      activePlatformId = platformId || activePlatformId || '';
-      activePlatformName = platformName || activePlatformName || '';
-      if (platformLabel) platformLabel.textContent = activePlatformName || 'Selected platform';
-      if (platformIdInput) platformIdInput.value = activePlatformId;
-      if (platformsInput) platformsInput.value = activePlatformId;
-      if (pageInput) pageInput.value = window.location.pathname || '';
-      attachClickId();
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      body.classList.add('overflow-hidden');
-    };
-
-    const closeModal = () => {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      body.classList.remove('overflow-hidden');
-    };
-
-    const openTarget = (href, clickId) => {
-      if (!href) return;
-      let resolved = href;
-      if (clickId) {
-        try {
-          const url = new URL(href, window.location.origin);
-          url.searchParams.set('cid', clickId);
-          resolved = `${url.pathname}${url.search}${url.hash}`;
-        } catch (error) {
-          const glue = href.includes('?') ? '&' : '?';
-          resolved = `${href}${glue}cid=${encodeURIComponent(clickId)}`;
+      const generateClickId = () => {
+        if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+          return crypto.randomUUID();
         }
-      }
-      window.open(resolved, '_blank', 'noopener');
-    };
+        return `cid_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+      };
 
-    document.addEventListener('click', (event) => {
-      const trigger = event.target.closest('[data-preclick-trigger],[data-preclick="1"]');
-      if (!trigger) return;
-      const goHref = trigger.getAttribute('data-go-href') || trigger.getAttribute('href') || '';
-      const platformId = trigger.getAttribute('data-platform-id') || '';
-      const platformName = trigger.getAttribute('data-platform-name') || '';
-      if (!goHref) return;
-      event.preventDefault();
-      openModal({ goHref, platformId, platformName });
-    });
-
-    overlay?.addEventListener('click', closeModal);
-    closeButtons.forEach((btn) => btn.addEventListener('click', closeModal));
-
-    submitButton?.addEventListener('click', async () => {
-      const telegram = form?.querySelector('input[name="telegram"]')?.value?.trim() || '';
-      const email = form?.querySelector('input[name="email"]')?.value?.trim() || '';
-      const whatsapp = form?.querySelector('input[name="whatsapp"]')?.value?.trim() || '';
-      const hasContact = Boolean(telegram || email || whatsapp);
-      const consent = Boolean(consentInput?.checked);
-
-      if (hasContact && consent) {
+      const attachClickId = () => {
+        const clickId = generateClickId();
         try {
-          const payload = form ? new FormData(form) : new FormData();
-          payload.set('lead_form', '1');
-          payload.set('source', 'preclick');
-          payload.set('src', 'preclick');
-          payload.set('page', window.location.pathname || '');
-          payload.set('consent', 'true');
-          if (activePlatformId) {
-            payload.set('platform', activePlatformId);
-            payload.set('platforms[]', activePlatformId);
+          sessionStorage.setItem('ncs_click_id', clickId);
+        } catch (error) {
+          // Ignore storage failures.
+        }
+        if (clickIdInput) clickIdInput.value = clickId;
+        return clickId;
+      };
+
+      const openModal = ({ goHref, platformId, platformName }) => {
+        activeGoHref = goHref || activeGoHref || '';
+        activePlatformId = platformId || activePlatformId || '';
+        activePlatformName = platformName || activePlatformName || '';
+        if (platformLabel) platformLabel.textContent = activePlatformName || 'Selected platform';
+        if (platformIdInput) platformIdInput.value = activePlatformId;
+        if (platformsInput) platformsInput.value = activePlatformId;
+        if (pageInput) pageInput.value = window.location.pathname || '';
+        attachClickId();
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        body.classList.add('overflow-hidden');
+      };
+
+      const closeModal = () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        body.classList.remove('overflow-hidden');
+      };
+
+      const openTarget = (href, clickId) => {
+        if (!href) return;
+        let resolved = href;
+        if (clickId) {
+          try {
+            const url = new URL(href, window.location.origin);
+            url.searchParams.set('cid', clickId);
+            resolved = `${url.pathname}${url.search}${url.hash}`;
+          } catch (error) {
+            const glue = href.includes('?') ? '&' : '?';
+            resolved = `${href}${glue}cid=${encodeURIComponent(clickId)}`;
           }
-          await fetch('/claim/index.php', {
-            method: 'POST',
-            body: payload,
-            credentials: 'same-origin'
-          });
-        } catch (error) {
-          // Continue regardless of capture issues.
         }
-      }
+        window.open(resolved, '_blank', 'noopener');
+      };
 
-      const clickId = clickIdInput?.value || '';
-      openTarget(activeGoHref, clickId);
-      closeModal();
-    });
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-preclick-trigger],[data-preclick="1"]');
+        if (!trigger) return;
+        const goHref = trigger.getAttribute('data-go-href') || trigger.getAttribute('href') || '';
+        const platformId = trigger.getAttribute('data-platform-id') || '';
+        const platformName = trigger.getAttribute('data-platform-name') || '';
+        if (!goHref) return;
+        event.preventDefault();
+        openModal({ goHref, platformId, platformName });
+      });
 
-    skipButton?.addEventListener('click', () => {
-      const clickId = clickIdInput?.value || attachClickId();
-      openTarget(activeGoHref, clickId);
-      closeModal();
-    });
+      overlay?.addEventListener('click', closeModal);
+      closeButtons.forEach((btn) => btn.addEventListener('click', closeModal));
+
+      submitButton?.addEventListener('click', async () => {
+        const telegram = form?.querySelector('input[name="telegram"]')?.value?.trim() || '';
+        const email = form?.querySelector('input[name="email"]')?.value?.trim() || '';
+        const whatsapp = form?.querySelector('input[name="whatsapp"]')?.value?.trim() || '';
+        const hasContact = Boolean(telegram || email || whatsapp);
+        const consent = Boolean(consentInput?.checked);
+
+        if (hasContact && consent) {
+          try {
+            const payload = form ? new FormData(form) : new FormData();
+            payload.set('lead_form', '1');
+            payload.set('source', 'preclick');
+            payload.set('src', 'preclick');
+            payload.set('page', window.location.pathname || '');
+            payload.set('consent', 'true');
+            if (activePlatformId) {
+              payload.set('platform', activePlatformId);
+              payload.set('platforms[]', activePlatformId);
+            }
+            await fetch('/claim/index.php', {
+              method: 'POST',
+              body: payload,
+              credentials: 'same-origin'
+            });
+          } catch (error) {
+            // Continue regardless of capture issues.
+          }
+        }
+
+        const clickId = clickIdInput?.value || '';
+        openTarget(activeGoHref, clickId);
+        closeModal();
+      });
+
+      skipButton?.addEventListener('click', () => {
+        const clickId = clickIdInput?.value || attachClickId();
+        openTarget(activeGoHref, clickId);
+        closeModal();
+      });
+    };
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(init);
+    } else {
+      window.setTimeout(init, 0);
+    }
   })();
 </script>
