@@ -36,6 +36,6 @@
     "ajv": "file:vendor/ajv",
     "concurrently": "^9.2.1",
     "puppeteer": "^24.34.0",
-    "vitest": "^4.0.8"
+    "vitest": "^4.0.16"
   }
 }
