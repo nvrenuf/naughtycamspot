@@ -34,6 +34,6 @@ This document defines the recommended order for Codex to tackle the outstanding 
 
    Add CSRF tokens and input validation to all forms; restrict accepted file types and move uploads outside the web root; set security headers (CSP, HSTS, X‑Frame‑Options, etc.); and update privacy/terms pages to clarify data handling practices.
 
-9. **Expand training & community resources — see issue #88**
+9. [x] **Expand training & community resources — see issue #88**
 
    Produce educational guides for major platforms (OnlyFans, ManyVids, etc.), create blog posts or videos on pricing and audience growth, and launch a community forum or Discord.  Add a page for upcoming events and link community resources prominently.

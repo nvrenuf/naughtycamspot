@@ -1,0 +1,64 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/events';
+const events = [
+  {
+    date: 'March 05, 2026',
+    title: 'Pricing ladder workshop',
+    summary: 'Live breakdown of starter, momentum, and VIP offer stacks.',
+    href: '/posts/pricing-retention-social-media-sprint'
+  },
+  {
+    date: 'March 19, 2026',
+    title: 'Retention systems clinic',
+    summary: 'Q&A session on watch-time loops, DM cadence, and comeback prompts.',
+    href: '/posts/cross-promotion-systems-for-creators'
+  },
+  {
+    date: 'April 02, 2026',
+    title: 'Cross-promotion roundtable',
+    summary: 'How to run safe creator swaps across socials and premium platforms.',
+    href: '/posts/cross-promotion-systems-for-creators'
+  }
+] as const;
+---
+
+<MainLayout
+  title="Events | NaughtyCamSpot"
+  description="Upcoming webinars and live events for pricing, retention, and cross-promotion strategy."
+>
+  <SEO
+    slot="head"
+    title="Events | NaughtyCamSpot"
+    description="Upcoming NaughtyCamSpot webinars and creator events."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-8">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Upcoming events</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Webinars and live strategy sessions.</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        Planned sessions cover pricing, retention, social media growth, and cross-promotion tactics. Join via the community channels.
+      </p>
+      <a class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm text-white transition hover:border-white/40 hover:bg-white/5" href={withBase('/community/')}>
+        Join community
+      </a>
+    </div>
+    <div class="space-y-4">
+      {events.map((item) => (
+        <article class="content-card space-y-2">
+          <p class="text-xs text-rose-petal/70">{item.date}</p>
+          <h2 class="font-display text-2xl text-white">{item.title}</h2>
+          <p class="text-sm text-white/70">{item.summary}</p>
+          <a class="inline-flex text-xs text-rose-gold transition hover:text-white" href={withBase(item.href)}>
+            Prep reading
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>

@@ -15,6 +15,9 @@ export const NAV_PRIMARY: NavLink[] = [
 
 export const NAV_MORE: NavLink[] = [
   { href: '/how-it-works/', label: 'How It Works' },
+  { href: '/resources/platforms/', label: 'Guides' },
+  { href: '/community/', label: 'Community' },
+  { href: '/events/', label: 'Events' },
   { href: '/platforms/', label: 'Platforms' },
   { href: '/earnings/', label: 'Earnings' },
   { href: '/vip-kit/', label: 'VIP Kit' },

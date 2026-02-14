@@ -1,0 +1,64 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
+import { withBase } from '../../utils/links';
+
+const canonicalPath = '/resources/platforms';
+
+const guides = [
+  {
+    platform: 'OnlyFans',
+    summary: 'Audience conversion framework, posting cadence, and retention scripts.',
+    href: '/posts/onlyfans-growth-guide'
+  },
+  {
+    platform: 'ManyVids',
+    summary: 'Store setup priorities, bundle strategy, and campaign sequencing.',
+    href: '/posts/manyvids-store-setup-guide'
+  },
+  {
+    platform: 'Chaturbate',
+    summary: 'Goal-ladder structures and room pacing for first-month consistency.',
+    href: '/posts/14-day-launch-plan'
+  },
+  {
+    platform: 'CamSoda',
+    summary: 'Contest timing and promo handoffs for premium traffic windows.',
+    href: '/posts/camsoda-vs-chaturbate-for-beginners'
+  }
+] as const;
+---
+
+<MainLayout
+  title="Platform Guides | NaughtyCamSpot"
+  description="In-depth recruiting and promotion guides for major platforms including OnlyFans and ManyVids."
+>
+  <SEO
+    slot="head"
+    title="Platform Guides | NaughtyCamSpot"
+    description="Read in-depth resources for OnlyFans, ManyVids, Chaturbate, and CamSoda growth workflows."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-8">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Platform resources</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">In-depth guides for major creator platforms.</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        Use these guides to evaluate platform fit and tune your promotion approach without handing over account control.
+      </p>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2">
+      {guides.map((guide) => (
+        <article class="content-card space-y-3">
+          <p class="text-xs text-rose-petal/70">{guide.platform}</p>
+          <h2 class="font-display text-2xl text-white">{guide.platform} growth guide</h2>
+          <p class="text-sm text-white/70">{guide.summary}</p>
+          <a class="inline-flex text-xs text-rose-gold transition hover:text-white" href={withBase(guide.href)}>
+            Read guide
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>

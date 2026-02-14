@@ -1,0 +1,64 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/community';
+const discordInvite = 'https://discord.gg/naughtycamspot-community';
+---
+
+<MainLayout
+  title="Community | NaughtyCamSpot"
+  description="Join the NaughtyCamSpot community forum and Discord to share recruiting and promotion playbooks."
+>
+  <SEO
+    slot="head"
+    title="Community | NaughtyCamSpot"
+    description="Community access for recruiting and promotion support, peer Q&A, and cross-promotion ideas."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-8">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Community</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Join the forum + Discord.</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        Connect with creators sharing pricing, retention, social media, and cross-promotion tactics in a moderated environment.
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm text-midnight shadow-glow transition hover:-translate-y-1"
+          href={discordInvite}
+          rel="noopener nofollow"
+          target="_blank"
+        >
+          Join Discord
+        </a>
+        <a class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm text-white transition hover:border-white/40 hover:bg-white/5" href={withBase('/events/')}>
+          Upcoming events
+        </a>
+      </div>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      <article class="content-card space-y-3">
+        <h2 class="font-display text-2xl text-white">Forum channels</h2>
+        <ul class="space-y-2 text-sm text-white/75">
+          <li>Pricing experiments and offer ladders</li>
+          <li>Retention scripts and DM playbooks</li>
+          <li>Cross-promotion swaps and campaign reviews</li>
+          <li>Weekly win/loss debrief threads</li>
+        </ul>
+      </article>
+      <article class="content-card space-y-3">
+        <h2 class="font-display text-2xl text-white">Community standards</h2>
+        <ul class="space-y-2 text-sm text-white/75">
+          <li>No password sharing, account lending, or impersonation.</li>
+          <li>No exclusivity pressure or agency lock-in language.</li>
+          <li>Consent-first collaboration and age-verified participation only.</li>
+          <li>Respect confidentiality of private earnings screenshots.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</MainLayout>
