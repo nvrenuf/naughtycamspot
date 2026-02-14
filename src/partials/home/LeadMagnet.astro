@@ -1,5 +1,26 @@
 ---
 import { withBase } from '../../utils/links';
+import { isPagesBuild } from '../../utils/links';
+
+const pagesBuild = isPagesBuild();
+const formAction = pagesBuild ? withBase('/apply/') : withBase('/claim/index.php');
+const formMethod = pagesBuild ? 'get' : 'post';
+const csrfEndpoint = pagesBuild ? '' : withBase('/api/csrf.php');
+
+const searchParams = Astro.url.searchParams;
+const trackingKeys = ['src', 'camp', 'date'] as const;
+const trackingParams = new URLSearchParams();
+for (const key of trackingKeys) {
+  const value = searchParams.get(key);
+  if (value) {
+    trackingParams.set(key, value);
+  }
+}
+
+const src = trackingParams.get('src') ?? '';
+const camp = trackingParams.get('camp') ?? '';
+const date = trackingParams.get('date') ?? '';
+const page = Astro.url.pathname;
 ---
 <section class="px-6 pb-6 pt-2">
   <div class="mx-auto max-w-6xl rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow">
@@ -11,15 +32,86 @@ import { withBase } from '../../utils/links';
           Share your preferred contact method and we will send the starter checklist. We only contact 18+ creators who opt in.
         </p>
       </div>
-      <a
-        class="inline-flex rounded-full border border-rose-gold/40 bg-rose-gold/20 px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-rose-petal transition hover:border-rose-gold/60 hover:bg-rose-gold/30"
-        href={withBase('/apply/')}
+    </div>
+    <form class="mt-5 grid gap-4 sm:grid-cols-4" method={formMethod} action={formAction} data-lead-capture>
+      <input type="hidden" name="lead_form" value="1" />
+      <input type="hidden" name="csrf_token" value="" data-csrf-token />
+      <input type="hidden" name="source" value="lead_magnet" />
+      <input type="hidden" name="page" value={page} />
+      <input type="hidden" name="src" value={src} />
+      <input type="hidden" name="camp" value={camp} />
+      <input type="hidden" name="date" value={date} />
+
+      <label class="flex flex-col gap-2 text-xs uppercase tracking-[0.25em] text-white/60 sm:col-span-2">
+        Email (optional)
+        <input
+          type="email"
+          name="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm normal-case tracking-normal text-white placeholder:text-white/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
+        />
+      </label>
+
+      <label class="flex flex-col gap-2 text-xs uppercase tracking-[0.25em] text-white/60">
+        Telegram (optional)
+        <input
+          type="text"
+          name="telegram"
+          autocomplete="off"
+          placeholder="@yourhandle"
+          class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm normal-case tracking-normal text-white placeholder:text-white/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
+        />
+      </label>
+
+      <label class="flex flex-col gap-2 text-xs uppercase tracking-[0.25em] text-white/60">
+        WhatsApp (optional)
+        <input
+          type="text"
+          name="whatsapp"
+          autocomplete="tel"
+          placeholder="+1 555 000 0000"
+          class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm normal-case tracking-normal text-white placeholder:text-white/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
+        />
+      </label>
+
+      <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-xs uppercase tracking-[0.22em] text-white/70 sm:col-span-3">
+        <input class="mt-1 h-4 w-4 accent-rose-gold" type="checkbox" name="consent" required />
+        I am 18+ and I opt in to receive onboarding messages from NaughtyCamSpot.
+      </label>
+
+      <button
+        type="submit"
+        class="inline-flex items-center justify-center rounded-full border border-rose-gold/50 bg-rose-gold/15 px-5 py-4 text-xs font-semibold uppercase tracking-[0.28em] text-rose-petal transition hover:border-rose-gold/70 hover:bg-rose-gold/30"
       >
         Get checklist
-      </a>
-    </div>
+      </button>
+    </form>
+
     <p class="mt-4 text-xs text-white/60">
       No passwords. No exclusivity. You own your accounts and content. Cancel anytime.
     </p>
   </div>
+  {!pagesBuild && (
+    <script is:inline define:vars={{ csrfEndpoint }}>
+      {`(function () {
+  const tokenInput = document.querySelector('[data-lead-capture] [data-csrf-token]');
+  if (!(tokenInput instanceof HTMLInputElement) || !csrfEndpoint) {
+    return;
+  }
+
+  fetch(csrfEndpoint, { credentials: 'same-origin' })
+    .then((response) => (response.ok ? response.json() : null))
+    .then((data) => {
+      if (!data || typeof data.csrfToken !== 'string') {
+        return;
+      }
+      tokenInput.value = data.csrfToken;
+    })
+    .catch(() => {
+      // Backend will enforce CSRF if token fetch fails.
+    });
+})();`}
+    </script>
+  )}
 </section>

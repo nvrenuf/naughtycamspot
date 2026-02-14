@@ -4,6 +4,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import { topicLabels, type TopicKey } from '../data/categories';
 import { withBase } from '../utils/links';
+import LeadMagnet from '../partials/home/LeadMagnet.astro';
 
 const canonicalPath = '/blog';
 
@@ -128,4 +129,6 @@ const buildPostHref = (slug: string) => {
       ))}
     </div>
   </section>
+
+  <LeadMagnet />
 </MainLayout>

@@ -895,7 +895,7 @@ function field_error(array $errors, string $key): string
 
       <p class="helper" style="margin-top: 28px;">
         After approval you&apos;ll receive an email with the full kit plus a direct link to the
-        <a href="/starter-kit" style="color: var(--accent);">StartRight kit overview</a> for quick reference.
+        <a href="/startright/" style="color: var(--accent);">StartRight kit overview</a> for quick reference.
       </p>
     </main>
   </body>
