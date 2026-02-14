@@ -8,6 +8,32 @@ const weeklyReportHref = withBase('/proof/sample-weekly-report.md');
 const captionPackHref = withBase('/proof/sample-caption-pack.txt');
 const calendarHref = withBase('/proof/sample-content-calendar.md');
 const ladderHref = withBase('/proof/sample-room-goal-ladder.txt');
+
+const anonymizedEarnings = [
+  { week: 'Week 1', usd: 420 },
+  { week: 'Week 2', usd: 610 },
+  { week: 'Week 3', usd: 760 },
+  { week: 'Week 4', usd: 980 }
+] as const;
+const maxEarnings = Math.max(...anonymizedEarnings.map((item) => item.usd));
+
+const successStories = [
+  {
+    alias: 'Model A',
+    summary: 'Moved from inconsistent sessions to a fixed 3-night schedule and improved retention by week 3.',
+    result: '+42% weekly tips in month one'
+  },
+  {
+    alias: 'Model B',
+    summary: 'Switched from generic captions to audience-segmented promos and tightened pre-show reminders.',
+    result: '+31% room goal completion rate'
+  },
+  {
+    alias: 'Model C',
+    summary: 'Used the goal-ladder script and reduced drop-off during the first 20 minutes of each show.',
+    result: '+24% average watch-time'
+  }
+] as const;
 ---
 
 <MainLayout
@@ -39,6 +65,39 @@ const ladderHref = withBase('/proof/sample-room-goal-ladder.txt');
         <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Content calendar adjustments</li>
         <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Goal ladder scripts for high-intent sessions</li>
       </ul>
+    </div>
+
+    <div class="content-card space-y-4">
+      <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">Anonymized earnings trend</h2>
+      <p class="text-sm text-white/70">
+        Sample baseline from recent onboarding cohorts. Figures are anonymized snapshots, not guarantees.
+      </p>
+      <div class="space-y-3">
+        {anonymizedEarnings.map((point) => (
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-xs text-white/65">
+              <span>{point.week}</span>
+              <span>${point.usd}</span>
+            </div>
+            <div class="h-2 rounded-full bg-white/10">
+              <div class="h-full rounded-full bg-rose-gold" style={`width:${Math.max(14, Math.round((point.usd / maxEarnings) * 100))}%`}></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="content-card space-y-4">
+      <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">Success stories</h2>
+      <div class="grid gap-4 md:grid-cols-3">
+        {successStories.map((story) => (
+          <article class="rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">{story.alias}</p>
+            <p class="mt-2 text-sm text-white/75">{story.summary}</p>
+            <p class="mt-3 text-xs uppercase tracking-[0.25em] text-white/65">{story.result}</p>
+          </article>
+        ))}
+      </div>
     </div>
 
     <div class="grid gap-6 lg:grid-cols-2">
@@ -123,15 +182,15 @@ const ladderHref = withBase('/proof/sample-room-goal-ladder.txt');
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
         <a
           class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          href={withBase('/apply')}
+          href={withBase('/promotion/')}
         >
-          Apply now
+          Start promotion intake
         </a>
         <a
           class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
-          href={withBase('/packages')}
+          href={withBase('/recruiting/')}
         >
-          View packages
+          Open recruiting path
         </a>
       </div>
     </div>

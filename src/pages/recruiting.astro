@@ -5,6 +5,22 @@ import { PLATFORMS } from '../data/platforms';
 import { buildTrackedLink, withBase } from '../utils/links';
 
 const canonicalPath = '/recruiting';
+const trackingKeys = ['src', 'camp', 'date'] as const;
+const trackingParams = new URLSearchParams();
+for (const key of trackingKeys) {
+  const value = Astro.url.searchParams.get(key);
+  if (value) {
+    trackingParams.set(key, value);
+  }
+}
+const trackingQuery = trackingParams.toString();
+const withTracking = (path: string) => {
+  const href = withBase(path);
+  if (!trackingQuery) {
+    return href;
+  }
+  return `${href}?${trackingQuery}`;
+};
 ---
 
 <MainLayout
@@ -73,5 +89,23 @@ const canonicalPath = '/recruiting';
         );
       })}
     </div>
+  </section>
+
+  <section class="mt-10 space-y-4">
+    <h2 class="font-display text-3xl text-white">Recruiting playbooks</h2>
+    <p class="text-sm text-white/70">Read these posts before picking your platform mix.</p>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <a class="content-card space-y-2 transition hover:border-rose-gold/40" href={withTracking('/posts/camsoda-vs-chaturbate-for-beginners')}>
+        <p class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">Comparison</p>
+        <p class="font-display text-xl text-white">CamSoda vs Chaturbate for beginners</p>
+      </a>
+      <a class="content-card space-y-2 transition hover:border-rose-gold/40" href={withTracking('/posts/where-the-viewers-are-2025')}>
+        <p class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">Traffic timing</p>
+        <p class="font-display text-xl text-white">Where the viewers are in 2025</p>
+      </a>
+    </div>
+    <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withTracking('/blog/')}>
+      See all recruiting posts
+    </a>
   </section>
 </MainLayout>

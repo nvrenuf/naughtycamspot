@@ -18,7 +18,7 @@ This document defines the recommended order for Codex to tackle the outstanding 
 
    Overhaul the homepage copy and visuals to clearly communicate the benefits of using NaughtyCamSpot.  Add a benefit‑driven hero headline and sub‑heading, a section comparing recruiting vs. promotion, and trust signals (non‑negotiables and testimonials).
 
-5. **Expose proof & blog content — see issue #84**
+5. [x] **Expose proof & blog content — see issue #84**
 
    Surface real proof of results (anonymised earnings data, success stories, before/after promotions) in a `/proof` page and feature recent blog posts on the home page.  Build a `/blog` index page and link relevant posts from recruiting and promotion pages.
 

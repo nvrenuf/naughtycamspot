@@ -4,6 +4,22 @@ import SEO from '../components/SEO.astro';
 import { withBase } from '../utils/links';
 
 const canonicalPath = '/promotion';
+const trackingKeys = ['src', 'camp', 'date'] as const;
+const trackingParams = new URLSearchParams();
+for (const key of trackingKeys) {
+  const value = Astro.url.searchParams.get(key);
+  if (value) {
+    trackingParams.set(key, value);
+  }
+}
+const trackingQuery = trackingParams.toString();
+const withTracking = (path: string) => {
+  const href = withBase(path);
+  if (!trackingQuery) {
+    return href;
+  }
+  return `${href}?${trackingQuery}`;
+};
 
 const promotionPackages = [
   {
@@ -102,5 +118,23 @@ const promotionPackages = [
         </article>
       ))}
     </div>
+  </section>
+
+  <section class="mt-10 space-y-4">
+    <h2 class="font-display text-3xl text-white">Promotion strategy reads</h2>
+    <p class="text-sm text-white/70">Use these guides to sharpen your campaign inputs before onboarding.</p>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <a class="content-card space-y-2 transition hover:border-rose-gold/40" href={withTracking('/posts/earnings-levers-that-matter')}>
+        <p class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">Growth levers</p>
+        <p class="font-display text-xl text-white">Earnings levers that matter</p>
+      </a>
+      <a class="content-card space-y-2 transition hover:border-rose-gold/40" href={withTracking('/posts/price-ladders-and-goals-for-beginners')}>
+        <p class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">Conversion</p>
+        <p class="font-display text-xl text-white">Price ladders and goals for beginners</p>
+      </a>
+    </div>
+    <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withTracking('/blog/')}>
+      See all promotion posts
+    </a>
   </section>
 </MainLayout>

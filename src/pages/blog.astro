@@ -1,4 +1,131 @@
 ---
-export const prerender = true;
-return Astro.redirect('/posts', 308);
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { topicLabels, type TopicKey } from '../data/categories';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/blog';
+
+const rawPosts = await getCollection('blog');
+const posts = rawPosts
+  .filter((entry) => !entry.data.vipOnly)
+  .slice()
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .map((entry) => ({
+    slug: entry.slug,
+    title: entry.data.title,
+    excerpt: entry.data.excerpt,
+    category: entry.data.category,
+    topics: entry.data.topics,
+    date: new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: '2-digit',
+      year: 'numeric'
+    }).format(entry.data.publishDate)
+  }));
+
+const categoryCount = new Map<string, number>();
+const topicCount = new Map<TopicKey, number>();
+
+posts.forEach((post) => {
+  categoryCount.set(post.category, (categoryCount.get(post.category) ?? 0) + 1);
+  post.topics.forEach((topic) => {
+    topicCount.set(topic, (topicCount.get(topic) ?? 0) + 1);
+  });
+});
+
+const categorySummary = Array.from(categoryCount.entries()).map(([label, count]) => ({ label, count }));
+const topicSummary = Array.from(topicCount.entries()).map(([key, count]) => ({
+  key,
+  label: topicLabels[key],
+  count
+}));
+
+const searchParams = Astro.url.searchParams;
+const trackingKeys = ['src', 'camp', 'date'] as const;
+const trackingParams = new URLSearchParams();
+for (const key of trackingKeys) {
+  const value = searchParams.get(key);
+  if (value) {
+    trackingParams.set(key, value);
+  }
+}
+
+const trackingQuery = trackingParams.toString();
+const buildPostHref = (slug: string) => {
+  const baseHref = withBase(`/posts/${slug}`);
+  if (!trackingQuery) {
+    return baseHref;
+  }
+  return `${baseHref}?${trackingQuery}`;
+};
 ---
+
+<MainLayout
+  title="Blog | NaughtyCamSpot"
+  description="Browse NaughtyCamSpot playbooks by category and topic tags, with recent recruiting and promotion insights."
+>
+  <SEO
+    slot="head"
+    title="Blog | NaughtyCamSpot"
+    description="Category and tag-based index for NaughtyCamSpot recruiting and promotion content."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-8">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Blog</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Recruiting and promotion field notes.</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        Explore practical guides, launch templates, and weekly strategy insights grouped by category and topic tags.
+      </p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <article class="content-card space-y-4">
+        <h2 class="text-base font-semibold text-white">Categories</h2>
+        <div class="flex flex-wrap gap-3">
+          {categorySummary.map((item) => (
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs text-white/80">
+              {item.label} ({item.count})
+            </span>
+          ))}
+        </div>
+      </article>
+      <article class="content-card space-y-4">
+        <h2 class="text-base font-semibold text-white">Tags</h2>
+        <div class="flex flex-wrap gap-3">
+          {topicSummary.map((item) => (
+            <span class="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs text-white/80">
+              {item.label} ({item.count})
+            </span>
+          ))}
+        </div>
+      </article>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      {posts.map((post) => (
+        <article class="content-card space-y-4">
+          <div class="space-y-2">
+            <p class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">{post.category}</p>
+            <h2 class="font-display text-2xl text-white">{post.title}</h2>
+            <p class="text-sm text-white/70">{post.excerpt}</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            {post.topics.map((topic) => (
+              <span class="rounded-full border border-white/10 px-3 py-1 text-[0.7rem] text-white/70">{topicLabels[topic]}</span>
+            ))}
+          </div>
+          <div class="flex items-center justify-between text-xs text-white/55">
+            <span>{post.date}</span>
+            <a class="uppercase tracking-[0.28em] text-rose-gold transition hover:text-white" href={buildPostHref(post.slug)}>
+              Read article
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>
