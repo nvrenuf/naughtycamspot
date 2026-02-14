@@ -5,10 +5,11 @@
 @layer base {
   html {
     @apply scroll-smooth;
+    font-size: 17px;
   }
 
   body {
-    @apply bg-midnight text-white font-sans;
+    @apply bg-midnight text-white font-sans leading-relaxed antialiased;
   }
 
   img,
@@ -26,10 +27,21 @@
   figure figcaption,
   .figure figcaption,
   .figure-caption {
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.6;
-    color: rgb(216 220 228 / 0.78);
+    color: rgb(223 227 236 / 0.88);
     text-align: center;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid rgb(246 186 205 / 0.95);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
   }
 
   @media print {
@@ -56,7 +68,7 @@
   }
 
   .hero-tagline {
-    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-xs uppercase tracking-[0.4em] text-rose-petal/80;
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-sm tracking-[0.08em] text-rose-petal/90;
   }
 
   .section-heading {
@@ -68,11 +80,11 @@
   }
 
   .video-placeholder {
-    @apply flex h-40 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-sm uppercase tracking-[0.3em] text-white/50 backdrop-blur-xl;
+    @apply flex h-40 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-sm tracking-[0.08em] text-white/70 backdrop-blur-xl;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] transition hover:-translate-y-1;
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-[0.08em] transition hover:-translate-y-1;
   }
 
   .btn-secondary {

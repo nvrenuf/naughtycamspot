@@ -135,7 +135,7 @@ gtag('config', '${gaMeasurementId}');`}
           <div class="flex w-full items-center justify-between gap-3">
             <a
               href={withBase('/')}
-              class="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.32em] text-rose-gold"
+              class="flex items-center gap-3 text-sm font-semibold tracking-[0.08em] text-rose-gold"
             >
               <span class="flex h-11 w-11 items-center justify-center rounded-full border border-rose-gold/60 bg-white/10 shadow-glow backdrop-blur-lg">
                 N
@@ -145,7 +145,7 @@ gtag('config', '${gaMeasurementId}');`}
             <div class="flex items-center gap-3">
               <button
                 type="button"
-                class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white/70 shadow-glow backdrop-blur-xl transition hover:border-white/30 hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:hidden"
+                class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold tracking-[0.06em] text-white/80 shadow-glow backdrop-blur-xl transition hover:border-white/30 hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:hidden"
                 data-nav-mobile-toggle
                 aria-expanded="false"
                 aria-controls="mobile-navigation"
@@ -160,7 +160,7 @@ gtag('config', '${gaMeasurementId}');`}
               />
             </div>
           </div>
-          <nav class="hidden w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 backdrop-blur-2xl sm:gap-4 sm:text-[0.7rem] sm:tracking-[0.28em] lg:flex lg:flex-nowrap lg:text-sm lg:tracking-[0.3em]" aria-label="Primary">
+          <nav class="hidden w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 text-sm tracking-[0.06em] text-white/80 backdrop-blur-2xl sm:gap-4 lg:flex lg:flex-nowrap" aria-label="Primary Navigation">
             {primaryNavLinks.map((link) => {
               const resolvedHref = resolveNavHref(link);
               const active = isNavActive(resolvedHref);
@@ -178,10 +178,11 @@ gtag('config', '${gaMeasurementId}');`}
               <details class="relative" data-nav-desktop-more>
                 <summary
                   id="desktop-resources-trigger"
-                  class={`relative z-10 list-none [&::-webkit-details-marker]:hidden flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:text-sm lg:tracking-[0.3em] ${moreMenuActive ? 'text-rose-gold' : 'text-white/70'}`}
+                  class={`relative z-10 list-none [&::-webkit-details-marker]:hidden flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-sm font-semibold tracking-[0.06em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold ${moreMenuActive ? 'text-rose-gold' : 'text-white/80'}`}
                   aria-haspopup="menu"
                   aria-controls="desktop-resources-menu"
                   aria-expanded="false"
+                  aria-label="Resources menu"
                   data-nav-desktop-more-trigger
                 >
                   Resources
@@ -192,7 +193,7 @@ gtag('config', '${gaMeasurementId}');`}
                   role="menu"
                   aria-labelledby="desktop-resources-trigger"
                 >
-                  <ul class="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 lg:text-xs lg:tracking-[0.28em]">
+                  <ul class="flex flex-col gap-2 text-sm tracking-[0.06em] text-white/80">
                     {moreNavLinks.map((link) => {
                       const resolvedHref = resolveNavHref(link);
                       return (
@@ -219,14 +220,14 @@ gtag('config', '${gaMeasurementId}');`}
             ></div>
             <div
               id="mobile-navigation"
-              class="fixed inset-y-0 right-0 z-50 flex w-80 max-w-full translate-x-full flex-col gap-6 bg-black/95 p-6 text-sm uppercase tracking-[0.32em] text-white/70 shadow-glow transition-transform duration-200"
+              class="fixed inset-y-0 right-0 z-50 flex w-80 max-w-full translate-x-full flex-col gap-6 bg-black/95 p-6 text-base tracking-[0.06em] text-white/80 shadow-glow transition-transform duration-200"
               data-nav-mobile-drawer
             >
               <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold tracking-[0.28em] text-white/60">Navigation</span>
+                <span class="text-sm font-semibold tracking-[0.06em] text-white/80">Navigation</span>
                 <button
                   type="button"
-                  class="rounded-full border border-white/20 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-white/70 transition hover:border-white/30 hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
+                  class="rounded-full border border-white/20 px-3 py-1 text-sm font-semibold tracking-[0.06em] text-white/80 transition hover:border-white/30 hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
                   data-nav-mobile-close
                   aria-label="Close menu"
                 >
@@ -239,7 +240,7 @@ gtag('config', '${gaMeasurementId}');`}
                   const active = isNavActive(resolvedHref);
                   return (
                     <a
-                      class={`rounded-full border border-white/10 px-4 py-3 text-[0.65rem] tracking-[0.28em] transition hover:border-white/20 hover:text-rose-gold ${active ? 'border-rose-gold/50 text-rose-gold' : 'text-white/70'}`}
+                      class={`rounded-full border border-white/10 px-4 py-3 text-sm tracking-[0.06em] transition hover:border-white/20 hover:text-rose-gold ${active ? 'border-rose-gold/50 text-rose-gold' : 'text-white/80'}`}
                       href={withBase(resolvedHref)}
                       data-nav-mobile-link
                       aria-current={active ? 'page' : undefined}
@@ -253,25 +254,28 @@ gtag('config', '${gaMeasurementId}');`}
                 <div class="flex flex-col gap-3" data-nav-mobile-more>
                   <button
                     type="button"
-                    class={`flex items-center justify-between rounded-full border px-4 py-3 text-[0.65rem] tracking-[0.28em] transition hover:border-white/20 hover:text-rose-gold ${moreMenuActive ? 'border-rose-gold/50 text-rose-gold' : 'border-white/10 text-white/70'}`}
+                    class={`flex items-center justify-between rounded-full border px-4 py-3 text-sm tracking-[0.06em] transition hover:border-white/20 hover:text-rose-gold ${moreMenuActive ? 'border-rose-gold/50 text-rose-gold' : 'border-white/10 text-white/80'}`}
                     data-nav-mobile-more-trigger
                     aria-expanded="false"
                     aria-controls="mobile-resources-menu"
+                    aria-label="Resources menu"
                   >
                     <span>Resources</span>
                     <span aria-hidden="true">▾</span>
                   </button>
                   <div
                     id="mobile-resources-menu"
-                    class="hidden flex-col gap-2 text-[0.65rem] tracking-[0.28em] text-white/70"
+                    class="hidden flex-col gap-2 text-sm tracking-[0.06em] text-white/80"
                     data-nav-mobile-more-panel
+                    role="group"
+                    aria-label="Resources links"
                   >
                     {moreNavLinks.map((link) => {
                       const resolvedHref = resolveNavHref(link);
                       const active = isNavActive(resolvedHref);
                       return (
                         <a
-                          class={`rounded-full border border-white/10 px-4 py-3 transition hover:border-white/20 hover:text-rose-gold ${active ? 'border-rose-gold/50 text-rose-gold' : 'text-white/70'}`}
+                          class={`rounded-full border border-white/10 px-4 py-3 transition hover:border-white/20 hover:text-rose-gold ${active ? 'border-rose-gold/50 text-rose-gold' : 'text-white/80'}`}
                           href={withBase(resolvedHref)}
                           data-nav-mobile-link
                         >
@@ -292,8 +296,8 @@ gtag('config', '${gaMeasurementId}');`}
       </main>
 
       <footer class="border-t border-white/10 bg-black/40 py-10 backdrop-blur-2xl">
-        <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 text-xs uppercase tracking-[0.4em] text-white/45 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex flex-wrap items-center gap-4 text-[0.7rem]">
+        <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 text-sm tracking-[0.04em] text-white/70 sm:flex-row sm:items-center sm:justify-between">
+          <div class="flex flex-wrap items-center gap-4 text-sm">
             {footerLinks.map((link) => {
               const resolvedHref = resolveNavHref(link);
               return (
@@ -303,13 +307,13 @@ gtag('config', '${gaMeasurementId}');`}
               );
             })}
           </div>
-          <div class="flex items-center gap-4 text-[0.7rem]">
+          <div class="flex items-center gap-4 text-sm">
             <a class="transition hover:text-rose-gold" href="mailto:concierge@naughtycamspot.com">
               concierge@naughtycamspot.com
             </a>
             <span>© NaughtyCamSpot 2025</span>
           </div>
-          <p class="text-[0.65rem] uppercase tracking-[0.4em] text-white/40">{DISCLOSURE}</p>
+          <p class="text-xs tracking-[0.04em] text-white/65">{DISCLOSURE}</p>
         </div>
       </footer>
     </div>

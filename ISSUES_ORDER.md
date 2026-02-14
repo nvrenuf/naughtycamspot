@@ -22,7 +22,7 @@ This document defines the recommended order for Codex to tackle the outstanding 
 
    Surface real proof of results (anonymised earnings data, success stories, before/after promotions) in a `/proof` page and feature recent blog posts on the home page.  Build a `/blog` index page and link relevant posts from recruiting and promotion pages.
 
-6. **Improve readability & accessibility — see issue #85**
+6. [x] **Improve readability & accessibility — see issue #85**
 
    Adjust typography and colour contrast for better readability; adopt consistent casing in navigation labels; add focus states and ARIA attributes; and ensure alt text and labels for images and forms.  Aim for WCAG‑AA compliance.
 
