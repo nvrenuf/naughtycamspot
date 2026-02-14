@@ -9,12 +9,17 @@ const resolveFixturePath = (relativePath) =>
 
 const readNavSource = async () => fs.readFile(resolveFixturePath('src/data/nav.ts'), 'utf8');
 
-test('Primary navigation includes Recruiting and Promotion top-level links', async () => {
+test('Primary navigation includes core funnel top-level links', async () => {
   const navSource = await readNavSource();
-  assert.ok(navSource.includes("label: 'Recruiting'"), 'Primary navigation should include Recruiting');
-  assert.ok(navSource.includes("label: 'Promotion'"), 'Primary navigation should include Promotion');
-  assert.ok(navSource.includes("href: '/recruiting/'"), 'Primary navigation should point Recruiting to /recruiting/');
-  assert.ok(navSource.includes("href: '/promotion/'"), 'Primary navigation should point Promotion to /promotion/');
+  assert.ok(navSource.includes("label: 'Home'"), 'Primary navigation should include Home');
+  assert.ok(navSource.includes("label: 'Packages'"), 'Primary navigation should include Packages');
+  assert.ok(navSource.includes("label: 'How It Works'"), 'Primary navigation should include How It Works');
+  assert.ok(navSource.includes("label: 'Apply'"), 'Primary navigation should include Apply');
+  assert.ok(navSource.includes("label: 'Platforms'"), 'Primary navigation should include Platforms');
+  assert.ok(navSource.includes("href: '/packages/'"), 'Primary navigation should point Packages to /packages/');
+  assert.ok(navSource.includes("href: '/how-it-works/'"), 'Primary navigation should point How It Works to /how-it-works/');
+  assert.ok(navSource.includes("href: '/apply/'"), 'Primary navigation should point Apply to /apply/');
+  assert.ok(navSource.includes("href: '/platforms/'"), 'Primary navigation should point Platforms to /platforms/');
 });
 
 test('Resource navigation excludes legal links', async () => {
@@ -46,4 +51,34 @@ test('Desktop and mobile resources triggers include ARIA controls', async () => 
     layoutSource.includes('aria-controls="mobile-resources-menu"'),
     'Mobile Resources trigger should define aria-controls'
   );
+  assert.ok(layoutSource.includes('Getting Started'), 'Resources menu should include Getting Started section');
+  assert.ok(layoutSource.includes('Guides'), 'Resources menu should include Guides section');
+  assert.ok(layoutSource.includes('Community'), 'Resources menu should include Community section');
+  assert.ok(layoutSource.includes('Insights'), 'Resources menu should include Insights section');
+});
+
+test('Navigation links map to existing routes', async () => {
+  const navSource = await readNavSource();
+  const hrefMatches = [...navSource.matchAll(/href:\s*'([^']+)'/g)].map((match) => match[1]);
+  const knownRouteSet = new Set([
+    '/',
+    '/packages/',
+    '/how-it-works/',
+    '/apply/',
+    '/platforms/',
+    '/startright/',
+    '/recruiting/',
+    '/promotion/',
+    '/resources/platforms/',
+    '/gear-kits/',
+    '/community/',
+    '/events/',
+    '/proof/',
+    '/earnings/',
+    '/blog/'
+  ]);
+
+  hrefMatches.forEach((href) => {
+    assert.ok(knownRouteSet.has(href), `Navigation href should point to a known route: ${href}`);
+  });
 });
