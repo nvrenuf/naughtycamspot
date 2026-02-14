@@ -1,7 +1,7 @@
 # Issue Implementation Order (Go-Live Push)
 
 1. [x] Mobile-first nav cleanup + fix Resources links — see issue #89 (commit 00f7bca)
-2. Create Blog index page and wire up nav + home Recent Posts — see issue #90
+2. [x] Create Blog index page and wire up nav + home Recent Posts — see issue #90 (commit 938cf4b)
 3. Rework homepage copy for mobile scanning + stronger conversion — see issue #91
 4. Packages page polish for trust + mobile clarity — see issue #92
 5. Fix Apply flow for mobile completion (multi-step + progress) — see issue #93
