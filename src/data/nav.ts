@@ -7,18 +7,17 @@ export type NavLink = {
 
 export const NAV_PRIMARY: NavLink[] = [
   { href: '/', label: 'Home' },
-  { href: '/apply/', label: 'Start Here' },
+  { href: '/join-models/', label: 'Recruiting' },
+  { href: '/packages/', label: 'Promotion' },
   { href: '/startright/', label: 'StartRight' },
-  { href: '/packages/', label: 'Packages' },
   { href: '/proof/', label: 'Proof' }
 ];
 
 export const NAV_MORE: NavLink[] = [
-  { href: '/vip-kit/', label: 'VIP Kit' },
+  { href: '/how-it-works/', label: 'How It Works' },
   { href: '/platforms/', label: 'Platforms' },
   { href: '/earnings/', label: 'Earnings' },
+  { href: '/vip-kit/', label: 'VIP Kit' },
   { href: '/posts/', label: 'Posts' },
-  { href: '/disclosure/', label: 'Disclosure' },
-  { href: '/terms/', label: 'Terms' },
-  { href: '/privacy/', label: 'Privacy' }
+  { href: '/apply/', label: 'Apply' }
 ];

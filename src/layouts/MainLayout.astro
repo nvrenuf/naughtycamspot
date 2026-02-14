@@ -86,12 +86,12 @@ const resolveNavHref = (link) => {
 const moreMenuActive = moreNavLinks.some((link) => isNavActive(resolveNavHref(link)));
 
 const footerLinks = [
-  { href: '/startright', label: 'StartRight' },
-  { href: '/earnings', label: 'Earnings' },
-  { href: '/posts', label: 'Posts' },
-  { href: '/privacy', label: 'Privacy' },
-  { href: '/terms', label: 'Terms' },
-  { href: '/disclosure', label: 'Disclosure' }
+  { href: '/startright/', label: 'StartRight' },
+  { href: '/earnings/', label: 'Earnings' },
+  { href: '/posts/', label: 'Posts' },
+  { href: '/privacy/', label: 'Privacy' },
+  { href: '/terms/', label: 'Terms' },
+  { href: '/disclosure/', label: 'Disclosure' }
 ];
 
 const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
@@ -175,13 +175,23 @@ gtag('config', '${gaMeasurementId}');`}
               );
             })}
             {moreNavLinks.length > 0 && (
-              <details class="relative">
+              <details class="relative" data-nav-desktop-more>
                 <summary
+                  id="desktop-resources-trigger"
                   class={`relative z-10 list-none [&::-webkit-details-marker]:hidden flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.25em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:text-sm lg:tracking-[0.3em] ${moreMenuActive ? 'text-rose-gold' : 'text-white/70'}`}
+                  aria-haspopup="menu"
+                  aria-controls="desktop-resources-menu"
+                  aria-expanded="false"
+                  data-nav-desktop-more-trigger
                 >
                   Resources
                 </summary>
-                <div class="pointer-events-auto absolute right-0 top-full z-50 mt-3 max-h-[70vh] w-56 overflow-y-auto overscroll-contain rounded-3xl border border-white/10 bg-black/90 p-3 pr-1 shadow-glow backdrop-blur-2xl">
+                <div
+                  id="desktop-resources-menu"
+                  class="pointer-events-auto absolute right-0 top-full z-50 mt-3 max-h-[70vh] w-56 overflow-y-auto overscroll-contain rounded-3xl border border-white/10 bg-black/90 p-3 pr-1 shadow-glow backdrop-blur-2xl"
+                  role="menu"
+                  aria-labelledby="desktop-resources-trigger"
+                >
                   <ul class="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.25em] text-white/70 lg:text-xs lg:tracking-[0.28em]">
                     {moreNavLinks.map((link) => {
                       const resolvedHref = resolveNavHref(link);
@@ -190,6 +200,7 @@ gtag('config', '${gaMeasurementId}');`}
                           <a
                             class="block rounded-full px-4 py-2 transition hover:bg-white/10 hover:text-rose-gold"
                             href={withBase(resolvedHref)}
+                            role="menuitem"
                           >
                             {link.label}
                           </a>
@@ -245,11 +256,16 @@ gtag('config', '${gaMeasurementId}');`}
                     class={`flex items-center justify-between rounded-full border px-4 py-3 text-[0.65rem] tracking-[0.28em] transition hover:border-white/20 hover:text-rose-gold ${moreMenuActive ? 'border-rose-gold/50 text-rose-gold' : 'border-white/10 text-white/70'}`}
                     data-nav-mobile-more-trigger
                     aria-expanded="false"
+                    aria-controls="mobile-resources-menu"
                   >
                     <span>Resources</span>
                     <span aria-hidden="true">▾</span>
                   </button>
-                  <div class="hidden flex-col gap-2 text-[0.65rem] tracking-[0.28em] text-white/70" data-nav-mobile-more-panel>
+                  <div
+                    id="mobile-resources-menu"
+                    class="hidden flex-col gap-2 text-[0.65rem] tracking-[0.28em] text-white/70"
+                    data-nav-mobile-more-panel
+                  >
                     {moreNavLinks.map((link) => {
                       const resolvedHref = resolveNavHref(link);
                       const active = isNavActive(resolvedHref);
@@ -312,13 +328,26 @@ gtag('config', '${gaMeasurementId}');`}
   const mobileLinks = navRoot.querySelectorAll('[data-nav-mobile-link]');
   const mobileMoreTrigger = navRoot.querySelector('[data-nav-mobile-more-trigger]');
   const mobileMorePanel = navRoot.querySelector('[data-nav-mobile-more-panel]');
+  const desktopMore = navRoot.querySelector('[data-nav-desktop-more]');
+  const desktopMoreTrigger = navRoot.querySelector('[data-nav-desktop-more-trigger]');
 
   let drawerOpen = false;
   let mobileMoreOpen = false;
 
+  const setDesktopMoreExpanded = (open) => {
+    if (!desktopMoreTrigger) {
+      return;
+    }
+    desktopMoreTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+
   const handleEscape = (event) => {
     if (event.key !== 'Escape') {
       return;
+    }
+    if (desktopMore && desktopMore.open) {
+      desktopMore.open = false;
+      setDesktopMoreExpanded(false);
     }
     if (drawerOpen) {
       setDrawerOpen(false);
@@ -406,6 +435,27 @@ gtag('config', '${gaMeasurementId}');`}
       setMobileMoreOpen(!mobileMoreOpen);
     });
   }
+
+  if (desktopMore) {
+    setDesktopMoreExpanded(desktopMore.open);
+    desktopMore.addEventListener('toggle', () => {
+      setDesktopMoreExpanded(desktopMore.open);
+    });
+  }
+
+  document.addEventListener('click', (event) => {
+    if (!desktopMore || !desktopMore.open) {
+      return;
+    }
+    const target = event.target;
+    if (!(target instanceof Node)) {
+      return;
+    }
+    if (!desktopMore.contains(target)) {
+      desktopMore.open = false;
+      setDesktopMoreExpanded(false);
+    }
+  });
 
   const handleResize = () => {
     if (window.innerWidth >= 1024) {

@@ -6,7 +6,7 @@ This document defines the recommended order for Codex to tackle the outstanding 
 
    Update the site’s messaging so visitors immediately understand NaughtyCamSpot is both a model recruitment platform (via affiliate partnerships) and a paid promotion service (where models pay for marketing).  Adjust the homepage hero, meta description and CTAs accordingly:contentReference[oaicite:0]{index=0}.
 
-2. **Streamline navigation & fix the resource menu — see issue #81**
+2. [x] **Streamline navigation & fix the resource menu — see issue #81**
 
    Audit the `nav.ts` data and remove or fix broken links, collapse legal/terms links into the footer, and add top‑level navigation entries for Recruiting and Promotion.  Ensure the Resource dropdown works properly and that all menu items link somewhere meaningful:contentReference[oaicite:1]{index=1}.
 
