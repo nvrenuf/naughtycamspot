@@ -7,4 +7,4 @@
 5. [x] Fix Apply flow for mobile completion (multi-step + progress) — see issue #93 (commit e06711f)
 6. [x] SEO hardening: titles/descriptions, OG tags, sitemap, robots — see issue #94 (commit 45b4b71)
 7. [x] Mobile performance pass (images, fonts, JS) — see issue #95 (commit 80437d4)
-8. Revenue funnel: Lead capture + follow-up hooks (Telegram/Email) — see issue #96
+8. [x] Revenue funnel: Lead capture + follow-up hooks (Telegram/Email) — see issue #96 (commit 6eccc38)
