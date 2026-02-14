@@ -2,11 +2,23 @@
 import { getCollection } from 'astro:content';
 import { withBase } from '../../utils/links';
 
-const recentPosts = (await getCollection('blog'))
+const phaseOneSlugs = [
+  'getting-started-cam-model-checklist',
+  'marketing-yourself-on-multiple-platforms',
+  'understanding-affiliate-programmes-benefits',
+  'equipment-essentials-on-a-budget',
+  'privacy-safety-and-wellbeing-online'
+] as const;
+
+const allPosts = (await getCollection('blog'))
   .filter((entry) => !entry.data.vipOnly)
   .slice()
-  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
-  .slice(0, 3);
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+const phaseOneSet = new Set<string>(phaseOneSlugs);
+const phaseOnePosts = allPosts.filter((post) => phaseOneSet.has(post.slug));
+const fallbackPosts = allPosts.filter((post) => !phaseOneSet.has(post.slug));
+const recentPosts = [...phaseOnePosts, ...fallbackPosts].slice(0, 5);
 
 const trackingKeys = ['src', 'camp', 'date'] as const;
 const trackingParams = new URLSearchParams();
