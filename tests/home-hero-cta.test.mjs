@@ -18,9 +18,9 @@ test('Primary CTA routes to Apply in all environments', async () => {
 test('Hero partial renders recruiting + promotion CTAs', async () => {
   const heroSource = await readSource('src/partials/home/Hero.astro');
   assert.ok(heroSource.includes('Join as a Model'), 'Hero partial should show the recruiting CTA label');
-  assert.ok(heroSource.includes('/join-models'), 'Hero partial should link to /join-models');
+  assert.ok(heroSource.includes('/recruiting/'), 'Hero partial should link to /recruiting/');
   assert.ok(heroSource.includes('Promote My Content'), 'Hero partial should show the promotion CTA label');
-  assert.ok(heroSource.includes('/packages'), 'Hero partial should link to /packages');
+  assert.ok(heroSource.includes('/promotion/'), 'Hero partial should link to /promotion/');
 });
 
 test('Hero partial avoids tracked /go/ links', async () => {

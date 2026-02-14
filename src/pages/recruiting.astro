@@ -1,0 +1,77 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { PLATFORMS } from '../data/platforms';
+import { buildTrackedLink, withBase } from '../utils/links';
+
+const canonicalPath = '/recruiting';
+---
+
+<MainLayout
+  title="Recruiting | NaughtyCamSpot"
+  description="Join partner platforms through NaughtyCamSpot affiliate recruiting links and get StartRight onboarding guidance."
+>
+  <SEO
+    slot="head"
+    title="Recruiting | NaughtyCamSpot"
+    description="Use tracked recruiting links for Chaturbate, CamSoda, Stripchat, and Bonga. Keep your account model-owned."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-10">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Recruiting</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Join partner platforms with tracked links.</h1>
+      <p class="max-w-3xl text-base text-white/70">
+        This path is for model recruiting. Choose a platform, complete signup, and keep your account ownership. We may earn an
+        affiliate commission when signups are completed through these links.
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          href={withBase('/join-models/')}
+        >
+          Join Models Checklist
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
+          href={withBase('/promotion/')}
+        >
+          Need Paid Promotion?
+        </a>
+      </div>
+      <p class="text-xs uppercase tracking-[0.3em] text-white/55">
+        Not an agency. No exclusivity. No earnings guarantee.
+      </p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      {PLATFORMS.map((platform) => {
+        const affiliateHref = buildTrackedLink({
+          path: platform.goPath,
+          slot: `recruiting_${platform.slug}`,
+          camp: 'recruiting',
+          placeholder: '/join-models/'
+        });
+        return (
+          <article class="content-card space-y-4">
+            <div class="flex items-center justify-between">
+              <h2 class="font-display text-2xl text-white">{platform.name}</h2>
+              <span class="rounded-full border border-white/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] text-rose-petal/70">
+                {platform.statusLabel}
+              </span>
+            </div>
+            <p class="text-sm text-white/70">{platform.note}</p>
+            <a
+              class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-5 py-2 text-xs uppercase tracking-[0.28em] text-white transition hover:border-white/40 hover:text-rose-gold"
+              href={affiliateHref}
+              data-platform={platform.slug}
+            >
+              Open {platform.name} signup
+            </a>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+</MainLayout>

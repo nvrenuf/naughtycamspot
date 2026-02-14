@@ -1,0 +1,106 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/promotion';
+
+const promotionPackages = [
+  {
+    slug: 'starter',
+    name: 'Starter Pulse',
+    price: '$149 / week',
+    summary: 'Campaign setup for one active platform with daily promo outputs.',
+    features: ['Campaign onboarding form', 'Daily promo captions + assets', 'Weekly performance note']
+  },
+  {
+    slug: 'growth',
+    name: 'Growth Engine',
+    price: '$349 / week',
+    summary: 'Multi-platform promotion workflows and retention-focused iteration.',
+    features: ['Two-platform promotion mix', 'DM and feed scheduling support', 'Twice-weekly optimization updates']
+  },
+  {
+    slug: 'concierge',
+    name: 'Concierge Scale',
+    price: '$799 / week',
+    summary: 'High-touch promotion operations with custom experiments and reporting.',
+    features: ['Priority launch calendar', 'Custom traffic experiments', 'Dedicated strategist review']
+  }
+] as const;
+---
+
+<MainLayout
+  title="Promotion | NaughtyCamSpot"
+  description="Compare NaughtyCamSpot promotion packages with pricing, features, and intake forms."
+>
+  <SEO
+    slot="head"
+    title="Promotion | NaughtyCamSpot"
+    description="Paid promotion services for cam models: package pricing, features, and intake forms."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-10">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Promotion</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Paid marketing support built around your schedule.</h1>
+      <p class="max-w-3xl text-base text-white/70">
+        This path is for paid promotion services. Pick the package that matches your operating budget, then submit the intake form
+        and we will follow up with campaign details.
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          href={withBase('/apply/')}
+        >
+          Open Full Intake
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
+          href={withBase('/recruiting/')}
+        >
+          Looking to Join Platforms?
+        </a>
+      </div>
+      <p class="text-xs uppercase tracking-[0.3em] text-white/55">
+        Promotion is paid service work and separate from affiliate recruiting.
+      </p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-3">
+      {promotionPackages.map((pkg) => (
+        <article class="content-card space-y-4">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{pkg.price}</p>
+          <h2 class="font-display text-2xl text-white">{pkg.name}</h2>
+          <p class="text-sm text-white/70">{pkg.summary}</p>
+          <ul class="space-y-2 text-sm text-white/70">
+            {pkg.features.map((feature) => (
+              <li>{feature}</li>
+            ))}
+          </ul>
+          <form method="get" action={withBase('/apply/')} class="space-y-3 rounded-2xl border border-white/10 bg-black/20 p-4">
+            <input type="hidden" name="track" value="promotion" />
+            <input type="hidden" name="package" value={pkg.slug} />
+            <label class="flex flex-col gap-2 text-[0.65rem] uppercase tracking-[0.25em] text-white/60">
+              Email
+              <input
+                type="email"
+                name="email"
+                required
+                class="rounded-xl border border-white/20 bg-white/5 px-3 py-2 text-sm normal-case tracking-normal text-white placeholder:text-white/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
+                placeholder="you@example.com"
+              />
+            </label>
+            <button
+              type="submit"
+              class="inline-flex w-full items-center justify-center rounded-full border border-white/20 bg-transparent px-4 py-2 text-[0.65rem] uppercase tracking-[0.28em] text-white transition hover:border-white/40 hover:text-rose-gold"
+            >
+              Request {pkg.name}
+            </button>
+          </form>
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>

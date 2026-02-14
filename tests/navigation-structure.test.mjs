@@ -13,6 +13,8 @@ test('Primary navigation includes Recruiting and Promotion top-level links', asy
   const navSource = await readNavSource();
   assert.ok(navSource.includes("label: 'Recruiting'"), 'Primary navigation should include Recruiting');
   assert.ok(navSource.includes("label: 'Promotion'"), 'Primary navigation should include Promotion');
+  assert.ok(navSource.includes("href: '/recruiting/'"), 'Primary navigation should point Recruiting to /recruiting/');
+  assert.ok(navSource.includes("href: '/promotion/'"), 'Primary navigation should point Promotion to /promotion/');
 });
 
 test('Resource navigation excludes legal links', async () => {

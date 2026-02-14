@@ -7,8 +7,8 @@ export type NavLink = {
 
 export const NAV_PRIMARY: NavLink[] = [
   { href: '/', label: 'Home' },
-  { href: '/join-models/', label: 'Recruiting' },
-  { href: '/packages/', label: 'Promotion' },
+  { href: '/recruiting/', label: 'Recruiting' },
+  { href: '/promotion/', label: 'Promotion' },
   { href: '/startright/', label: 'StartRight' },
   { href: '/proof/', label: 'Proof' }
 ];

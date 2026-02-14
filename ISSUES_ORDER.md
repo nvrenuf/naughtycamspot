@@ -10,7 +10,7 @@ This document defines the recommended order for Codex to tackle the outstanding 
 
    Audit the `nav.ts` data and remove or fix broken links, collapse legal/terms links into the footer, and add top‑level navigation entries for Recruiting and Promotion.  Ensure the Resource dropdown works properly and that all menu items link somewhere meaningful:contentReference[oaicite:1]{index=1}.
 
-3. **Build dedicated recruiting & promotion pages — see issue #82**
+3. [x] **Build dedicated recruiting & promotion pages — see issue #82**
 
    Create a `/recruiting` page listing partner platforms (Chaturbate, CamSoda, etc.) with descriptions and affiliate links, and a `/promotion` page outlining marketing packages with features, pricing and sign‑up forms.  Cross‑link these pages and update CTAs to point at them.
 
