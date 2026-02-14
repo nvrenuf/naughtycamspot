@@ -1,18 +1,10 @@
-# Issue Implementation Order (Phase 2)
+# Issue Implementation Order (Go-Live Push)
 
-This list defines the order to address the remaining issues after closing duplicates.
-
-1. [x] StartRight Page: Full Content Rewrite — see issue #52
-2. [x] Compare Platforms: Content Pass — see issue #53
-3. [x] Join Models: Referral Explanation Page — see issue #54
-4. [x] About Page: High-End Rewrite — see issue #55
-5. [x] Gear Kits: Copy for 3 Tiers — see issue #56
-6. [x] Gear Kits V0 (Curated, Compliant) — see issue #28
-7. [x] StartRight: choose V0 static wizard or fold into page — see issue #29
-8. [x] Programs Registry Hardening + Tests — see issue #26
-9. [x] Banners: Data + Safe Placements — see issue #27
-10. [x] Content Fill: Core Pages — see issue #30
-11. [x] Blog: Publish 5 Phase-1 Posts — see issue #31
-12. [x] SEO & Sitemap/Robots + OG/Twitter — see issue #32
-13. [x] Analytics (Env-Gated) — see issue #33
-14. [x] CI: Pin Node 20.17 + Build + /go/ Guardrail — see issue #34
+1. Mobile-first nav cleanup + fix Resources links — see issue #89
+2. Create Blog index page and wire up nav + home Recent Posts — see issue #90
+3. Rework homepage copy for mobile scanning + stronger conversion — see issue #91
+4. Packages page polish for trust + mobile clarity — see issue #92
+5. Fix Apply flow for mobile completion (multi-step + progress) — see issue #93
+6. SEO hardening: titles/descriptions, OG tags, sitemap, robots — see issue #94
+7. Mobile performance pass (images, fonts, JS) — see issue #95
+8. Revenue funnel: Lead capture + follow-up hooks (Telegram/Email) — see issue #96
