@@ -2,19 +2,19 @@
 import LinkCTA from './LinkCTA.astro';
 import { formatDateStamp } from '../utils/links';
 
-const claimHref = `/startright?src=vip_teaser&camp=vip&date=${formatDateStamp()}`;
+const claimHref = `/apply/?src=kit_preview&camp=apply&date=${formatDateStamp()}`;
 
 const tiles = [
   {
-    title: 'VIP Kit',
+    title: 'Starter Kit',
     summary:
-      'Concierge-guarded kit previews with lighting cues, pacing prompts, and white-glove onboarding notes reserved for high-touch partners.',
+      'A simple launch checklist with lighting cues, pacing prompts, and a phone-first setup flow you can reuse.',
     label: 'Launch support'
   },
   {
-    title: 'VIP Posts',
+    title: 'Posting Packs',
     summary:
-      'Locked scripting feed for bespoke DM prompts and retention clips. Public visitors see teasers only—full drops unlock after verification.',
+      'Caption templates and short posting plans you can copy. We send the full packs after you apply so we can tailor them.',
     label: 'Retention fuel'
   }
 ];
@@ -23,15 +23,15 @@ const tiles = [
   <div class="mx-auto max-w-6xl space-y-6 rounded-[34px] border border-rose-gold/30 bg-rose-gold/5 p-8 backdrop-blur-xl sm:p-10">
     <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
       <div class="space-y-2">
-        <p class="text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-gold/80">VIP program</p>
-        <h2 class="font-display text-[clamp(2.1rem,5vw,3rem)] text-white">Concierge-guarded VIP previews</h2>
+        <p class="text-[clamp(0.75rem,1.2vw,0.9rem)] uppercase tracking-[0.4em] text-rose-gold/80">Starter previews</p>
+        <h2 class="font-display text-[clamp(2.1rem,5vw,3rem)] text-white">Samples of what you get after Apply</h2>
         <p class="max-w-3xl text-[clamp(0.95rem,1.8vw,1.1rem)] text-white/75">
-          Two private tracks sit behind the concierge gate. We share light teasers here; the full vault unlocks only after you verify with the team.
+          These are samples of the kit and posting packs. Apply is the main path so we can match you to the right platform and send the right version.
         </p>
       </div>
       <div class="flex items-center gap-2 rounded-full border border-rose-gold/40 bg-rose-gold/10 px-4 py-2 text-sm uppercase tracking-[0.32em] text-rose-gold">
         <span aria-hidden="true">✦</span>
-        <span>Locked by concierge</span>
+        <span>Apply to receive</span>
       </div>
     </div>
     <div class="grid gap-4 md:grid-cols-2">
@@ -39,19 +39,19 @@ const tiles = [
         <article class="flex h-full flex-col justify-between gap-4 rounded-3xl border border-white/12 bg-white/5 p-6 shadow-inner shadow-black/20">
           <div class="space-y-3">
             <div class="flex flex-wrap items-center gap-2 text-[0.7rem] uppercase tracking-[0.32em] text-rose-petal/70">
-              <span class="rounded-full border border-white/15 px-3 py-1 text-white/70">Locked preview</span>
+              <span class="rounded-full border border-white/15 px-3 py-1 text-white/70">Sample</span>
               <span class="rounded-full border border-white/12 bg-white/5 px-3 py-1 text-white/60">{tile.label}</span>
             </div>
             <h3 class="font-display text-2xl text-white">{tile.title}</h3>
             <p class="text-sm leading-relaxed text-white/70">{tile.summary}</p>
           </div>
           <div class="flex flex-wrap items-center gap-3 text-sm text-white/70">
-            <span class="rounded-full border border-white/15 px-3 py-1 text-[0.65rem] uppercase tracking-[0.3em] text-white/60">Teaser only</span>
+            <span class="rounded-full border border-white/15 px-3 py-1 text-[0.65rem] uppercase tracking-[0.3em] text-white/60">See next steps</span>
             <LinkCTA
               class="border border-rose-gold/60 bg-rose-gold text-midnight shadow-glow"
               pagesHref={claimHref}
               prodHref={claimHref}
-              label="Unlock VIP"
+              label="Apply"
             />
           </div>
         </article>
