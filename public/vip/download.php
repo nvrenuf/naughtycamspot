@@ -49,7 +49,7 @@ if (!is_safe_filename($requestedFile)) {
     exit;
 }
 
-$assetRoot = __DIR__;
+$assetRoot = dirname(__DIR__) . '/_vip_assets';
 $resolvedRoot = realpath($assetRoot);
 $resolvedPath = realpath($assetRoot . '/' . $requestedFile);
 
