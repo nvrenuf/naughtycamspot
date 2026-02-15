@@ -20,10 +20,10 @@ test('Resources, community, and events pages are present', async () => {
 });
 
 test('Navigation exposes guides, community, and events links', async () => {
-  const navSource = await readSource('src/data/nav.ts');
-  assert.ok(navSource.includes("href: '/resources/platforms/'"), 'Nav should include platform resources');
-  assert.ok(navSource.includes("href: '/community/'"), 'Nav should include community');
-  assert.ok(navSource.includes("href: '/events/'"), 'Nav should include events');
+  const layoutSource = await readSource('src/layouts/MainLayout.astro');
+  assert.ok(layoutSource.includes("href: '/resources/platforms/'"), 'Footer should include platform resources');
+  assert.ok(layoutSource.includes("href: '/community/'"), 'Footer should include community');
+  assert.ok(layoutSource.includes("href: '/events/'"), 'Footer should include events');
 });
 
 test('Educational content includes pricing/retention and cross-promotion posts', async () => {

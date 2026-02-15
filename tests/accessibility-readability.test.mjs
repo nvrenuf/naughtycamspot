@@ -19,13 +19,13 @@ test('Base styles define larger typography and global focus-visible states', asy
 test('Navigation semantics include explicit labels and resources controls', async () => {
   const source = await readSource('src/layouts/MainLayout.astro');
   assert.ok(source.includes('aria-label="Primary Navigation"'), 'Expected descriptive primary nav label');
-  assert.ok(source.includes('aria-label="Resources menu"'), 'Expected resources menu aria label');
-  assert.ok(source.includes('aria-label="Resources links"'), 'Expected mobile resources group label');
+  assert.ok(!source.includes('aria-label="Resources menu"'), 'Resources menu should be removed from header navigation');
+  assert.ok(!source.includes('aria-label="Resources links"'), 'Mobile resources group should be removed from header navigation');
 });
 
 test('Navigation labels remain title/sentence case', async () => {
   const source = await readSource('src/data/nav.ts');
-  ['Home', 'Packages', 'How It Works', 'Apply', 'Platforms', 'Blog'].forEach((label) => {
+  ['Apply', 'Platforms', 'Packages', 'Proof'].forEach((label) => {
     assert.ok(source.includes(`label: '${label}'`), `Expected nav label ${label}`);
   });
 });
