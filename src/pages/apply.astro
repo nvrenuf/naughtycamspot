@@ -102,10 +102,10 @@ const hardNoOptions = [
     <div class="space-y-4" aria-live="polite">
       <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step-by-step intake</p>
       <ol class="grid gap-2 text-xs uppercase tracking-[0.24em] text-white/60 sm:grid-cols-4" data-step-progress>
-        <li data-step-label>Contact</li>
-        <li data-step-label>Schedule</li>
+        <li data-step-label>Fast Lane</li>
+        <li data-step-label>Optional</li>
         <li data-step-label>Profile</li>
-        <li data-step-label>Consent</li>
+        <li data-step-label>Finish</li>
       </ol>
       <div class="h-2 overflow-hidden rounded-full bg-white/10">
         <div class="h-full w-1/4 bg-rose-gold transition-all duration-300" data-step-progress-bar></div>
@@ -121,42 +121,50 @@ const hardNoOptions = [
       <input type="hidden" name="package" value={packageChoice} />
       {kitUnlock && <input type="hidden" name="kit_unlock" value="1" />}
 
-      <section class="grid gap-6 sm:col-span-2 sm:grid-cols-2" data-form-step data-step-title="Contact" data-requires-contact="true">
-        <label class="flex flex-col gap-2 text-sm text-white/70">
-          Email
-          <input
-            class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
-            type="email"
-            name="email"
-            placeholder="you@domain.com"
-            autocomplete="email"
-          />
-        </label>
+      <section class="space-y-5 sm:col-span-2" data-form-step data-step-title="Fast Lane" data-requires-platform-interest="true">
+        <div class="rounded-2xl border border-rose-gold/30 bg-rose-gold/10 px-5 py-4 text-sm text-white/80">
+          <p class="text-xs uppercase tracking-[0.3em] text-white/70">Trust strip</p>
+          <p class="mt-2 text-xs uppercase tracking-[0.3em] text-white/70">
+            No passwords. No exclusivity. You keep your accounts.
+          </p>
+        </div>
 
         <label class="flex flex-col gap-2 text-sm text-white/70">
-          Telegram
+          Telegram (recommended)
           <input
             class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
             type="text"
             name="telegram"
             placeholder="@yourhandle"
             autocomplete="off"
+            required
           />
         </label>
 
-        <label class="flex flex-col gap-2 text-sm text-white/70 sm:col-span-2">
-          WhatsApp
-          <input
-            class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
-            type="text"
-            name="whatsapp"
-            placeholder="+1 555 000 0000"
-            autocomplete="tel"
-          />
+        <div class="space-y-3">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Platform interest</p>
+          <div class="grid gap-2 sm:grid-cols-2">
+            {PLATFORMS.map((platform) => (
+              <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
+                <input
+                  class="h-4 w-4 accent-rose-gold"
+                  type="checkbox"
+                  name="platforms_interested[]"
+                  value={platform.slug}
+                />
+                <span class="text-white">{platform.name}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-xs uppercase tracking-[0.28em] text-white/70">
+          <input class="mt-1 h-4 w-4 accent-rose-gold" type="checkbox" name="consent" required />
+          I am 18+ and I agree to receive onboarding messages from NaughtyCamSpot.
         </label>
       </section>
 
-      <section class="space-y-4 sm:col-span-2" data-form-step data-step-title="Schedule">
+      <section class="space-y-4 sm:col-span-2" data-form-step data-step-title="Optional">
         <div class="space-y-2">
           <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">
             Quick intake (optional, helps us help you faster)
@@ -167,6 +175,28 @@ const hardNoOptions = [
         </div>
 
         <div class="grid gap-4 sm:grid-cols-2">
+          <label class="flex flex-col gap-2 text-sm text-white/70">
+            Email (optional)
+            <input
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+              type="email"
+              name="email"
+              placeholder="you@domain.com"
+              autocomplete="email"
+            />
+          </label>
+
+          <label class="flex flex-col gap-2 text-sm text-white/70">
+            WhatsApp (optional)
+            <input
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+              type="text"
+              name="whatsapp"
+              placeholder="+1 555 000 0000"
+              autocomplete="tel"
+            />
+          </label>
+
           <label class="flex flex-col gap-2 text-sm text-white/70">
             Timezone
             <select class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" name="timezone">
@@ -239,22 +269,6 @@ const hardNoOptions = [
               ))}
             </div>
           </div>
-          <div class="space-y-3">
-            <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Interested in</p>
-            <div class="grid gap-2">
-              {PLATFORMS.map((platform) => (
-                <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
-                  <input
-                    class="h-4 w-4 accent-rose-gold"
-                    type="checkbox"
-                    name="platforms_interested[]"
-                    value={platform.slug}
-                  />
-                  <span class="text-white">{platform.name}</span>
-                </label>
-              ))}
-            </div>
-          </div>
         </div>
 
         <div class="space-y-3">
@@ -304,12 +318,10 @@ const hardNoOptions = [
         </label>
       </section>
 
-      <section class="space-y-5 sm:col-span-2" data-form-step data-step-title="Consent">
-        <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-xs uppercase tracking-[0.28em] text-white/70">
-          <input class="mt-1 h-4 w-4 accent-rose-gold" type="checkbox" name="consent" required />
-          I agree to receive onboarding messages from NaughtyCamSpot.
-        </label>
-
+      <section class="space-y-5 sm:col-span-2" data-form-step data-step-title="Finish">
+        <p class="text-sm text-white/75">
+          Review your answers and submit. If you only did Fast Lane, that is fine, we can follow up with next steps.
+        </p>
         <p class="text-xs uppercase tracking-[0.3em] text-white/45">
           No passwords. No exclusivity. You keep your accounts.
         </p>
@@ -389,19 +401,14 @@ const hardNoOptions = [
         }
       }
 
-      if (step.dataset.requiresContact === 'true') {
-        const email = form.querySelector('input[name=\"email\"]');
-        const telegram = form.querySelector('input[name=\"telegram\"]');
-        const whatsapp = form.querySelector('input[name=\"whatsapp\"]');
-        const hasContact =
-          (email instanceof HTMLInputElement && email.value.trim().length > 0) ||
-          (telegram instanceof HTMLInputElement && telegram.value.trim().length > 0) ||
-          (whatsapp instanceof HTMLInputElement && whatsapp.value.trim().length > 0);
-        if (!hasContact) {
-          setError('Add at least one contact method: email, Telegram, or WhatsApp.');
-          if (email instanceof HTMLInputElement) {
-            email.focus();
-            email.setAttribute('aria-invalid', 'true');
+      if (step.dataset.requiresPlatformInterest === 'true') {
+        const selected = form.querySelectorAll('input[name=\"platforms_interested[]\"]:checked');
+        if (!selected || selected.length === 0) {
+          setError('Select at least one platform you are interested in.');
+          const first = form.querySelector('input[name=\"platforms_interested[]\"]');
+          if (first instanceof HTMLInputElement) {
+            first.focus();
+            first.setAttribute('aria-invalid', 'true');
           }
           return false;
         }
@@ -459,8 +466,14 @@ const hardNoOptions = [
     }
 
     form.addEventListener('submit', (event) => {
-      if (!validateStep()) {
-        event.preventDefault();
+      // Validate every step on submit, even if required fields live in earlier steps.
+      for (let i = 0; i < steps.length; i += 1) {
+        currentStep = i;
+        renderStep();
+        if (!validateStep()) {
+          event.preventDefault();
+          return;
+        }
       }
     });
 
