@@ -109,12 +109,13 @@ const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <base href={import.meta.env.BASE_URL} />
-    <slot name="head">
-      <title>{title}</title>
-      <meta name="description" content={description} />
-    </slot>
-    {isPagesBuild && <meta name="robots" content="noindex,nofollow" />}
-  <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+	    <slot name="head">
+	      <title>{title}</title>
+	      <meta name="description" content={description} />
+	    </slot>
+	    <link rel="icon" type="image/svg+xml" href="/brand/ncs-icon.svg" />
+	    {isPagesBuild && <meta name="robots" content="noindex,nofollow" />}
+	  <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" />
@@ -143,12 +144,17 @@ gtag('config', '${gaMeasurementId}');`}
           <div class="flex w-full items-center justify-between gap-3">
             <a
               href={withBase('/')}
-              class="flex items-center gap-3 text-sm font-semibold tracking-[0.08em] text-rose-gold"
+              class="inline-flex items-center gap-3 rounded-lg text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
             >
-              <span class="flex h-11 w-11 items-center justify-center rounded-full border border-rose-gold/60 bg-white/10 shadow-glow backdrop-blur-lg">
-                N
-              </span>
-              NaughtyCamSpot
+              <img
+                src="/brand/ncs-logo-primary.svg"
+                alt="NaughtyCamSpot"
+                class="h-8 w-auto select-none md:h-10"
+                width="200"
+                height="40"
+                loading="eager"
+                decoding="async"
+              />
             </a>
             <div class="flex items-center gap-3">
               <button
