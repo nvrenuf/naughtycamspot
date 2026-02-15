@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="260" viewBox="0 0 1200 260">
+  <g transform="translate(80,160)">
+    <text x="0" y="0"
+          font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+          font-size="120"
+          font-weight="700"
+          letter-spacing="-1.5"
+          fill="#F4F4F5">
+      NaughtyCam
+    </text>
+    <text x="690" y="0"
+          font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+          font-size="120"
+          font-weight="700"
+          letter-spacing="-1.5"
+          fill="#C01F3A">
+      Spot
+    </text>
+  </g>
+  <g transform="translate(1040,70)">
+    <circle cx="60" cy="60" r="56" fill="none" stroke="#C01F3A" stroke-width="8" />
+    <path d="M92 22 L34 108 C30 113 34 120 41 120 L79 120 C86 120 90 114 86 108 L54 60 L104 32 C110 28 104 18 92 22 Z"
+          fill="#C01F3A" />
+    <circle cx="44" cy="126" r="10" fill="#F4F4F5" />
+  </g>
+</svg>
