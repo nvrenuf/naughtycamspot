@@ -11,15 +11,15 @@ const readNavSource = async () => fs.readFile(resolveFixturePath('src/data/nav.t
 
 test('Primary navigation includes core funnel top-level links', async () => {
   const navSource = await readNavSource();
-  assert.ok(navSource.includes("label: 'Apply'"), 'Primary navigation should include Apply');
+  assert.ok(navSource.includes("label: 'Home'"), 'Primary navigation should include Home');
   assert.ok(navSource.includes("label: 'Packages'"), 'Primary navigation should include Packages');
   assert.ok(navSource.includes("label: 'Platforms'"), 'Primary navigation should include Platforms');
   assert.ok(navSource.includes("label: 'Resources'"), 'Primary navigation should include Resources');
   assert.ok(navSource.includes("label: 'Proof'"), 'Primary navigation should include Proof');
-  assert.ok(!navSource.includes("label: 'Home'"), 'Primary navigation should not include Home');
+  assert.ok(!navSource.includes("label: 'Apply'"), 'Primary navigation should not include Apply');
   assert.ok(!navSource.includes("label: 'How It Works'"), 'Primary navigation should not include How It Works');
+  assert.ok(navSource.includes("href: '/'"), 'Primary navigation should point Home to /');
   assert.ok(navSource.includes("href: '/packages/'"), 'Primary navigation should point Packages to /packages/');
-  assert.ok(navSource.includes("href: '/apply/'"), 'Primary navigation should point Apply to /apply/');
   assert.ok(navSource.includes("href: '/platforms/'"), 'Primary navigation should point Platforms to /platforms/');
   assert.ok(navSource.includes("href: '/resources/'"), 'Primary navigation should point Resources to /resources/');
   assert.ok(navSource.includes("href: '/proof/'"), 'Primary navigation should point Proof to /proof/');
@@ -52,8 +52,8 @@ test('Navigation links map to existing routes', async () => {
   const navSource = await readNavSource();
   const hrefMatches = [...navSource.matchAll(/href:\s*'([^']+)'/g)].map((match) => match[1]);
   const knownRouteSet = new Set([
+    '/',
     '/packages/',
-    '/apply/',
     '/platforms/',
     '/resources/',
     '/proof/'

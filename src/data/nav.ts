@@ -7,7 +7,7 @@ export type NavLink = {
 };
 
 export const NAV_PRIMARY: NavLink[] = [
-  { href: '/apply/', label: 'Apply' },
+  { href: '/', label: 'Home' },
   { href: '/packages/', label: 'Packages' },
   { href: '/platforms/', label: 'Platforms' },
   { href: '/resources/', label: 'Resources' },
