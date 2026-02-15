@@ -498,7 +498,9 @@ gtag('config', '${gaMeasurementId}');`}
 	  }
 
 	  if (desktopMore) {
-	    desktopMore.addEventListener('mouseleave', () => setDesktopMoreOpen(false));
+	    // Intentionally no mouseleave auto-close:
+	    // the panel is absolutely positioned, so the wrapper's border box doesn't include it.
+	    // Outside click + Escape are the deterministic close mechanisms.
 	  }
 
 	  const handleGlobalEscape = (event) => {
