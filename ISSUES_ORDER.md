@@ -1,10 +1,13 @@
-# Issue Implementation Order (Go-Live Push)
+# Issue Implementation Order (Conversion Fixes)
 
-1. [x] Mobile-first nav cleanup + fix Resources links — see issue #89 (commit 00f7bca)
-2. [x] Create Blog index page and wire up nav + home Recent Posts — see issue #90 (commit 938cf4b)
-3. [x] Rework homepage copy for mobile scanning + stronger conversion — see issue #91 (commit 6020e3d)
-4. [x] Packages page polish for trust + mobile clarity — see issue #92 (commit 99b32d3)
-5. [x] Fix Apply flow for mobile completion (multi-step + progress) — see issue #93 (commit e06711f)
-6. [x] SEO hardening: titles/descriptions, OG tags, sitemap, robots — see issue #94 (commit 45b4b71)
-7. [x] Mobile performance pass (images, fonts, JS) — see issue #95 (commit 80437d4)
-8. [x] Revenue funnel: Lead capture + follow-up hooks (Telegram/Email) — see issue #96 (commit 6eccc38)
+Why this order: remove first-touch friction and trust blockers (P0), then improve intake and purchase clarity (P1), then invest in scale via multilingual + SEO landers (P2). Each step reduces drop-off before adding more traffic.
+
+1. P0: Remove/Delay StartRight pre-check modal on first visit (mobile friction) — see issue #97
+2. P0: Simplify primary navigation to 4 items (Apply, Platforms, Packages, Proof) — see issue #98
+3. P0: Rename 'Recruiting' language sitewide to 'Platform signup help' (reduce agency/studio confusion) — see issue #99
+4. P0: Create dedicated Trust & Safety page and link it in footer — see issue #100
+5. P1: Apply 'Fast Lane' intake for mobile (Telegram + platform interest + consent first) — see issue #101
+6. P1: Packages page—add direct checkout or clear next step CTA per tier — see issue #102
+7. P1: Reduce 'VIP/guarded/concierge gate' language on /join-models and StartRight (plain English) — see issue #103
+8. P2: Add basic language support for key conversion pages (EN + ES/PT/RU/UA) — see issue #104
+9. P2: Add 6 high-intent SEO landing pages (platform setup/checklists + promotion basics) — see issue #105
