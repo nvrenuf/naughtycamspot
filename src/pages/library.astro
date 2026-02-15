@@ -1,0 +1,91 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/library';
+const buyHref =
+  'mailto:concierge@naughtycamspot.com?subject=Buy%20Library%20Access&body=Hi%20NaughtyCamSpot%2C%0A%0AI%20want%20to%20buy%20Library%20Access.%20Please%20send%20pricing%20and%20next%20steps.%0A%0AThanks!';
+---
+
+<MainLayout
+  title="Paid Library | NaughtyCamSpot"
+  description="A clear, mobile-first overview of what Paid Library Access includes and who it is for."
+>
+  <SEO
+    slot="head"
+    title="Paid Library | NaughtyCamSpot"
+    description="See what you get with Paid Library Access: modules, templates, and simple steps that keep you in control."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-8">
+    <div class="space-y-3">
+      <p class="hero-tagline">Paid Library</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Everything you need, in one simple library.</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        Library Access is a set of checklists, templates, and short modules you can use on your phone. No confusing gate,
+        no account takeovers, no pressure.
+      </p>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">What You Get</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-white/75">
+          <li>Step-by-step launch checklist (profile, panels, offers)</li>
+          <li>Weekly posting plan you can copy and reuse</li>
+          <li>Caption templates for promos and new drops</li>
+          <li>Pricing ladder basics (simple tiers, simple rules)</li>
+          <li>Retention prompts (comeback messages + follow-ups)</li>
+        </ul>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+          <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Who It's For</h2>
+          <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-white/75">
+            <li>New models who want a clear first-week plan</li>
+            <li>Busy creators who need templates and structure</li>
+            <li>Anyone who wants support without giving up control</li>
+          </ul>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+          <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">What's Included</h2>
+          <ul class="mt-4 space-y-2 text-sm text-white/75">
+            <li><span class="text-white/90">Module 1:</span> Setup and profile polish</li>
+            <li><span class="text-white/90">Module 2:</span> First-week cadence and routines</li>
+            <li><span class="text-white/90">Module 3:</span> Promo captions and drop flow</li>
+            <li><span class="text-white/90">Module 4:</span> Pricing ladder starter map</li>
+            <li><span class="text-white/90">Module 5:</span> Retention messages and repeat buyers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="rounded-3xl border border-rose-gold/30 bg-rose-gold/10 p-5">
+      <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/80">Trust Policy</h2>
+      <p class="mt-3 text-sm text-white/75">
+        No passwords. No exclusivity. You own your accounts and content. This is guidance and templates you control.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+        href={buyHref}
+        data-cta="buy-library"
+      >
+        Buy Library Access
+      </a>
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/80 transition hover:border-white/25 hover:bg-white/10"
+        href={withBase('/packages/')}
+      >
+        Compare packages
+      </a>
+    </div>
+  </section>
+</MainLayout>
+
