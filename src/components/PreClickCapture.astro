@@ -14,7 +14,16 @@ const csrfEndpoint = withBase('/api/csrf.php');
 
 <div id={modalId} class="fixed inset-0 z-50 hidden items-center justify-center px-4 py-8">
   <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" data-preclick-overlay></div>
-  <div class="relative w-full max-w-xl rounded-[28px] border border-white/10 bg-[#0a0b10]/95 p-6 shadow-2xl">
+  <div
+    class="relative w-full max-w-xl rounded-[28px] border border-white/10 bg-[#0a0b10]/95 p-6 shadow-2xl"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby={`${modalId}-title`}
+    aria-describedby={`${modalId}-desc`}
+    aria-hidden="true"
+    tabindex="-1"
+    data-preclick-dialog
+  >
     <button
       type="button"
       class="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition hover:border-white/30 hover:text-white"
@@ -25,8 +34,8 @@ const csrfEndpoint = withBase('/api/csrf.php');
     </button>
     <div class="space-y-2">
       <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">StartRight pre-check</p>
-      <h2 class="font-display text-2xl text-white">Get updates + unlock VIP</h2>
-      <p class="text-sm text-white/70">
+      <h2 class="font-display text-2xl text-white" id={`${modalId}-title`}>Get updates + unlock VIP</h2>
+      <p class="text-sm text-white/70" id={`${modalId}-desc`}>
         Leave one contact channel so we can send your StartRight kit checklist and concierge updates.
       </p>
       <p class="text-xs uppercase tracking-[0.35em] text-white/50">
@@ -109,6 +118,7 @@ const csrfEndpoint = withBase('/api/csrf.php');
       if (!modal) return;
 
       const body = document.body;
+      const dialog = modal.querySelector('[data-preclick-dialog]');
       const overlay = modal.querySelector('[data-preclick-overlay]');
       const closeButtons = modal.querySelectorAll('[data-preclick-close]');
       const form = modal.querySelector('[data-preclick-form]');
@@ -125,6 +135,8 @@ const csrfEndpoint = withBase('/api/csrf.php');
       let activeGoHref = goHref || '';
       let activePlatformId = platformId || '';
       let activePlatformName = platformName || '';
+      let lastFocused = null;
+      let open = false;
 
       const generateClickId = () => {
         if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -183,12 +195,30 @@ const csrfEndpoint = withBase('/api/csrf.php');
         modal.classList.remove('hidden');
         modal.classList.add('flex');
         body.classList.add('overflow-hidden');
+        open = true;
+        if (dialog) {
+          dialog.setAttribute('aria-hidden', 'false');
+        }
+        lastFocused = document.activeElement;
+        const firstFocusTarget = modal.querySelector('[data-preclick-close]') || dialog;
+        if (firstFocusTarget && typeof firstFocusTarget.focus === 'function') {
+          firstFocusTarget.focus({ preventScroll: true });
+        }
       };
 
       const closeModal = () => {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
         body.classList.remove('overflow-hidden');
+        open = false;
+        if (dialog) {
+          dialog.setAttribute('aria-hidden', 'true');
+        }
+        const target = lastFocused;
+        lastFocused = null;
+        if (target && typeof target.focus === 'function' && document.contains(target)) {
+          target.focus({ preventScroll: true });
+        }
       };
 
       const openTarget = (href, clickId) => {
@@ -206,6 +236,13 @@ const csrfEndpoint = withBase('/api/csrf.php');
         }
         window.open(resolved, '_blank', 'noopener');
       };
+
+      document.addEventListener('keydown', (event) => {
+        if (!open) return;
+        if (event.key !== 'Escape') return;
+        event.preventDefault();
+        closeModal();
+      });
 
       document.addEventListener('click', (event) => {
         const trigger = event.target.closest('[data-preclick-trigger],[data-preclick="1"]');
