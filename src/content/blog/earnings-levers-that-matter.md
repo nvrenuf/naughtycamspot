@@ -3,7 +3,7 @@ title: 'Earnings Levers That Matter'
 description: 'Focus on the six controllable inputs that reliably raise cam earnings across our partner roster.'
 excerpt: 'Before chasing new platforms, tighten the levers you already own: hours, consistency, GEO targeting, conversion, price, and show craft.'
 publishDate: 2025-01-05
-category: 'Recruiting Intelligence'
+category: 'Signup Help Intelligence'
 author: 'Mara, Performance Lead'
 heroImage: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1600&q=80'
 heroImageAlt: 'Performer reviewing notes with a coach'
@@ -11,7 +11,7 @@ cardImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=fo
 topics: ['work-money']
 ---
 
-Every recruitment push starts with the levers we can pull without asking the platform for mercy. We audit your baseline, surface two quick wins, and model the compounding effect before we ever add a new traffic source.
+Every signup help push starts with the levers we can pull without asking the platform for mercy. We audit your baseline, surface two quick wins, and model the compounding effect before we ever add a new traffic source.
 
 ## The six inputs we grade
 

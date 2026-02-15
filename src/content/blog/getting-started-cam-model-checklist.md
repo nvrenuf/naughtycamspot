@@ -17,7 +17,7 @@ Starting strong is about consistency, not perfection.
 
 ## Your first-week checklist
 
-1. Pick a platform path with [Recruiting](/recruiting/).
+1. Pick a platform path with [Platform signup help](/recruiting/).
 2. Confirm your equipment baseline and backup internet plan.
 3. Set your show cadence before publishing your profile.
 4. Write your first tip-ladder script and opening lines.

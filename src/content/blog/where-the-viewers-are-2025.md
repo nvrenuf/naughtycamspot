@@ -1,9 +1,9 @@
 ---
 title: 'Where the Viewers Are in 2025'
-description: 'Know the prime windows for the four core regions we recruit against so you can plan show calendars with confidence.'
+description: 'Know the prime windows for the four core regions we plan around so you can plan show calendars with confidence.'
 excerpt: 'A quick reference for when North America, Europe, LatAm, and APAC light up — built for concierge scheduling blocks.'
 publishDate: 2025-01-12
-category: 'Recruiting Intelligence'
+category: 'Signup Help Intelligence'
 author: 'Lina, Data Strategist'
 heroImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80'
 heroImageAlt: 'Global map with highlighted regions'

@@ -21,12 +21,12 @@ test('Homepage includes recent blog posts section', async () => {
   assert.ok(source.includes('<RecentPosts />'), 'Homepage should render recent posts section');
 });
 
-test('Recruiting and promotion pages link to relevant posts', async () => {
+test('Signup help and promotion pages link to relevant posts', async () => {
   const recruitingSource = await readSource('src/pages/recruiting.astro');
   const promotionSource = await readSource('src/pages/promotion.astro');
-  assert.ok(recruitingSource.includes('/posts/camsoda-vs-chaturbate-for-beginners'), 'Recruiting should link to relevant posts');
+  assert.ok(recruitingSource.includes('/posts/camsoda-vs-chaturbate-for-beginners'), 'Signup help should link to relevant posts');
   assert.ok(promotionSource.includes('/posts/earnings-levers-that-matter'), 'Promotion should link to relevant posts');
-  assert.ok(recruitingSource.includes('/blog/'), 'Recruiting should link to blog index');
+  assert.ok(recruitingSource.includes('/blog/'), 'Signup help should link to blog index');
   assert.ok(promotionSource.includes('/blog/'), 'Promotion should link to blog index');
 });
 
