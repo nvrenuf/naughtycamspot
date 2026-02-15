@@ -490,8 +490,12 @@ gtag('config', '${gaMeasurementId}');`}
 	  };
 
 	  // Capture phase so other handlers can’t cancel bubbling clicks and trap the menu open.
-	  document.addEventListener('pointerdown', handleDesktopOutside, { capture: true });
-	  document.addEventListener('focusin', handleDesktopOutside, { capture: true });
+	  // Use window + multiple event types: some mobile browsers can be inconsistent with pointer events.
+	  window.addEventListener('pointerdown', handleDesktopOutside, { capture: true });
+	  window.addEventListener('mousedown', handleDesktopOutside, { capture: true });
+	  window.addEventListener('touchstart', handleDesktopOutside, { capture: true, passive: true });
+	  window.addEventListener('click', handleDesktopOutside, { capture: true });
+	  window.addEventListener('focusin', handleDesktopOutside, { capture: true });
 
 	  const handleResize = () => {
 	    if (window.innerWidth >= 1024) {
