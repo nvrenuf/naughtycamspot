@@ -1,0 +1,77 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+
+const canonicalPath = '/trust-safety';
+---
+
+<MainLayout
+  title="Trust & Safety | NaughtyCamSpot"
+  description="Plain-English trust and safety basics: no passwords, no exclusivity, model-owned accounts, and clear policies."
+>
+  <SEO
+    slot="head"
+    title="Trust & Safety | NaughtyCamSpot"
+    description="No passwords. No exclusivity. Model-owned accounts and content. Cancel anytime. Clear disclosures."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-8">
+    <div class="space-y-3">
+      <p class="hero-tagline">Trust &amp; Safety</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Clear rules. You stay in control.</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        This page explains how we work in simple English. If anything feels unclear, ask before you share personal info.
+      </p>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">No Passwords</h2>
+        <p class="mt-3 text-sm text-white/75">
+          We never ask for your passwords. You keep full access and full control of your accounts.
+        </p>
+      </div>
+      <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">No Exclusivity</h2>
+        <p class="mt-3 text-sm text-white/75">
+          We do not require exclusivity. You can work with any platforms and any tools you choose.
+        </p>
+      </div>
+      <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Model Owns Accounts + Content</h2>
+        <p class="mt-3 text-sm text-white/75">
+          Your accounts and content are yours. We provide guidance, templates, and optional services, not account control.
+        </p>
+      </div>
+      <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Cancel Anytime</h2>
+        <p class="mt-3 text-sm text-white/75">
+          If you purchase a package or recurring service, you can stop at the next renewal. No lock-ins.
+        </p>
+      </div>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Not An Agency / Studio</h2>
+        <p class="mt-3 text-sm text-white/75">
+          We are not a studio and we do not manage performers. You are independent and in control.
+        </p>
+      </div>
+      <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">No Earnings Guarantee</h2>
+        <p class="mt-3 text-sm text-white/75">
+          Results depend on your schedule, platform fit, content, and market conditions. We do not guarantee earnings.
+        </p>
+      </div>
+      <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Affiliate Disclosure</h2>
+        <p class="mt-3 text-sm text-white/75">
+          Some platform links are affiliate links. If you sign up through them, we may earn a commission at no extra cost to you.
+        </p>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
