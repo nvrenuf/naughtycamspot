@@ -1,0 +1,90 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/resources';
+
+const cards = [
+  {
+    title: 'Blog',
+    description: 'Practical guides and plain-English posts.',
+    href: '/blog/'
+  },
+  {
+    title: 'Platforms',
+    description: 'See supported platforms and what to expect.',
+    href: '/platforms/'
+  },
+  {
+    title: 'Packages',
+    description: 'Compare promotion packages and clear next steps.',
+    href: '/packages/'
+  },
+  {
+    title: 'Trust & Safety',
+    description: 'No passwords, no exclusivity, model-owned accounts.',
+    href: '/trust-safety/'
+  },
+  {
+    title: 'How It Works',
+    description: 'Simple explanation of the flow and what happens next.',
+    href: '/how-it-works/'
+  }
+];
+
+const seoGuides = [
+  { title: 'OnlyFans setup checklist', href: '/seo/onlyfans-setup-checklist/' },
+  { title: 'ManyVids store setup checklist', href: '/seo/manyvids-store-setup-checklist/' },
+  { title: 'Cam model first-week checklist', href: '/seo/cam-model-first-week-checklist/' },
+  { title: 'Payouts and payment basics', href: '/seo/payouts-and-payment-basics/' },
+  { title: 'Online safety and privacy basics', href: '/seo/online-safety-privacy-basics/' },
+  { title: 'Promotion basics for beginners', href: '/seo/promotion-basics-for-beginners/' }
+];
+---
+
+<MainLayout
+  title="Resources | NaughtyCamSpot"
+  description="Plain-English resources: guides, checklists, and links to the key pages."
+>
+  <SEO
+    slot="head"
+    title="Resources | NaughtyCamSpot"
+    description="Browse resources: blog posts, platform guides, trust & safety, and simple checklists."
+    path={canonicalPath}
+  />
+
+  <section class="space-y-10">
+    <div class="content-card space-y-4">
+      <p class="hero-tagline">Resources</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Resources</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        Plain-English guides and checklists. Pick a topic and keep it simple.
+      </p>
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {cards.map((card) => (
+        <a class="content-card space-y-2 transition hover:border-rose-gold/40" href={withBase(card.href)}>
+          <p class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">Resource</p>
+          <p class="font-display text-2xl text-white">{card.title}</p>
+          <p class="text-sm text-white/70">{card.description}</p>
+        </a>
+      ))}
+    </div>
+
+    <section class="space-y-4">
+      <h2 class="font-display text-3xl text-white">Checklists</h2>
+      <p class="text-sm text-white/70">Short pages built for phone reading.</p>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {seoGuides.map((guide) => (
+          <a class="content-card space-y-2 transition hover:border-rose-gold/40" href={withBase(guide.href)}>
+            <p class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">Guide</p>
+            <p class="font-display text-xl text-white">{guide.title}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </section>
+</MainLayout>
+

@@ -25,7 +25,7 @@ test('Navigation semantics include explicit labels and resources controls', asyn
 
 test('Navigation labels remain title/sentence case', async () => {
   const source = await readSource('src/data/nav.ts');
-  ['Apply', 'Platforms', 'Packages', 'Proof'].forEach((label) => {
+  ['Apply', 'Packages', 'Platforms', 'Resources', 'Proof'].forEach((label) => {
     assert.ok(source.includes(`label: '${label}'`), `Expected nav label ${label}`);
   });
 });
