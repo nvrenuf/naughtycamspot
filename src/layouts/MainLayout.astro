@@ -353,32 +353,39 @@ gtag('config', '${gaMeasurementId}');`}
   const mobileClose = navRoot.querySelector('[data-nav-mobile-close]');
   const mobileLinks = navRoot.querySelectorAll('[data-nav-mobile-link]');
   const mobileMoreTrigger = navRoot.querySelector('[data-nav-mobile-more-trigger]');
-  const mobileMorePanel = navRoot.querySelector('[data-nav-mobile-more-panel]');
-  const desktopMore = navRoot.querySelector('[data-nav-desktop-more]');
-  const desktopMoreTrigger = navRoot.querySelector('[data-nav-desktop-more-trigger]');
+	  const mobileMorePanel = navRoot.querySelector('[data-nav-mobile-more-panel]');
+	  const desktopMore = navRoot.querySelector('[data-nav-desktop-more]');
+	  const desktopMoreTrigger = navRoot.querySelector('[data-nav-desktop-more-trigger]');
 
-  let drawerOpen = false;
-  let mobileMoreOpen = false;
+	  let drawerOpen = false;
+	  let mobileMoreOpen = false;
 
-  const setDesktopMoreExpanded = (open) => {
-    if (!desktopMoreTrigger) {
-      return;
-    }
-    desktopMoreTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-  };
+	  const setDesktopMoreExpanded = (open) => {
+	    if (!desktopMoreTrigger) {
+	      return;
+	    }
+	    desktopMoreTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+	  };
 
-  const handleEscape = (event) => {
-    if (event.key !== 'Escape') {
-      return;
-    }
-    if (desktopMore && desktopMore.open) {
-      desktopMore.open = false;
-      setDesktopMoreExpanded(false);
-    }
-    if (drawerOpen) {
-      setDrawerOpen(false);
-    }
-  };
+	  const closeDesktopMore = () => {
+	    if (!desktopMore || !desktopMore.open) {
+	      return;
+	    }
+	    desktopMore.open = false;
+	    setDesktopMoreExpanded(false);
+	  };
+
+	  const handleEscape = (event) => {
+	    if (event.key !== 'Escape') {
+	      return;
+	    }
+	    if (desktopMore && desktopMore.open) {
+	      closeDesktopMore();
+	    }
+	    if (drawerOpen) {
+	      setDrawerOpen(false);
+	    }
+	  };
 
   const setMobileMoreOpen = (open) => {
     if (!mobileMoreTrigger || !mobileMorePanel) {
@@ -462,31 +469,34 @@ gtag('config', '${gaMeasurementId}');`}
     });
   }
 
-  if (desktopMore) {
-    setDesktopMoreExpanded(desktopMore.open);
-    desktopMore.addEventListener('toggle', () => {
-      setDesktopMoreExpanded(desktopMore.open);
-    });
-  }
+	  if (desktopMore) {
+	    setDesktopMoreExpanded(desktopMore.open);
+	    desktopMore.addEventListener('toggle', () => {
+	      setDesktopMoreExpanded(desktopMore.open);
+	    });
+	  }
 
-  document.addEventListener('click', (event) => {
-    if (!desktopMore || !desktopMore.open) {
-      return;
-    }
-    const target = event.target;
-    if (!(target instanceof Node)) {
-      return;
-    }
-    if (!desktopMore.contains(target)) {
-      desktopMore.open = false;
-      setDesktopMoreExpanded(false);
-    }
-  });
+	  const handleDesktopOutside = (event) => {
+	    if (!desktopMore || !desktopMore.open) {
+	      return;
+	    }
+	    const target = event.target;
+	    if (!(target instanceof Node)) {
+	      return;
+	    }
+	    if (!desktopMore.contains(target)) {
+	      closeDesktopMore();
+	    }
+	  };
 
-  const handleResize = () => {
-    if (window.innerWidth >= 1024) {
-      setDrawerOpen(false);
-      document.body.classList.remove('overflow-hidden');
+	  // Capture phase so other handlers can’t cancel bubbling clicks and trap the menu open.
+	  document.addEventListener('pointerdown', handleDesktopOutside, { capture: true });
+	  document.addEventListener('focusin', handleDesktopOutside, { capture: true });
+
+	  const handleResize = () => {
+	    if (window.innerWidth >= 1024) {
+	      setDrawerOpen(false);
+	      document.body.classList.remove('overflow-hidden');
     }
   };
 
