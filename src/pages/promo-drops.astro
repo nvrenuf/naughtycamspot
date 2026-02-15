@@ -1,0 +1,85 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/promo-drops';
+---
+
+<MainLayout
+  title="Promo Drops | NaughtyCamSpot"
+  description="Weekly promo drops delivered on Telegram, with optional X posting packs and simple inputs."
+>
+  <SEO
+    slot="head"
+    title="Promo Drops | NaughtyCamSpot"
+    description="Weekly promo drops delivered on Telegram. Optional X posting packs. Simple, no-login recurring value."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-8">
+    <div class="space-y-3">
+      <p class="hero-tagline">Promo Drops</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Weekly promo drops you can post fast.</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        This is a recurring pack of promo-ready captions and posting ideas. No login. No gated blog. You get clean,
+        copy-paste outputs you can use right away.
+      </p>
+    </div>
+
+    <div class="grid gap-4">
+      <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Weekly Drops</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-white/75">
+          <li>New captions and angles each week</li>
+          <li>Short posting plan (what to post, when to post)</li>
+          <li>Promo reminders so you do not go quiet</li>
+        </ul>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+          <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Telegram Delivery</h2>
+          <p class="mt-4 text-sm text-white/75">
+            Drops are delivered on Telegram. You get the content in one place so you can open it on your phone and post
+            in minutes.
+          </p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-black/20 p-5">
+          <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/70">Optional X Posting Packs</h2>
+          <p class="mt-4 text-sm text-white/75">
+            If you want extra help for X (Twitter), you can add a posting pack: ready-to-post text with a simple schedule.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-rose-gold/30 bg-rose-gold/10 p-5">
+        <h2 class="text-sm font-semibold uppercase tracking-[0.35em] text-rose-petal/80">What You Provide</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-white/75">
+          <li>Your Telegram handle (for delivery)</li>
+          <li>Your link(s) you want traffic to (OnlyFans, Fansly, etc.)</li>
+          <li>1 to 3 promo angles you want to push this week (optional)</li>
+          <li>Any words you do not want used</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+        href={withBase('/apply/')}
+        data-cta="promo-drops-apply"
+      >
+        Apply
+      </a>
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-xs uppercase tracking-[0.3em] text-white/80 transition hover:border-white/25 hover:bg-white/10"
+        href={withBase('/promotion/')}
+      >
+        Buy Package
+      </a>
+    </div>
+  </section>
+</MainLayout>
+
