@@ -9,8 +9,10 @@ import HowItWorks from '../partials/home/HowItWorks.astro';
 import FinalCTA from '../partials/home/FinalCTA.astro';
 import MiniTestimonials from '../partials/home/MiniTestimonials.astro';
 import RecentPosts from '../partials/home/RecentPosts.astro';
+import { getRequestLang } from '../i18n/core';
 
 const canonicalPath = '/';
+const lang = getRequestLang(Astro.url);
 
 const websiteJsonLd = {
   '@context': 'https://schema.org',
@@ -33,7 +35,7 @@ const websiteJsonLd = {
   />
   <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 
-  <Hero />
+  <Hero lang={lang} />
   <LeadMagnet />
   <WhyCam />
   <HowItWorks compact />

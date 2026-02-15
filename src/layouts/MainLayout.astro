@@ -10,6 +10,7 @@ import '../styles/tailwind.css';
 import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
 import { NAV_PRIMARY } from '../data/nav';
 import { withBase } from '../utils/links';
+import { getRequestLang, LANGS } from '../i18n/core';
 
 const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
 const isPagesFlag = typeof import.meta.env.IS_PAGES === 'string' ? import.meta.env.IS_PAGES === 'true' : false;
@@ -61,6 +62,17 @@ const stripBase = (value: string) => {
 };
 
 const currentPath = stripBase(Astro.url.pathname);
+const requestLang = getRequestLang(Astro.url);
+const buildLangHref = (lang: string) => {
+  const params = new URLSearchParams(Astro.url.searchParams);
+  if (lang === 'en') {
+    params.delete('lang');
+  } else {
+    params.set('lang', lang);
+  }
+  const qs = params.toString();
+  return qs ? `?${qs}` : '';
+};
 
 const primaryNavLinks = NAV_PRIMARY;
 
@@ -252,6 +264,18 @@ gtag('config', '${gaMeasurementId}');`}
               concierge@naughtycamspot.com
             </a>
             <span>© NaughtyCamSpot 2025</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.28em] text-white/60">
+            <span class="text-white/50">Lang</span>
+            {LANGS.map((lang) => (
+              <a
+                class={`rounded-full border px-3 py-1 transition hover:border-white/30 hover:text-rose-gold ${requestLang === lang ? 'border-rose-gold/60 text-rose-gold' : 'border-white/10 text-white/70'}`}
+                href={buildLangHref(lang)}
+                aria-current={requestLang === lang ? 'true' : undefined}
+              >
+                {lang.toUpperCase()}
+              </a>
+            ))}
           </div>
           <p class="text-xs tracking-[0.04em] text-white/65">{DISCLOSURE}</p>
         </div>

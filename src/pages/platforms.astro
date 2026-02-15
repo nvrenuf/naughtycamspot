@@ -3,8 +3,10 @@ import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import { PLATFORMS } from '../data/platforms';
 import { isPagesBuild, withBase } from '../utils/links';
+import { getRequestLang, t } from '../i18n/core';
 
 const canonicalPath = '/platforms';
+const lang = getRequestLang(Astro.url);
 const resolveHostname = (value: string | undefined) => {
   if (!value) {
     return '';
@@ -35,7 +37,7 @@ const useGoLinks = !isPagesBuild() && isProdSite;
   <section class="space-y-10">
     <div class="content-card space-y-4">
       <p class="hero-tagline">Platforms</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">We focus on the platforms that convert.</h1>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">{t(lang, 'platforms.title')}</h1>
       <p class="max-w-2xl text-base text-white/70">
         Each platform gets a tailored ops plan, automation flow, and promo cadence. Apply and we will recommend the best fit.
       </p>
@@ -44,7 +46,7 @@ const useGoLinks = !isPagesBuild() && isProdSite;
           class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
           href={withBase('/apply')}
         >
-          Apply now
+          {t(lang, 'platforms.cta')}
         </a>
         <a
           class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"

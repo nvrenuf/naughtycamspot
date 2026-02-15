@@ -2,8 +2,10 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import { withBase } from '../utils/links';
+import { getRequestLang, t } from '../i18n/core';
 
 const canonicalPath = '/packages';
+const lang = getRequestLang(Astro.url);
 const buildApplyHref = (pkg: string) => {
   const params = new URLSearchParams({ track: 'promotion', package: pkg });
   return `${withBase('/apply/')}?${params.toString()}`;
@@ -70,8 +72,8 @@ const faqItems = [
 
   <section class="space-y-8">
     <div class="content-card space-y-4">
-      <p class="hero-tagline">Promotion packages</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">Pick the support level that fits your week.</h1>
+      <p class="hero-tagline">{t(lang, 'packages.tag')}</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">{t(lang, 'packages.title')}</h1>
       <p class="max-w-3xl text-base text-white/75">
         Each package is built for phone-first workflows: clear tasks, clear handoff, and clear trust policy.
       </p>
@@ -87,7 +89,7 @@ const faqItems = [
               class="inline-flex items-center justify-center rounded-full border border-rose-gold/50 bg-rose-gold/15 px-4 py-2 text-xs uppercase tracking-[0.3em] text-rose-petal transition hover:border-rose-gold/70 hover:bg-rose-gold/30"
               href={buildApplyHref(pkg.slug)}
             >
-              Start {pkg.label} application
+              {t(lang, 'packages.cta')} ({pkg.label})
             </a>
           </div>
           <h2 class="font-display text-2xl text-white">{pkg.name}</h2>
@@ -138,7 +140,7 @@ const faqItems = [
       class="inline-flex items-center justify-center rounded-full border border-rose-gold/50 bg-rose-gold/15 px-6 py-3 text-xs uppercase tracking-[0.3em] text-rose-petal transition hover:border-rose-gold/70 hover:bg-rose-gold/30"
       href={buildApplyHref('starter')}
     >
-      Start application
+      {t(lang, 'packages.cta')}
     </a>
   </section>
 </MainLayout>

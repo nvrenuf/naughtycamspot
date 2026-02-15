@@ -17,9 +17,9 @@ test('Primary CTA routes to Apply in all environments', async () => {
 
 test('Hero partial renders signup help + promotion CTAs', async () => {
   const heroSource = await readSource('src/partials/home/Hero.astro');
-  assert.ok(heroSource.includes('Platform signup help'), 'Hero partial should show the signup help CTA label');
+  assert.ok(heroSource.includes("home.hero.cta.signup"), 'Hero partial should reference the signup help CTA translation key');
   assert.ok(heroSource.includes('/recruiting/'), 'Hero partial should link to /recruiting/');
-  assert.ok(heroSource.includes('See Promotion Packages'), 'Hero partial should show the promotion CTA label');
+  assert.ok(heroSource.includes("home.hero.cta.promo"), 'Hero partial should reference the promotion CTA translation key');
   assert.ok(heroSource.includes('/promotion/'), 'Hero partial should link to /promotion/');
 });
 

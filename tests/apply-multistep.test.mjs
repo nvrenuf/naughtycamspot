@@ -22,5 +22,5 @@ test('Apply page keeps claim endpoint submission and consent requirement', async
   const source = await readSource('src/pages/apply.astro');
   assert.ok(source.includes("action={formAction}"), 'Apply form should continue posting to claim endpoint');
   assert.ok(source.includes('name="consent" required'), 'Apply form should require consent checkbox');
-  assert.ok(source.includes('No passwords. No exclusivity. You keep your accounts.'), 'Apply page should retain trust posture copy');
+  assert.ok(source.includes("apply.fastlane.trust"), 'Apply page should retain trust posture translation key');
 });
