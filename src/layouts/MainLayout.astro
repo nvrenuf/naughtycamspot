@@ -489,16 +489,19 @@ gtag('config', '${gaMeasurementId}');`}
 	    }
 	    // Use composedPath so clicks through SVGs / nested elements are handled reliably.
 	    const path = typeof event.composedPath === 'function' ? event.composedPath() : [];
-	    if (path && path.includes(desktopMore)) {
-	      return;
-	    }
+	    if (path && path.includes(desktopMore)) return;
 	    const target = event.target;
-	    if (target instanceof Node && desktopMore.contains(target)) {
-	      return;
-	    }
-	    if (!focusWithinDesktopMore()) {
-	      closeDesktopMore();
-	    }
+	    if (target instanceof Node && desktopMore.contains(target)) return;
+	    closeDesktopMore();
+	  };
+
+	  const handleDesktopFocusOutside = (event) => {
+	    if (!desktopMore || !desktopMore.open) return;
+	    const path = typeof event.composedPath === 'function' ? event.composedPath() : [];
+	    if (path && path.includes(desktopMore)) return;
+	    const target = event.target;
+	    if (target instanceof Node && desktopMore.contains(target)) return;
+	    closeDesktopMore();
 	  };
 
 	  // Capture phase so other handlers can’t cancel bubbling clicks and trap the menu open.
@@ -507,7 +510,7 @@ gtag('config', '${gaMeasurementId}');`}
 	  window.addEventListener('mousedown', handleDesktopOutside, { capture: true });
 	  window.addEventListener('touchstart', handleDesktopOutside, { capture: true, passive: true });
 	  window.addEventListener('click', handleDesktopOutside, { capture: true });
-	  window.addEventListener('focusin', handleDesktopOutside, { capture: true });
+	  window.addEventListener('focusin', handleDesktopFocusOutside, { capture: true });
 
 	  // Desktop-only: close when the mouse leaves the combined trigger+panel area.
 	  // Because the panel is absolutely-positioned, we track hover state on both elements.
