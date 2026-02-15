@@ -183,10 +183,11 @@ gtag('config', '${gaMeasurementId}');`}
               );
             })}
             {moreNavLinks.length > 0 && (
-              <details class="relative" data-nav-desktop-more>
-                <summary
+              <div class="relative" data-nav-desktop-more>
+                <button
+                  type="button"
                   id="desktop-resources-trigger"
-                  class={`relative z-10 list-none [&::-webkit-details-marker]:hidden flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-sm font-semibold tracking-[0.06em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold ${moreMenuActive ? 'text-rose-gold' : 'text-white/80'}`}
+                  class={`relative z-10 flex items-center gap-2 whitespace-nowrap rounded-full border border-transparent px-4 py-2 text-sm font-semibold tracking-[0.06em] transition hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold ${moreMenuActive ? 'text-rose-gold' : 'text-white/80'}`}
                   aria-haspopup="menu"
                   aria-controls="desktop-resources-menu"
                   aria-expanded="false"
@@ -194,12 +195,13 @@ gtag('config', '${gaMeasurementId}');`}
                   data-nav-desktop-more-trigger
                 >
                   Resources
-                </summary>
+                </button>
                 <div
                   id="desktop-resources-menu"
-                  class="pointer-events-auto absolute right-0 top-full z-50 mt-3 max-h-[70vh] w-72 overflow-y-auto overscroll-contain rounded-3xl border border-white/10 bg-black/90 p-3 shadow-glow backdrop-blur-2xl"
+                  class="pointer-events-auto absolute right-0 top-full z-50 mt-3 hidden max-h-[70vh] w-72 overflow-y-auto overscroll-contain rounded-3xl border border-white/10 bg-black/90 p-3 shadow-glow backdrop-blur-2xl"
                   role="menu"
                   aria-labelledby="desktop-resources-trigger"
+                  data-nav-desktop-more-panel
                 >
                   <div class="space-y-4">
                     {groupedMoreNavLinks.map((group) => (
@@ -225,7 +227,7 @@ gtag('config', '${gaMeasurementId}');`}
                     ))}
                   </div>
                 </div>
-              </details>
+              </div>
             )}
           </nav>
           <div class="lg:hidden">
@@ -338,14 +340,14 @@ gtag('config', '${gaMeasurementId}');`}
           <p class="text-xs tracking-[0.04em] text-white/65">{DISCLOSURE}</p>
         </div>
       </footer>
-    </div>
-    {showNavigation && (
-      <script is:inline>
-        {`(function(){
-  const navRoot = document.querySelector('[data-site-nav]');
-  if (!navRoot) {
-    return;
-  }
+	    </div>
+	    {showNavigation && (
+	      <script is:inline>
+	        (function(){
+	  const navRoot = document.querySelector('[data-site-nav]');
+	  if (!navRoot) {
+	    return;
+	  }
 
   const mobileToggle = navRoot.querySelector('[data-nav-mobile-toggle]');
   const mobileDrawer = navRoot.querySelector('[data-nav-mobile-drawer]');
@@ -356,41 +358,54 @@ gtag('config', '${gaMeasurementId}');`}
 	  const mobileMorePanel = navRoot.querySelector('[data-nav-mobile-more-panel]');
 	  const desktopMore = navRoot.querySelector('[data-nav-desktop-more]');
 	  const desktopMoreTrigger = navRoot.querySelector('[data-nav-desktop-more-trigger]');
-	  const desktopMoreMenu = navRoot.querySelector('#desktop-resources-menu');
+	  const desktopMoreMenu = navRoot.querySelector('[data-nav-desktop-more-panel]');
 
 	  let drawerOpen = false;
 	  let mobileMoreOpen = false;
+	  let desktopMoreOpen = false;
 
-	  const setDesktopMoreExpanded = (open) => {
-	    if (!desktopMoreTrigger) {
+	  const handleDesktopOutsidePointerDown = (event) => {
+	    if (!desktopMoreOpen || !desktopMore) return;
+	    const path = typeof event.composedPath === 'function' ? event.composedPath() : [];
+	    if (path && path.includes(desktopMore)) return;
+	    const target = event.target;
+	    if (target instanceof Node && desktopMore.contains(target)) return;
+	    setDesktopMoreOpen(false);
+	  };
+
+	  const handleDesktopKeydown = (event) => {
+	    if (event.key !== 'Escape') return;
+	    setDesktopMoreOpen(false);
+	  };
+
+	  const handleDesktopFocusIn = (event) => {
+	    if (!desktopMoreOpen || !desktopMore) return;
+	    const path = typeof event.composedPath === 'function' ? event.composedPath() : [];
+	    if (path && path.includes(desktopMore)) return;
+	    const target = event.target;
+	    if (target instanceof Node && desktopMore.contains(target)) return;
+	    setDesktopMoreOpen(false);
+	  };
+
+	  const setDesktopMoreOpen = (open) => {
+	    if (!desktopMoreTrigger || !desktopMoreMenu) {
 	      return;
 	    }
+	    if (desktopMoreOpen === open) {
+	      return;
+	    }
+	    desktopMoreOpen = open;
 	    desktopMoreTrigger.setAttribute('aria-expanded', open ? 'true' : 'false');
-	  };
-
-	  const closeDesktopMore = () => {
-	    if (!desktopMore || !desktopMore.open) {
-	      return;
-	    }
-	    desktopMore.open = false;
-	    setDesktopMoreExpanded(false);
-	  };
-
-	  const focusWithinDesktopMore = () => {
-	    if (!desktopMore) return false;
-	    const active = document.activeElement;
-	    return !!(active && desktopMore.contains(active));
-	  };
-
-	  const handleEscape = (event) => {
-	    if (event.key !== 'Escape') {
-	      return;
-	    }
-	    if (desktopMore && desktopMore.open) {
-	      closeDesktopMore();
-	    }
-	    if (drawerOpen) {
-	      setDrawerOpen(false);
+	    if (open) {
+	      desktopMoreMenu.classList.remove('hidden');
+	      window.addEventListener('pointerdown', handleDesktopOutsidePointerDown, { capture: true });
+	      window.addEventListener('keydown', handleDesktopKeydown);
+	      window.addEventListener('focusin', handleDesktopFocusIn, { capture: true });
+	    } else {
+	      desktopMoreMenu.classList.add('hidden');
+	      window.removeEventListener('pointerdown', handleDesktopOutsidePointerDown, { capture: true });
+	      window.removeEventListener('keydown', handleDesktopKeydown);
+	      window.removeEventListener('focusin', handleDesktopFocusIn, { capture: true });
 	    }
 	  };
 
@@ -470,145 +485,84 @@ gtag('config', '${gaMeasurementId}');`}
     });
   }
 
-  if (mobileMoreTrigger) {
-    mobileMoreTrigger.addEventListener('click', () => {
-      setMobileMoreOpen(!mobileMoreOpen);
-    });
-  }
-
-	  if (desktopMore) {
-	    setDesktopMoreExpanded(desktopMore.open);
-	    desktopMore.addEventListener('toggle', () => {
-	      setDesktopMoreExpanded(desktopMore.open);
+	  if (mobileMoreTrigger) {
+	    mobileMoreTrigger.addEventListener('click', () => {
+	      setMobileMoreOpen(!mobileMoreOpen);
 	    });
 	  }
-
-	  const handleDesktopOutside = (event) => {
-	    if (!desktopMore || !desktopMore.open) {
-	      return;
-	    }
-	    // Use composedPath so clicks through SVGs / nested elements are handled reliably.
-	    const path = typeof event.composedPath === 'function' ? event.composedPath() : [];
-	    if (path && path.includes(desktopMore)) return;
-	    const target = event.target;
-	    if (target instanceof Node && desktopMore.contains(target)) return;
-	    closeDesktopMore();
-	  };
-
-	  const handleDesktopFocusOutside = (event) => {
-	    if (!desktopMore || !desktopMore.open) return;
-	    const path = typeof event.composedPath === 'function' ? event.composedPath() : [];
-	    if (path && path.includes(desktopMore)) return;
-	    const target = event.target;
-	    if (target instanceof Node && desktopMore.contains(target)) return;
-	    closeDesktopMore();
-	  };
-
-	  // Capture phase so other handlers can’t cancel bubbling clicks and trap the menu open.
-	  // Use window + multiple event types: some mobile browsers can be inconsistent with pointer events.
-	  window.addEventListener('pointerdown', handleDesktopOutside, { capture: true });
-	  window.addEventListener('mousedown', handleDesktopOutside, { capture: true });
-	  window.addEventListener('touchstart', handleDesktopOutside, { capture: true, passive: true });
-	  window.addEventListener('click', handleDesktopOutside, { capture: true });
-	  window.addEventListener('focusin', handleDesktopFocusOutside, { capture: true });
-
-	  // Desktop-only: close when the mouse leaves the combined trigger+panel area.
-	  // Because the panel is absolutely-positioned, we track hover state on both elements.
-	  let desktopHoverTrigger = false;
-	  let desktopHoverMenu = false;
-	  let desktopHoverCloseTimer = 0;
-
-	  const maybeCloseFromHover = () => {
-	    if (!desktopMore || !desktopMore.open) return;
-	    if (desktopHoverTrigger || desktopHoverMenu) return;
-	    if (focusWithinDesktopMore()) return;
-	    closeDesktopMore();
-	  };
-
-	  const scheduleHoverClose = () => {
-	    if (desktopHoverCloseTimer) {
-	      window.clearTimeout(desktopHoverCloseTimer);
-	    }
-	    desktopHoverCloseTimer = window.setTimeout(maybeCloseFromHover, 120);
-	  };
 
 	  if (desktopMoreTrigger) {
-	    desktopMoreTrigger.addEventListener('mouseenter', () => {
-	      desktopHoverTrigger = true;
-	      if (desktopHoverCloseTimer) window.clearTimeout(desktopHoverCloseTimer);
-	    });
-	    desktopMoreTrigger.addEventListener('mouseleave', () => {
-	      desktopHoverTrigger = false;
-	      scheduleHoverClose();
+	    desktopMoreTrigger.addEventListener('click', () => {
+	      setDesktopMoreOpen(!desktopMoreOpen);
 	    });
 	  }
 
-	  if (desktopMoreMenu) {
-	    desktopMoreMenu.addEventListener('mouseenter', () => {
-	      desktopHoverMenu = true;
-	      if (desktopHoverCloseTimer) window.clearTimeout(desktopHoverCloseTimer);
-	    });
-	    desktopMoreMenu.addEventListener('mouseleave', () => {
-	      desktopHoverMenu = false;
-	      scheduleHoverClose();
-	    });
+	  if (desktopMore) {
+	    desktopMore.addEventListener('mouseleave', () => setDesktopMoreOpen(false));
 	  }
 
-	  const handleResize = () => {
-	    if (window.innerWidth >= 1024) {
-	      setDrawerOpen(false);
-	      document.body.classList.remove('overflow-hidden');
-    }
-  };
+	  const handleGlobalEscape = (event) => {
+	    if (event.key !== 'Escape') return;
+	    if (drawerOpen) setDrawerOpen(false);
+	  };
 
-  window.addEventListener('keydown', handleEscape);
-  window.addEventListener('resize', handleResize);
-})();`}
-      </script>
-    )}
-    {shouldTrackClicks && (
-      <script is:inline>
-        {`(function(){
-  const run = () => {
-  const endpoint = '/' + String.fromCharCode(103, 111) + '/click.php';
-  const sendBeacon = (slot, camp) => {
-    const params = new URLSearchParams({
-      e: 'click',
-      src: slot || 'unknown',
-      camp: camp || 'unknown',
-      t: String(Date.now())
-    });
-    const url = endpoint + '?' + params.toString();
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon(url);
-      return;
-    }
-    try {
-      fetch(url, { method: 'GET', mode: 'no-cors', keepalive: true });
-    } catch (_) {
-      // Swallow network errors — analytics should never block navigation.
-    }
-  };
+		  const handleResize = () => {
+		    if (window.innerWidth >= 1024) {
+		      setDrawerOpen(false);
+		      document.body.classList.remove('overflow-hidden');
+		    } else {
+		      setDesktopMoreOpen(false);
+		    }
+		  };
 
-  document.addEventListener('click', (event) => {
-    const target = event.target instanceof Element ? event.target.closest('[data-track="click"]') : null;
-    if (!target) {
-      return;
-    }
+	  window.addEventListener('keydown', handleGlobalEscape);
+	  window.addEventListener('resize', handleResize);
+	})();
+	      </script>
+	    )}
+	    {shouldTrackClicks && (
+	      <script is:inline>
+	        (function(){
+	  const run = () => {
+	  const endpoint = '/' + String.fromCharCode(103, 111) + '/click.php';
+	  const sendBeacon = (slot, camp) => {
+	    const params = new URLSearchParams({
+	      e: 'click',
+	      src: slot || 'unknown',
+	      camp: camp || 'unknown',
+	      t: String(Date.now())
+	    });
+	    const url = endpoint + '?' + params.toString();
+	    if (navigator.sendBeacon) {
+	      navigator.sendBeacon(url);
+	      return;
+	    }
+	    try {
+	      fetch(url, { method: 'GET', mode: 'no-cors', keepalive: true });
+	    } catch (_) {
+	      // Swallow network errors — analytics should never block navigation.
+	    }
+	  };
 
-    const slot = target.getAttribute('data-slot') || '';
-    const camp = target.getAttribute('data-camp') || '';
-    sendBeacon(slot, camp);
-  }, { capture: true });
-  };
+	  document.addEventListener('click', (event) => {
+	    const target = event.target instanceof Element ? event.target.closest('[data-track="click"]') : null;
+	    if (!target) {
+	      return;
+	    }
 
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(run);
-  } else {
-    window.setTimeout(run, 0);
-  }
-})();`}
-      </script>
-    )}
-  </body>
-</html>
+	    const slot = target.getAttribute('data-slot') || '';
+	    const camp = target.getAttribute('data-camp') || '';
+	    sendBeacon(slot, camp);
+	  }, { capture: true });
+	  };
+
+	  if ('requestIdleCallback' in window) {
+	    window.requestIdleCallback(run);
+	  } else {
+	    window.setTimeout(run, 0);
+	  }
+	})();
+	      </script>
+	    )}
+	  </body>
+	</html>
