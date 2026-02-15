@@ -1,0 +1,137 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
+import { withBase } from '../../utils/links';
+
+const canonicalPath = '/seo/manyvids-store-setup-checklist';
+---
+
+<MainLayout
+  title="ManyVids Store Setup Checklist | NaughtyCamSpot"
+  description="A simple ManyVids setup checklist: store branding, listings, pricing, tags, and a repeatable upload routine."
+>
+  <SEO
+    slot="head"
+    title="ManyVids Store Setup Checklist | NaughtyCamSpot"
+    description="Set up a ManyVids store with a clean checklist: branding, listings, pricing, and a weekly upload routine."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-8">
+    <header class="space-y-3">
+      <p class="hero-tagline">SEO guide</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">ManyVids store setup checklist (clean and repeatable).</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        ManyVids can work well when your store is organized and your upload routine is steady. This checklist is built for
+        phone-first creators who want simple steps that do not waste time.
+      </p>
+    </header>
+
+    <div class="space-y-6 text-sm text-white/75">
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">1) Store identity</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Pick one name style and use it everywhere (store, socials, link page).</li>
+          <li>Upload a clear avatar and banner (no tiny text, no blurry images).</li>
+          <li>Write a short bio that explains what viewers can buy and how often you upload.</li>
+        </ul>
+        <p>
+          Your goal is trust. People should understand what you sell in 10 seconds.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">2) Listing structure</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Create 3 core categories you can reuse (example: “short clips”, “full scenes”, “custom sets”).</li>
+          <li>Use consistent titles: simple keywords + one clear hook.</li>
+          <li>Write descriptions as short paragraphs with bullet highlights.</li>
+        </ul>
+        <p>
+          Avoid overpromising. The fastest refunds happen when the listing copy is vague or confusing.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">3) Pricing you can keep stable</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Set a baseline price for each format and keep it stable for 30 days.</li>
+          <li>Use a simple ladder: small clip, medium clip, premium scene.</li>
+          <li>Write a short rule for customs: what you accept, what you do not accept, delivery time.</li>
+        </ul>
+        <p>
+          You can always raise prices later. The bigger win is a consistent upload schedule.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">4) Your first 10 listings (quick plan)</h2>
+        <p>
+          A new store feels empty if you upload one item and stop. Aim for 10 listings so buyers can browse and understand
+          your range.
+        </p>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>6 short clips (repeatable format, easy to keep consistent).</li>
+          <li>2 medium clips (slightly higher effort, slightly higher price).</li>
+          <li>1 premium scene (your best production, your best thumbnail).</li>
+          <li>1 bundle (a simple pack of 3 to 5 items).</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">5) Tags + search basics</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Use a small set of repeatable tags that match your real content.</li>
+          <li>Do not use random tags just for traffic. Wrong clicks lower conversion.</li>
+          <li>Keep a list of your “top 10 keywords” so your titles stay consistent.</li>
+        </ul>
+        <p>
+          If you want a platform comparison view, check the Platforms page and Apply for a recommendation.
+        </p>
+        <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withBase('/platforms/')}>
+          Platforms →
+        </a>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">5) Thumbnails + trust signals</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Use bright, clear thumbnails. Avoid tiny text and dark images.</li>
+          <li>Keep framing consistent so your store looks “real” and not random.</li>
+          <li>Use short, honest descriptions. Confusing listings kill repeat buyers.</li>
+        </ul>
+        <p>
+          Think like a buyer: they are scanning fast on a phone. Clarity is the conversion lever.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">6) Weekly upload routine (simple)</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Batch content: shoot once, edit once, upload multiple listings.</li>
+          <li>Pick 2 upload days and keep them stable.</li>
+          <li>Write one promo caption per upload and reuse the format.</li>
+        </ul>
+        <p>
+          You do not need a complicated pipeline. A small routine that you can keep beats a perfect plan you quit.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Next step</h2>
+        <p>
+          If you want help with a posting schedule, offer ladder, and promotion cadence, start with Packages or Apply and
+          tell us your platform interest.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a class="btn btn-primary w-full sm:w-auto" href={withBase('/packages/')}>
+            Packages
+          </a>
+          <a class="btn btn-secondary w-full sm:w-auto" href={withBase('/apply/')}>
+            Apply
+          </a>
+        </div>
+      </section>
+    </div>
+  </section>
+</MainLayout>

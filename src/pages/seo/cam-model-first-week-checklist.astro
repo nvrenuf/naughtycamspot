@@ -1,0 +1,132 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
+import { withBase } from '../../utils/links';
+
+const canonicalPath = '/seo/cam-model-first-week-checklist';
+---
+
+<MainLayout
+  title="Cam Model First Week Checklist | NaughtyCamSpot"
+  description="A beginner first-week checklist for cam models: schedule, room goals, offers, safety, and simple promotion."
+>
+  <SEO
+    slot="head"
+    title="Cam Model First Week Checklist | NaughtyCamSpot"
+    description="Your first week as a cam model: a simple checklist for setup, schedule, offers, and safety."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-8">
+    <header class="space-y-3">
+      <p class="hero-tagline">SEO guide</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Cam model first week checklist (simple, not stressful).</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        The first week is about routine. You do not need perfect lighting, perfect scripts, or perfect confidence. You need
+        a schedule you can keep and a few repeatable moves.
+      </p>
+    </header>
+
+    <div class="space-y-6 text-sm text-white/75">
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Day 1: Setup basics</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Confirm your stream connection, backup internet plan, and a quiet space.</li>
+          <li>Set a simple camera angle and light source (one light is fine).</li>
+          <li>Write your non-negotiables: face rules, location rules, off-platform contact rules.</li>
+        </ul>
+        <p>
+          If you want a quick trust overview first, read Trust &amp; Safety. It is plain English.
+        </p>
+        <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withBase('/trust-safety/')}>
+          Trust &amp; Safety →
+        </a>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Before you go live: pick the right platform</h2>
+        <p>
+          Your first week is easier when your platform matches your schedule, your region, and your comfort level. If you are not sure,
+          do not guess. Start with Platforms and then Apply so we can recommend a best-fit mix.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a class="btn btn-secondary w-full sm:w-auto" href={withBase('/platforms/')}>
+            Platforms
+          </a>
+          <a class="btn btn-primary w-full sm:w-auto" href={withBase('/apply/')}>
+            Apply
+          </a>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Day 2: Schedule and a goal ladder</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Pick 3 show days and one show time window.</li>
+          <li>Set a small room goal ladder: warm-up, mid-goal, finish goal.</li>
+          <li>Write one short opening line you can reuse every stream.</li>
+        </ul>
+        <p>
+          Consistency is the growth lever. A smaller schedule you keep beats a big schedule you skip.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Day 3: Offer basics</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Pick 1 main offer and 1 upsell (do not make 10 prices).</li>
+          <li>Write clear rules. Short and calm. Avoid pressure language.</li>
+          <li>Prepare 3 “prompt lines” to keep chat moving when it is quiet.</li>
+        </ul>
+        <p>
+          You can upgrade your offer ladder later. Start with something that you can deliver every week.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Day 3 add-on: scripts you can reuse</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>One opening line: friendly, short, repeatable.</li>
+          <li>One “quiet room” prompt: ask a simple question.</li>
+          <li>One closer line: remind what is next and your schedule.</li>
+        </ul>
+        <p>
+          Most beginners overtalk. Keep it calm. Clarity builds trust faster than “big energy”.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Day 4: Simple promotion (no spam)</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Pick 1 to 2 social channels you can post on consistently.</li>
+          <li>Create one repeatable promo format: teaser, schedule post, recap.</li>
+          <li>Use a link page and keep your links updated.</li>
+        </ul>
+        <p>
+          If you want a structured promotion plan, Packages can help. If you want platform signup help, use the tracked links
+          under Platform signup help and Apply.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Day 5 to 7: Review and tighten</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>After each stream, write 3 notes: what worked, what felt bad, what to test next.</li>
+          <li>Adjust one lever per week: schedule, offers, scripts, or promo cadence.</li>
+          <li>Do not chase every idea at once. Keep your system calm.</li>
+        </ul>
+        <p>
+          Want a fast plan made for your exact platform mix? Apply and tell us your platform interest.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a class="btn btn-primary w-full sm:w-auto" href={withBase('/apply/')}>
+            Apply
+          </a>
+          <a class="btn btn-secondary w-full sm:w-auto" href={withBase('/packages/')}>
+            Packages
+          </a>
+        </div>
+      </section>
+    </div>
+  </section>
+</MainLayout>

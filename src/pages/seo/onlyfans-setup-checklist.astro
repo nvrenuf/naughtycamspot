@@ -1,0 +1,127 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
+import { withBase } from '../../utils/links';
+
+const canonicalPath = '/seo/onlyfans-setup-checklist';
+---
+
+<MainLayout
+  title="OnlyFans Setup Checklist (Beginner) | NaughtyCamSpot"
+  description="A simple, phone-first OnlyFans setup checklist: profile, pricing, welcome message, content plan, and safety basics."
+>
+  <SEO
+    slot="head"
+    title="OnlyFans Setup Checklist (Beginner) | NaughtyCamSpot"
+    description="Set up OnlyFans the right way with a beginner checklist: profile, pricing, first posts, and safety."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-8">
+    <header class="space-y-3">
+      <p class="hero-tagline">SEO guide</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">OnlyFans setup checklist (beginner, phone-first).</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        This checklist is built for creators who want a clean setup without confusion. Keep it simple: finish the basics,
+        then improve one thing per week.
+      </p>
+    </header>
+
+    <div class="space-y-6 text-sm text-white/75">
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">1) Profile basics</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Username and display name are easy to read and consistent across your socials.</li>
+          <li>Bio says what you do, what viewers get, and how often you post.</li>
+          <li>Profile photo + banner are clear (no tiny text, no blurry images).</li>
+          <li>Pin 1 post that explains your offer and where to start.</li>
+        </ul>
+        <p>
+          Tip: write for low-English readers. Short sentences. Clear keywords. No slang that can be misread.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">2) Pricing + simple offer ladder</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Pick one base subscription price you can defend for 30 days.</li>
+          <li>Add 1 upsell: custom bundle, PPV, or a simple weekly drop.</li>
+          <li>Write 3 bullet rules: what you do, what you do not do, response time.</li>
+        </ul>
+        <p>
+          If you want a plain pricing model, browse Packages and pick a support level. We keep trust posture explicit: no
+          passwords, no exclusivity, you keep account control.
+        </p>
+        <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withBase('/packages/')}>
+          Compare packages →
+        </a>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">3) Welcome message + DM flow</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Write one welcome message (friendly + short) and save it.</li>
+          <li>Make one follow-up message for day 2 and day 7.</li>
+          <li>Do not spam. Your goal is a calm routine, not pressure.</li>
+        </ul>
+        <p>
+          A simple rule: every DM should have one action. Example: “Reply with what you like” or “Tap the pinned post”.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">4) Content plan (first 7 days)</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Post 3 to 7 pieces of content that show your range (not just one theme).</li>
+          <li>Create 2 repeatable formats: selfie drop, short clip, behind-the-scenes note.</li>
+          <li>Schedule your posting time window so you do not forget.</li>
+        </ul>
+        <p>
+          Do not wait for perfection. Consistency beats “high effort” that burns you out in week two.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Common mistakes (and simple fixes)</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Too many prices: start with one base price and one upsell.</li>
+          <li>Too much text: rewrite your bio into 3 short lines and one bullet list.</li>
+          <li>No routine: pick two posting formats you can keep every week.</li>
+          <li>Pressure language: keep your copy calm and clear. Trust converts.</li>
+        </ul>
+        <p>
+          If you feel stuck, do not “rebuild everything”. Improve one lever per week: your schedule, your offer, or your promo
+          cadence. Small consistent upgrades beat big resets.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">5) Safety basics</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Use a separate email and strong passwords. Enable 2FA where possible.</li>
+          <li>Set boundaries for face, location, and off-platform contact.</li>
+          <li>Read the Trust &amp; Safety policy so you know our rules before you share info.</li>
+        </ul>
+        <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withBase('/trust-safety/')}>
+          Trust &amp; Safety →
+        </a>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Next step</h2>
+        <p>
+          If you want help choosing a platform mix and a weekly plan, Apply. Fast Lane is phone-first: Telegram, platform
+          interest, and consent first.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a class="btn btn-primary w-full sm:w-auto" href={withBase('/apply/')}>
+            Apply
+          </a>
+          <a class="btn btn-secondary w-full sm:w-auto" href={withBase('/platforms/')}>
+            View platforms
+          </a>
+        </div>
+      </section>
+    </div>
+  </section>
+</MainLayout>

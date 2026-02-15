@@ -1,0 +1,132 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
+import { withBase } from '../../utils/links';
+
+const canonicalPath = '/seo/promotion-basics-for-beginners';
+---
+
+<MainLayout
+  title="Promotion Basics for Beginners | NaughtyCamSpot"
+  description="Promotion basics in plain English: what to post, how often, how to avoid spam, and how to measure what works."
+>
+  <SEO
+    slot="head"
+    title="Promotion Basics for Beginners | NaughtyCamSpot"
+    description="Learn promotion basics: a simple weekly posting plan, repeatable captions, and calm measurement."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-8">
+    <header class="space-y-3">
+      <p class="hero-tagline">SEO guide</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Promotion basics for beginners (simple, repeatable).</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        Good promotion is not loud. It is consistent. You show up with a predictable rhythm, a clear offer, and a link that
+        works every time. This page gives you a beginner plan you can run from your phone.
+      </p>
+    </header>
+
+    <div class="space-y-6 text-sm text-white/75">
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">1) Pick 1 to 2 channels</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Choose channels you can post on consistently (do not pick five).</li>
+          <li>Set a time window you can keep (example: 15 minutes per day).</li>
+          <li>Use a link page or one clean link destination.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">2) Use repeatable formats</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Teaser: short clip or photo + one clear hook.</li>
+          <li>Schedule: “Going live at…” or “Drop day” post.</li>
+          <li>Recap: what happened, what is next, one clear CTA.</li>
+        </ul>
+        <p>
+          If you have trouble writing captions, templates help. Our Library includes simple, copy-ready formats.
+        </p>
+        <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withBase('/library/')}>
+          Library →
+        </a>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">3) Hooks that work (examples)</h2>
+        <p>
+          Beginners often post “hey I am live” with no reason to click. A hook gives one clear reason. Keep it short and honest.
+        </p>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>“New drop tonight: [theme] + [one detail].”</li>
+          <li>“I am live in 30. Quick goal ladder + a surprise at the end.”</li>
+          <li>“If you like [kink/angle], this week is for you.”</li>
+        </ul>
+        <p>
+          After the hook, add one action: “Tap the link” or “Reply with what you like”. One action per post.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">4) Avoid spam signals</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Do not blast the same message everywhere in one hour.</li>
+          <li>Do not pressure. Calm language converts better long term.</li>
+          <li>Do not argue with bad comments. Post, move on.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">5) Measure one thing per week</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Pick one metric: clicks, new subs, conversion, or retention.</li>
+          <li>Make one change per week: posting time, hook, offer, or format.</li>
+          <li>Keep a short notes log. That is your strategy.</li>
+        </ul>
+        <p>
+          If you want deeper reads, the blog has practical posts for beginners.
+        </p>
+        <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withBase('/blog/')}>
+          Browse blog →
+        </a>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">6) A simple weekly plan</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>2 teasers (Mon/Thu)</li>
+          <li>1 schedule post (day of your show)</li>
+          <li>1 recap post (after your show)</li>
+          <li>1 “soft ask” DM or story (once per week)</li>
+        </ul>
+        <p>
+          If you can only do three posts, do teaser, schedule, recap. Keep it stable for four weeks and then upgrade.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Link hygiene (do this once)</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Make sure your main link works on mobile and loads fast.</li>
+          <li>Keep one “primary” link destination so you do not confuse buyers.</li>
+          <li>Update your pinned post when your offer changes.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Next step</h2>
+        <p>
+          If you want promotion support with a plan and weekly feedback, compare Packages. If you want a fast intake, Apply and tell us your platform interest.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a class="btn btn-primary w-full sm:w-auto" href={withBase('/packages/')}>
+            Packages
+          </a>
+          <a class="btn btn-secondary w-full sm:w-auto" href={withBase('/apply/')}>
+            Apply
+          </a>
+        </div>
+      </section>
+    </div>
+  </section>
+</MainLayout>

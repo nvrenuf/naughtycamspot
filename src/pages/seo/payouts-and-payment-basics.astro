@@ -1,0 +1,125 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
+import { withBase } from '../../utils/links';
+
+const canonicalPath = '/seo/payouts-and-payment-basics';
+---
+
+<MainLayout
+  title="Payouts & Payment Basics for Creators | NaughtyCamSpot"
+  description="Plain-English payout basics: common payout methods, what slows payments down, and simple safety rules."
+>
+  <SEO
+    slot="head"
+    title="Payouts & Payment Basics for Creators | NaughtyCamSpot"
+    description="Understand creator payouts: methods, timelines, common delays, and safety basics in plain English."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-8">
+    <header class="space-y-3">
+      <p class="hero-tagline">SEO guide</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Payouts and payment basics (plain English).</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        Different platforms pay out in different ways. If you understand the basics, you avoid the most common delays and
+        safety mistakes. This is general information, not financial or tax advice.
+      </p>
+    </header>
+
+    <div class="space-y-6 text-sm text-white/75">
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">1) Common payout methods</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Bank transfer: usually reliable, sometimes slower.</li>
+          <li>Payment processors: can be fast, but may have extra verification steps.</li>
+          <li>Digital wallets: convenient, but region support varies.</li>
+        </ul>
+        <p>
+          Your best option depends on your country, your platform, and what verification you can complete quickly.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">2) What slows payouts down</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Incorrect legal name or mismatch between account and payout profile.</li>
+          <li>Missing verification documents, expired IDs, or unclear photos.</li>
+          <li>Changing payout methods too often.</li>
+          <li>Chargebacks and risk flags (even if you did nothing wrong).</li>
+        </ul>
+        <p>
+          If you change one thing, keep a simple spreadsheet: platform, payout method, verification status, and payout day.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">3) Verification checklist (quick)</h2>
+        <p>
+          Most payout issues are not “random”. They are verification problems. Keep your verification simple and clean:
+        </p>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Use your legal name consistently across the platform and payout profile.</li>
+          <li>Upload clear photos of documents (no glare, no blur, no cropping important edges).</li>
+          <li>Do not share documents in DMs. Use only official platform verification flows.</li>
+          <li>Save confirmation emails and keep notes of what you submitted.</li>
+        </ul>
+        <p>
+          If a platform offers a “test payout” or “small first payout”, take it. It is an early check that your payout method is configured correctly.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">4) Safety rules you should follow</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Never share account passwords. Use 2FA where possible.</li>
+          <li>Use a dedicated email for creator accounts.</li>
+          <li>Keep boundaries for off-platform contact and personal info.</li>
+        </ul>
+        <p>
+          Our trust posture is simple: no passwords, no exclusivity, model-owned accounts. You can read it here:
+        </p>
+        <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withBase('/trust-safety/')}>
+          Trust &amp; Safety →
+        </a>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">5) Recordkeeping (simple, not scary)</h2>
+        <p>
+          You do not need complicated accounting to start. You need a basic habit: track payouts and expenses so you can see what is working.
+        </p>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Save payout confirmations (screenshots or emails).</li>
+          <li>Track basic expenses: lights, props, software, fees.</li>
+          <li>Keep notes on what you tested that week (promo, offer changes, schedule changes).</li>
+        </ul>
+        <p>
+          This helps you make better decisions and lowers stress when a platform changes a policy or timing.
+        </p>
+        <p>
+          Keep it boring and consistent. The goal is clarity, not perfection.
+        </p>
+        <p>
+          When you know your numbers, you can pick better packages and better priorities.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">6) Picking the right platform mix</h2>
+        <p>
+          Some platforms are better for subscriptions, some for stores, some for live traffic. If you want a recommendation,
+          start with Platforms and then Apply with your platform interest.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a class="btn btn-primary w-full sm:w-auto" href={withBase('/platforms/')}>
+            Platforms
+          </a>
+          <a class="btn btn-secondary w-full sm:w-auto" href={withBase('/apply/')}>
+            Apply
+          </a>
+        </div>
+      </section>
+    </div>
+  </section>
+</MainLayout>

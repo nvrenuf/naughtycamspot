@@ -1,0 +1,125 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
+import { withBase } from '../../utils/links';
+
+const canonicalPath = '/seo/online-safety-privacy-basics';
+---
+
+<MainLayout
+  title="Online Safety & Privacy Basics for Creators | NaughtyCamSpot"
+  description="Simple privacy and safety basics for creators: boundaries, passwords, 2FA, location safety, and scam red flags."
+>
+  <SEO
+    slot="head"
+    title="Online Safety & Privacy Basics for Creators | NaughtyCamSpot"
+    description="Protect your privacy with simple steps: boundaries, 2FA, location safety, and scam red flags."
+    path={canonicalPath}
+  />
+
+  <section class="content-card space-y-8">
+    <header class="space-y-3">
+      <p class="hero-tagline">SEO guide</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Online safety and privacy basics (creator-friendly).</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        You do not need extreme security to be safer online. You need a few repeatable habits: clear boundaries, strong
+        accounts, and calm decision making when someone tries to pressure you.
+      </p>
+    </header>
+
+    <div class="space-y-6 text-sm text-white/75">
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">1) Account security</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Use strong passwords and a password manager if you can.</li>
+          <li>Enable 2FA on email and creator platforms.</li>
+          <li>Never share passwords, even with “helpers”.</li>
+        </ul>
+        <p>
+          Small habit: log out of accounts on shared devices. If you use a phone for content, lock it with a PIN and keep auto-backups in mind.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">2) Boundaries (make them simple)</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Decide your face policy, location policy, and off-platform contact policy.</li>
+          <li>Write a short “no list” so you do not negotiate under pressure.</li>
+          <li>Keep your rules consistent. Consistency lowers drama.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">3) Location and personal info safety</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Do not show mail, street signs, or unique landmarks in content.</li>
+          <li>Be careful with reflections, windows, and background audio.</li>
+          <li>Separate creator email and creator phone (or use a dedicated number if you must).</li>
+        </ul>
+        <p>
+          If you travel, do not post your location in real time. Post later.
+        </p>
+        <p>
+          Privacy is a habit. Small rules repeated every day add up.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">4) Content boundaries that protect you</h2>
+        <p>
+          Privacy is not only “tech”. It is also what you show and what you never show. Decide your boundaries early and keep them stable.
+        </p>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Face policy: full face, partial, or none. Pick one and stick to it.</li>
+          <li>Personal details: do not share legal name, address, workplace, or school.</li>
+          <li>Off-platform contact: do not move to random apps with strangers.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">5) Scam red flags</h2>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>Anyone who asks for your password is not safe.</li>
+          <li>Anyone who forces urgency (“right now or you lose it”) is usually a scam.</li>
+          <li>Anyone who asks you to move money around is a hard no.</li>
+        </ul>
+        <p>
+          NaughtyCamSpot keeps trust posture explicit. If something feels off, use the Trust &amp; Safety page and ask before you act.
+        </p>
+        <a class="inline-flex text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={withBase('/trust-safety/')}>
+          Trust &amp; Safety →
+        </a>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">6) How to handle pressure (simple script)</h2>
+        <p>
+          A lot of unsafe situations start with pressure. If someone pushes you to break a boundary, use a short script and end the conversation.
+        </p>
+        <ul class="list-disc space-y-2 pl-5">
+          <li>“No. I do not share passwords.”</li>
+          <li>“No. I do not move to private contact.”</li>
+          <li>“No. I do not do that.”</li>
+        </ul>
+        <p>
+          Keep it short. You do not need to explain. Safety is a policy, not a debate.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="font-display text-2xl text-white">Next step</h2>
+        <p>
+          If you want a simple first-week plan that respects your boundaries, Apply. If you want promotion help later, compare Packages.
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a class="btn btn-primary w-full sm:w-auto" href={withBase('/apply/')}>
+            Apply
+          </a>
+          <a class="btn btn-secondary w-full sm:w-auto" href={withBase('/packages/')}>
+            Packages
+          </a>
+        </div>
+      </section>
+    </div>
+  </section>
+</MainLayout>
