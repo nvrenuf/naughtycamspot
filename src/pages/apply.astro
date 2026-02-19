@@ -112,10 +112,10 @@ const hardNoOptions = [
         <div class="h-2 w-1/4 rounded-full bg-rose-gold transition-all duration-200" data-progress-fill></div>
       </div>
       <div class="mt-3 grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
-        <span class="rounded-full border border-rose-gold/50 bg-rose-gold/20 px-3 py-2 text-center text-rose-petal" data-step-label="1">Fast Lane</span>
-        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center text-white/60" data-step-label="2">Optional</span>
-        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center text-white/60" data-step-label="3">Profile</span>
-        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center text-white/60" data-step-label="4">Finish</span>
+        <button class="rounded-full border border-rose-gold/50 bg-rose-gold/20 px-3 py-2 text-center text-rose-petal" type="button" data-step-label="1" data-step-target="1">Fast Lane</button>
+        <button class="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center text-white/60" type="button" data-step-label="2" data-step-target="2">Optional</button>
+        <button class="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center text-white/60" type="button" data-step-label="3" data-step-target="3">Profile</button>
+        <button class="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center text-white/60" type="button" data-step-label="4" data-step-target="4">Finish</button>
       </div>
     </section>
 
@@ -345,6 +345,9 @@ const hardNoOptions = [
   const stepLabels = progressRoot instanceof HTMLElement
     ? Array.from(progressRoot.querySelectorAll('[data-step-label]'))
     : [];
+  const stepNavButtons = progressRoot instanceof HTMLElement
+    ? Array.from(progressRoot.querySelectorAll('[data-step-target]'))
+    : [];
   const optionalDetails = form instanceof HTMLFormElement
     ? form.querySelector('[data-optional-details]')
     : null;
@@ -389,8 +392,56 @@ const hardNoOptions = [
     }
     return null;
   };
+  const focusStep = (step) => {
+    if (!(form instanceof HTMLFormElement)) {
+      return;
+    }
+    if (step === 1) {
+      const telegramInput = form.querySelector('input[name=\"telegram\"]');
+      if (telegramInput instanceof HTMLElement) {
+        telegramInput.focus();
+      }
+      return;
+    }
+    if (step === 2) {
+      if (optionalDetails instanceof HTMLDetailsElement) {
+        optionalDetails.open = true;
+        const summary = optionalDetails.querySelector('summary');
+        if (summary instanceof HTMLElement) {
+          summary.focus();
+        }
+      }
+      return;
+    }
+    if (step === 3) {
+      if (optionalDetails instanceof HTMLDetailsElement) {
+        optionalDetails.open = true;
+      }
+      const profileField = form.querySelector('[data-apply-step=\"3\"] input, [data-apply-step=\"3\"] select, [data-apply-step=\"3\"] textarea');
+      if (profileField instanceof HTMLElement) {
+        profileField.focus();
+      }
+      return;
+    }
+    if (step === 4) {
+      const submitButton = form.querySelector('[data-claim-submit]');
+      if (submitButton instanceof HTMLElement) {
+        submitButton.focus();
+      }
+    }
+  };
 
   setProgressStep(1);
+  stepNavButtons.forEach((button) => {
+    if (!(button instanceof HTMLButtonElement)) {
+      return;
+    }
+    button.addEventListener('click', () => {
+      const step = Number(button.getAttribute('data-step-target') || '1');
+      setProgressStep(step);
+      focusStep(step);
+    });
+  });
 
   if (form instanceof HTMLFormElement) {
     const timezoneSelect = form.querySelector('select[name=\"timezone\"]');
