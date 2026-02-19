@@ -30,7 +30,7 @@
   "dependencies": {
     "@astrojs/sitemap": "file:vendor/astrojs-sitemap",
     "@astrojs/tailwind": "^6.0.2",
-    "astro": "^4.10.0",
+    "astro": "^5.17.3",
     "autoprefixer": "^10.4.23",
     "postcss": "^8.4.47",
     "tailwindcss": "3.4.19"
