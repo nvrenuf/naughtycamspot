@@ -106,6 +106,19 @@ const hardNoOptions = [
       </div>
     )}
 
+    <section class="rounded-2xl border border-white/10 bg-white/5 p-4" data-apply-progress aria-live="polite">
+      <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70" data-current-step>Step 1 of 4</p>
+      <div class="mt-3 h-2 rounded-full bg-white/10">
+        <div class="h-2 w-1/4 rounded-full bg-rose-gold transition-all duration-200" data-progress-fill></div>
+      </div>
+      <div class="mt-3 grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
+        <span class="rounded-full border border-rose-gold/50 bg-rose-gold/20 px-3 py-2 text-center text-rose-petal" data-step-label="1">Fast Lane</span>
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center text-white/60" data-step-label="2">Optional</span>
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center text-white/60" data-step-label="3">Profile</span>
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-center text-white/60" data-step-label="4">Finish</span>
+      </div>
+    </section>
+
     <form class="grid gap-6 sm:grid-cols-2" method="post" action={formAction}>
       <input type="hidden" name="lead_form" value="1" />
       <input type="hidden" name="csrf_token" value="" data-csrf-token />
@@ -115,7 +128,7 @@ const hardNoOptions = [
       <input type="hidden" name="package" value={packageChoice} />
       {kitUnlock && <input type="hidden" name="kit_unlock" value="1" />}
 
-      <section class="space-y-5 rounded-2xl border border-rose-gold/30 bg-rose-gold/10 p-5 sm:col-span-2">
+      <section class="space-y-5 rounded-2xl border border-rose-gold/30 bg-rose-gold/10 p-5 sm:col-span-2" data-apply-step="1">
         <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Fast Lane</p>
         <div class="rounded-2xl border border-rose-gold/30 bg-rose-gold/10 px-5 py-4 text-sm text-white/80">
           <p class="text-xs uppercase tracking-[0.3em] text-white/70">Trust rules</p>
@@ -169,7 +182,7 @@ const hardNoOptions = [
         <p class="hidden text-xs text-rose-petal" data-token-error role="alert">Please refresh and try again.</p>
       </section>
 
-      <details class="rounded-2xl border border-white/10 bg-white/5 p-5 sm:col-span-2">
+      <details class="rounded-2xl border border-white/10 bg-white/5 p-5 sm:col-span-2" data-optional-details data-apply-step="2">
         <summary class="cursor-pointer text-sm font-semibold uppercase tracking-[0.22em] text-rose-petal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold">
           Improve my match (optional)
         </summary>
@@ -220,7 +233,7 @@ const hardNoOptions = [
           </label>
         </div>
 
-        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <div class="mt-4 grid gap-4 sm:grid-cols-2" data-apply-step="3">
           <label class="flex flex-col gap-2 text-sm text-white/70">
             Typical start time (optional)
             <select class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" name="time_start">
@@ -241,7 +254,7 @@ const hardNoOptions = [
           </label>
         </div>
 
-        <div class="mt-4 space-y-3">
+        <div class="mt-4 space-y-3" data-apply-step="3">
           <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Typical streaming days (optional)</p>
           <div class="flex flex-wrap gap-3">
             {dayOptions.map((day) => (
@@ -253,7 +266,7 @@ const hardNoOptions = [
           </div>
         </div>
 
-        <div class="mt-4 space-y-3">
+        <div class="mt-4 space-y-3" data-apply-step="3">
           <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Already on (optional)</p>
           <div class="grid gap-2 sm:grid-cols-2">
             {PLATFORMS.map((platform) => (
@@ -270,7 +283,7 @@ const hardNoOptions = [
           </div>
         </div>
 
-        <div class="mt-4 space-y-3">
+        <div class="mt-4 space-y-3" data-apply-step="3">
           <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Content style (optional)</p>
           <div class="flex flex-wrap gap-3">
             {styleOptions.map((style) => (
@@ -282,7 +295,7 @@ const hardNoOptions = [
           </div>
         </div>
 
-        <div class="mt-4 space-y-3">
+        <div class="mt-4 space-y-3" data-apply-step="3">
           <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Hard no list (optional)</p>
           <div class="flex flex-wrap gap-3">
             {hardNoOptions.map((item) => (
@@ -294,7 +307,7 @@ const hardNoOptions = [
           </div>
         </div>
 
-        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <div class="mt-4 grid gap-4 sm:grid-cols-2" data-apply-step="3">
           <label class="flex flex-col gap-2 text-sm text-white/70">
             Asset link (optional)
             <input
@@ -322,6 +335,63 @@ const hardNoOptions = [
   <script is:inline define:vars={{ csrfEndpoint }}>
     {`(function () {
   const form = document.querySelector('form[action$=\"/claim/index.php\"]');
+  const progressRoot = document.querySelector('[data-apply-progress]');
+  const currentStepEl = progressRoot instanceof HTMLElement
+    ? progressRoot.querySelector('[data-current-step]')
+    : null;
+  const progressFill = progressRoot instanceof HTMLElement
+    ? progressRoot.querySelector('[data-progress-fill]')
+    : null;
+  const stepLabels = progressRoot instanceof HTMLElement
+    ? Array.from(progressRoot.querySelectorAll('[data-step-label]'))
+    : [];
+  const optionalDetails = form instanceof HTMLFormElement
+    ? form.querySelector('[data-optional-details]')
+    : null;
+  const setProgressStep = (value) => {
+    const step = Math.max(1, Math.min(4, Number(value) || 1));
+    if (currentStepEl instanceof HTMLElement) {
+      currentStepEl.textContent = 'Step ' + step + ' of 4';
+    }
+    if (progressFill instanceof HTMLElement) {
+      progressFill.style.width = String(step * 25) + '%';
+    }
+    stepLabels.forEach((label) => {
+      if (!(label instanceof HTMLElement)) {
+        return;
+      }
+      const labelStep = Number(label.getAttribute('data-step-label') || '0');
+      const isActive = labelStep <= step;
+      label.classList.toggle('border-rose-gold/50', isActive);
+      label.classList.toggle('bg-rose-gold/20', isActive);
+      label.classList.toggle('text-rose-petal', isActive);
+      label.classList.toggle('border-white/10', !isActive);
+      label.classList.toggle('bg-white/5', !isActive);
+      label.classList.toggle('text-white/60', !isActive);
+      if (labelStep === step) {
+        label.setAttribute('aria-current', 'step');
+      } else {
+        label.removeAttribute('aria-current');
+      }
+    });
+  };
+  const resolveStepFromTarget = (target) => {
+    if (!(target instanceof Element)) {
+      return null;
+    }
+    const scopedStep = target.closest('[data-apply-step]');
+    if (scopedStep instanceof HTMLElement) {
+      const step = Number(scopedStep.getAttribute('data-apply-step') || '0');
+      return step > 0 ? step : null;
+    }
+    if (target.closest('[data-claim-submit]')) {
+      return 4;
+    }
+    return null;
+  };
+
+  setProgressStep(1);
+
   if (form instanceof HTMLFormElement) {
     const timezoneSelect = form.querySelector('select[name=\"timezone\"]');
     if (timezoneSelect instanceof HTMLSelectElement && !timezoneSelect.value) {
@@ -333,6 +403,33 @@ const hardNoOptions = [
       else if (tz.includes('Alaska')) timezoneSelect.value = 'AK';
       else if (tz.includes('Honolulu') || tz.includes('Hawaii')) timezoneSelect.value = 'HI';
       else if (tz.includes('UTC') || tz.includes('Etc/')) timezoneSelect.value = 'UTC';
+    }
+
+    form.addEventListener('focusin', (event) => {
+      const step = resolveStepFromTarget(event.target);
+      if (step) {
+        setProgressStep(step);
+      }
+    });
+    form.addEventListener('input', (event) => {
+      const step = resolveStepFromTarget(event.target);
+      if (step) {
+        setProgressStep(step);
+      }
+    });
+    form.addEventListener('submit', () => {
+      setProgressStep(4);
+    });
+    const submitButton = form.querySelector('[data-claim-submit]');
+    if (submitButton instanceof HTMLButtonElement) {
+      submitButton.addEventListener('click', () => {
+        setProgressStep(4);
+      });
+    }
+    if (optionalDetails instanceof HTMLDetailsElement) {
+      optionalDetails.addEventListener('toggle', () => {
+        setProgressStep(optionalDetails.open ? 2 : 1);
+      });
     }
 
   }

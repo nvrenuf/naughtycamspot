@@ -11,6 +11,8 @@ const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relati
 
 test('Apply page uses one-screen Fast Lane with optional details section', async () => {
   const source = await readSource('src/pages/apply.astro');
+  assert.ok(source.includes('Step 1 of 4'), 'Apply page should show progress step label');
+  assert.ok(source.includes('data-apply-progress'), 'Apply page should include progress container');
   assert.ok(source.includes('Fast Lane'), 'Apply page should show Fast Lane section first');
   assert.ok(source.includes('Improve my match (optional)'), 'Apply page should include optional details toggle');
   assert.ok(source.includes('name="telegram"'), 'Apply page should include Telegram field');
