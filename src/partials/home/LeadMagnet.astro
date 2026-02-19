@@ -5,7 +5,7 @@ import { isPagesBuild } from '../../utils/links';
 const pagesBuild = isPagesBuild();
 const formAction = pagesBuild ? withBase('/apply/') : withBase('/claim/index.php');
 const formMethod = pagesBuild ? 'get' : 'post';
-const csrfEndpoint = pagesBuild ? '' : withBase('/api/csrf.php');
+const csrfEndpoint = pagesBuild ? '' : withBase('/claim/token.php');
 
 const searchParams = Astro.url.searchParams;
 const trackingKeys = ['src', 'camp', 'date'] as const;
@@ -85,11 +85,15 @@ const page = Astro.url.pathname;
         </label>
 
         <button
+          data-claim-submit
           type="submit"
           class="inline-flex items-center justify-center rounded-full border border-rose-gold/50 bg-rose-gold/15 px-5 py-4 text-xs font-semibold uppercase tracking-[0.28em] text-rose-petal transition hover:border-rose-gold/70 hover:bg-rose-gold/30"
         >
           Get checklist
         </button>
+        <p class="hidden text-xs normal-case tracking-normal text-rose-petal sm:col-span-4" data-token-error role="alert">
+          Please refresh and try again.
+        </p>
       </form>
     </details>
 
@@ -101,20 +105,49 @@ const page = Astro.url.pathname;
     <script is:inline define:vars={{ csrfEndpoint }}>
       {`(function () {
   const tokenInput = document.querySelector('[data-lead-capture] [data-csrf-token]');
-  if (!(tokenInput instanceof HTMLInputElement) || !csrfEndpoint) {
+  const form = document.querySelector('[data-lead-capture]');
+  const submitButton = form instanceof HTMLFormElement
+    ? form.querySelector('[data-claim-submit]')
+    : null;
+  const tokenError = form instanceof HTMLFormElement
+    ? form.querySelector('[data-token-error]')
+    : null;
+  if (!(tokenInput instanceof HTMLInputElement) || !csrfEndpoint || !(form instanceof HTMLFormElement)) {
     return;
   }
 
-  fetch(csrfEndpoint, { credentials: 'same-origin' })
+  if (submitButton instanceof HTMLButtonElement) {
+    submitButton.disabled = true;
+    submitButton.setAttribute('aria-disabled', 'true');
+  }
+
+  fetch(csrfEndpoint, {
+    method: 'GET',
+    credentials: 'same-origin',
+    headers: { Accept: 'application/json' }
+  })
     .then((response) => (response.ok ? response.json() : null))
     .then((data) => {
-      if (!data || typeof data.csrfToken !== 'string') {
-        return;
+      if (!data || typeof data.token !== 'string' || data.token.trim() === '') {
+        throw new Error('Missing token');
       }
-      tokenInput.value = data.csrfToken;
+      tokenInput.value = data.token;
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = false;
+        submitButton.removeAttribute('aria-disabled');
+      }
+      if (tokenError instanceof HTMLElement) {
+        tokenError.classList.add('hidden');
+      }
     })
     .catch(() => {
-      // Backend will enforce CSRF if token fetch fails.
+      if (submitButton instanceof HTMLButtonElement) {
+        submitButton.disabled = true;
+        submitButton.setAttribute('aria-disabled', 'true');
+      }
+      if (tokenError instanceof HTMLElement) {
+        tokenError.classList.remove('hidden');
+      }
     });
 })();`}
     </script>

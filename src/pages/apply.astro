@@ -14,8 +14,9 @@ const date = searchParams.get('date') ?? '';
 const packageChoice = searchParams.get('package') ?? '';
 const kitUnlock = searchParams.get('kit') === '1';
 const success = searchParams.get('success') === '1';
+const tokenError = searchParams.get('err') === 'token';
 const formAction = withBase('/claim/index.php');
-const csrfEndpoint = withBase('/api/csrf.php');
+const csrfEndpoint = withBase('/claim/token.php');
 const timezoneOptions = [
   'PT',
   'MT',
@@ -99,6 +100,11 @@ const hardNoOptions = [
         Application received. The concierge team will follow up shortly.
       </div>
     )}
+    {tokenError && (
+      <div class="rounded-2xl border border-rose-gold/40 bg-rose-gold/10 px-5 py-4 text-sm text-white/85" role="alert">
+        Security check expired. Please try again.
+      </div>
+    )}
 
     <form class="grid gap-6 sm:grid-cols-2" method="post" action={formAction}>
       <input type="hidden" name="lead_form" value="1" />
@@ -154,11 +160,13 @@ const hardNoOptions = [
           {t(lang, 'apply.fastlane.consent')}
         </label>
         <button
+          data-claim-submit
           class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
           type="submit"
         >
           Submit application
         </button>
+        <p class="hidden text-xs text-rose-petal" data-token-error role="alert">Please refresh and try again.</p>
       </section>
 
       <details class="rounded-2xl border border-white/10 bg-white/5 p-5 sm:col-span-2">
@@ -330,20 +338,55 @@ const hardNoOptions = [
   }
 
   const tokenInput = document.querySelector('[data-csrf-token]');
-  if (!(tokenInput instanceof HTMLInputElement) || !csrfEndpoint) {
+  const submitButtons = form instanceof HTMLFormElement
+    ? Array.from(form.querySelectorAll('[data-claim-submit]'))
+    : [];
+  const tokenError = form instanceof HTMLFormElement
+    ? form.querySelector('[data-token-error]')
+    : null;
+
+  if (!(tokenInput instanceof HTMLInputElement) || !csrfEndpoint || !(form instanceof HTMLFormElement)) {
     return;
   }
 
-  fetch(csrfEndpoint, { credentials: 'same-origin' })
+  submitButtons.forEach((button) => {
+    if (button instanceof HTMLButtonElement) {
+      button.disabled = true;
+      button.setAttribute('aria-disabled', 'true');
+    }
+  });
+
+  fetch(csrfEndpoint, {
+    method: 'GET',
+    credentials: 'same-origin',
+    headers: { Accept: 'application/json' }
+  })
     .then((response) => (response.ok ? response.json() : null))
     .then((data) => {
-      if (!data || typeof data.csrfToken !== 'string') {
-        return;
+      if (!data || typeof data.token !== 'string' || data.token.trim() === '') {
+        throw new Error('Missing token');
       }
-      tokenInput.value = data.csrfToken;
+      tokenInput.value = data.token;
+      submitButtons.forEach((button) => {
+        if (button instanceof HTMLButtonElement) {
+          button.disabled = false;
+          button.removeAttribute('aria-disabled');
+        }
+      });
+      if (tokenError instanceof HTMLElement) {
+        tokenError.classList.add('hidden');
+      }
     })
     .catch(() => {
-      // CSRF token fetch failures are handled by backend validation.
+      submitButtons.forEach((button) => {
+        if (button instanceof HTMLButtonElement) {
+          button.disabled = true;
+          button.setAttribute('aria-disabled', 'true');
+        }
+      });
+      if (tokenError instanceof HTMLElement) {
+        tokenError.classList.remove('hidden');
+      }
     });
 })();`}
   </script>

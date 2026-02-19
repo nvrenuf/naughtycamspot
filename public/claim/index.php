@@ -72,6 +72,10 @@ if (request_method_is('POST')) {
 
 if (request_method_is('POST') && request_string('lead_form') === '1') {
     if ($csrfError !== '') {
+        if (!request_prefers_json_error_response()) {
+            header('Location: /apply/?err=token', true, 303);
+            exit;
+        }
         http_response_code(403);
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode(['error' => $csrfError], JSON_UNESCAPED_SLASHES);
@@ -240,6 +244,25 @@ if (request_method_is('POST')) {
 function request_method_is(string $method): bool
 {
     return isset($_SERVER['REQUEST_METHOD']) && strtoupper((string) $_SERVER['REQUEST_METHOD']) === $method;
+}
+
+function request_prefers_json_error_response(): bool
+{
+    $requestedWith = strtolower(trim((string) ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '')));
+    if ($requestedWith === 'xmlhttprequest') {
+        return true;
+    }
+
+    $accept = strtolower(trim((string) ($_SERVER['HTTP_ACCEPT'] ?? '')));
+    if ($accept === '') {
+        return false;
+    }
+
+    if (str_contains($accept, 'text/html')) {
+        return false;
+    }
+
+    return str_contains($accept, 'application/json');
 }
 
 function request_string(string $key): string
