@@ -3,58 +3,56 @@ import { withBase } from '../../utils/links';
 
 const tracks = [
   {
-    title: 'Signup help track',
-    description:
-      'Join partner platforms using tracked signup links, quick setup steps, and clear trust rules.',
-    bullets: ['Partner signup links', 'Platform-fit checklist', 'No management contract'],
-    ctaLabel: 'Open signup help',
-    ctaHref: '/recruiting/'
+    title: 'Signup Help (Free)',
+    description: 'Use free signup links and setup steps to start fast.',
+    ctaLabel: 'Open Free Signup Help',
+    ctaHref: '/platforms/',
+    type: 'free'
   },
   {
-    title: 'Promotion track',
-    description:
-      'Buy promotion packages when you want more reach, with content planning and weekly reporting.',
-    bullets: ['Paid traffic support', 'Simple package pricing', 'Weekly check-ins'],
-    ctaLabel: 'View Promotion',
-    ctaHref: '/promotion/'
+    title: 'Promotion (Paid)',
+    description: 'Buy packages to grow traffic and weekly reach faster.',
+    ctaLabel: 'View Paid Packages',
+    ctaHref: '/packages/',
+    type: 'paid'
   }
 ];
 ---
 <section class="border-y border-white/5 bg-black/30 px-6 py-16">
-  <div class="mx-auto max-w-6xl space-y-8">
+  <div class="mx-auto max-w-6xl space-y-7">
     <div class="space-y-4 text-center">
       <p class="text-[clamp(0.75rem,1.1vw,0.9rem)] uppercase tracking-[0.35em] text-rose-petal/70">
         Two paths
       </p>
-      <h2 class="font-display text-[clamp(2rem,4vw,2.8rem)] text-white">Signup help vs. promotion at a glance</h2>
+      <h2 class="font-display text-[clamp(2rem,4vw,2.8rem)] text-white">Choose your next step</h2>
     </div>
     <div class="grid gap-5 lg:grid-cols-2">
       {tracks.map((track) => (
         <article class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow">
-          <h3 class="font-display text-[clamp(1.3rem,3vw,1.7rem)] text-white">{track.title}</h3>
+          <div class="flex items-center gap-3">
+            <span class={`inline-flex h-11 w-11 items-center justify-center rounded-full border ${track.type === 'free' ? 'border-emerald-300/60 bg-emerald-400/20 text-emerald-200' : 'border-amber-300/60 bg-amber-400/20 text-amber-100'}`}>
+              {track.type === 'free' ? (
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M7 12h10M12 7v10M4 12a8 8 0 1116 0 8 8 0 01-16 0z"></path>
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 10l9-6 9 6v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 15h6"></path>
+                </svg>
+              )}
+            </span>
+            <h3 class="font-display text-[clamp(1.3rem,3vw,1.7rem)] text-white">{track.title}</h3>
+          </div>
           <p class="mt-3 text-[clamp(0.95rem,1.6vw,1.05rem)] leading-relaxed text-white/75">{track.description}</p>
-          <ul class="mt-4 space-y-2 text-sm text-white/70">
-            {track.bullets.map((bullet) => (
-              <li>{bullet}</li>
-            ))}
-          </ul>
           <a
-            class="mt-5 inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white"
+            class="mt-5 inline-flex w-full items-center justify-center rounded-full border border-rose-gold/60 bg-rose-gold/20 px-5 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-rose-petal transition hover:border-rose-gold/80 hover:bg-rose-gold/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold sm:w-auto"
             href={withBase(track.ctaHref)}
           >
-            {track.ctaLabel} →
+            {track.ctaLabel}
           </a>
         </article>
       ))}
-    </div>
-    <div class="flex flex-col items-center gap-2 text-center text-white/70">
-      <p class="text-[clamp(0.85rem,1.5vw,0.95rem)]">Results depend on consistency, platform fit, and budget.</p>
-      <a
-        class="text-[clamp(0.85rem,1.5vw,0.95rem)] uppercase tracking-[0.28em] text-rose-gold transition hover:text-white"
-        href={withBase('/earnings')}
-      >
-        See what affects earnings →
-      </a>
     </div>
   </div>
 </section>

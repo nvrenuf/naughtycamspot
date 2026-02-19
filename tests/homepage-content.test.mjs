@@ -9,11 +9,12 @@ const resolveFixturePath = (relativePath) =>
 
 const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relativePath), 'utf8');
 
-test('Homepage includes signup help vs promotion comparison section', async () => {
+test('Homepage includes explicit free vs paid decision section', async () => {
   const source = await readSource('src/partials/home/WhyCam.astro');
-  assert.ok(source.includes('Signup help vs. promotion at a glance'), 'Expected comparison heading');
-  assert.ok(source.includes('Signup help track'), 'Expected signup help column');
-  assert.ok(source.includes('Promotion track'), 'Expected promotion column');
+  assert.ok(source.includes('Signup Help (Free)'), 'Expected free track label');
+  assert.ok(source.includes('Promotion (Paid)'), 'Expected paid track label');
+  assert.ok(source.includes('/platforms/'), 'Expected free CTA route');
+  assert.ok(source.includes('/packages/'), 'Expected paid CTA route');
 });
 
 test('Homepage includes trust metrics and testimonials', async () => {
