@@ -9,13 +9,13 @@ const resolveFixturePath = (relativePath) =>
 
 const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relativePath), 'utf8');
 
-test('Apply page uses multi-step form with progress controls', async () => {
+test('Apply page uses one-screen Fast Lane with optional details section', async () => {
   const source = await readSource('src/pages/apply.astro');
-  assert.ok(source.includes('data-multistep-form'), 'Apply page should include multi-step form marker');
-  assert.ok(source.includes('data-form-step'), 'Apply page should include step containers');
-  assert.ok(source.includes('data-step-progress-bar'), 'Apply page should include progress bar marker');
-  assert.ok(source.includes('data-step-next'), 'Apply page should include next-step control');
-  assert.ok(source.includes('data-step-prev'), 'Apply page should include previous-step control');
+  assert.ok(source.includes('Fast Lane'), 'Apply page should show Fast Lane section first');
+  assert.ok(source.includes('Improve my match (optional)'), 'Apply page should include optional details toggle');
+  assert.ok(source.includes('name="telegram"'), 'Apply page should include Telegram field');
+  assert.ok(source.includes('name="platforms_interested[]"'), 'Apply page should include platform interest checkboxes');
+  assert.ok(source.includes('Submit application'), 'Apply page should include a submit button in Fast Lane');
 });
 
 test('Apply page keeps claim endpoint submission and consent requirement', async () => {

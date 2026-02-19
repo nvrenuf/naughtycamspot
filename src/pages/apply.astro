@@ -100,20 +100,7 @@ const hardNoOptions = [
       </div>
     )}
 
-    <div class="space-y-4" aria-live="polite">
-      <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step-by-step intake</p>
-      <ol class="grid gap-2 text-xs uppercase tracking-[0.24em] text-white/60 sm:grid-cols-4" data-step-progress>
-        <li data-step-label>Fast Lane</li>
-        <li data-step-label>Optional</li>
-        <li data-step-label>Profile</li>
-        <li data-step-label>Finish</li>
-      </ol>
-      <div class="h-2 overflow-hidden rounded-full bg-white/10">
-        <div class="h-full w-1/4 bg-rose-gold transition-all duration-300" data-step-progress-bar></div>
-      </div>
-    </div>
-
-    <form class="grid gap-6 sm:grid-cols-2" method="post" action={formAction} data-multistep-form novalidate>
+    <form class="grid gap-6 sm:grid-cols-2" method="post" action={formAction}>
       <input type="hidden" name="lead_form" value="1" />
       <input type="hidden" name="csrf_token" value="" data-csrf-token />
       <input type="hidden" name="src" value={src} />
@@ -122,7 +109,8 @@ const hardNoOptions = [
       <input type="hidden" name="package" value={packageChoice} />
       {kitUnlock && <input type="hidden" name="kit_unlock" value="1" />}
 
-      <section class="space-y-5 sm:col-span-2" data-form-step data-step-title="Fast Lane" data-requires-platform-interest="true">
+      <section class="space-y-5 rounded-2xl border border-rose-gold/30 bg-rose-gold/10 p-5 sm:col-span-2">
+        <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Fast Lane</p>
         <div class="rounded-2xl border border-rose-gold/30 bg-rose-gold/10 px-5 py-4 text-sm text-white/80">
           <p class="text-xs uppercase tracking-[0.3em] text-white/70">Trust strip</p>
           <p class="mt-2 text-xs uppercase tracking-[0.3em] text-white/70">
@@ -141,9 +129,11 @@ const hardNoOptions = [
             required
           />
         </label>
+        <p class="text-xs text-white/65">Telegram gets the fastest reply from our onboarding team.</p>
 
         <div class="space-y-3">
           <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">{t(lang, 'apply.fastlane.platform_interest')}</p>
+          <p class="text-xs text-white/60">Choose one or more platforms.</p>
           <div class="grid gap-2 sm:grid-cols-2">
             {PLATFORMS.map((platform) => (
               <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
@@ -163,19 +153,21 @@ const hardNoOptions = [
           <input class="mt-1 h-4 w-4 accent-rose-gold" type="checkbox" name="consent" required />
           {t(lang, 'apply.fastlane.consent')}
         </label>
+        <button
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          type="submit"
+        >
+          Submit application
+        </button>
       </section>
 
-      <section class="space-y-4 sm:col-span-2" data-form-step data-step-title="Optional">
-        <div class="space-y-2">
-          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">
-            Quick intake (optional, helps us help you faster)
-          </p>
-          <p class="text-xs uppercase tracking-[0.3em] text-white/45">
-            Optional fields increase the quality of our recommendations.
-          </p>
-        </div>
+      <details class="rounded-2xl border border-white/10 bg-white/5 p-5 sm:col-span-2">
+        <summary class="cursor-pointer text-sm font-semibold uppercase tracking-[0.22em] text-rose-petal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold">
+          Improve my match (optional)
+        </summary>
+        <p class="mt-3 text-xs text-white/60">Optional details help matching and onboarding speed.</p>
 
-        <div class="grid gap-4 sm:grid-cols-2">
+        <div class="mt-5 grid gap-4 sm:grid-cols-2">
           <label class="flex flex-col gap-2 text-sm text-white/70">
             Email (optional)
             <input
@@ -199,7 +191,7 @@ const hardNoOptions = [
           </label>
 
           <label class="flex flex-col gap-2 text-sm text-white/70">
-            Timezone
+            Timezone (optional)
             <select class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" name="timezone">
               <option value="">Select timezone</option>
               {timezoneOptions.map((tz) => (
@@ -208,7 +200,7 @@ const hardNoOptions = [
             </select>
           </label>
           <label class="flex flex-col gap-2 text-sm text-white/70">
-            Preferred contact
+            Preferred contact (optional)
             <div class="flex flex-wrap gap-3">
               {['telegram', 'email', 'whatsapp'].map((option) => (
                 <label class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/70">
@@ -220,9 +212,9 @@ const hardNoOptions = [
           </label>
         </div>
 
-        <div class="grid gap-4 sm:grid-cols-2">
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
           <label class="flex flex-col gap-2 text-sm text-white/70">
-            Typical start time
+            Typical start time (optional)
             <select class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" name="time_start">
               <option value="">Start time</option>
               {timeOptions.map((time) => (
@@ -231,7 +223,7 @@ const hardNoOptions = [
             </select>
           </label>
           <label class="flex flex-col gap-2 text-sm text-white/70">
-            Typical end time
+            Typical end time (optional)
             <select class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" name="time_end">
               <option value="">End time</option>
               {timeOptions.map((time) => (
@@ -241,8 +233,8 @@ const hardNoOptions = [
           </label>
         </div>
 
-        <div class="space-y-3">
-          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Typical streaming days</p>
+        <div class="mt-4 space-y-3">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Typical streaming days (optional)</p>
           <div class="flex flex-wrap gap-3">
             {dayOptions.map((day) => (
               <label class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/70">
@@ -253,27 +245,25 @@ const hardNoOptions = [
           </div>
         </div>
 
-        <div class="grid gap-4 sm:grid-cols-2">
-          <div class="space-y-3">
-            <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Already on</p>
-            <div class="grid gap-2">
-              {PLATFORMS.map((platform) => (
-                <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
-                  <input
-                    class="h-4 w-4 accent-rose-gold"
-                    type="checkbox"
-                    name="platforms_active[]"
-                    value={platform.slug}
-                  />
-                  <span class="text-white">{platform.name}</span>
-                </label>
-              ))}
-            </div>
+        <div class="mt-4 space-y-3">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Already on (optional)</p>
+          <div class="grid gap-2 sm:grid-cols-2">
+            {PLATFORMS.map((platform) => (
+              <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/70">
+                <input
+                  class="h-4 w-4 accent-rose-gold"
+                  type="checkbox"
+                  name="platforms_active[]"
+                  value={platform.slug}
+                />
+                <span class="text-white">{platform.name}</span>
+              </label>
+            ))}
           </div>
         </div>
 
-        <div class="space-y-3">
-          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Content style</p>
+        <div class="mt-4 space-y-3">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Content style (optional)</p>
           <div class="flex flex-wrap gap-3">
             {styleOptions.map((style) => (
               <label class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/70">
@@ -284,8 +274,8 @@ const hardNoOptions = [
           </div>
         </div>
 
-        <div class="space-y-3">
-          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Hard no list</p>
+        <div class="mt-4 space-y-3">
+          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Hard no list (optional)</p>
           <div class="flex flex-wrap gap-3">
             {hardNoOptions.map((item) => (
               <label class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/70">
@@ -295,189 +285,36 @@ const hardNoOptions = [
             ))}
           </div>
         </div>
-      </section>
 
-      <section class="grid gap-6 sm:col-span-2 sm:grid-cols-2" data-form-step data-step-title="Profile">
-        <label class="flex flex-col gap-2 text-sm text-white/70">
-          Asset link (Drive/Dropbox/Link page)
-          <input
-            class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
-            type="url"
-            name="asset_link"
-            placeholder="https://"
-            autocomplete="off"
-          />
-        </label>
+        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+          <label class="flex flex-col gap-2 text-sm text-white/70">
+            Asset link (optional)
+            <input
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+              type="url"
+              name="asset_link"
+              placeholder="https://"
+              autocomplete="off"
+            />
+          </label>
 
-        <label class="flex flex-col gap-2 text-sm text-white/70">
-          Anything else we should know?
-          <textarea
-            class="min-h-[120px] rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
-            name="notes"
-            placeholder="Optional boundaries, goals, or context."
-          ></textarea>
-        </label>
-      </section>
+          <label class="flex flex-col gap-2 text-sm text-white/70">
+            Anything else? (optional)
+            <textarea
+              class="min-h-[120px] rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white"
+              name="notes"
+              placeholder="Share goals or boundaries."
+            ></textarea>
+          </label>
+        </div>
+      </details>
 
-      <section class="space-y-5 sm:col-span-2" data-form-step data-step-title="Finish">
-        <p class="text-sm text-white/75">
-          Review your answers and submit. If you only did Fast Lane, that is fine, we can follow up with next steps.
-        </p>
-        <p class="text-xs uppercase tracking-[0.3em] text-white/45">
-          No passwords. No exclusivity. You keep your accounts.
-        </p>
-      </section>
-
-      <p class="hidden rounded-2xl border border-rose-gold/30 bg-rose-gold/10 px-4 py-3 text-sm text-rose-petal sm:col-span-2" data-step-error role="alert"></p>
-
-      <div class="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center">
-        <button
-          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:border-white/40 hover:bg-white/5"
-          type="button"
-          data-step-prev
-        >
-          Back
-        </button>
-        <button
-          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          type="button"
-          data-step-next
-        >
-          Continue
-        </button>
-        <button
-          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          type="submit"
-          data-step-submit
-        >
-          Submit application
-        </button>
-      </div>
     </form>
   </section>
   <script is:inline define:vars={{ csrfEndpoint }}>
     {`(function () {
-  const form = document.querySelector('[data-multistep-form]');
+  const form = document.querySelector('form[action$=\"/claim/index.php\"]');
   if (form instanceof HTMLFormElement) {
-    const steps = Array.from(form.querySelectorAll('[data-form-step]'));
-    const progressLabels = Array.from(document.querySelectorAll('[data-step-label]'));
-    const progressBar = document.querySelector('[data-step-progress-bar]');
-    const prevButton = form.querySelector('[data-step-prev]');
-    const nextButton = form.querySelector('[data-step-next]');
-    const submitButton = form.querySelector('[data-step-submit]');
-    const errorBox = form.querySelector('[data-step-error]');
-    let currentStep = 0;
-
-    const setError = (message) => {
-      if (!(errorBox instanceof HTMLElement)) {
-        return;
-      }
-      if (!message) {
-        errorBox.textContent = '';
-        errorBox.classList.add('hidden');
-        return;
-      }
-      errorBox.textContent = message;
-      errorBox.classList.remove('hidden');
-    };
-
-    const validateStep = () => {
-      const step = steps[currentStep];
-      if (!(step instanceof HTMLElement)) {
-        return true;
-      }
-
-      setError('');
-      const requiredFields = Array.from(step.querySelectorAll('[required]'));
-      for (const field of requiredFields) {
-        if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement) {
-          if (!field.checkValidity()) {
-            field.setAttribute('aria-invalid', 'true');
-            field.reportValidity();
-            field.focus();
-            setError('Please complete required fields before continuing.');
-            return false;
-          }
-          field.removeAttribute('aria-invalid');
-        }
-      }
-
-      if (step.dataset.requiresPlatformInterest === 'true') {
-        const selected = form.querySelectorAll('input[name=\"platforms_interested[]\"]:checked');
-        if (!selected || selected.length === 0) {
-          setError('Select at least one platform you are interested in.');
-          const first = form.querySelector('input[name=\"platforms_interested[]\"]');
-          if (first instanceof HTMLInputElement) {
-            first.focus();
-            first.setAttribute('aria-invalid', 'true');
-          }
-          return false;
-        }
-      }
-
-      return true;
-    };
-
-    const renderStep = () => {
-      steps.forEach((step, index) => {
-        const show = index === currentStep;
-        step.classList.toggle('hidden', !show);
-        step.setAttribute('aria-hidden', show ? 'false' : 'true');
-      });
-
-      progressLabels.forEach((label, index) => {
-        label.classList.toggle('text-rose-petal', index === currentStep);
-        label.classList.toggle('text-white/40', index !== currentStep);
-      });
-
-      if (progressBar instanceof HTMLElement) {
-        const pct = ((currentStep + 1) / steps.length) * 100;
-        progressBar.style.width = pct + '%';
-      }
-
-      if (prevButton instanceof HTMLElement) {
-        prevButton.classList.toggle('hidden', currentStep === 0);
-      }
-
-      const onLastStep = currentStep === steps.length - 1;
-      if (nextButton instanceof HTMLElement) {
-        nextButton.classList.toggle('hidden', onLastStep);
-      }
-      if (submitButton instanceof HTMLElement) {
-        submitButton.classList.toggle('hidden', !onLastStep);
-      }
-      setError('');
-    };
-
-    if (nextButton instanceof HTMLButtonElement) {
-      nextButton.addEventListener('click', () => {
-        if (!validateStep()) {
-          return;
-        }
-        currentStep = Math.min(currentStep + 1, steps.length - 1);
-        renderStep();
-      });
-    }
-
-    if (prevButton instanceof HTMLButtonElement) {
-      prevButton.addEventListener('click', () => {
-        currentStep = Math.max(currentStep - 1, 0);
-        renderStep();
-      });
-    }
-
-    form.addEventListener('submit', (event) => {
-      // Validate every step on submit, even if required fields live in earlier steps.
-      for (let i = 0; i < steps.length; i += 1) {
-        currentStep = i;
-        renderStep();
-        if (!validateStep()) {
-          event.preventDefault();
-          return;
-        }
-      }
-    });
-
     const timezoneSelect = form.querySelector('select[name=\"timezone\"]');
     if (timezoneSelect instanceof HTMLSelectElement && !timezoneSelect.value) {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
@@ -490,7 +327,6 @@ const hardNoOptions = [
       else if (tz.includes('UTC') || tz.includes('Etc/')) timezoneSelect.value = 'UTC';
     }
 
-    renderStep();
   }
 
   const tokenInput = document.querySelector('[data-csrf-token]');
