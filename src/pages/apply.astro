@@ -334,7 +334,11 @@ const hardNoOptions = [
   </section>
   <script is:inline define:vars={{ csrfEndpoint }}>
     {`(function () {
-  const form = document.querySelector('form[action$=\"/claim/index.php\"]');
+  const leadForm = document.querySelector('form[method=\"post\"][action$=\"/claim/index.php\"]');
+  const form = leadForm instanceof HTMLFormElement
+    && leadForm.querySelector('input[name=\"lead_form\"][value=\"1\"]')
+    ? leadForm
+    : null;
   const progressRoot = document.querySelector('[data-apply-progress]');
   const currentStepEl = progressRoot instanceof HTMLElement
     ? progressRoot.querySelector('[data-current-step]')
@@ -485,26 +489,40 @@ const hardNoOptions = [
 
   }
 
-  const tokenInput = document.querySelector('[data-csrf-token]');
+  const tokenInput = form instanceof HTMLFormElement
+    ? form.querySelector('input[name=\"csrf_token\"][data-csrf-token]')
+    : null;
   const submitButtons = form instanceof HTMLFormElement
     ? Array.from(form.querySelectorAll('[data-claim-submit]'))
     : [];
   const tokenError = form instanceof HTMLFormElement
     ? form.querySelector('[data-token-error]')
     : null;
-
-  if (!(tokenInput instanceof HTMLInputElement) || !csrfEndpoint || !(form instanceof HTMLFormElement)) {
-    return;
-  }
-
-  submitButtons.forEach((button) => {
-    if (button instanceof HTMLButtonElement) {
-      button.disabled = true;
-      button.setAttribute('aria-disabled', 'true');
+  const setSubmitState = (disabled) => {
+    submitButtons.forEach((button) => {
+      if (button instanceof HTMLButtonElement) {
+        button.disabled = disabled;
+        if (disabled) {
+          button.setAttribute('aria-disabled', 'true');
+        } else {
+          button.removeAttribute('aria-disabled');
+        }
+      }
+    });
+  };
+  const showTokenError = (message) => {
+    if (!(tokenError instanceof HTMLElement)) {
+      return;
     }
-  });
-
-  fetch(csrfEndpoint, {
+    tokenError.textContent = message;
+    tokenError.classList.remove('hidden');
+  };
+  const hideTokenError = () => {
+    if (tokenError instanceof HTMLElement) {
+      tokenError.classList.add('hidden');
+    }
+  };
+  const fetchCsrfToken = () => fetch(csrfEndpoint, {
     method: 'GET',
     credentials: 'same-origin',
     headers: { Accept: 'application/json' }
@@ -514,27 +532,57 @@ const hardNoOptions = [
       if (!data || typeof data.token !== 'string' || data.token.trim() === '') {
         throw new Error('Missing token');
       }
-      tokenInput.value = data.token;
-      submitButtons.forEach((button) => {
-        if (button instanceof HTMLButtonElement) {
-          button.disabled = false;
-          button.removeAttribute('aria-disabled');
+      return data.token.trim();
+    });
+  let tokenRetryInFlight = false;
+
+  if (!(tokenInput instanceof HTMLInputElement) || !csrfEndpoint || !(form instanceof HTMLFormElement)) {
+    return;
+  }
+
+  setSubmitState(true);
+
+  form.addEventListener('submit', (event) => {
+    if (tokenInput.value.trim() !== '') {
+      return;
+    }
+    event.preventDefault();
+    if (tokenRetryInFlight) {
+      showTokenError('Please wait 1 second and try again.');
+      return;
+    }
+    tokenRetryInFlight = true;
+    showTokenError('Please wait 1 second and try again.');
+    fetchCsrfToken()
+      .then((token) => {
+        tokenInput.value = token;
+        setSubmitState(false);
+        hideTokenError();
+        const submitter = event.submitter instanceof HTMLElement ? event.submitter : null;
+        if (submitter instanceof HTMLButtonElement) {
+          form.requestSubmit(submitter);
+        } else {
+          form.requestSubmit();
         }
+      })
+      .catch(() => {
+        setSubmitState(true);
+        showTokenError('Please refresh and try again.');
+      })
+      .finally(() => {
+        tokenRetryInFlight = false;
       });
-      if (tokenError instanceof HTMLElement) {
-        tokenError.classList.add('hidden');
-      }
+  });
+
+  fetchCsrfToken()
+    .then((token) => {
+      tokenInput.value = token;
+      setSubmitState(false);
+      hideTokenError();
     })
     .catch(() => {
-      submitButtons.forEach((button) => {
-        if (button instanceof HTMLButtonElement) {
-          button.disabled = true;
-          button.setAttribute('aria-disabled', 'true');
-        }
-      });
-      if (tokenError instanceof HTMLElement) {
-        tokenError.classList.remove('hidden');
-      }
+      setSubmitState(true);
+      showTokenError('Please refresh and try again.');
     });
 })();`}
   </script>
