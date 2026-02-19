@@ -11,10 +11,10 @@ const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relati
 
 test('Packages page lists three mobile-scannable tiers', async () => {
   const source = await readSource('src/pages/packages.astro');
-  assert.ok(source.includes('Starter Pulse'), 'Packages page should include Starter tier');
-  assert.ok(source.includes('Growth Engine'), 'Packages page should include Growth tier');
-  assert.ok(source.includes('Concierge Scale'), 'Packages page should include Concierge tier');
-  assert.ok(source.includes('Deliverables'), 'Packages page should include deliverables section');
+  assert.ok(source.includes('Starter Plan'), 'Packages page should include Starter tier');
+  assert.ok(source.includes('Growth Plan'), 'Packages page should include Growth tier');
+  assert.ok(source.includes('Pro Plan'), 'Packages page should include Pro tier');
+  assert.ok(source.includes('What you get'), 'Packages page should include what-you-get section');
   assert.ok(source.includes('Model provides'), 'Packages page should include model-provided section');
   assert.ok(source.includes('What we do not do'), 'Packages page should include limitations section');
 });

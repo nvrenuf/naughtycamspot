@@ -15,25 +15,25 @@ const packageTiers = [
   {
     slug: 'starter',
     label: 'Starter',
-    name: 'Starter Pulse',
-    deliverables: ['One platform launch plan', 'Caption + post template pack', 'Weekly performance check-in'],
+    name: 'Starter Plan',
+    deliverables: ['One platform start plan', 'Caption + post template pack', 'Weekly check-in'],
     modelProvides: ['Brand photos or clips', 'Posting windows', 'Platform links and goals'],
     weDoNotDo: ['No password requests', 'No account ownership transfer', 'No exclusivity contract']
   },
   {
     slug: 'growth',
     label: 'Mid',
-    name: 'Growth Engine',
-    deliverables: ['Two-platform campaign schedule', 'Offer ladder + retention prompts', 'Twice-weekly optimization notes'],
+    name: 'Growth Plan',
+    deliverables: ['Two-platform weekly plan', 'Offer ladder + repeat fan tips', 'Twice-weekly improve notes'],
     modelProvides: ['Content batches every week', 'Priority markets and budget target', 'Approval turnaround within 24h'],
     weDoNotDo: ['No password requests', 'No lock-in terms', 'No earnings guarantees']
   },
   {
     slug: 'scale',
     label: 'Pro',
-    name: 'Concierge Scale',
-    deliverables: ['Custom growth experiments', 'Priority reporting cadence', 'Dedicated strategist review'],
-    modelProvides: ['Campaign approvals', 'Ad spend agreement', 'Monthly goals and constraints'],
+    name: 'Pro Plan',
+    deliverables: ['Custom growth tests', 'Priority weekly reports', 'Dedicated review help'],
+    modelProvides: ['Plan approvals', 'Ad spend agreement', 'Monthly goals and limits'],
     weDoNotDo: ['No password requests', 'No exclusivity requirement', 'No control over your account payouts']
   }
 ] as const;
@@ -45,28 +45,28 @@ const faqItems = [
   },
   {
     question: 'Can I cancel anytime?',
-    answer: 'Yes. You can stop a package at renewal. There are no long lock-in contracts.'
+    answer: 'Yes. You can stop at renewal. No long lock-in contract.'
   },
   {
-    question: 'Do you ever ask for my login password?',
-    answer: 'No. We do not ask for passwords. We work from approved assets, posting plans, and your permissions only.'
+    question: 'Do you ask for my login password?',
+    answer: 'No. We only use approved files and your permissions.'
   },
   {
     question: 'What is “Promotion (Paid)” here?',
     answer:
-      'Promotion (Paid) means paid marketing planning, content sequencing, and reporting. It is separate from Signup Help (Free).'
+      'Promotion (Paid) means paid marketing plan, posting order, and reports. It is separate from Signup Help (Free).'
   }
 ] as const;
 ---
 
 <MainLayout
   title="Packages | NaughtyCamSpot"
-  description="Promotion (Paid) packages with clear deliverables and trust-first policies."
+  description="Promotion (Paid) packages with clear what-you-get lists and trust rules."
 >
   <SEO
     slot="head"
     title="Packages | NaughtyCamSpot"
-    description="Compare Promotion (Paid) packages with clear deliverables, trust policy, and apply links."
+    description="Compare Promotion (Paid) packages with clear what-you-get lists and apply links."
     path={canonicalPath}
   />
 
@@ -75,7 +75,7 @@ const faqItems = [
       <p class="hero-tagline">Promotion (Paid)</p>
       <h1 class="font-display text-4xl text-white sm:text-5xl">{t(lang, 'packages.title')}</h1>
       <p class="max-w-3xl text-base text-white/75">
-        Each package is built for phone-first workflows: clear tasks, clear handoff, and clear trust policy.
+        Each package is phone-first: clear tasks, clear handoff, clear trust rules.
       </p>
       <p class="text-sm text-white/70">Trust policy: no passwords, no exclusivity, you own accounts and content, cancel anytime.</p>
     </div>
@@ -95,7 +95,7 @@ const faqItems = [
           <h2 class="font-display text-2xl text-white">{pkg.name}</h2>
           <div class="grid gap-4 sm:grid-cols-3">
             <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <h3 class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">Deliverables</h3>
+              <h3 class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">What you get</h3>
               <ul class="mt-3 space-y-2 text-sm text-white/75">
                 {pkg.deliverables.map((item) => (
                   <li>{item}</li>

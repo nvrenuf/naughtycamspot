@@ -46,7 +46,7 @@ const legendStatuses = ['open', 'limited', 'waitlist'] as const;
 
 <MainLayout
   title="Platforms | NaughtyCamSpot"
-  description="Signup Help (Free): supported platforms and tracked signup links."
+  description="Signup Help (Free): supported platforms and signup links."
 >
   <SEO
     slot="head"
@@ -60,7 +60,7 @@ const legendStatuses = ['open', 'limited', 'waitlist'] as const;
       <p class="hero-tagline">Signup Help (Free)</p>
       <h1 class="font-display text-4xl text-white sm:text-5xl">{t(lang, 'platforms.title')}</h1>
       <p class="max-w-2xl text-base text-white/70">
-        This page is Signup Help (Free). Pick your platform and take the next step.
+        This page is Signup Help (Free). Pick a platform and start.
       </p>
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
         <a
@@ -151,7 +151,7 @@ const legendStatuses = ['open', 'limited', 'waitlist'] as const;
                 data-platform-id={platform.slug}
                 data-platform-name={platform.name}
               >
-                View requirements
+                Open next step
               </a>
             </div>
           </article>
