@@ -7,8 +7,11 @@
     "ajv": "./vendor/ajv/index.js"
   },
   "scripts": {
+    "predev": "node scripts/generate-build-stamp.mjs",
     "dev": "astro dev",
+    "prebuild": "node scripts/generate-build-stamp.mjs",
     "build": "astro build",
+    "prebuild:pages": "node scripts/generate-build-stamp.mjs",
     "build:pages": "astro build --config astro.config.pages.mjs",
     "preview": "astro preview",
     "test": "node --test --test-concurrency=1 \"tests/**/*.mjs\" && vitest run",

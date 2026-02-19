@@ -11,6 +11,7 @@ import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
 import { NAV_PRIMARY } from '../data/nav';
 import { withBase } from '../utils/links';
 import { getRequestLang, LANGS } from '../i18n/core';
+import buildStamp from '../generated/build-stamp.json';
 
 const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
 const isPagesFlag = typeof import.meta.env.IS_PAGES === 'string' ? import.meta.env.IS_PAGES === 'true' : false;
@@ -115,6 +116,9 @@ const footerLinks = [
 ];
 
 const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
+const buildStampValue = typeof buildStamp?.stamp === 'string' ? buildStamp.stamp : 'dev|dev';
+const buildCommit = typeof buildStamp?.shortSha === 'string' ? buildStamp.shortSha : 'dev';
+const buildDisplay = typeof buildStamp?.displayUtc === 'string' ? buildStamp.displayUtc : 'dev';
 ---
 <!doctype html>
 <html lang="en" class="bg-midnight">
@@ -127,6 +131,8 @@ const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
 	      <meta name="description" content={description} />
 	    </slot>
 	    <link rel="icon" type="image/svg+xml" href="/brand/ncs-icon.svg" />
+	    <meta name="ncs-build" content={buildStampValue} />
+	    <meta name="ncs-commit" content={buildCommit} />
 	    {isPagesBuild && <meta name="robots" content="noindex,nofollow" />}
 	  <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -266,6 +272,7 @@ gtag('config', '${gaMeasurementId}');`}
             </a>
             <span>© NaughtyCamSpot 2025</span>
           </div>
+          <p class="text-xs text-white/50">Build: {buildCommit} • {buildDisplay}</p>
           <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.28em] text-white/60">
             <span class="text-white/50">Lang</span>
             {LANGS.map((lang) => (
