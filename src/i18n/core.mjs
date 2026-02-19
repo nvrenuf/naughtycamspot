@@ -15,26 +15,26 @@ const EN = {
   'lang.label': 'Language',
 
   'home.hero.tag': 'Mobile-first onboarding support',
-  'home.hero.title': 'Get started fast with platform signup help or paid promotion.',
+  'home.hero.title': 'Get started fast with Signup Help (Free) or Promotion (Paid).',
   'home.hero.sub':
-    'Pick your path in minutes. Use signup links to start on the right platform, then add promotion packages when you want more traffic.',
-  'home.hero.cta.signup': 'Platform signup help',
-  'home.hero.cta.promo': 'See Promotion Packages',
+    'Pick your path in minutes. Start with Signup Help (Free), then add Promotion (Paid) when you want more traffic.',
+  'home.hero.cta.signup': 'Signup Help (Free)',
+  'home.hero.cta.promo': 'Promotion (Paid)',
 
   'apply.tag': 'Apply to NCS',
-  'apply.title': 'Get matched to the right promo stack.',
+  'apply.title': 'Get matched to Signup Help (Free) or Promotion (Paid).',
   'apply.sub':
-    'Tell us how to reach you and which platforms you want to grow. We will follow up with a launch plan, platform checklist, and next steps for automation.',
+    'Tell us how to reach you and which platforms you want to grow. We follow up with next steps for Signup Help (Free) or Promotion (Paid).',
   'apply.fastlane.trust': 'No passwords. No exclusivity. You keep your accounts.',
   'apply.fastlane.telegram': 'Telegram (recommended)',
   'apply.fastlane.platform_interest': 'Platform interest',
   'apply.fastlane.consent': 'I am 18+ and I agree to receive onboarding messages from NaughtyCamSpot.',
 
-  'packages.tag': 'Promotion packages',
+  'packages.tag': 'Promotion (Paid)',
   'packages.title': 'Pick the support level that fits your week.',
   'packages.cta': 'Start application',
 
-  'platforms.title': 'Pick platforms that match your goals.',
+  'platforms.title': 'Signup Help (Free): pick platforms that match your goals.',
   'platforms.cta': 'Apply'
 };
 

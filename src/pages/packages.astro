@@ -52,27 +52,27 @@ const faqItems = [
     answer: 'No. We do not ask for passwords. We work from approved assets, posting plans, and your permissions only.'
   },
   {
-    question: 'What does “promotion” mean here?',
+    question: 'What is “Promotion (Paid)” here?',
     answer:
-      'Promotion means paid marketing planning, content sequencing, and reporting. It is separate from affiliate signup links.'
+      'Promotion (Paid) means paid marketing planning, content sequencing, and reporting. It is separate from Signup Help (Free).'
   }
 ] as const;
 ---
 
 <MainLayout
   title="Packages | NaughtyCamSpot"
-  description="Mobile-friendly promotion package tiers with clear deliverables and trust-first policies."
+  description="Promotion (Paid) packages with clear deliverables and trust-first policies."
 >
   <SEO
     slot="head"
     title="Packages | NaughtyCamSpot"
-    description="Compare Starter, Growth, and Concierge promotion packages with clear deliverables, trust policy, and apply links."
+    description="Compare Promotion (Paid) packages with clear deliverables, trust policy, and apply links."
     path={canonicalPath}
   />
 
   <section class="space-y-8">
     <div class="content-card space-y-4">
-      <p class="hero-tagline">{t(lang, 'packages.tag')}</p>
+      <p class="hero-tagline">Promotion (Paid)</p>
       <h1 class="font-display text-4xl text-white sm:text-5xl">{t(lang, 'packages.title')}</h1>
       <p class="max-w-3xl text-base text-white/75">
         Each package is built for phone-first workflows: clear tasks, clear handoff, and clear trust policy.

@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 const routes = [
-  { path: '/', heading: 'Get started fast with platform signup help or paid promotion.' },
+  { path: '/', heading: 'Get started fast with Signup Help (Free) or Promotion (Paid).' },
   { path: '/join-models/', heading: 'Apply for concierge support' },
-  { path: '/apply/', heading: 'Get matched to the right promo stack.' },
+  { path: '/apply/', heading: 'Get matched to Signup Help (Free) or Promotion (Paid).' },
   { path: '/startright/', heading: 'Start Smart. Cam Confidently.' },
   { path: '/packages/', heading: 'Choose the level of support you want.' },
   { path: '/proof/', heading: 'Examples + templates you can deploy right away.' }

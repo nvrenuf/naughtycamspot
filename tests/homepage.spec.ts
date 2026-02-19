@@ -9,7 +9,7 @@ const readBlogIndex = (mode: 'pages' | 'prod') => readOutputFile(mode, ['blog', 
 describe('Homepage routing', () => {
   it('builds the homepage at the root without v2 prefixes', async () => {
     const { html } = await readHome('prod');
-    expect(html).toContain('NaughtyCamSpot | Platform signup help + Promotion for Cam Models');
+    expect(html).toContain('NaughtyCamSpot | Signup Help (Free) + Promotion (Paid)');
     expect(html).not.toContain('/v2/');
   }, BUILD_TIMEOUT);
 
@@ -27,7 +27,7 @@ describe('Homepage routing', () => {
 
   it('exposes the blog index at /blog with at least one post link', async () => {
     const { html } = await readBlogIndex('prod');
-    expect(html).toContain('Signup help and promotion field notes.');
+    expect(html).toContain('Signup Help (Free) and Promotion (Paid) field notes.');
     expect(html).toMatch(/href=\"\/posts\/[a-z0-9-]+\"/i);
   }, BUILD_TIMEOUT);
 });
