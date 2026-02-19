@@ -139,6 +139,16 @@ const legendStatuses = ['open', 'limited', 'waitlist'] as const;
               </span>
             </div>
             <p class="text-sm text-white/70">{platform.note}</p>
+            <details class="rounded-2xl border border-white/10 bg-black/20 p-4">
+              <summary class="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-rose-petal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold">
+                Details
+              </summary>
+              <div class="mt-3 space-y-2 text-sm text-white/75">
+                <p><span class="text-white/55">Best for:</span> Creators who want {platform.note.toLowerCase()}</p>
+                <p><span class="text-white/55">Needs:</span> A complete profile and quick message replies.</p>
+                <p><span class="text-white/55">Next:</span> {meta.meaning}. Use the button below.</p>
+              </div>
+            </details>
             <div>
               <a
                 class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white"

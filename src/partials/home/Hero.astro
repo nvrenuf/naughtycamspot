@@ -4,6 +4,24 @@ import { normalizeLang, t } from '../../i18n/core';
 
 const { lang: langProp = 'en' } = Astro.props as { lang?: string };
 const lang = normalizeLang(langProp);
+const trustPromises = [
+  {
+    title: 'No passwords',
+    reason: 'You keep your login private. We guide by approved files only.'
+  },
+  {
+    title: 'No exclusivity',
+    reason: 'You can choose other work paths. You stay in control.'
+  },
+  {
+    title: 'Model owns accounts',
+    reason: 'Your accounts and payouts stay yours. We do not take ownership.'
+  },
+  {
+    title: 'Cancel anytime',
+    reason: 'You can stop when needed. There is no lock-in contract.'
+  }
+] as const;
 ---
 <section class="relative isolate overflow-hidden px-6 pb-24 pt-20 sm:pb-28 sm:pt-24">
   <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 flex justify-center">
@@ -42,11 +60,15 @@ const lang = normalizeLang(langProp);
         >
           See proof and sample plans
         </a>
-        <div class="flex flex-wrap gap-3 text-[clamp(0.7rem,1.2vw,0.85rem)] uppercase tracking-[0.3em] text-white/60">
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2">No passwords</span>
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2">No exclusivity</span>
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2">Model owns accounts</span>
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2">Cancel anytime</span>
+        <div class="grid gap-3 text-[clamp(0.7rem,1.2vw,0.85rem)] text-white/60 sm:grid-cols-2">
+          {trustPromises.map((promise) => (
+            <details class="rounded-2xl border border-white/10 bg-white/5 px-4 py-2">
+              <summary class="cursor-pointer uppercase tracking-[0.3em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold">
+                {promise.title}
+              </summary>
+              <p class="mt-2 text-xs normal-case tracking-normal text-white/70">{promise.reason}</p>
+            </details>
+          ))}
         </div>
         <p class="max-w-xl text-[clamp(0.78rem,1.4vw,0.9rem)] text-white/60">
           Not an agency or studio. No earnings guarantee. We earn only from partner signups.

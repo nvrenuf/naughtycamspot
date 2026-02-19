@@ -5,15 +5,21 @@ const steps = [
   {
     title: 'Pick a platform',
     description: 'Pick a platform. Use simple notes to choose.',
+    revealLabel: 'What happens next',
+    nextBullets: ['Compare payout style.', 'Check your time zone fit.', 'Pick one to start.'],
     link: { href: '/earnings', label: 'See earnings' }
   },
   {
     title: 'Sign up with our link',
-    description: 'This helps us confirm your VIP unlock.'
+    description: 'This helps us confirm your VIP unlock.',
+    revealLabel: 'Why this matters',
+    nextBullets: ['Your signup is tracked safely.', 'We can verify your slot fast.', 'You keep account control.']
   },
   {
     title: 'Send proof → unlock VIP',
     description: 'Send quick proof to unlock VIP help.',
+    revealLabel: 'After you send proof',
+    nextBullets: ['We review your screenshot.', 'We send your next setup steps.', 'You get the StartRight checklist.'],
     link: { href: '/startright', label: 'Start quick setup' }
   }
 ];
@@ -39,6 +45,16 @@ const titleCopy = 'Three steps. Mobile-first.';
           </span>
           <h3 class="font-display text-[clamp(1.4rem,3.2vw,1.9rem)] text-white">{step.title}</h3>
           <p class="text-[clamp(0.95rem,1.7vw,1.1rem)] leading-relaxed text-white/75">{step.description}</p>
+          <details class="rounded-2xl border border-white/10 bg-black/20 p-3">
+            <summary class="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-rose-petal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold">
+              {step.revealLabel}
+            </summary>
+            <ul class="mt-3 space-y-1 text-sm text-white/75">
+              {step.nextBullets.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </details>
           {step.link && (
             <a
               class="mt-auto inline-flex text-[clamp(0.78rem,1.4vw,0.9rem)] uppercase tracking-[0.35em] text-rose-gold transition hover:text-white"
