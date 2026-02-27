@@ -1,7 +1,6 @@
 ---
 import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
-import Hero from '../partials/home/Hero.astro';
 import LeadMagnet from '../partials/home/LeadMagnet.astro';
 import WhyCam from '../partials/home/WhyCam.astro';
 import TrustedPrograms from '../partials/home/TrustedPrograms.astro';
@@ -9,10 +8,8 @@ import HowItWorks from '../partials/home/HowItWorks.astro';
 import FinalCTA from '../partials/home/FinalCTA.astro';
 import MiniTestimonials from '../partials/home/MiniTestimonials.astro';
 import RecentPosts from '../partials/home/RecentPosts.astro';
-import { getRequestLang } from '../i18n/core';
 
 const canonicalPath = '/';
-const lang = getRequestLang(Astro.url);
 
 const websiteJsonLd = {
   '@context': 'https://schema.org',
@@ -35,7 +32,94 @@ const websiteJsonLd = {
   />
   <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 
-  <Hero lang={lang} />
+  <section class="relative isolate overflow-hidden px-6 pb-24 pt-20 sm:pb-28 sm:pt-24">
+    <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 flex justify-center">
+      <div class="h-[480px] w-full max-w-5xl -translate-y-1/2 rounded-full bg-rose-gold/30 blur-3xl"></div>
+    </div>
+    <div class="mx-auto max-w-6xl space-y-8">
+      <div class="grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center">
+        <div class="space-y-7">
+          <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[clamp(0.7rem,1vw,0.85rem)] uppercase tracking-[0.4em] text-rose-petal/80">
+            Promotion (Paid)
+          </p>
+          <h1 class="font-display text-[clamp(2.8rem,6vw,4.25rem)] leading-[1.05] text-white">AI-Fulfilled Model Growth Ops</h1>
+          <p class="max-w-xl text-[clamp(1.05rem,2.3vw,1.35rem)] text-white/80">
+            We run a practical growth operating system: daily content shipping, weekly iteration, and approved-file workflows that never
+            require your passwords.
+          </p>
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a
+              class="inline-flex items-center justify-center border border-rose-gold/70 bg-rose-gold px-6 py-3 text-lg text-midnight shadow-glow"
+              href="/packages"
+            >
+              View Packages
+            </a>
+            <a
+              class="inline-flex items-center justify-center border border-white/20 bg-transparent px-6 py-3 text-lg text-white transition hover:border-white/40 hover:bg-white/5"
+              href="/apply/promo"
+            >
+              Apply for Promotion
+            </a>
+          </div>
+          <a
+            class="inline-flex w-fit rounded-full border border-white/20 px-4 py-2 text-xs uppercase tracking-[0.3em] text-white/70 transition hover:border-white/40 hover:text-white"
+            href="/apply/signup"
+          >
+            Need Signup Help (Free)?
+          </a>
+          <div class="grid gap-3 text-[clamp(0.7rem,1.2vw,0.85rem)] text-white/60 sm:grid-cols-2">
+            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">No passwords/logins</p>
+            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">No exclusivity</p>
+            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Model owns accounts/content</p>
+            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">No spam / no mass unsolicited DMs</p>
+            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Cancel anytime</p>
+            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">No earnings guarantees</p>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="relative overflow-hidden rounded-[34px] border border-white/10 bg-white/5 p-6 backdrop-blur shadow-glow">
+            <img
+              class="h-full w-full rounded-3xl object-cover"
+              src="/images/home-hero.webp"
+              srcset="/images/home-hero-768.jpg 768w, /images/home-hero-1280.jpg 1280w, /images/home-hero.webp 1600w"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 42vw"
+              alt="Smiling red-haired model sitting in a white gaming chair, looking at the camera."
+              width="1600"
+              height="1067"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="content-card space-y-2">
+          <h2 class="font-display text-2xl text-white">Style System</h2>
+          <p class="text-sm text-white/75">Style sheet + voice + boundaries + compliance rules.</p>
+        </article>
+        <article class="content-card space-y-2">
+          <h2 class="font-display text-2xl text-white">Content Engine</h2>
+          <p class="text-sm text-white/75">Daily posting packs + A/B captions.</p>
+        </article>
+        <article class="content-card space-y-2">
+          <h2 class="font-display text-2xl text-white">Growth Loop</h2>
+          <p class="text-sm text-white/75">Weekly report + experiments + campaigns.</p>
+        </article>
+      </div>
+
+      <div class="content-card flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-white/75">See a sample weekly ops report and posting pack before you apply.</p>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/50 bg-rose-gold/15 px-5 py-2 text-xs uppercase tracking-[0.3em] text-rose-petal transition hover:border-rose-gold/70 hover:bg-rose-gold/30"
+          href="/proof"
+        >
+          See Proof
+        </a>
+      </div>
+    </div>
+  </section>
   <WhyCam />
   <LeadMagnet />
   <HowItWorks compact />

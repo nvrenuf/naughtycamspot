@@ -28,28 +28,29 @@ const faqItems = [
   {
     question: 'What is “Promotion (Paid)” here?',
     answer:
-      'Promotion (Paid) means paid marketing plan, posting order, and reports. It is separate from Signup Help (Free).'
+      'Promotion (Paid) means a growth operating system: style direction, posting packs, campaign tests, and weekly reporting. It is separate from Signup Help (Free).'
   }
 ] as const;
 ---
 
 <MainLayout
   title="Packages | NaughtyCamSpot"
-  description="Promotion (Paid) packages with clear what-you-get lists and trust rules."
+  description="AI-Fulfilled Model Growth Ops packages with cadence, experiments, and clear trust rules."
 >
   <SEO
     slot="head"
     title="Packages | NaughtyCamSpot"
-    description="Compare Promotion (Paid) packages with clear what-you-get lists and apply links."
+    description="Compare Growth Ops packages built around daily shipping, weekly iteration, and campaign loops."
     path={canonicalPath}
   />
 
   <section class="space-y-8">
     <div class="content-card space-y-4">
-      <p class="hero-tagline">Promotion (Paid)</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">{t(lang, 'packages.title')}</h1>
+      <p class="hero-tagline">AI-Fulfilled Model Growth Ops</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Pick your operating cadence, then iterate weekly.</h1>
       <p class="max-w-3xl text-base text-white/75">
-        Each package is phone-first: clear tasks, clear handoff, clear trust rules.
+        These packages are built as a repeatable growth operating system, not random posting tasks: clear style rules, daily shipping packs,
+        campaign pushes, and weekly iteration based on what actually moved.
       </p>
       <p class="text-sm text-white/70">Trust policy: {promoOffer.nonNegotables.join('. ')}.</p>
       <p class="text-sm text-white/70">Core rules: no passwords, no exclusivity, you own accounts and content.</p>
@@ -59,6 +60,13 @@ const faqItems = [
       <h2 class="font-display text-2xl text-white">Supported promo platforms</h2>
       <p class="text-sm text-white/75">Live now: {promoOffer.platformScope.live.join(', ')}</p>
       <p class="text-sm text-white/60">Coming soon: {promoOffer.platformScope.comingSoon.join(', ')}</p>
+    </div>
+
+    <div class="content-card space-y-3">
+      <h2 class="font-display text-2xl text-white">What we don't do</h2>
+      <p class="text-sm text-white/75">
+        No passwords/logins. No exclusivity. Model owns accounts/content. No spam DM automation. Cancel anytime. No earnings guarantees.
+      </p>
     </div>
 
     <div class="grid gap-5">
@@ -76,6 +84,7 @@ const faqItems = [
           </div>
           <h3 class="font-display text-2xl text-white">{pkg.displayName}</h3>
           <p class="text-sm text-white/70">{pkg.price} · {pkg.timeline}</p>
+          <p class="text-sm text-white/75">Style sheet + 7/14-day posting packs + mini-campaign + end report.</p>
           <div class="grid gap-4 sm:grid-cols-2">
             <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
               <h4 class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">Deliverables</h4>
@@ -111,6 +120,11 @@ const faqItems = [
           </div>
           <h3 class="font-display text-2xl text-white">{pkg.displayName}</h3>
           <p class="text-sm text-white/70">{pkg.price} · {pkg.timeline}</p>
+          {pkg.id === 'operator' ? (
+            <p class="text-sm text-white/75">Daily packs + weekly ops report + 1–2 campaigns/month + what to shoot next, plus show script blocks, tip-trigger notes, and optional delegated posting if granted.</p>
+          ) : (
+            <p class="text-sm text-white/75">Daily packs + weekly ops report + 1–2 campaigns/month + what to shoot next.</p>
+          )}
           <div class="grid gap-4 sm:grid-cols-2">
             <div class="rounded-2xl border border-white/10 bg-black/20 p-4">
               <h4 class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">Deliverables</h4>

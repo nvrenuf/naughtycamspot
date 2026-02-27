@@ -1,99 +1,93 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
-import { withBase } from '../utils/links';
 
 const canonicalPath = '/proof';
 ---
 
 <MainLayout
   title="Proof & Templates | NaughtyCamSpot"
-  description="Promo-focused proof page with sample templates for live cam conversion workflows."
+  description="Sample Growth Ops deliverables for weekly reporting, posting packs, and campaign calendars."
 >
   <SEO
     slot="head"
     title="Proof & Templates | NaughtyCamSpot"
-    description="Promo-focused proof page with sample templates for live cam conversion workflows."
+    description="Sample Growth Ops deliverables for weekly reporting, posting packs, and campaign calendars."
     path={canonicalPath}
   />
 
   <section class="space-y-8">
     <div class="content-card space-y-4">
       <p class="hero-tagline">Proof</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">Examples + templates you can deploy right away.</h1>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Sample Weekly Ops Report</h1>
       <p class="max-w-3xl text-sm text-white/75">
-        This page shows what our promo conversion support looks like in practice for live cam creators: example packets, weekly KPI
-        reports, tip menu structures, and mod scripts. Use these templates as a baseline for your own room flow.
+        This page shows practical samples from our AI-Fulfilled Model Growth Ops workflow: a weekly report layout, posting pack examples,
+        and a 7-day campaign push calendar structure. If you used our older naming, this includes a Sample Promo Packet and Sample Weekly Report format.
       </p>
     </div>
 
     <div class="grid gap-6 lg:grid-cols-2">
       <article class="content-card space-y-4">
-        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">A) Sample Promo Packet</h2>
-        <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75 space-y-4">
+        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">Posting Pack Example</h2>
+        <div class="space-y-4 rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75">
           <div>
-            <p class="font-semibold text-white">Caption examples (X)</p>
+            <p class="font-semibold text-white">Caption examples (A/B test style)</p>
             <ul class="mt-1 list-disc space-y-1 pl-5">
               <li>"Live in 15 — tonight is all about fast goals + surprise unlocks."</li>
               <li>"Late-night room opens at 11:30. Tip menu refreshed. See you there."</li>
             </ul>
           </div>
           <div>
-            <p class="font-semibold text-white">Reddit title examples</p>
+            <p class="font-semibold text-white">Title examples</p>
             <ul class="mt-1 list-disc space-y-1 pl-5">
               <li>"Going live now — new goal ladder + cozy vibe tonight"</li>
               <li>"First stream of the week: token milestones + requests open"</li>
             </ul>
           </div>
           <div>
-            <p class="font-semibold text-white">Posting schedule example</p>
+            <p class="font-semibold text-white">Daily posting cadence example</p>
             <ul class="mt-1 list-disc space-y-1 pl-5">
               <li>Mon/Wed/Fri: pre-live post at T-45 and T-10</li>
-              <li>Tue/Thu: 1 retention post + poll</li>
-              <li>Sun: weekly recap + next week teaser</li>
+              <li>Tue/Thu: retention post + poll</li>
+              <li>Sun: recap + what to shoot next prompt</li>
             </ul>
           </div>
         </div>
       </article>
 
       <article class="content-card space-y-4">
-        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">B) Sample Weekly Report</h2>
-        <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75 space-y-3">
+        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">Sample Weekly Ops Report</h2>
+        <div class="space-y-3 rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75">
           <p class="font-semibold text-white">Weekly KPI snapshot (layout example)</p>
           <ul class="list-disc space-y-1 pl-5">
             <li>Link clicks: 1,284 (+18% vs prior week)</li>
             <li>Follower delta: +92 net</li>
             <li>Best hooks: "live in 10" + "goal ladder unlocked"</li>
-            <li>Next actions: tighten T-10 reminder, test shorter Reddit titles, repeat top opener twice this week</li>
+            <li>Next actions: tighten T-10 reminder, test shorter titles, repeat top opener twice this week</li>
           </ul>
         </div>
       </article>
 
       <article class="content-card space-y-4">
-        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">C) Sample Tip Menu + Goal Ladder</h2>
-        <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75 space-y-3">
-          <p class="font-semibold text-white">Tip menu examples (tokens)</p>
+        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">Campaign Example (7-day goal push calendar)</h2>
+        <div class="space-y-3 rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75">
+          <p class="font-semibold text-white">Goal push calendar blocks</p>
           <ul class="list-disc space-y-1 pl-5">
-            <li>25 tokens: song request</li>
-            <li>75 tokens: spin wheel + reaction</li>
-            <li>150 tokens: outfit switch vote</li>
-          </ul>
-          <p class="font-semibold text-white">Goal ladder examples</p>
-          <ul class="list-disc space-y-1 pl-5">
-            <li>500 tokens: first room goal unlock</li>
-            <li>1,200 tokens: fan-voted mini show</li>
-            <li>2,000 tokens: VIP teaser sequence</li>
+            <li>Day 1–2: baseline schedule and hooks</li>
+            <li>Day 3–4: run top caption variants, tighten reminders</li>
+            <li>Day 5–6: push high-intent offers and countdown sequences</li>
+            <li>Day 7: recap, retention post, next-week campaign brief</li>
           </ul>
         </div>
       </article>
 
       <article class="content-card space-y-4">
-        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">D) Sample Mod/Knight Script Snippet</h2>
-        <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75 space-y-2">
-          <p class="font-semibold text-white">Whale handling lines</p>
-          <p>"Big love to our top supporter — goal just moved fast, let's lock the next milestone together."</p>
-          <p class="font-semibold text-white">Room energy lines</p>
-          <p>"Chat is hot right now. Keep the momentum — every tip pushes the timer and keeps requests open."</p>
+        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">Operator notes example</h2>
+        <div class="space-y-2 rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75">
+          <p class="font-semibold text-white">Show script blocks</p>
+          <p>"Big tip window in the next 10 minutes — drop your request and let's push the next milestone together."</p>
+          <p class="font-semibold text-white">Tip-trigger notes</p>
+          <p>"If momentum drops, trigger the short countdown block and return to the top-converting opener."</p>
         </div>
       </article>
     </div>
@@ -104,24 +98,32 @@ const canonicalPath = '/proof';
         <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">No passwords/logins required</li>
         <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">No exclusivity requirements</li>
         <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">Model owns accounts and content</li>
-        <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">No spam DM automation</li>
+        <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">No spam / no mass unsolicited DMs</li>
         <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">Cancel anytime</li>
         <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">No earnings guarantees</li>
       </ul>
       <p class="text-xs text-white/60">
-        Results vary by niche, consistency, and platform conditions. Examples above are templates and education only, not a promise
-        of earnings outcomes.
+        Results vary by niche, consistency, and platform conditions. These examples are educational templates and do not promise earnings
+        outcomes.
       </p>
     </div>
 
     <div class="content-card flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-sm text-white/75">Want this implemented as a weekly system? Start the promo intake and we will map your first plan.</p>
-      <a
-        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-        href={withBase('/promotion/')}
-      >
-        Start promotion intake
-      </a>
+      <p class="text-sm text-white/75">Want this implemented as a weekly system? Review packages or start your promo application.</p>
+      <div class="flex flex-wrap gap-3">
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+          href="/packages"
+        >
+          View packages
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:border-white/40 hover:bg-white/5"
+          href="/apply/promo"
+        >
+          Apply for promotion
+        </a>
+      </div>
     </div>
   </section>
 </MainLayout>
