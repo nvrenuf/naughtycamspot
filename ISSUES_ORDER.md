@@ -14,26 +14,31 @@ This file is the prioritized execution queue for the **Promo-ready launch plan**
 5. **#123 Build `/proof` page for promo conversion (templates/examples)**  
    Add scannable placeholders (promo packet/report/tip menu/mod script) + no-guarantee language.
 6. **#124 Platform alignment for promo scope (CB/CamSoda/Bonga; Stripchat coming soon)**  
-   Single source of truth for promo platform scope; Stripchat “coming soon” with CTA to `/apply/promo`.
+   Single source of truth for promo platform scope; Stripchat "coming soon" with CTA to `/apply/promo`.
 
-   ## Phase 2 (positioning / pricing)
+## Phase 2 (positioning / pricing)
 7. **#138 AI-Fulfilled Model Growth Ops positioning pass (copy-only)**  
    Copy/layout-only pass on index/packages/proof to justify higher pricing; no routing or data model changes.
 
 ## Model Signup Help (Free) sequence
-1. **#144 Signup: Create canonical “Signup Help (Free)” landing page**
-2. **#145 Signup: Proof submission instructions (make “send proof” unambiguous)**
-3. **#146 Signup: Platforms page becomes signup-first and consistent**
-4. **#147 Signup: StartRight page restructure for signup conversion**
-5. **#148 Signup: Earnings page supports signup decision (not a dead end)**
-6. **#149 Signup: Audit and align /go endpoints for signup flow**
+1. **#144 Signup: Create canonical "Signup Help (Free)" landing page**  
+   Create one canonical funnel entry point with clear step-by-step signup flow and proof guidance. Reuse canonical platform data and keep contacts limited to Telegram + Email.
+2. **#145 Signup: Proof submission instructions (make "send proof" unambiguous)**  
+   Standardize a single reusable proof-copy block and apply it consistently on signup pages.
+3. **#146 Signup: Platforms page becomes signup-first and consistent**  
+   Align `/platforms` CTAs and status messaging with signup-first flow and canonical platform metadata.
+4. **#147 Signup: StartRight page restructure for signup conversion**  
+   Reframe `/startright` around post-proof value, checklist, and strong signup funnel CTAs.
+5. **#148 Signup: Earnings page supports signup decision (not a dead end)**  
+   Add clear top/bottom signup CTAs while preserving no-guarantee posture.
+6. **#149 Signup: Audit and align /go endpoints for signup flow**  
+   Ensure live platform IDs and `/go/<id>` redirects are aligned and used as the only outbound path.
 
 ## Backlog
-- **#150 Backlog: Signup+Promo: Add more contact options beyond Telegram + Email**
-
-
+- **#150 Backlog: Signup+Promo: Add more contact options beyond Telegram + Email**  
+  Add WhatsApp and at least one additional contact channel to promo and signup intake (separate from this execution queue).
 
 ## Notes
 - One issue per PR. Run `npm test` and `npm run build` and fix failures before moving to the next issue.
-- No refactors outside issue scope (no type renames across the repo, no “cleanup”).
+- No refactors outside issue scope (no type renames across the repo, no "cleanup").
 - Promo trust posture everywhere: no passwords/logins, no exclusivity, model owns accounts/content, no spam DM automation, cancel anytime, no earnings guarantees.
