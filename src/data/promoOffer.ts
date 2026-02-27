@@ -14,12 +14,19 @@ type PromoAddOn = {
   description: string;
 };
 
+export type PromoPlatformScopeEntry = {
+  id: string;
+  name: string;
+  status: 'live' | 'coming-soon';
+};
+
 export const promoOffer: {
   sprintOffers: PromoPlan[];
   monthlyTiers: PromoPlan[];
   addOns: PromoAddOn[];
   nonNegotables: string[];
   platformScope: {
+    platforms: PromoPlatformScopeEntry[];
     live: string[];
     comingSoon: string[];
   };
@@ -103,6 +110,12 @@ export const promoOffer: {
     'No earnings guarantees'
   ],
   platformScope: {
+    platforms: [
+      { id: 'chaturbate', name: 'Chaturbate', status: 'live' },
+      { id: 'camsoda', name: 'CamSoda', status: 'live' },
+      { id: 'bongacams', name: 'BongaCams', status: 'live' },
+      { id: 'stripchat', name: 'Stripchat', status: 'coming-soon' }
+    ],
     live: ['Chaturbate', 'CamSoda', 'BongaCams'],
     comingSoon: ['Stripchat']
   }

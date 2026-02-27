@@ -1,7 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
-import { PLATFORMS } from '../data/platforms';
+import { promoOffer } from '../data/promoOffer';
 import { isPagesBuild, withBase } from '../utils/links';
 import { getRequestLang, t } from '../i18n/core';
 
@@ -21,27 +21,28 @@ const resolveHostname = (value: string | undefined) => {
 const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
 const isProdSite = siteHostname === 'naughtycamspot.com';
 const useGoLinks = !isPagesBuild() && isProdSite;
+const platformNotes: Record<string, string> = {
+  chaturbate: 'High traffic, long-tail tipping, and recurring fan rooms.',
+  camsoda: 'Quality-focused traffic with strong contests and promo placements.',
+  bongacams: 'Great geo diversification with steady discovery opportunities.',
+  stripchat: 'Launch prep is underway. Join promo intake to get notified first.'
+};
 const statusMeta = {
-  open: {
-    label: 'Open',
+  live: {
+    label: 'Live',
     meaning: 'Join now',
     className: 'border-emerald-300/50 bg-emerald-400/20 text-emerald-100',
     icon: 'check'
   },
-  limited: {
-    label: 'Limited',
-    meaning: 'Request slot',
-    className: 'border-amber-300/50 bg-amber-400/20 text-amber-100',
-    icon: 'clock'
-  },
-  waitlist: {
+  'coming-soon': {
     label: 'Coming soon',
     meaning: 'Notify me',
     className: 'border-slate-300/40 bg-slate-400/20 text-slate-100',
     icon: 'hourglass'
   }
 } as const;
-const legendStatuses = ['open', 'limited', 'waitlist'] as const;
+const legendStatuses = ['live', 'coming-soon'] as const;
+const promoPlatforms = promoOffer.platformScope.platforms;
 ---
 
 <MainLayout
@@ -109,11 +110,13 @@ const legendStatuses = ['open', 'limited', 'waitlist'] as const;
     </div>
 
     <div class="grid gap-6 lg:grid-cols-2">
-      {PLATFORMS.map((platform) => {
-        const meta = statusMeta[platform.status] ?? statusMeta.waitlist;
-        const href = useGoLinks ? platform.goPath : withBase('/apply');
-        const target = useGoLinks ? '_blank' : undefined;
-        const rel = useGoLinks ? 'noopener noreferrer' : undefined;
+      {promoPlatforms.map((platform) => {
+        const meta = statusMeta[platform.status] ?? statusMeta['coming-soon'];
+        const goPath = `/go/${platform.id}`;
+        const href = platform.status === 'coming-soon' ? withBase('/apply/promo') : (useGoLinks ? goPath : withBase('/apply'));
+        const target = platform.status === 'live' && useGoLinks ? '_blank' : undefined;
+        const rel = platform.status === 'live' && useGoLinks ? 'noopener noreferrer' : undefined;
+        const note = platformNotes[platform.id] ?? 'Platform support details available during application review.';
         return (
           <article class="content-card space-y-4">
             <div class="flex items-center justify-between">
@@ -138,13 +141,13 @@ const legendStatuses = ['open', 'limited', 'waitlist'] as const;
                 <span>{meta.label}</span>
               </span>
             </div>
-            <p class="text-sm text-white/70">{platform.note}</p>
+            <p class="text-sm text-white/70">{note}</p>
             <details class="rounded-2xl border border-white/10 bg-black/20 p-4">
               <summary class="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-rose-petal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold">
                 Details
               </summary>
               <div class="mt-3 space-y-2 text-sm text-white/75">
-                <p><span class="text-white/55">Best for:</span> Creators who want {platform.note.toLowerCase()}</p>
+                <p><span class="text-white/55">Best for:</span> Creators who want {note.toLowerCase()}</p>
                 <p><span class="text-white/55">Needs:</span> A complete profile and quick message replies.</p>
                 <p><span class="text-white/55">Next:</span> {meta.meaning}. Use the button below.</p>
               </div>
@@ -155,10 +158,10 @@ const legendStatuses = ['open', 'limited', 'waitlist'] as const;
                 href={href}
                 target={target}
                 rel={rel}
-                data-platform={platform.slug}
-                data-preclick={useGoLinks ? '1' : undefined}
-                data-go-href={useGoLinks ? platform.goPath : undefined}
-                data-platform-id={platform.slug}
+                data-platform={platform.id}
+                data-preclick={platform.status === 'live' && useGoLinks ? '1' : undefined}
+                data-go-href={platform.status === 'live' && useGoLinks ? goPath : undefined}
+                data-platform-id={platform.id}
                 data-platform-name={platform.name}
               >
                 Open next step
