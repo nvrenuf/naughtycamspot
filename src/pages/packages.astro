@@ -2,6 +2,7 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import { withBase } from '../utils/links';
+import { getRequestLang, t } from '../i18n/core';
 import { promoOffer } from '../data/promoOffer';
 
 const canonicalPath = '/packages';
@@ -25,9 +26,18 @@ const buildApplyHref = (packageId: string) => {
 
   <section class="space-y-6">
     <div class="content-card space-y-4">
-      <p class="hero-tagline">{promoOffer.hero.eyebrow}</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">{promoOffer.hero.title}</h1>
-      <p class="max-w-3xl text-base text-white/75">{promoOffer.hero.intro}</p>
+      <p class="hero-tagline">Promotion (Paid)</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">{t(lang, 'packages.title')}</h1>
+      <p class="max-w-3xl text-base text-white/75">
+        Each package is phone-first: clear tasks, clear handoff, clear trust rules.
+      </p>
+      <p class="text-sm text-white/70">Trust policy: {promoOffer.nonNegotiables}</p>
+    </div>
+
+    <div class="content-card space-y-3">
+      <h2 class="font-display text-2xl text-white">Supported promo platforms</h2>
+      <p class="text-sm text-white/75">Live now: {promoOffer.supportedPlatforms.live.join(', ')}</p>
+      <p class="text-sm text-white/60">Coming soon: {promoOffer.supportedPlatforms.comingSoon.join(', ')}</p>
     </div>
 
     <div class="content-card space-y-3">
