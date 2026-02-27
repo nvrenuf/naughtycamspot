@@ -16,6 +16,10 @@ This file is the prioritized execution queue for the **Promo-ready launch plan**
 6. **#124 Platform alignment for promo scope (CB/CamSoda/Bonga; Stripchat coming soon)**  
    Single source of truth for promo platform scope; Stripchat “coming soon” with CTA to `/apply/promo`.
 
+   ## Phase 2 (positioning / pricing)
+7. **#138 AI-Fulfilled Model Growth Ops positioning pass (copy-only)**  
+   Copy/layout-only pass on index/packages/proof to justify higher pricing; no routing or data model changes.
+
 ## Notes
 - One issue per PR. Run `npm test` and `npm run build` and fix failures before moving to the next issue.
 - No refactors outside issue scope (no type renames across the repo, no “cleanup”).
