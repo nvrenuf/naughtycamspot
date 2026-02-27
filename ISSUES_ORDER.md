@@ -3,20 +3,20 @@
 This file is the prioritized execution queue for the **Promo-ready launch plan**.
 
 ## Promo-ready launch sequence
-1. **#119 Define promo offering single source of truth**  
-   Create canonical promo data (`promoOffer`) for sprint offers, monthly tiers, add-ons, non-negotiables, and supported platforms (Chaturbate, CamSoda, BongaCams; Stripchat coming soon).
-2. **#120 Rebuild `/packages` into promo sales page (Sprint + Monthly + Add-ons)**  
-   Redesign `/packages` to render Sprint + Monthly ladders, add-ons, explicit non-negotiables, and CTA routing to `/apply/promo` with preselected package.
+1. **#119 Promo offering single source of truth (promoOffer)**  
+   Canonical promo data for sprint offers, monthly tiers, add-ons, non-negotiables, and platform scope (Chaturbate/CamSoda/Bonga live; Stripchat coming soon).
+2. **#120 Rebuild `/packages` for live-cam promo ladder (Sprint + Monthly + Add-ons)**  
+   Render offers from promoOffer; CTAs route to `/apply/promo` with package preselected.
 3. **#121 Split apply flow: `/apply` chooser + `/apply/promo` + `/apply/signup`**  
-   Keep `/apply` as a chooser, add promo/signup routes, route form posts to `public/claim/index.php`, and enforce required consent + source/package/platform capture.
-4. **#122 Tighten homepage primary CTA for promo sprint + simplify nav for promo launch**  
-   Shift homepage CTA emphasis to promo packages/apply, keep signup-help secondary path visible, and prioritize Packages / Apply / Proof in nav.
+   Separate promo intake from signup help; POST to `public/claim/index.php`; require consent; log source/package/platform.
+4. **#122 Homepage CTA + nav tighten for promo launch**  
+   Make promo primary path; keep signup help secondary; ensure nav points to Packages/Apply/Proof.
 5. **#123 Build `/proof` page for promo conversion (templates/examples)**  
-   Add scannable proof assets (promo packet/report/tip menu/mod script placeholders) with non-negotiables and no-guarantee language.
+   Add scannable placeholders (promo packet/report/tip menu/mod script) + no-guarantee language.
 6. **#124 Platform alignment for promo scope (CB/CamSoda/Bonga; Stripchat coming soon)**  
-   Ensure promo-related platform UI uses one source of truth for platform scope and marks Stripchat as coming soon with CTA to `/apply/promo`.
+   Single source of truth for promo platform scope; Stripchat “coming soon” with CTA to `/apply/promo`.
 
 ## Notes
-- Issues are created in the same order above.
-- Each issue includes: summary, acceptance criteria, likely files touched, and any new data files to introduce.
-- Use repo labels consistently when available (e.g., `promo`, `site`, `intake`).
+- One issue per PR. Run `npm test` and `npm run build` and fix failures before moving to the next issue.
+- No refactors outside issue scope (no type renames across the repo, no “cleanup”).
+- Promo trust posture everywhere: no passwords/logins, no exclusivity, model owns accounts/content, no spam DM automation, cancel anytime, no earnings guarantees.
