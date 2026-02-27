@@ -9,20 +9,40 @@ const resolveFixturePath = (relativePath) =>
 
 const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relativePath), 'utf8');
 
-test('Packages page lists three mobile-scannable tiers', async () => {
+test('Packages page renders promo ladder sections from promoOffer data', async () => {
   const source = await readSource('src/pages/packages.astro');
-  assert.ok(source.includes('Starter Plan'), 'Packages page should include Starter tier');
-  assert.ok(source.includes('Growth Plan'), 'Packages page should include Growth tier');
-  assert.ok(source.includes('Pro Plan'), 'Packages page should include Pro tier');
-  assert.ok(source.includes('What you get'), 'Packages page should include what-you-get section');
-  assert.ok(source.includes('Model provides'), 'Packages page should include model-provided section');
-  assert.ok(source.includes('What we do not do'), 'Packages page should include limitations section');
+
+  assert.ok(source.includes("import { promoOffer } from '../data/promoOffer';"));
+  assert.ok(source.includes('Sprint offers'));
+  assert.ok(source.includes('Monthly tiers'));
+  assert.ok(source.includes('Add-ons menu'));
+  assert.ok(source.includes('{promoOffer.whatYouProvide.title}'));
+  assert.ok(source.includes('{promoOffer.nonNegotiables.title}'));
+  assert.ok(source.includes('promoOffer.whatYouProvide.items.map'));
+  assert.ok(source.includes('promoOffer.nonNegotiables.items.map'));
+  assert.ok(source.includes('promoOffer.sprintOffers.map'));
+  assert.ok(source.includes('promoOffer.monthlyTiers.map'));
+  assert.ok(source.includes('promoOffer.addons.map'));
 });
 
-test('Packages page keeps trust policy and apply CTAs explicit', async () => {
+test('Packages page CTA links prefill apply route with stable package ids', async () => {
   const source = await readSource('src/pages/packages.astro');
-  assert.ok(source.includes('no passwords'), 'Packages page should state no passwords');
-  assert.ok(source.includes('no exclusivity'), 'Packages page should state no exclusivity');
-  assert.ok(source.includes('you own accounts and content'), 'Packages page should state ownership policy');
-  assert.ok(source.includes('/apply/'), 'Packages page should include apply links');
+
+  assert.ok(source.includes("withBase('/apply/promo')"));
+  assert.ok(source.includes('new URLSearchParams({ package: packageId })'));
+  assert.ok(source.includes('href={buildApplyHref(offer.id)}'));
+  assert.ok(source.includes('href={buildApplyHref(tier.id)}'));
+  assert.ok(source.includes('href={buildApplyHref(addon.id)}'));
+});
+
+test('Promo offer data includes required non-negotiables and platform scope', async () => {
+  const source = await readSource('src/data/promoOffer.ts');
+
+  assert.ok(source.includes("active: ['Chaturbate', 'CamSoda', 'BongaCams']"));
+  assert.ok(source.includes("comingSoon: ['Stripchat (coming soon)']"));
+  assert.ok(source.includes('No passwords or direct login handover requests.'));
+  assert.ok(source.includes('No exclusivity terms or account ownership transfer.'));
+  assert.ok(source.includes('No spam DM automation.'));
+  assert.ok(source.includes('No earnings guarantees.'));
+  assert.ok(source.includes('Cancel anytime based on your renewal cycle.'));
 });
