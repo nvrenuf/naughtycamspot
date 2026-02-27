@@ -9,20 +9,22 @@ const resolveFixturePath = (relativePath) =>
 
 const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relativePath), 'utf8');
 
-test('Apply page uses one-screen Fast Lane with optional details section', async () => {
+test('/apply chooser links to promo and signup flows', async () => {
   const source = await readSource('src/pages/apply.astro');
-  assert.ok(source.includes('Step 1 of 4'), 'Apply page should show progress step label');
-  assert.ok(source.includes('data-apply-progress'), 'Apply page should include progress container');
-  assert.ok(source.includes('Fast Lane'), 'Apply page should show Fast Lane section first');
-  assert.ok(source.includes('Improve my match (optional)'), 'Apply page should include optional details toggle');
-  assert.ok(source.includes('name="telegram"'), 'Apply page should include Telegram field');
-  assert.ok(source.includes('name="platforms_interested[]"'), 'Apply page should include platform interest checkboxes');
-  assert.ok(source.includes('Submit application'), 'Apply page should include a submit button in Fast Lane');
+  assert.ok(source.includes('/apply/promo'), 'Apply chooser should link to /apply/promo');
+  assert.ok(source.includes('/apply/signup'), 'Apply chooser should link to /apply/signup');
 });
 
-test('Apply page keeps claim endpoint submission and consent requirement', async () => {
-  const source = await readSource('src/pages/apply.astro');
-  assert.ok(source.includes("action={formAction}"), 'Apply form should continue posting to claim endpoint');
-  assert.ok(source.includes('name="consent" required'), 'Apply form should require consent checkbox');
-  assert.ok(source.includes("apply.fastlane.trust"), 'Apply page should retain trust posture translation key');
+test('/apply/promo contains form posting to claim endpoint', async () => {
+  const source = await readSource('src/pages/apply/promo.astro');
+  assert.ok(source.includes('method="post"'), 'Promo page should include a POST form');
+  assert.ok(source.includes("action={formAction}"), 'Promo form should post to /claim/index.php via formAction');
+  assert.ok(source.includes('name="source" value="apply_promo"'), 'Promo form should submit apply_promo source');
+});
+
+test('/apply/signup contains form posting to claim endpoint', async () => {
+  const source = await readSource('src/pages/apply/signup.astro');
+  assert.ok(source.includes('method="post"'), 'Signup page should include a POST form');
+  assert.ok(source.includes("action={formAction}"), 'Signup form should post to /claim/index.php via formAction');
+  assert.ok(source.includes('name="source" value="apply_signup"'), 'Signup form should submit apply_signup source');
 });

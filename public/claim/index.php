@@ -51,6 +51,7 @@ $leadValues = [
     'time_end' => '',
     'platforms_active' => [],
     'platforms_interested' => [],
+    'platform_interest' => [],
     'style' => [],
     'hard_no' => [],
     'notes' => '',
@@ -61,6 +62,8 @@ $leadValues = [
     'platform' => '',
     'source' => '',
     'page' => '',
+    'package_selected' => '',
+    'source_page' => '',
     'src' => request_string('src'),
     'camp' => request_string('camp'),
     'date' => request_string('date'),
@@ -93,6 +96,7 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
     $leadValues['time_end'] = sanitize_time_value($_POST['time_end'] ?? '');
     $leadValues['platforms_active'] = sanitize_platform_list($_POST['platforms_active'] ?? []);
     $leadValues['platforms_interested'] = sanitize_platform_list($_POST['platforms_interested'] ?? []);
+    $leadValues['platform_interest'] = sanitize_platform_list($_POST['platform_interest'] ?? []);
     $leadValues['style'] = sanitize_allowed_list($_POST['style'] ?? [], allowed_style_values());
     $leadValues['hard_no'] = sanitize_allowed_list($_POST['hard_no'] ?? [], allowed_hard_no_values());
     $leadValues['notes'] = sanitize_multiline($_POST['notes'] ?? '', 2000);
@@ -103,9 +107,24 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
     $leadValues['platform'] = sanitize_tracking($_POST['platform'] ?? '');
     $leadValues['source'] = sanitize_text($_POST['source'] ?? '', 40);
     $leadValues['page'] = sanitize_text($_POST['page'] ?? '', 200);
+    $leadValues['package_selected'] = sanitize_text($_POST['package_selected'] ?? '', 120);
+    $leadValues['source_page'] = sanitize_text($_POST['source_page'] ?? '', 200);
     $leadValues['src'] = sanitize_tracking($_POST['src'] ?? $leadValues['src']);
     $leadValues['camp'] = sanitize_tracking($_POST['camp'] ?? $leadValues['camp']);
     $leadValues['date'] = sanitize_tracking($_POST['date'] ?? $leadValues['date']);
+
+    $requiresConsent = in_array($leadValues['source'], ['apply_promo', 'apply_signup'], true);
+    if ($requiresConsent && !$leadValues['consent']) {
+        $fallbackTarget = '/apply/?error=consent';
+        $referer = trim((string) ($_SERVER['HTTP_REFERER'] ?? ''));
+        if ($referer !== '') {
+            $separator = str_contains($referer, '?') ? '&' : '?';
+            $fallbackTarget = $referer . $separator . 'error=consent';
+        }
+
+        header('Location: ' . $fallbackTarget, true, 303);
+        exit;
+    }
 
     $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
     $logEntry = build_lead_log_entry($now, $leadValues);
@@ -491,6 +510,11 @@ function detect_mime_type(string $path): string
 
 function build_lead_log_entry(DateTimeImmutable $timestamp, array $values): string
 {
+    $sourcePage = normalize_log_value($values['source_page'] ?? '');
+    if ($sourcePage === '') {
+        $sourcePage = normalize_log_value($_SERVER['HTTP_REFERER'] ?? '');
+    }
+
     $log = [
         'timestamp' => $timestamp->format(DateTimeInterface::ATOM),
         'telegram' => normalize_log_value($values['telegram'] ?? ''),
@@ -503,6 +527,7 @@ function build_lead_log_entry(DateTimeImmutable $timestamp, array $values): stri
         'time_end' => normalize_log_value($values['time_end'] ?? ''),
         'platforms_active' => array_values($values['platforms_active'] ?? []),
         'platforms_interested' => array_values($values['platforms_interested'] ?? []),
+        'platform_interest' => array_values($values['platform_interest'] ?? []),
         'style' => array_values($values['style'] ?? []),
         'hard_no' => array_values($values['hard_no'] ?? []),
         'notes' => normalize_log_value($values['notes'] ?? ''),
@@ -512,7 +537,9 @@ function build_lead_log_entry(DateTimeImmutable $timestamp, array $values): stri
         'click_id' => normalize_log_value($values['click_id'] ?? ''),
         'platform' => normalize_log_value($values['platform'] ?? ''),
         'source' => normalize_log_value($values['source'] ?? ''),
+        'package_selected' => normalize_log_value($values['package_selected'] ?? ''),
         'page' => normalize_log_value($values['page'] ?? ''),
+        'source_page' => $sourcePage,
         'src' => normalize_log_value($values['src'] ?? ''),
         'camp' => normalize_log_value($values['camp'] ?? ''),
         'date' => normalize_log_value($values['date'] ?? ''),

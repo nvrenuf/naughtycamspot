@@ -1,0 +1,60 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
+import { withBase } from '../../utils/links';
+
+const canonicalPath = '/apply/signup';
+const formAction = withBase('/claim/index.php');
+const csrfEndpoint = withBase('/claim/token.php');
+---
+
+<MainLayout title="Apply for Signup Help | NaughtyCamSpot" description="Signup help intake form.">
+  <SEO slot="head" title="Apply for Signup Help | NaughtyCamSpot" description="Signup help intake form." path={canonicalPath} />
+
+  <section class="content-card space-y-6">
+    <div class="space-y-3">
+      <p class="hero-tagline">Signup Help</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Signup help intake</h1>
+    </div>
+
+    <form class="grid gap-4" method="post" action={formAction}>
+      <input type="hidden" name="lead_form" value="1" />
+      <input type="hidden" name="csrf_token" value="" data-csrf-token />
+      <input type="hidden" name="source" value="apply_signup" />
+      <input type="hidden" name="page" value={canonicalPath} />
+
+      <label class="flex flex-col gap-2 text-sm text-white/70">
+        Telegram
+        <input class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" type="text" name="telegram" required />
+      </label>
+
+      <label class="flex flex-col gap-2 text-sm text-white/70">Email (optional)
+        <input class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" type="email" name="email" />
+      </label>
+
+      <label class="flex flex-col gap-2 text-sm text-white/70">WhatsApp (optional)
+        <input class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" type="text" name="whatsapp" />
+      </label>
+
+      <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-xs uppercase tracking-[0.28em] text-white/70">
+        <input class="mt-1 h-4 w-4 accent-rose-gold" type="checkbox" name="consent" required />
+        I'm 18+ and I opt in to receive updates
+      </label>
+
+      <button class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight" type="submit">Submit signup request</button>
+    </form>
+  </section>
+
+  <script is:inline define:vars={{ csrfEndpoint }}>
+    fetch(csrfEndpoint, { credentials: 'same-origin' })
+      .then((res) => res.ok ? res.json() : null)
+      .then((payload) => {
+        const token = typeof payload?.token === 'string' ? payload.token : '';
+        if (!token) return;
+        document.querySelectorAll('[data-csrf-token]').forEach((input) => {
+          if (input instanceof HTMLInputElement) input.value = token;
+        });
+      })
+      .catch(() => {});
+  </script>
+</MainLayout>
