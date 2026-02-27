@@ -1,36 +1,21 @@
 # Issue Implementation Order
 
-This file is the prioritized execution queue for UX/psychology updates.
+This file is the prioritized execution queue for the **Promo-ready launch plan**.
 
-## Now (highest ROI)
-1. **Move StartRight capture behind path choice**  
-   Rationale: Removes first-load gate friction and increases first-click momentum on mobile.
-2. **Make Signup Help (Free) vs Promotion (Paid) unmistakable on first screen**  
-   Rationale: Clarifies the core decision instantly, reducing confusion and wrong-path clicks.
-3. **Simplify Apply into one-screen Fast Lane and move the rest optional**  
-   Rationale: Cuts form friction at the highest-intent point while preserving consent and lead capture.
+## Promo-ready launch sequence
+1. **Define promo offering single source of truth**  
+   Create canonical promo data (`promoOffer`) for sprint offers, monthly tiers, add-ons, non-negotiables, and supported platforms (CB, CamSoda, Bonga; Stripchat coming soon).
+2. **Rebuild `/packages` into promo sales page (Sprint + Monthly + Add-ons)**  
+   Redesign `/packages` to render Sprint + Monthly ladders, add-ons, explicit non-negotiables, and CTA routing to `/apply/promo` with preselected package.
+3. **Split apply flow: `/apply` chooser + `/apply/promo` + `/apply/signup`**  
+   Keep `/apply` as a chooser, add promo/signup routes, route form posts to `public/claim/index.php`, and enforce required consent + source/package/platform capture.
+4. **Tighten homepage primary CTA for promo sprint + simplify nav for promo launch**  
+   Shift homepage CTA emphasis to promo packages/apply, keep signup-help secondary path visible, and prioritize Packages / Apply / Proof in nav.
+5. **Build `/proof` page for promo conversion (templates/examples)**  
+   Add scannable proof assets (promo packet/report/tip menu/mod script placeholders) with non-negotiables and no-guarantee language.
+6. **Platform alignment for promo scope (CB/CamSoda/Bonga; Stripchat coming soon)**  
+   Ensure promo-related platform UI uses one source of truth for platform scope and marks Stripchat as coming soon with CTA to `/apply/promo`.
 
-## Next (high impact, supports conversion clarity)
-4. **Standardize site naming to Signup Help (Free) and Promotion (Paid)**  
-   Rationale: Eliminates terminology conflict across pages, improving trust and comprehension.
-5. **Reduce key-page terminology complexity to A2 English**  
-   Rationale: Improves scan comprehension for limited-English users on conversion-critical pages.
-6. **Icon-code platform statuses and add a simple legend**  
-   Rationale: Speeds decision-making on Platforms with low-reading, icon-led status clarity.
-
-## Later (supportive UX enhancements)
-7. **Add tap-to-reveal micro-interactions to reduce reading load**  
-   Rationale: Lowers cognitive load with progressive disclosure but is less urgent than core funnel clarity.
-8. **Add Step 1 of 4 progress indicator on Apply**  
-   Rationale: Improves confidence in multi-step flows; dependent on final Apply structure after Fast Lane definition.
-
-## Definition of done (batch)
-- [ ] All eight issues are documented with required sections (Problem → Dependencies/Risks order).
-- [ ] Every issue includes mobile-first and limited-English acceptance criteria.
-- [ ] Priority and effort are assigned and aligned to ROI ordering.
-- [ ] Labels are included per issue scope (`area:*`, `priority:*`, `effort:*`).
-- [ ] Analytics/Measurement and Test plan are present in each issue.
-- [ ] No product code files were modified (`.astro`, `.ts`, `.php`).
-
-## Completed
-#97, #98, #99, #100, #101, #102, #103, #104, #105, #106, #107, #108, #109, #110, #111
+## Notes
+- GitHub issues should be created in the same order above, each including: summary, acceptance criteria, files likely touched, and any data files to introduce.
+- Use repo labels consistently when available (for example: `promo`, `site`, `intake`).
