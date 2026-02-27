@@ -2,11 +2,13 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import SEO from '../../components/SEO.astro';
 import { withBase } from '../../utils/links';
+import { promoOffer } from '../../data/promoOffer';
 
 const canonicalPath = '/apply/promo';
 const packageSelected = Astro.url.searchParams.get('package') ?? '';
 const formAction = withBase('/claim/index.php');
 const csrfEndpoint = withBase('/claim/token.php');
+const promoPlatforms = promoOffer.platformScope.platforms;
 ---
 
 <MainLayout title="Apply for Promotion | NaughtyCamSpot" description="Promotion intake form.">
@@ -37,10 +39,19 @@ const csrfEndpoint = withBase('/claim/token.php');
 
       <fieldset class="space-y-2 rounded-2xl border border-white/10 bg-white/5 p-4">
         <legend class="px-1 text-xs uppercase tracking-[0.28em] text-white/70">Platforms</legend>
-        <label class="block text-sm text-white/80"><input class="mr-2" type="checkbox" name="platform_interest[]" value="chaturbate" /> chaturbate</label>
-        <label class="block text-sm text-white/80"><input class="mr-2" type="checkbox" name="platform_interest[]" value="camsoda" /> camsoda</label>
-        <label class="block text-sm text-white/80"><input class="mr-2" type="checkbox" name="platform_interest[]" value="bongacams" /> bongacams</label>
-        <label class="block text-sm text-white/50"><input class="mr-2" type="checkbox" disabled /> stripchat (coming soon)</label>
+        {promoPlatforms.map((platform) => (
+          <label class={`block text-sm ${platform.status === 'live' ? 'text-white/80' : 'text-white/50'}`}>
+            <input
+              class="mr-2"
+              type="checkbox"
+              name="platform_interest[]"
+              value={platform.id}
+              disabled={platform.status !== 'live'}
+            />
+            {platform.name}
+            {platform.status !== 'live' ? ' (coming soon)' : ''}
+          </label>
+        ))}
       </fieldset>
 
       <fieldset class="space-y-2 rounded-2xl border border-white/10 bg-white/5 p-4">
