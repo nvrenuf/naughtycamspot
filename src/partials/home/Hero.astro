@@ -6,7 +6,7 @@ const { lang: langProp = 'en' } = Astro.props as { lang?: string };
 const lang = normalizeLang(langProp);
 const trustPromises = [
   {
-    title: 'No passwords',
+    title: 'No passwords/logins',
     reason: 'You keep your login private. We guide by approved files only.'
   },
   {
@@ -14,12 +14,20 @@ const trustPromises = [
     reason: 'You can choose other work paths. You stay in control.'
   },
   {
-    title: 'Model owns accounts',
-    reason: 'Your accounts and payouts stay yours. We do not take ownership.'
+    title: 'Model owns accounts/content',
+    reason: 'Your accounts, content, and payouts stay yours. We do not take ownership.'
+  },
+  {
+    title: 'No spam DM automation',
+    reason: 'We do not run spammy DM bots or mass message automation on your behalf.'
   },
   {
     title: 'Cancel anytime',
     reason: 'You can stop when needed. There is no lock-in contract.'
+  },
+  {
+    title: 'No earnings guarantees',
+    reason: 'Results vary and we do not promise specific income outcomes.'
   }
 ] as const;
 ---
@@ -42,18 +50,24 @@ const trustPromises = [
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
           <LinkCTA
             class="inline-flex border border-rose-gold/70 bg-rose-gold px-6 py-3 text-lg text-midnight shadow-glow"
-            pagesHref="/recruiting/"
-            prodHref="/recruiting/"
-            label={t(lang, 'home.hero.cta.signup')}
+            pagesHref="/packages/"
+            prodHref="/packages/"
+            label={t(lang, 'home.hero.cta.promo')}
           />
           <LinkCTA
             class="inline-flex border border-white/20 bg-transparent px-6 py-3 text-lg text-white transition hover:border-white/40 hover:bg-white/5"
-            pagesHref="/promotion/"
-            prodHref="/promotion/"
-            label={t(lang, 'home.hero.cta.promo')}
+            pagesHref="/apply/promo"
+            prodHref="/apply/promo"
+            label="Apply for Promotion"
           />
         </div>
         <p class="max-w-2xl text-sm text-white/70">Signup Help (Free) and Promotion (Paid) are separate tracks. Use one or combine both.</p>
+        <a
+          class="inline-flex w-fit rounded-full border border-white/20 px-4 py-2 text-xs uppercase tracking-[0.3em] text-white/70 transition hover:border-white/40 hover:text-white"
+          href="/apply/signup"
+        >
+          Need Signup Help (Free)?
+        </a>
         <a
           class="text-xs uppercase tracking-[0.35em] text-white/60 transition hover:text-rose-gold"
           href="/proof/"
@@ -70,9 +84,7 @@ const trustPromises = [
             </details>
           ))}
         </div>
-        <p class="max-w-xl text-[clamp(0.78rem,1.4vw,0.9rem)] text-white/60">
-          Not an agency or studio. No earnings guarantee. We earn only from partner signups.
-        </p>
+        <p class="max-w-xl text-[clamp(0.78rem,1.4vw,0.9rem)] text-white/60">Not an agency or studio. We earn only from partner signups.</p>
       </div>
       <div class="grid">
         <div class="relative overflow-hidden rounded-[34px] border border-white/10 bg-white/5 p-6 backdrop-blur shadow-glow">

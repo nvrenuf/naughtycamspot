@@ -15,12 +15,12 @@ test('Primary CTA routes to Apply in all environments', async () => {
   assert.ok(copySource.includes("prodHref: '/apply'"), 'Production href should point to /apply');
 });
 
-test('Hero partial renders signup help + promotion CTAs', async () => {
+test('Hero partial renders promo-first CTA stack', async () => {
   const heroSource = await readSource('src/partials/home/Hero.astro');
-  assert.ok(heroSource.includes("home.hero.cta.signup"), 'Hero partial should reference the signup help CTA translation key');
-  assert.ok(heroSource.includes('/recruiting/'), 'Hero partial should link to /recruiting/');
   assert.ok(heroSource.includes("home.hero.cta.promo"), 'Hero partial should reference the promotion CTA translation key');
-  assert.ok(heroSource.includes('/promotion/'), 'Hero partial should link to /promotion/');
+  assert.ok(heroSource.includes('/packages/'), 'Hero partial should link primary CTA to /packages/');
+  assert.ok(heroSource.includes('/apply/promo'), 'Hero partial should include secondary CTA to /apply/promo');
+  assert.ok(heroSource.includes('/apply/signup'), 'Hero partial should include tertiary signup help link');
 });
 
 test('Hero partial avoids tracked /go/ links', async () => {

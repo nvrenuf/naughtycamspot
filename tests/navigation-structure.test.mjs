@@ -16,10 +16,11 @@ test('Primary navigation includes core funnel top-level links', async () => {
   assert.ok(navSource.includes("label: 'Platforms'"), 'Primary navigation should include Platforms');
   assert.ok(navSource.includes("label: 'Resources'"), 'Primary navigation should include Resources');
   assert.ok(navSource.includes("label: 'Proof'"), 'Primary navigation should include Proof');
-  assert.ok(!navSource.includes("label: 'Apply'"), 'Primary navigation should not include Apply');
+  assert.ok(navSource.includes("label: 'Apply'"), 'Primary navigation should include Apply');
   assert.ok(!navSource.includes("label: 'How It Works'"), 'Primary navigation should not include How It Works');
   assert.ok(navSource.includes("href: '/'"), 'Primary navigation should point Home to /');
   assert.ok(navSource.includes("href: '/packages/'"), 'Primary navigation should point Packages to /packages/');
+  assert.ok(navSource.includes("href: '/apply/'"), 'Primary navigation should point Apply to /apply/');
   assert.ok(navSource.includes("href: '/platforms/'"), 'Primary navigation should point Platforms to /platforms/');
   assert.ok(navSource.includes("href: '/resources/'"), 'Primary navigation should point Resources to /resources/');
   assert.ok(navSource.includes("href: '/proof/'"), 'Primary navigation should point Proof to /proof/');
@@ -54,6 +55,7 @@ test('Navigation links map to existing routes', async () => {
   const knownRouteSet = new Set([
     '/',
     '/packages/',
+    '/apply/',
     '/platforms/',
     '/resources/',
     '/proof/'
