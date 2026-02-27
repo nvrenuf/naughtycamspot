@@ -33,6 +33,7 @@ const modelResponsibilities = Array.from(
       <p class="max-w-3xl text-base text-white/75">
         Built for live-cam traffic, stronger show structure, and week-over-week consistency without platform-risk shortcuts.
       </p>
+      <p class="text-sm text-white/70">Trust policy: {promoOffer.nonNegotables.join('. ')}.</p>
       <p class="text-sm text-white/70">Core rules: no passwords, no exclusivity, you own accounts and content.</p>
     </div>
 
@@ -40,6 +41,13 @@ const modelResponsibilities = Array.from(
       <h2 class="font-display text-2xl text-white">Supported promo platforms</h2>
       <p class="text-sm text-white/75">Live now: {promoOffer.platformScope.live.join(', ')}</p>
       <p class="text-sm text-white/60">Coming soon: {promoOffer.platformScope.comingSoon.join(', ')}</p>
+    </div>
+
+    <div class="content-card space-y-3">
+      <h2 class="font-display text-xl text-white">Powered by promoOffer</h2>
+      <p class="text-sm text-white/75">
+        Sprint offers: {promoOffer.sprintOffers.map((offer) => offer.displayName).join(', ')}
+      </p>
     </div>
 
     <div class="space-y-4">
