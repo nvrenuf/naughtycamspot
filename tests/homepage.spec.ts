@@ -9,7 +9,7 @@ const readBlogIndex = (mode: 'pages' | 'prod') => readOutputFile(mode, ['blog', 
 describe('Homepage routing', () => {
   it('builds the homepage at the root without v2 prefixes', async () => {
     const { html } = await readHome('prod');
-    expect(html).toContain('NaughtyCamSpot | Signup Help (Free) + Promotion (Paid)');
+    expect(html).toContain('NaughtyCamSpot | Promotion (Paid) + Signup Help (Free)');
     expect(html).not.toContain('/v2/');
   }, BUILD_TIMEOUT);
 
