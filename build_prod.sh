@@ -27,7 +27,13 @@ rm -rf dist node_modules
 # Use legacy peer resolution for reproducible production packaging until deps are aligned.
 npm ci --legacy-peer-deps
 # build with PROD config (not the Pages config)
-npx astro build
+# npx astro build
+
+# build with PROD config (and run prebuild hooks like build-stamp generation)
+npm run build
+
+echo "Build stamp in dist/build.txt:"
+cat dist/build.txt || { echo "Missing dist/build.txt"; exit 1; }
 
 # --- prod robots
 if [ -f "dist/robots.prod.txt" ]; then
@@ -39,6 +45,10 @@ REQ=( "dist/.htaccess" "dist/go/model-join.php" "dist/go/affiliates.php" )
 for f in "${REQ[@]}"; do
   [ -f "$f" ] || { echo "Missing $f"; exit 1; }
 done
+
+echo "Build stamp in dist/build.txt:"
+cat dist/build.txt || { echo "Missing dist/build.txt"; exit 1; }
+
 
 # --- zip artifact
 cd dist
