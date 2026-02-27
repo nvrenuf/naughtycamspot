@@ -20,6 +20,19 @@ This file is the prioritized execution queue for the **Promo-ready launch plan**
 7. **#138 AI-Fulfilled Model Growth Ops positioning pass (copy-only)**  
    Copy/layout-only pass on index/packages/proof to justify higher pricing; no routing or data model changes.
 
+## Model Signup Help (Free) sequence
+1. **#144 Signup: Create canonical “Signup Help (Free)” landing page**
+2. **#145 Signup: Proof submission instructions (make “send proof” unambiguous)**
+3. **#146 Signup: Platforms page becomes signup-first and consistent**
+4. **#147 Signup: StartRight page restructure for signup conversion**
+5. **#148 Signup: Earnings page supports signup decision (not a dead end)**
+6. **#149 Signup: Audit and align /go endpoints for signup flow**
+
+## Backlog
+- **#150 Backlog: Signup+Promo: Add more contact options beyond Telegram + Email**
+
+
+
 ## Notes
 - One issue per PR. Run `npm test` and `npm run build` and fix failures before moving to the next issue.
 - No refactors outside issue scope (no type renames across the repo, no “cleanup”).
