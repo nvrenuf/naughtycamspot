@@ -17,9 +17,11 @@ test('Claim handler validates CSRF and stores uploads outside web root', async (
 });
 
 test('Astro lead forms include CSRF token fields', async () => {
-  const applySource = await readSource('src/pages/apply.astro');
+  const promoSource = await readSource('src/pages/apply/promo.astro');
+  const signupSource = await readSource('src/pages/apply/signup.astro');
   const preclickSource = await readSource('src/components/PreClickCapture.astro');
-  assert.ok(applySource.includes('name="csrf_token"'), 'Apply form should include CSRF token field');
+  assert.ok(promoSource.includes('name="csrf_token"'), 'Promo form should include CSRF token field');
+  assert.ok(signupSource.includes('name="csrf_token"'), 'Signup form should include CSRF token field');
   assert.ok(preclickSource.includes('name="csrf_token"'), 'Preclick form should include CSRF token field');
   assert.ok(preclickSource.includes('/api/csrf.php'), 'Preclick should fetch CSRF token endpoint');
 });

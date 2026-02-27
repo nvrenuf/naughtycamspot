@@ -1,0 +1,97 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import SEO from '../../components/SEO.astro';
+import { withBase } from '../../utils/links';
+
+const canonicalPath = '/apply/promo';
+const packageSelected = Astro.url.searchParams.get('package') ?? '';
+const formAction = withBase('/claim/index.php');
+const csrfEndpoint = withBase('/claim/token.php');
+---
+
+<MainLayout title="Apply for Promotion | NaughtyCamSpot" description="Promotion intake form.">
+  <SEO slot="head" title="Apply for Promotion | NaughtyCamSpot" description="Promotion intake form." path={canonicalPath} />
+
+  <section class="content-card space-y-6">
+    <div class="space-y-3">
+      <p class="hero-tagline">Promotion Application</p>
+      <h1 class="font-display text-4xl text-white sm:text-5xl">Promotion intake</h1>
+    </div>
+
+    <form class="grid gap-4" method="post" action={formAction}>
+      <input type="hidden" name="lead_form" value="1" />
+      <input type="hidden" name="csrf_token" value="" data-csrf-token />
+      <input type="hidden" name="source" value="apply_promo" />
+      <input type="hidden" name="page" value={canonicalPath} />
+      <input type="hidden" name="package_selected" value={packageSelected} />
+
+      <label class="flex flex-col gap-2 text-sm text-white/70">
+        Telegram
+        <input class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" type="text" name="telegram" required />
+      </label>
+
+      <label class="flex flex-col gap-2 text-sm text-white/70">
+        Timezone
+        <input class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" type="text" name="timezone" required />
+      </label>
+
+      <fieldset class="space-y-2 rounded-2xl border border-white/10 bg-white/5 p-4">
+        <legend class="px-1 text-xs uppercase tracking-[0.28em] text-white/70">Platforms</legend>
+        <label class="block text-sm text-white/80"><input class="mr-2" type="checkbox" name="platform_interest[]" value="chaturbate" /> chaturbate</label>
+        <label class="block text-sm text-white/80"><input class="mr-2" type="checkbox" name="platform_interest[]" value="camsoda" /> camsoda</label>
+        <label class="block text-sm text-white/80"><input class="mr-2" type="checkbox" name="platform_interest[]" value="bongacams" /> bongacams</label>
+        <label class="block text-sm text-white/50"><input class="mr-2" type="checkbox" disabled /> stripchat (coming soon)</label>
+      </fieldset>
+
+      <fieldset class="space-y-2 rounded-2xl border border-white/10 bg-white/5 p-4">
+        <legend class="px-1 text-xs uppercase tracking-[0.28em] text-white/70">Availability</legend>
+        <label class="block text-sm text-white/80">Can stream 7 days?
+          <select class="ml-2 rounded border border-white/10 bg-black/20 px-2 py-1" name="can_stream_7_days" required>
+            <option value="">Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </label>
+        <label class="block text-sm text-white/80">Can provide weekly pack?
+          <select class="ml-2 rounded border border-white/10 bg-black/20 px-2 py-1" name="can_provide_weekly_pack" required>
+            <option value="">Select</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <label class="flex flex-col gap-2 text-sm text-white/70">Email (optional)
+        <input class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" type="email" name="email" />
+      </label>
+
+      <label class="flex flex-col gap-2 text-sm text-white/70">WhatsApp (optional)
+        <input class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" type="text" name="whatsapp" />
+      </label>
+
+      <label class="flex flex-col gap-2 text-sm text-white/70">Current cam/social handles (optional)
+        <textarea class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" name="handles"></textarea>
+      </label>
+
+      <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-xs uppercase tracking-[0.28em] text-white/70">
+        <input class="mt-1 h-4 w-4 accent-rose-gold" type="checkbox" name="consent" required />
+        I'm 18+ and I opt in to receive updates
+      </label>
+
+      <button class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight" type="submit">Submit promotion application</button>
+    </form>
+  </section>
+
+  <script is:inline define:vars={{ csrfEndpoint }}>
+    fetch(csrfEndpoint, { credentials: 'same-origin' })
+      .then((res) => res.ok ? res.json() : null)
+      .then((payload) => {
+        const token = typeof payload?.token === 'string' ? payload.token : '';
+        if (!token) return;
+        document.querySelectorAll('[data-csrf-token]').forEach((input) => {
+          if (input instanceof HTMLInputElement) input.value = token;
+        });
+      })
+      .catch(() => {});
+  </script>
+</MainLayout>
