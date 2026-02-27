@@ -9,14 +9,14 @@ const resolveFixturePath = (relativePath) =>
 
 const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relativePath), 'utf8');
 
-test('Packages page lists three mobile-scannable tiers', async () => {
+test('Packages page renders promoOffer sprint, monthly, and add-ons sections', async () => {
   const source = await readSource('src/pages/packages.astro');
-  assert.ok(source.includes('Starter Plan'), 'Packages page should include Starter tier');
-  assert.ok(source.includes('Growth Plan'), 'Packages page should include Growth tier');
-  assert.ok(source.includes('Pro Plan'), 'Packages page should include Pro tier');
-  assert.ok(source.includes('What you get'), 'Packages page should include what-you-get section');
-  assert.ok(source.includes('Model provides'), 'Packages page should include model-provided section');
-  assert.ok(source.includes('What we do not do'), 'Packages page should include limitations section');
+  assert.ok(source.includes('Sprint offers'), 'Packages page should include sprint offers section');
+  assert.ok(source.includes('promoOffer.sprintOffers.map'), 'Packages page should render sprint offers from promoOffer');
+  assert.ok(source.includes('Monthly tiers'), 'Packages page should include monthly tiers section');
+  assert.ok(source.includes('promoOffer.monthlyTiers.map'), 'Packages page should render monthly tiers from promoOffer');
+  assert.ok(source.includes('Add-ons'), 'Packages page should include add-ons section');
+  assert.ok(source.includes('promoOffer.addOns.map'), 'Packages page should render add-ons from promoOffer');
 });
 
 test('Packages page keeps trust policy and apply CTAs explicit', async () => {
@@ -24,5 +24,5 @@ test('Packages page keeps trust policy and apply CTAs explicit', async () => {
   assert.ok(source.includes('no passwords'), 'Packages page should state no passwords');
   assert.ok(source.includes('no exclusivity'), 'Packages page should state no exclusivity');
   assert.ok(source.includes('you own accounts and content'), 'Packages page should state ownership policy');
-  assert.ok(source.includes('/apply/'), 'Packages page should include apply links');
+  assert.ok(source.includes('/apply/promo'), 'Packages page should include promo apply links');
 });
