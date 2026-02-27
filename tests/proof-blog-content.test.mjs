@@ -30,9 +30,9 @@ test('Signup help and promotion pages link to relevant posts', async () => {
   assert.ok(promotionSource.includes('/blog/'), 'Promotion should link to blog index');
 });
 
-test('/proof page includes anonymized earnings and success story sections', async () => {
+test('/proof page includes promo templates and trust language', async () => {
   const source = await readSource('src/pages/proof.astro');
-  assert.ok(source.includes('Anonymized earnings trend'), 'Proof page should include earnings visualization');
-  assert.ok(source.includes('Success stories'), 'Proof page should include success stories');
-  assert.ok(source.includes('sample-weekly-report.md'), 'Proof page should continue linking proof assets');
+  assert.ok(source.includes('Sample Promo Packet'), 'Proof page should include promo packet examples');
+  assert.ok(source.includes('Sample Weekly Report'), 'Proof page should include weekly report layout');
+  assert.ok(source.includes('No earnings guarantees'), 'Proof page should include no-guarantee language');
 });

@@ -4,195 +4,124 @@ import SEO from '../components/SEO.astro';
 import { withBase } from '../utils/links';
 
 const canonicalPath = '/proof';
-const weeklyReportHref = withBase('/proof/sample-weekly-report.md');
-const captionPackHref = withBase('/proof/sample-caption-pack.txt');
-const calendarHref = withBase('/proof/sample-content-calendar.md');
-const ladderHref = withBase('/proof/sample-room-goal-ladder.txt');
-
-const anonymizedEarnings = [
-  { week: 'Week 1', usd: 420 },
-  { week: 'Week 2', usd: 610 },
-  { week: 'Week 3', usd: 760 },
-  { week: 'Week 4', usd: 980 }
-] as const;
-const maxEarnings = Math.max(...anonymizedEarnings.map((item) => item.usd));
-
-const successStories = [
-  {
-    alias: 'Model A',
-    summary: 'Moved from inconsistent sessions to a fixed 3-night schedule and improved retention by week 3.',
-    result: '+42% weekly tips in month one'
-  },
-  {
-    alias: 'Model B',
-    summary: 'Switched from generic captions to audience-segmented promos and tightened pre-show reminders.',
-    result: '+31% room goal completion rate'
-  },
-  {
-    alias: 'Model C',
-    summary: 'Used the goal-ladder script and reduced drop-off during the first 20 minutes of each show.',
-    result: '+24% average watch-time'
-  }
-] as const;
 ---
 
 <MainLayout
   title="Proof & Templates | NaughtyCamSpot"
-  description="Examples and templates from the NCS operating stack: weekly reports, caption packs, and content calendars."
+  description="Promo-focused proof page with sample templates for live cam conversion workflows."
 >
   <SEO
     slot="head"
     title="Proof & Templates | NaughtyCamSpot"
-    description="Examples and templates from the NCS operating stack: weekly reports, caption packs, and content calendars."
+    description="Promo-focused proof page with sample templates for live cam conversion workflows."
     path={canonicalPath}
   />
 
-  <section class="space-y-10">
+  <section class="space-y-8">
     <div class="content-card space-y-4">
       <p class="hero-tagline">Proof</p>
       <h1 class="font-display text-4xl text-white sm:text-5xl">Examples + templates you can deploy right away.</h1>
-      <p class="max-w-2xl text-base text-white/70">
-        We focus on operational discipline: consistent promotion, weekly review loops, and platform-specific playbooks. Below is
-        a snapshot of the materials we send inside the concierge workflow.
+      <p class="max-w-3xl text-sm text-white/75">
+        This page shows what our promo conversion support looks like in practice for live cam creators: example packets, weekly KPI
+        reports, tip menu structures, and mod scripts. Use these templates as a baseline for your own room flow.
       </p>
-    </div>
-
-    <div class="content-card space-y-4">
-      <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">What you receive weekly</h2>
-      <ul class="grid gap-3 text-sm text-white/70 md:grid-cols-2">
-        <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Weekly performance recap + next actions</li>
-        <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Promo cadence prompts and captions</li>
-        <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Content calendar adjustments</li>
-        <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Goal ladder scripts for high-intent sessions</li>
-      </ul>
-    </div>
-
-    <div class="content-card space-y-4">
-      <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">Anonymized earnings trend</h2>
-      <p class="text-sm text-white/70">
-        Sample baseline from recent onboarding cohorts. Figures are anonymized snapshots, not guarantees.
-      </p>
-      <div class="space-y-3">
-        {anonymizedEarnings.map((point) => (
-          <div class="space-y-1">
-            <div class="flex items-center justify-between text-xs text-white/65">
-              <span>{point.week}</span>
-              <span>${point.usd}</span>
-            </div>
-            <div class="h-2 rounded-full bg-white/10">
-              <div class="h-full rounded-full bg-rose-gold" style={`width:${Math.max(14, Math.round((point.usd / maxEarnings) * 100))}%`}></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <div class="content-card space-y-4">
-      <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">Success stories</h2>
-      <div class="grid gap-4 md:grid-cols-3">
-        {successStories.map((story) => (
-          <article class="rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p class="text-xs uppercase tracking-[0.25em] text-rose-petal/70">{story.alias}</p>
-            <p class="mt-2 text-sm text-white/75">{story.summary}</p>
-            <p class="mt-3 text-xs uppercase tracking-[0.25em] text-white/65">{story.result}</p>
-          </article>
-        ))}
-      </div>
     </div>
 
     <div class="grid gap-6 lg:grid-cols-2">
       <article class="content-card space-y-4">
-        <div>
-          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Sample weekly report</p>
-          <h2 class="font-display text-2xl text-white">Weekly ops review excerpt</h2>
+        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">A) Sample Promo Packet</h2>
+        <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75 space-y-4">
+          <div>
+            <p class="font-semibold text-white">Caption examples (X)</p>
+            <ul class="mt-1 list-disc space-y-1 pl-5">
+              <li>"Live in 15 — tonight is all about fast goals + surprise unlocks."</li>
+              <li>"Late-night room opens at 11:30. Tip menu refreshed. See you there."</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-white">Reddit title examples</p>
+            <ul class="mt-1 list-disc space-y-1 pl-5">
+              <li>"Going live now — new goal ladder + cozy vibe tonight"</li>
+              <li>"First stream of the week: token milestones + requests open"</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-white">Posting schedule example</p>
+            <ul class="mt-1 list-disc space-y-1 pl-5">
+              <li>Mon/Wed/Fri: pre-live post at T-45 and T-10</li>
+              <li>Tue/Thu: 1 retention post + poll</li>
+              <li>Sun: weekly recap + next week teaser</li>
+            </ul>
+          </div>
         </div>
-        <div class="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/70">
-          <p class="font-semibold text-white">Highlights</p>
-          <ul class="mt-2 space-y-1">
-            <li>Cadence hit target sessions for the week</li>
-            <li>Peak traffic window identified and reinforced</li>
-            <li>Next-week focus: new opening scripts + retention prompts</li>
-          </ul>
-        </div>
-        <a class="text-sm uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={weeklyReportHref}>
-          Download sample report
-        </a>
       </article>
 
       <article class="content-card space-y-4">
-        <div>
-          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Caption pack examples</p>
-          <h2 class="font-display text-2xl text-white">Promo-ready captions</h2>
-        </div>
-        <div class="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/70">
-          <p class="font-semibold text-white">Example lines</p>
-          <ul class="mt-2 space-y-1">
-            <li>“Live in 10 — warm lighting, chill energy, and a new tip menu.”</li>
-            <li>“Tonight: goal ladder + surprise unlocks.”</li>
-            <li>“Short session, high energy — see you in 5.”</li>
+        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">B) Sample Weekly Report</h2>
+        <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75 space-y-3">
+          <p class="font-semibold text-white">Weekly KPI snapshot (layout example)</p>
+          <ul class="list-disc space-y-1 pl-5">
+            <li>Link clicks: 1,284 (+18% vs prior week)</li>
+            <li>Follower delta: +92 net</li>
+            <li>Best hooks: "live in 10" + "goal ladder unlocked"</li>
+            <li>Next actions: tighten T-10 reminder, test shorter Reddit titles, repeat top opener twice this week</li>
           </ul>
         </div>
-        <a class="text-sm uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={captionPackHref}>
-          Download caption pack
-        </a>
       </article>
 
       <article class="content-card space-y-4">
-        <div>
-          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Content calendar example</p>
-          <h2 class="font-display text-2xl text-white">Weekly cadence outline</h2>
-        </div>
-        <div class="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/70">
-          <p class="font-semibold text-white">Week flow</p>
-          <ul class="mt-2 space-y-1">
-            <li>Mon: Launch post + teaser clip</li>
-            <li>Thu: Retention-focused stream night</li>
-            <li>Sun: Schedule update + next-week goals</li>
+        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">C) Sample Tip Menu + Goal Ladder</h2>
+        <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75 space-y-3">
+          <p class="font-semibold text-white">Tip menu examples (tokens)</p>
+          <ul class="list-disc space-y-1 pl-5">
+            <li>25 tokens: song request</li>
+            <li>75 tokens: spin wheel + reaction</li>
+            <li>150 tokens: outfit switch vote</li>
+          </ul>
+          <p class="font-semibold text-white">Goal ladder examples</p>
+          <ul class="list-disc space-y-1 pl-5">
+            <li>500 tokens: first room goal unlock</li>
+            <li>1,200 tokens: fan-voted mini show</li>
+            <li>2,000 tokens: VIP teaser sequence</li>
           </ul>
         </div>
-        <a class="text-sm uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={calendarHref}>
-          Download calendar
-        </a>
       </article>
 
       <article class="content-card space-y-4">
-        <div>
-          <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Room goal ladder scripts</p>
-          <h2 class="font-display text-2xl text-white">Structured session goals</h2>
+        <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">D) Sample Mod/Knight Script Snippet</h2>
+        <div class="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/75 space-y-2">
+          <p class="font-semibold text-white">Whale handling lines</p>
+          <p>"Big love to our top supporter — goal just moved fast, let's lock the next milestone together."</p>
+          <p class="font-semibold text-white">Room energy lines</p>
+          <p>"Chat is hot right now. Keep the momentum — every tip pushes the timer and keeps requests open."</p>
         </div>
-        <div class="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/70">
-          <p class="font-semibold text-white">Goal ladder sample</p>
-          <ul class="mt-2 space-y-1">
-            <li>Warm-up → outfit switch → VIP tease</li>
-            <li>Timed unlocks every 20 minutes</li>
-            <li>Fan-requested mini-show</li>
-          </ul>
-        </div>
-        <a class="text-sm uppercase tracking-[0.3em] text-rose-gold transition hover:text-white" href={ladderHref}>
-          Download goal ladder
-        </a>
       </article>
     </div>
 
+    <div class="content-card space-y-4">
+      <h2 class="text-base uppercase tracking-[0.3em] text-rose-petal/70">Trust posture + non-negotiables</h2>
+      <ul class="grid gap-3 text-sm text-white/75 md:grid-cols-2">
+        <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">No passwords/logins required</li>
+        <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">No exclusivity requirements</li>
+        <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">Model owns accounts and content</li>
+        <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">No spam DM automation</li>
+        <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">Cancel anytime</li>
+        <li class="rounded-xl border border-white/10 bg-white/5 px-4 py-3">No earnings guarantees</li>
+      </ul>
+      <p class="text-xs text-white/60">
+        Results vary by niche, consistency, and platform conditions. Examples above are templates and education only, not a promise
+        of earnings outcomes.
+      </p>
+    </div>
+
     <div class="content-card flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <div>
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Ready for the full kit?</p>
-        <p class="text-sm text-white/70">Apply to unlock concierge guidance and personalized workflows.</p>
-      </div>
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          href={withBase('/promotion/')}
-        >
-          Start promotion intake
-        </a>
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
-          href={withBase('/recruiting/')}
-        >
-          Open platform signup help
-        </a>
-      </div>
+      <p class="text-sm text-white/75">Want this implemented as a weekly system? Start the promo intake and we will map your first plan.</p>
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
+        href={withBase('/promotion/')}
+      >
+        Start promotion intake
+      </a>
     </div>
   </section>
 </MainLayout>
