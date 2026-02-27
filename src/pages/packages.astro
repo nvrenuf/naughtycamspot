@@ -3,6 +3,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import { withBase } from '../utils/links';
 import { getRequestLang, t } from '../i18n/core';
+import { promoOffer } from '../data/promoOffer';
 
 const canonicalPath = '/packages';
 const lang = getRequestLang(Astro.url);
@@ -77,7 +78,13 @@ const faqItems = [
       <p class="max-w-3xl text-base text-white/75">
         Each package is phone-first: clear tasks, clear handoff, clear trust rules.
       </p>
-      <p class="text-sm text-white/70">Trust policy: no passwords, no exclusivity, you own accounts and content, cancel anytime.</p>
+      <p class="text-sm text-white/70">Trust policy: {promoOffer.nonNegotiables}</p>
+    </div>
+
+    <div class="content-card space-y-3">
+      <h2 class="font-display text-2xl text-white">Supported promo platforms</h2>
+      <p class="text-sm text-white/75">Live now: {promoOffer.supportedPlatforms.live.join(', ')}</p>
+      <p class="text-sm text-white/60">Coming soon: {promoOffer.supportedPlatforms.comingSoon.join(', ')}</p>
     </div>
 
     <div class="grid gap-5">
