@@ -41,6 +41,11 @@ $errors = [];
 $uploadMeta = null;
 
 $leadValues = [
+    'age_confirm' => false,
+    'country' => '',
+    'language' => '',
+    'goal' => '',
+    'contact_value' => '',
     'telegram' => '',
     'email' => '',
     'whatsapp' => '',
@@ -86,6 +91,11 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
     }
 
     $kitUnlock = request_string('kit_unlock') === '1';
+    $leadValues['age_confirm'] = isset($_POST['age_confirm']) && $_POST['age_confirm'] !== '';
+    $leadValues['country'] = sanitize_text($_POST['country'] ?? '', 80);
+    $leadValues['language'] = sanitize_text($_POST['language'] ?? '', 24);
+    $leadValues['goal'] = sanitize_allowed_value($_POST['goal'] ?? '', allowed_goal_values());
+    $leadValues['contact_value'] = sanitize_text($_POST['contact_value'] ?? '', 200);
     $leadValues['telegram'] = sanitize_text($_POST['telegram'] ?? '', 120);
     $leadValues['email'] = sanitize_text($_POST['email'] ?? '', 200);
     $leadValues['whatsapp'] = sanitize_text($_POST['whatsapp'] ?? '', 120);
@@ -102,6 +112,15 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
     $leadValues['notes'] = sanitize_multiline($_POST['notes'] ?? '', 2000);
     $leadValues['asset_link'] = sanitize_text($_POST['asset_link'] ?? '', 200);
     $leadValues['preferred_contact'] = sanitize_allowed_value($_POST['preferred_contact'] ?? '', allowed_contact_values());
+    if ($leadValues['contact_value'] !== '') {
+        if ($leadValues['preferred_contact'] === 'email' && $leadValues['email'] === '') {
+            $leadValues['email'] = $leadValues['contact_value'];
+        } elseif ($leadValues['preferred_contact'] === 'whatsapp' && $leadValues['whatsapp'] === '') {
+            $leadValues['whatsapp'] = $leadValues['contact_value'];
+        } elseif ($leadValues['preferred_contact'] === 'telegram' && $leadValues['telegram'] === '') {
+            $leadValues['telegram'] = $leadValues['contact_value'];
+        }
+    }
     $leadValues['consent'] = isset($_POST['consent']) && $_POST['consent'] !== '';
     $leadValues['click_id'] = sanitize_text($_POST['click_id'] ?? '', 80);
     $leadValues['platform'] = sanitize_tracking($_POST['platform'] ?? '');
@@ -113,7 +132,20 @@ if (request_method_is('POST') && request_string('lead_form') === '1') {
     $leadValues['camp'] = sanitize_tracking($_POST['camp'] ?? $leadValues['camp']);
     $leadValues['date'] = sanitize_tracking($_POST['date'] ?? $leadValues['date']);
 
-    $requiresConsent = in_array($leadValues['source'], ['apply_promo', 'apply_signup'], true);
+    $requiresConsent = in_array($leadValues['source'], ['apply_promo', 'apply_signup', 'apply_unified'], true);
+    $requiresAgeConfirm = $leadValues['source'] === 'apply_unified';
+    if ($requiresAgeConfirm && !$leadValues['age_confirm']) {
+        $fallbackTarget = '/apply/?error=age';
+        $referer = trim((string) ($_SERVER['HTTP_REFERER'] ?? ''));
+        if ($referer !== '') {
+            $separator = str_contains($referer, '?') ? '&' : '?';
+            $fallbackTarget = $referer . $separator . 'error=age';
+        }
+
+        header('Location: ' . $fallbackTarget, true, 303);
+        exit;
+    }
+
     if ($requiresConsent && !$leadValues['consent']) {
         $fallbackTarget = '/apply/?error=consent';
         $referer = trim((string) ($_SERVER['HTTP_REFERER'] ?? ''));
@@ -457,6 +489,11 @@ function allowed_contact_values(): array
     return ['telegram', 'email', 'whatsapp'];
 }
 
+function allowed_goal_values(): array
+{
+    return ['fast', 'long', 'both'];
+}
+
 function sanitize_allowed_value(mixed $value, array $allowed): string
 {
     if (!is_scalar($value)) {
@@ -517,6 +554,11 @@ function build_lead_log_entry(DateTimeImmutable $timestamp, array $values): stri
 
     $log = [
         'timestamp' => $timestamp->format(DateTimeInterface::ATOM),
+        'age_confirm' => (bool) ($values['age_confirm'] ?? false),
+        'country' => normalize_log_value($values['country'] ?? ''),
+        'language' => normalize_log_value($values['language'] ?? ''),
+        'goal' => normalize_log_value($values['goal'] ?? ''),
+        'contact_value' => normalize_log_value($values['contact_value'] ?? ''),
         'telegram' => normalize_log_value($values['telegram'] ?? ''),
         'email' => normalize_log_value($values['email'] ?? ''),
         'whatsapp' => normalize_log_value($values['whatsapp'] ?? ''),

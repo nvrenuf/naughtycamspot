@@ -24,5 +24,5 @@ test('Packages page keeps trust policy and apply CTAs explicit', async () => {
   assert.ok(source.includes('no passwords'), 'Packages page should state no passwords');
   assert.ok(source.includes('no exclusivity'), 'Packages page should state no exclusivity');
   assert.ok(source.includes('you own accounts and content'), 'Packages page should state ownership policy');
-  assert.ok(source.includes('/apply/promo'), 'Packages page should include promo apply links');
+  assert.ok(source.includes('/apply'), 'Packages page should include unified apply links');
 });

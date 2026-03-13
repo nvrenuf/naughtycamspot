@@ -9,12 +9,11 @@ const resolveFixturePath = (relativePath) =>
 
 const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relativePath), 'utf8');
 
-test('Apply promo platform checkboxes render from promoOffer and keep coming soon disabled', async () => {
-  const source = await readSource('src/pages/apply/promo.astro');
-  assert.ok(source.includes('promoOffer.platformScope.platforms'), 'Apply promo page should use promoOffer canonical platform scope');
-  assert.ok(source.includes('name="platform_interest[]"'), 'Apply promo page should keep platform_interest[] fields');
-  assert.ok(source.includes('disabled={platform.status !== \'live\'}'), 'Only live promo platforms should be selectable');
-  assert.ok(source.includes("(coming soon)"), 'Coming soon promo platform should be visibly labeled');
+test('Unified apply form keeps existing platform capture simple', async () => {
+  const source = await readSource('src/pages/apply.astro');
+  assert.ok(source.includes('name="platforms_active[]"'), 'Apply form should capture existing platforms');
+  assert.ok(source.includes('Stripchat'), 'Apply form should include common platform options');
+  assert.ok(source.includes('OnlyFans'), 'Apply form should include off-cam platform options');
 });
 
 test('Platforms page renders promo scope from promoOffer with coming soon routing to promo apply', async () => {

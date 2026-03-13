@@ -9,7 +9,7 @@ const canonicalPath = '/packages';
 const lang = getRequestLang(Astro.url);
 const buildApplyHref = (pkg: string) => {
   const params = new URLSearchParams({ package: pkg });
-  return `${withBase('/apply/promo')}?${params.toString()}`;
+  return `${withBase('/apply')}?${params.toString()}`;
 };
 
 const faqItems = [
