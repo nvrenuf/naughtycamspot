@@ -1,44 +1,54 @@
 # Issue Implementation Order
 
-This file is the prioritized execution queue for the **Promo-ready launch plan**.
+This file is the prioritized execution queue for the **signup-first, low-friction funnel**.
 
-## Promo-ready launch sequence
-1. **#119 Promo offering single source of truth (promoOffer)**  
-   Canonical promo data for sprint offers, monthly tiers, add-ons, non-negotiables, and platform scope (Chaturbate/CamSoda/Bonga live; Stripchat coming soon).
-2. **#120 Rebuild `/packages` for live-cam promo ladder (Sprint + Monthly + Add-ons)**  
-   Render offers from promoOffer; CTAs route to `/apply/promo` with package preselected.
-3. **#121 Split apply flow: `/apply` chooser + `/apply/promo` + `/apply/signup`**  
-   Separate promo intake from signup help; POST to `public/claim/index.php`; require consent; log source/package/platform.
-4. **#122 Homepage CTA + nav tighten for promo launch**  
-   Make promo primary path; keep signup help secondary; ensure nav points to Packages/Apply/Proof.
-5. **#123 Build `/proof` page for promo conversion (templates/examples)**  
-   Add scannable placeholders (promo packet/report/tip menu/mod script) + no-guarantee language.
-6. **#124 Platform alignment for promo scope (CB/CamSoda/Bonga; Stripchat coming soon)**  
-   Single source of truth for promo platform scope; Stripchat "coming soon" with CTA to `/apply/promo`.
+## Strategic objective
+Build a simpler funnel for stressed, mobile-first, low-patience 18+ creators:
+- one clear homepage promise
+- one primary CTA
+- one guided apply flow
+- strong trust/rules
+- minimal top navigation
+- deep promo/resources content kept secondary
 
-## Phase 2 (positioning / pricing)
-7. **#138 AI-Fulfilled Model Growth Ops positioning pass (copy-only)**  
-   Copy/layout-only pass on index/packages/proof to justify higher pricing; no routing or data model changes.
+## Current queue status (refresh)
+- Legacy promo-first queue **#119–#124 is treated as completed history** and not part of active priority.
+- Active focus should move to open issues **#142 and #144–#150**, with consolidation where needed.
 
-## Model Signup Help (Free) sequence
-1. **#144 Signup: Create canonical "Signup Help (Free)" landing page**  
-   Create one canonical funnel entry point with clear step-by-step signup flow and proof guidance. Reuse canonical platform data and keep contacts limited to Telegram + Email.
-2. **#145 Signup: Proof submission instructions (make "send proof" unambiguous)**  
-   Standardize a single reusable proof-copy block and apply it consistently on signup pages.
-3. **#146 Signup: Platforms page becomes signup-first and consistent**  
-   Align `/platforms` CTAs and status messaging with signup-first flow and canonical platform metadata.
-4. **#147 Signup: StartRight page restructure for signup conversion**  
-   Reframe `/startright` around post-proof value, checklist, and strong signup funnel CTAs.
-5. **#148 Signup: Earnings page supports signup decision (not a dead end)**  
-   Add clear top/bottom signup CTAs while preserving no-guarantee posture.
-6. **#149 Signup: Audit and align /go endpoints for signup flow**  
-   Ensure live platform IDs and `/go/<id>` redirects are aligned and used as the only outbound path.
+## New execution sequence (signup-first)
+1. **NEW-1: Homepage simplification (one promise + one CTA)**
+   - Rewrite hero around “get set up and start earning”.
+   - Reduce competing homepage paths and demote package/promo complexity.
+   - Keep “How it works” and “Resources” available but secondary.
+   - Place trust signals near the primary CTA.
 
-## Backlog
-- **#150 Backlog: Signup+Promo: Add more contact options beyond Telegram + Email**  
-  Add WhatsApp and at least one additional contact channel to promo and signup intake (separate from this execution queue).
+2. **NEW-2: Unified guided apply flow (mobile-first, <10 fields)**
+   - Replace split promo-vs-signup decision with one guided intake.
+   - Steps: (1) age/country/language, (2) goal, (3) existing platforms, (4) best contact method, (5) consent.
+   - Keep flow fast, scannable, and easy to complete on mobile.
 
-## Notes
-- One issue per PR. Run `npm test` and `npm run build` and fix failures before moving to the next issue.
-- No refactors outside issue scope (no type renames across the repo, no "cleanup").
-- Promo trust posture everywhere: no passwords/logins, no exclusivity, model owns accounts/content, no spam DM automation, cancel anytime, no earnings guarantees.
+3. **NEW-3: Hard trust/rules block (non-negotiables)**
+   - No passwords ever.
+   - No fake ID, no underage, no exceptions.
+   - Only legitimate setup and promotion help.
+   - If a platform bans for fraud, we cannot reverse it.
+   - Keep ownership/privacy language simple and prominent.
+
+4. **NEW-4: Navigation reduction**
+   - Target top nav: **Apply / Models / Resources**.
+   - Move non-core links to footer where possible.
+   - Ensure all core routes reinforce the same single apply funnel.
+
+5. **NEW-5: Secondary-content demotion pass**
+   - Keep packages/proof/platform comparisons/earnings education/explainer content live but non-primary.
+   - Remove these pages as top-funnel decision blockers.
+   - Add clean pathways from secondary pages back to the primary apply CTA.
+
+## Consolidation guidance for current open issues
+- Prefer merging fragmented signup UX/copy issues into fewer implementation issues tied to NEW-1..NEW-5.
+- Keep issue count lean; avoid separate issues for micro-copy unless blocked by ownership/review flow.
+
+## Working rules
+- One issue per PR.
+- Before moving to next issue, run tests/build checks relevant to changed scope.
+- No broad refactors outside active issue scope.
