@@ -13,51 +13,29 @@ Build a simpler funnel for stressed, mobile-first, low-patience 18+ creators:
 
 ## Current queue status (refresh)
 - Legacy promo-first queue **#119–#124 is treated as completed history** and not part of active priority.
-- Active implementation focus is now the signup-first queue **#157–#161**.
-- Consolidation tracking for legacy signup fragmentation lives in **#162**.
-- Legacy issues **#142 and #144–#150** should be handled through the consolidation guidance below, not as the primary execution queue.
+- Core signup-first implementation issues **#157–#161 are complete and closed**.
+- Standalone signup routing cleanup **#149 is complete and closed**.
+- Consolidation tracking for legacy signup fragmentation lives in **#162** and should close once tracker/docs are aligned.
+- Remaining related backlog item: **#150** stays open as a rewrite-later follow-up, not as part of the completed core rollout.
 
-## New execution sequence (signup-first)
-1. **#157: Homepage simplification (one promise + one CTA)**
-   - Rewrite hero around “get set up and start earning”.
-   - Reduce competing homepage paths and demote package/promo complexity.
-   - Keep “How it works” and “Resources” available but secondary.
-   - Place trust signals near the primary CTA.
+## Completed signup-first sequence
+1. **#157: Homepage simplification (one promise + one CTA)** - closed
+2. **#158: Unified guided apply flow (mobile-first, <10 fields)** - closed
+3. **#159: Hard trust/rules block (non-negotiables)** - closed
+4. **#160: Navigation reduction** - closed
+5. **#161: Secondary-content demotion pass** - closed
 
-2. **#158: Unified guided apply flow (mobile-first, <10 fields)**
-   - Replace split promo-vs-signup decision with one guided intake.
-   - Steps: (1) age/country/language, (2) goal, (3) existing platforms, (4) best contact method, (5) consent.
-   - Keep flow fast, scannable, and easy to complete on mobile.
-
-3. **#159: Hard trust/rules block (non-negotiables)**
-   - No passwords ever.
-   - No fake ID, no underage, no exceptions.
-   - Only legitimate setup and promotion help.
-   - If a platform bans for fraud, we cannot reverse it.
-   - Keep ownership/privacy language simple and prominent.
-
-4. **#160: Navigation reduction**
-   - Target top nav: **Apply / Models / Resources**.
-   - Move non-core links to footer where possible.
-   - Ensure all core routes reinforce the same single apply funnel.
-
-5. **#161: Secondary-content demotion pass**
-   - Keep packages/proof/platform comparisons/earnings education/explainer content live but non-primary.
-   - Remove these pages as top-funnel decision blockers.
-   - Add clean pathways from secondary pages back to the primary apply CTA.
-
-## Consolidation guidance for current open issues
-- Use **#162** as the consolidation meta-issue for legacy signup/promo fragmentation.
-- Prefer merging fragmented signup UX/copy issues into fewer implementation issues tied to **#157–#161**.
-- Default legacy mapping:
-  - **#142 -> CLOSE**
-  - **#144 -> MERGE INTO #158**
-  - **#145 -> MERGE INTO #159**
-  - **#146 -> MERGE INTO #161**
-  - **#147 -> MERGE INTO #161**
-  - **#148 -> MERGE INTO #161**
-  - **#149 -> KEEP**
-  - **#150 -> REWRITE LATER**
+## Consolidation guidance status
+- **#162** tracks the consolidation cleanup and should reflect the applied final state.
+- Applied legacy mapping:
+  - **#142 -> CLOSED**
+  - **#144 -> MERGED INTO #158 and CLOSED**
+  - **#145 -> MERGED INTO #159 and CLOSED**
+  - **#146 -> MERGED INTO #161 and CLOSED**
+  - **#147 -> MERGED INTO #161 and CLOSED**
+  - **#148 -> MERGED INTO #161 and CLOSED**
+  - **#149 -> KEPT AS STANDALONE, COMPLETED, AND CLOSED**
+  - **#150 -> OPEN BACKLOG ITEM, REWRITE LATER**
 - Keep issue count lean; avoid separate issues for micro-copy unless blocked by ownership/review flow.
 
 ## Working rules
