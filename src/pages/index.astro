@@ -1,6 +1,7 @@
 ---
 import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
 import HowItWorks from '../partials/home/HowItWorks.astro';
 import FinalCTA from '../partials/home/FinalCTA.astro';
 import { withBase } from '../utils/links';
@@ -61,12 +62,6 @@ const websiteJsonLd = {
               </a>
             </div>
           </div>
-          <div class="grid gap-3 text-sm text-white/70 sm:grid-cols-2">
-            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">No passwords. Ever.</p>
-            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">No fake ID. No underage. No exceptions.</p>
-            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">You keep your accounts, content, and payouts.</p>
-            <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">Only legitimate setup help. No spam or fraud.</p>
-          </div>
           <p class="max-w-xl text-[clamp(0.78rem,1.4vw,0.9rem)] text-white/60">
             Simple help for stressed, mobile-first creators who want to get moving without giving up control.
           </p>
@@ -106,6 +101,8 @@ const websiteJsonLd = {
           <p class="text-sm text-white/75">Move forward with legitimate setup help while keeping account control.</p>
         </article>
       </div>
+
+      <TrustRulesBlock title="Read this before you apply" compact />
 
       <div class="content-card flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div class="space-y-1">

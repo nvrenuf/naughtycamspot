@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
 import { withBase } from '../utils/links';
 
 const canonicalPath = '/how-it-works';
@@ -64,11 +65,6 @@ const canonicalPath = '/how-it-works';
       </article>
     </div>
 
-    <div class="content-card space-y-3">
-      <h2 class="font-display text-2xl text-white">What we never ask for</h2>
-      <p class="text-sm text-white/70">
-        We never ask for account passwords, we do not require exclusivity, and you can cancel anytime.
-      </p>
-    </div>
+    <TrustRulesBlock title="Hard rules before you start" compact />
   </section>
 </MainLayout>

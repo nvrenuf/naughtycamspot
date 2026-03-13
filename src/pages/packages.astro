@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
 import { withBase } from '../utils/links';
 import { getRequestLang, t } from '../i18n/core';
 import { promoOffer } from '../data/promoOffer';
@@ -62,12 +63,7 @@ const faqItems = [
       <p class="text-sm text-white/60">Coming soon: {promoOffer.platformScope.comingSoon.join(', ')}</p>
     </div>
 
-    <div class="content-card space-y-3">
-      <h2 class="font-display text-2xl text-white">What we don't do</h2>
-      <p class="text-sm text-white/75">
-        No passwords/logins. No exclusivity. Model owns accounts/content. No spam DM automation. Cancel anytime. No earnings guarantees.
-      </p>
-    </div>
+    <TrustRulesBlock title="Read the rules before you buy" compact />
 
     <div class="grid gap-5">
       <h2 class="font-display text-2xl text-white">Sprint offers</h2>

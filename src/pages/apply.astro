@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
 import { withBase } from '../utils/links';
 
 const canonicalPath = '/apply';
@@ -63,20 +64,7 @@ const contactOptions = [
       )}
     </div>
 
-    <div class="grid gap-3 sm:grid-cols-3">
-      <div class="rounded-3xl border border-white/10 bg-white/5 px-4 py-4">
-        <p class="text-xs uppercase tracking-[0.28em] text-rose-petal/70">Trust</p>
-        <p class="mt-2 text-sm text-white/75">No passwords or logins. Ever.</p>
-      </div>
-      <div class="rounded-3xl border border-white/10 bg-white/5 px-4 py-4">
-        <p class="text-xs uppercase tracking-[0.28em] text-rose-petal/70">Safety</p>
-        <p class="mt-2 text-sm text-white/75">No underage. No fake ID. No exceptions.</p>
-      </div>
-      <div class="rounded-3xl border border-white/10 bg-white/5 px-4 py-4">
-        <p class="text-xs uppercase tracking-[0.28em] text-rose-petal/70">Ownership</p>
-        <p class="mt-2 text-sm text-white/75">Your accounts, content, and payouts stay yours.</p>
-      </div>
-    </div>
+    <TrustRulesBlock title="Read this before you submit" compact />
 
     <form class="grid gap-4" method="post" action={formAction}>
       <input type="hidden" name="lead_form" value="1" />
@@ -186,9 +174,6 @@ const contactOptions = [
             <input class="mt-1 h-4 w-4 shrink-0 accent-rose-gold" type="checkbox" name="consent" required />
             <span>I agree to get next-step messages from NaughtyCamSpot.</span>
           </label>
-          <p class="text-xs uppercase tracking-[0.22em] text-white/55">
-            We only help with legitimate setup and promotion. If a platform bans for fraud, we cannot reverse it.
-          </p>
         </div>
       </fieldset>
 
