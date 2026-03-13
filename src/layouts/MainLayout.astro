@@ -4,10 +4,9 @@ const {
   description = 'Signup Help (Free) plus Promotion (Paid) services for cam models.',
   showNavigation = true
 } = Astro.props;
-import LinkCTA from '../components/LinkCTA.astro';
 import PreClickCapture from '../components/PreClickCapture.astro';
 import '../styles/tailwind.css';
-import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
+import { DISCLOSURE } from '../data/copy';
 import { NAV_PRIMARY } from '../data/nav';
 import { withBase } from '../utils/links';
 import { getRequestLang, LANGS } from '../i18n/core';
@@ -96,6 +95,11 @@ const resolveNavHref = (link) => {
 };
 
 const footerLinks = [
+  { href: '/apply/', label: 'Apply' },
+  { href: '/models/', label: 'Models' },
+  { href: '/packages/', label: 'Packages' },
+  { href: '/platforms/', label: 'Platforms' },
+  { href: '/proof/', label: 'Proof' },
   { href: '/how-it-works/', label: 'How It Works' },
   { href: '/startright/', label: 'StartRight' },
   { href: '/recruiting/', label: 'Signup Help (Free)' },
@@ -185,12 +189,6 @@ gtag('config', '${gaMeasurementId}');`}
               >
                 Menu
               </button>
-              <LinkCTA
-                class="border border-rose-gold/40 bg-rose-gold/20 px-5 py-2 text-rose-petal shadow-glow backdrop-blur-xl hover:border-rose-gold/60 hover:bg-rose-gold/30"
-                pagesHref={PRIMARY_CTA.pagesHref}
-                prodHref={PRIMARY_CTA.prodHref}
-                label={PRIMARY_CTA.label}
-              />
             </div>
           </div>
           <nav class="hidden w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 text-sm tracking-[0.06em] text-white/80 backdrop-blur-2xl sm:gap-4 lg:flex lg:flex-nowrap" aria-label="Primary Navigation">

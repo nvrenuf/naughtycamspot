@@ -7,12 +7,9 @@ export type NavLink = {
 };
 
 export const NAV_PRIMARY: NavLink[] = [
-  { href: '/', label: 'Home' },
-  { href: '/packages/', label: 'Packages' },
   { href: '/apply/', label: 'Apply' },
-  { href: '/platforms/', label: 'Platforms' },
+  { href: '/models/', label: 'Models' },
   { href: '/resources/', label: 'Resources' },
-  { href: '/proof/', label: 'Proof' }
 ];
 
 // Secondary links are intentionally footer-only (mobile-first navigation).
