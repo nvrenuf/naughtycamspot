@@ -36,7 +36,7 @@ const nameCheckPath = '/startright/name-check';
 const dateStamp = formatDateStamp();
 const skipHrefPages = `${STARTRIGHT_SKIP.pagesHrefBase}${qs}`;
 const skipHrefProd = skipHrefPages;
-const preclickGoLinks = ['/go/bonga', '/go/camsoda', '/go/chaturbate'];
+const preclickGoLinks = ['/go/bongacams', '/go/camsoda', '/go/chaturbate'];
 
 const resolveHostname = (value: string | undefined) => {
   if (!value) {
@@ -84,7 +84,7 @@ const basePrograms = enrichedPrograms
       camp: 'startright',
       date: dateStamp
     });
-    const joinHrefProd = `/go/${program.key}`;
+    const joinHrefProd = program.key === 'bonga' ? '/go/bongacams' : `/go/${program.key}`;
     const statusMeta = resolveProgramStatusMeta(program.status);
     const joinDisabled =
       !statusMeta.allowsJoin || !allowsPagesJoin(program) || !/^https?:\/\//i.test(joinHrefPages ?? '');

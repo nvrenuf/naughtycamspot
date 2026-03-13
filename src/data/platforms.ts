@@ -35,12 +35,11 @@ export const PLATFORMS: PlatformEntry[] = [
     note: 'Quality-focused traffic with strong contests and promo placements.'
   },
   {
-    slug: 'bonga',
-    name: 'Bonga',
+    slug: 'bongacams',
+    name: 'BongaCams',
     status: 'waitlist',
     statusLabel: 'Waitlist',
-    goPath: '/go/bonga',
+    goPath: '/go/bongacams',
     note: 'Great geo diversification; we add new slots weekly.'
   }
 ];
-

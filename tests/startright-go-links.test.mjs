@@ -11,7 +11,7 @@ const readSource = async (relativePath) => fs.readFile(resolveFixturePath(relati
 
 test('StartRight and earnings retain /go/ routes for production joins', async () => {
   const startrightSource = await readSource('src/pages/startright.astro');
-  ['/go/bonga', '/go/camsoda', '/go/chaturbate'].forEach((href) => {
+  ['/go/bongacams', '/go/camsoda', '/go/chaturbate'].forEach((href) => {
     assert.ok(startrightSource.includes(href), `Expected StartRight to include ${href}`);
   });
 
@@ -21,7 +21,7 @@ test('StartRight and earnings retain /go/ routes for production joins', async ()
 
 test('Platforms data retains /go/ paths for production', async () => {
   const platformsSource = await readSource('src/data/platforms.ts');
-  ['/go/stripchat', '/go/chaturbate', '/go/camsoda', '/go/bonga'].forEach((href) => {
+  ['/go/stripchat', '/go/chaturbate', '/go/camsoda', '/go/bongacams'].forEach((href) => {
     assert.ok(platformsSource.includes(href), `Expected platforms data to include ${href}`);
   });
 });
