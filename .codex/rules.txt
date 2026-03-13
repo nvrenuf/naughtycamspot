@@ -1,6 +1,72 @@
-- Work on branch: main
-- No PRs
-- npm ci && npm run build must pass
-- Commit must include Closes #<issue-number>
-- Pages must never emit /go/*
-- Preserve src,camp,date
+NaughtyCamSpot Codex Rules
+
+General working rules
+1. Read the GitHub issue and ISSUES_ORDER.md before making changes.
+2. Stay inside the scope of the current issue. Do not mix unrelated cleanup into the same task.
+3. Prefer small, targeted edits over broad refactors.
+4. Preserve the site’s trust posture:
+   - no passwords
+   - no fake ID / no underage / no exceptions
+   - model owns accounts/content
+   - no misleading claims
+   - no spam or mass unsolicited DM claims
+5. Optimize for a stressed, mobile-first, low-patience 18+ creator audience.
+6. Use short, concrete copy. Avoid jargon like funnel, monetization, growth ops, ecosystem.
+
+Issue completion and closure policy
+7. Never close a GitHub issue unless all required checks for that issue pass.
+8. Do not stop at “implementation complete” if verification is still failing.
+9. If a required check fails, keep working until it passes.
+10. Only close the issue after:
+    - code changes are complete
+    - required checks pass
+    - results are reported clearly
+
+Required reporting for every issue
+11. At the end of each issue, report:
+    - files changed
+    - what changed
+    - commands run
+    - pass/fail result for each command
+    - issue status: OPEN or CLOSED
+    - commit hash
+
+Blocked-work policy
+12. If blocked by a real external dependency or a pre-existing unrelated failure:
+    - do not close the issue
+    - explain the blocker clearly
+    - state whether it is newly introduced or pre-existing
+    - keep the issue open
+    - only create or reference a blocking issue if necessary
+
+Verification rules
+13. For site/frontend/content issues, run the relevant checks for the changed scope.
+14. Unless the issue explicitly says otherwise, use this default verification set for site changes:
+    - ./node_modules/.bin/astro build
+    - ./node_modules/.bin/astro build --config astro.config.pages.mjs
+    - npm run build:pages
+    - npm run test:snapshot
+15. If a command is not relevant to the scope, state why it was skipped.
+16. If a command fails, include the failure in the final report and keep working unless blocked.
+
+Git and PR rules
+17. One issue per branch/PR.
+18. Reference the issue number in the commit message.
+19. Do not create a PR until the issue scope is complete and required checks pass, unless the user explicitly asks for a draft PR.
+20. Do not close legacy or related issues unless the user explicitly asked for issue cleanup or the issue mapping is already approved.
+
+Implementation rules
+21. Make the minimum change needed to satisfy acceptance criteria.
+22. Reuse existing components/data patterns when practical.
+23. Do not change unrelated pages just because they could be improved.
+24. Keep top-funnel UX simple:
+    - one clear promise
+    - one primary CTA
+    - strong trust signals
+    - secondary content should not compete with conversion
+
+Safety and honesty rules
+25. Do not claim tests passed if they did not pass.
+26. Do not claim an issue is done if required checks are failing.
+27. If something is uncertain, say so clearly.
+28. If GitHub/network/tooling access fails, report the failure plainly instead of pretending the action succeeded.
