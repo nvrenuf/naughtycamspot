@@ -18,6 +18,7 @@ test('/apply renders one unified guided form', async () => {
   assert.ok(source.includes('4. Best contact'), 'Apply form should show guided step four');
   assert.ok(source.includes('5. Consent'), 'Apply form should show guided step five');
   assert.ok(source.includes('name="contact_value"'), 'Apply form should use one contact detail field');
+  assert.ok(source.includes("value: 'bongacams'"), 'Apply form should use canonical bongacams platform ID');
 });
 
 test('/apply contains form posting to claim endpoint', async () => {
@@ -25,6 +26,8 @@ test('/apply contains form posting to claim endpoint', async () => {
   assert.ok(source.includes('method="post"'), 'Apply page should include a POST form');
   assert.ok(source.includes("action={formAction}"), 'Apply form should post to /claim/index.php via formAction');
   assert.ok(source.includes('name="csrf_token"'), 'Apply form should include a CSRF token field');
+  assert.ok(source.includes('Application received. Next: open a live signup link on'), 'Apply page should support success-state guidance');
+  assert.ok(source.includes('You must confirm you are 18 or older before you submit.'), 'Apply page should support error-state guidance');
 });
 
 test('legacy apply routes redirect to the unified form', async () => {

@@ -19,10 +19,10 @@ test('Homepage lead magnet includes an opt-in lead capture form', async () => {
 test('Claim success page guides next action and avoids dead links', async () => {
   const source = await readSource('public/claim/success.html');
   assert.ok(source.includes('noindex,nofollow'), 'Success page should be noindex');
-  assert.ok(source.includes('/apply/?success=1'), 'Success page should link back to Apply');
-  assert.ok(source.includes('/packages/'), 'Success page should link to Packages');
+  assert.ok(source.includes('Application received'), 'Success page should confirm the application');
   assert.ok(source.includes('/platforms/'), 'Success page should link to Platforms');
+  assert.ok(source.includes('/resources/'), 'Success page should link to Resources');
   assert.ok(source.includes('/startright/'), 'Success page should link to StartRight');
+  assert.ok(source.includes('No fake ID. No underage. No exceptions.'), 'Success page should keep trust rules visible');
   assert.ok(!source.includes('/starter-kit'), 'Success page should not reference missing /starter-kit path');
 });
-

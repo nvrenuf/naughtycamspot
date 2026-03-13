@@ -13,10 +13,10 @@ export const PLATFORMS: PlatformEntry[] = [
   {
     slug: 'stripchat',
     name: 'Stripchat',
-    status: 'open',
-    statusLabel: 'Open',
+    status: 'waitlist',
+    statusLabel: 'Waitlist',
     goPath: '/go/stripchat',
-    note: 'Fast approvals, strong discovery tools, and easy schedule control.'
+    note: 'Launch prep is still underway. Apply once and we will notify you when live signup opens.'
   },
   {
     slug: 'chaturbate',
@@ -37,9 +37,9 @@ export const PLATFORMS: PlatformEntry[] = [
   {
     slug: 'bongacams',
     name: 'BongaCams',
-    status: 'waitlist',
-    statusLabel: 'Waitlist',
+    status: 'open',
+    statusLabel: 'Open',
     goPath: '/go/bongacams',
-    note: 'Great geo diversification; we add new slots weekly.'
+    note: 'Great geo diversification with steady discovery opportunities.'
   }
 ];

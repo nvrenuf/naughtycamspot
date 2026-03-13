@@ -33,3 +33,10 @@ test('Signup /go endpoint files use affiliate redirect helpers instead of placeh
     assert.ok(!source.includes('https://example.com/'), `${file} should not use placeholder destinations`);
   }
 });
+
+test('Stripchat /go endpoint falls back safely instead of using a placeholder destination', async () => {
+  const source = await readSource('public/go/stripchat.php');
+  assert.ok(source.includes("require_once __DIR__ . '/affiliates.php';"), 'Stripchat endpoint should load affiliate helpers');
+  assert.ok(source.includes('go_model_fallback_url'), 'Stripchat endpoint should use the safe model fallback');
+  assert.ok(!source.includes('https://example.com/'), 'Stripchat endpoint should not use a placeholder destination');
+});

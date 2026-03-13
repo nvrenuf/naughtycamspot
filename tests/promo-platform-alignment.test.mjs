@@ -16,8 +16,9 @@ test('Unified apply form keeps existing platform capture simple', async () => {
   assert.ok(source.includes('OnlyFans'), 'Apply form should include off-cam platform options');
 });
 
-test('Platforms page renders promo scope from promoOffer with coming soon routing to promo apply', async () => {
+test('Platforms page uses canonical platform data and sends waitlist platforms back to apply', async () => {
   const source = await readSource('src/pages/platforms.astro');
-  assert.ok(source.includes('promoOffer.platformScope.platforms'), 'Platforms page should use promoOffer canonical platform scope');
-  assert.ok(source.includes("platform.status === 'coming-soon' ? withBase('/apply/promo')"), 'Coming soon platforms should route to promo apply CTA');
+  assert.ok(source.includes("import { PLATFORMS } from '../data/platforms';"), 'Platforms page should use canonical platform data');
+  assert.ok(source.includes("const isLiveSignup = platform.status !== 'waitlist';"), 'Platforms page should gate live signup links on canonical status');
+  assert.ok(source.includes("withBase('/apply')"), 'Waitlist platforms should route back to apply');
 });

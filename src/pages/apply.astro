@@ -8,6 +8,8 @@ const canonicalPath = '/apply';
 const formAction = withBase('/claim/index.php');
 const csrfEndpoint = withBase('/claim/token.php');
 const packageSelected = Astro.url.searchParams.get('package') ?? '';
+const successState = Astro.url.searchParams.get('success') === '1';
+const errorState = Astro.url.searchParams.get('error') ?? Astro.url.searchParams.get('err') ?? '';
 
 const languageOptions = [
   { value: 'en', label: 'English' },
@@ -27,7 +29,7 @@ const platformOptions = [
   { value: 'chaturbate', label: 'Chaturbate' },
   { value: 'camsoda', label: 'CamSoda' },
   { value: 'stripchat', label: 'Stripchat' },
-  { value: 'bonga', label: 'Bonga' },
+  { value: 'bongacams', label: 'BongaCams' },
   { value: 'onlyfans', label: 'OnlyFans' },
   { value: 'other', label: 'Other' }
 ] as const;
@@ -37,6 +39,12 @@ const contactOptions = [
   { value: 'whatsapp', label: 'WhatsApp', placeholder: '+1 555 555 5555' },
   { value: 'email', label: 'Email', placeholder: 'you@example.com' }
 ] as const;
+
+const errorCopy: Record<string, string> = {
+  age: 'You must confirm you are 18 or older before you submit.',
+  consent: 'You must agree to next-step messages before you submit.',
+  token: 'Security check failed. Refresh and try again.'
+};
 ---
 
 <MainLayout
@@ -57,6 +65,16 @@ const contactOptions = [
       <p class="max-w-2xl text-base text-white/75">
         5 short steps. 18+ only. No passwords. No fake ID. You keep your accounts and content.
       </p>
+      {successState && (
+        <p class="rounded-2xl border border-emerald-300/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-100">
+          Application received. Next: open a live signup link on <a class="underline" href={withBase('/platforms')}>Platforms</a>.
+        </p>
+      )}
+      {errorState && errorCopy[errorState] && (
+        <p class="rounded-2xl border border-amber-300/30 bg-amber-400/10 px-4 py-3 text-sm text-amber-100">
+          {errorCopy[errorState]}
+        </p>
+      )}
       {packageSelected && (
         <p class="inline-flex w-fit rounded-full border border-rose-gold/40 bg-rose-gold/10 px-4 py-2 text-xs uppercase tracking-[0.24em] text-rose-petal/80">
           Package selected: {packageSelected}

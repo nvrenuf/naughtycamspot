@@ -14,6 +14,8 @@ test('Recruiting page includes tracked affiliate link builder and cross-link to 
   assert.ok(recruitingSource.includes('buildTrackedLink'), 'Recruiting page should use buildTrackedLink');
   assert.ok(recruitingSource.includes("camp: 'recruiting'"), 'Recruiting links should include recruiting campaign');
   assert.ok(recruitingSource.includes("slot: `recruiting_${platform.slug}`"), 'Recruiting links should include slot tracking');
+  assert.ok(recruitingSource.includes("const isLiveSignup = platform.status !== 'waitlist';"), 'Recruiting page should gate waitlist platforms');
+  assert.ok(recruitingSource.includes("withBase('/apply/')"), 'Recruiting waitlist routes should send users to apply');
   assert.ok(recruitingSource.includes("/promotion/"), 'Recruiting page should cross-link to promotion');
 });
 

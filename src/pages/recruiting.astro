@@ -25,12 +25,12 @@ const withTracking = (path: string) => {
 
 <MainLayout
   title="Signup Help (Free) | NaughtyCamSpot"
-  description="Signup Help (Free): use partner links to open your platform account."
+  description="Signup Help (Free): open live platform signups or apply once for waitlist help."
 >
   <SEO
     slot="head"
     title="Signup Help (Free) | NaughtyCamSpot"
-    description="Signup Help (Free): use tracked links for Chaturbate, CamSoda, Stripchat, and Bonga."
+    description="Signup Help (Free): use tracked links for live platforms and apply once for waitlist support."
     path={canonicalPath}
   />
 
@@ -39,8 +39,7 @@ const withTracking = (path: string) => {
       <p class="hero-tagline">Signup Help (Free)</p>
       <h1 class="font-display text-4xl text-white sm:text-5xl">Open your platform account with tracked links.</h1>
       <p class="max-w-3xl text-base text-white/70">
-        This path is Signup Help (Free). Choose a platform, complete signup, and keep your account ownership. We may earn
-        an affiliate commission when signups are completed through these links.
+        This path is Signup Help (Free). Open a live signup link, or apply once if you need a waitlist platform. You keep your account ownership.
       </p>
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
         <a
@@ -63,12 +62,15 @@ const withTracking = (path: string) => {
 
     <div class="grid gap-6 lg:grid-cols-2">
       {PLATFORMS.map((platform) => {
-        const affiliateHref = buildTrackedLink({
-          path: platform.goPath,
-          slot: `recruiting_${platform.slug}`,
-          camp: 'recruiting',
-          placeholder: '/join-models/'
-        });
+        const isLiveSignup = platform.status !== 'waitlist';
+        const affiliateHref = isLiveSignup
+          ? buildTrackedLink({
+              path: platform.goPath,
+              slot: `recruiting_${platform.slug}`,
+              camp: 'recruiting',
+              placeholder: '/join-models/'
+            })
+          : withBase('/apply/');
         return (
           <article class="content-card space-y-4">
             <div class="flex items-center justify-between">
@@ -83,7 +85,7 @@ const withTracking = (path: string) => {
               href={affiliateHref}
               data-platform={platform.slug}
             >
-              Open {platform.name} signup
+              {isLiveSignup ? `Open ${platform.name} signup` : `Apply for ${platform.name} waitlist`}
             </a>
           </article>
         );
