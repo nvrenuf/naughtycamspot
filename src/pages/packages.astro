@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import SecondaryPageCTA from '../components/SecondaryPageCTA.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
 import { withBase } from '../utils/links';
 import { getRequestLang, t } from '../i18n/core';
@@ -177,11 +178,11 @@ const faqItems = [
         </details>
       ))}
     </div>
-    <a
-      class="inline-flex items-center justify-center rounded-full border border-rose-gold/50 bg-rose-gold/15 px-6 py-3 text-xs uppercase tracking-[0.3em] text-rose-petal transition hover:border-rose-gold/70 hover:bg-rose-gold/30"
-      href={buildApplyHref('starter')}
-    >
-      {t(lang, 'packages.cta')}
-    </a>
   </section>
+
+  <SecondaryPageCTA
+    title="Ready for your next step?"
+    description="If this looks like a fit, apply once and we will match you to the right setup or support path."
+    secondaryLinks={[{ href: '/proof/', label: 'See proof' }]}
+  />
 </MainLayout>

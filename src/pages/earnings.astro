@@ -1,6 +1,7 @@
 ---
 import LinkCTA from '../components/LinkCTA.astro';
 import Notices from '../components/Notices.astro';
+import SecondaryPageCTA from '../components/SecondaryPageCTA.astro';
 import { PRIMARY_CTA } from '../data/copy';
 import programs from '../data/programs.json';
 import { resolveProgramStatusMeta, type ProgramStatus } from '../data/programStatus';
@@ -138,5 +139,11 @@ const cards = bandEntries.map(([key, bands]) => {
         ))}
       </ul>
     </section>
+
+    <SecondaryPageCTA
+      title="Want a plan instead of more ranges?"
+      description="Apply once and tell us your goals, platform mix, and best contact method."
+      secondaryLinks={[{ href: '/resources/', label: 'See resources' }]}
+    />
   </section>
 </MainLayout>

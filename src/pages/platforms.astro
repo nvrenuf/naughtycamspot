@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import SecondaryPageCTA from '../components/SecondaryPageCTA.astro';
 import { promoOffer } from '../data/promoOffer';
 import { isPagesBuild, withBase } from '../utils/links';
 import { getRequestLang, t } from '../i18n/core';
@@ -63,20 +64,12 @@ const promoPlatforms = promoOffer.platformScope.platforms;
       <p class="max-w-2xl text-base text-white/70">
         This page is Signup Help (Free). Pick a platform and start.
       </p>
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          href={withBase('/apply')}
-        >
-          {t(lang, 'platforms.cta')}
-        </a>
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
-          href={withBase('/packages')}
-        >
-          Promotion (Paid)
-        </a>
-      </div>
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1 sm:w-fit"
+        href={withBase('/apply')}
+      >
+        Apply now
+      </a>
     </div>
 
     <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
@@ -171,5 +164,11 @@ const promoPlatforms = promoOffer.platformScope.platforms;
         );
       })}
     </div>
+
+    <SecondaryPageCTA
+      title="Need help picking the right platform mix?"
+      description="Apply once and we will point you to the best next step. Packages stay secondary."
+      secondaryLinks={[{ href: '/packages/', label: 'See packages' }]}
+    />
   </section>
 </MainLayout>

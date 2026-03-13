@@ -32,7 +32,7 @@ const EN = {
 
   'packages.tag': 'Promotion (Paid)',
   'packages.title': 'Pick the support level for your week.',
-  'packages.cta': 'Start application',
+  'packages.cta': 'Apply now',
 
   'platforms.title': 'Signup Help (Free): pick platforms that match your goals.',
   'platforms.cta': 'Apply'
@@ -56,7 +56,7 @@ const ES = {
   'apply.fastlane.consent': 'Tengo 18+ y acepto recibir mensajes de onboarding de NaughtyCamSpot.',
   'packages.tag': 'Paquetes de promoción',
   'packages.title': 'Elige el nivel de soporte para tu semana.',
-  'packages.cta': 'Empezar solicitud',
+  'packages.cta': 'Aplicar',
   'platforms.title': 'Elige plataformas que encajen con tus objetivos.',
   'platforms.cta': 'Solicitar'
 };
@@ -79,7 +79,7 @@ const PT = {
   'apply.fastlane.consent': 'Tenho 18+ e aceito receber mensagens de onboarding da NaughtyCamSpot.',
   'packages.tag': 'Pacotes de promoção',
   'packages.title': 'Escolha o nivel de suporte para sua semana.',
-  'packages.cta': 'Iniciar aplicação',
+  'packages.cta': 'Aplicar',
   'platforms.title': 'Escolha plataformas que combinam com seus objetivos.',
   'platforms.cta': 'Aplicar'
 };
@@ -102,7 +102,7 @@ const RU = {
   'apply.fastlane.consent': 'Мне 18+ и я согласен(на) получать сообщения от NaughtyCamSpot.',
   'packages.tag': 'Пакеты продвижения',
   'packages.title': 'Выберите уровень поддержки на неделю.',
-  'packages.cta': 'Начать заявку',
+  'packages.cta': 'Подать заявку',
   'platforms.title': 'Выберите платформы под ваши цели.',
   'platforms.cta': 'Подать заявку'
 };
@@ -125,7 +125,7 @@ const UA = {
   'apply.fastlane.consent': 'Мені 18+ і я згоден(на) отримувати повідомлення від NaughtyCamSpot.',
   'packages.tag': 'Пакети просування',
   'packages.title': 'Оберіть рівень підтримки на тиждень.',
-  'packages.cta': 'Почати заявку',
+  'packages.cta': 'Подати заявку',
   'platforms.title': 'Оберіть платформи під ваші цілі.',
   'platforms.cta': 'Подати заявку'
 };

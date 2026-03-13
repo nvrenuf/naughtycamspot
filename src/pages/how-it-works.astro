@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import SecondaryPageCTA from '../components/SecondaryPageCTA.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
 import { withBase } from '../utils/links';
 
@@ -25,20 +26,12 @@ const canonicalPath = '/how-it-works';
       <p class="max-w-2xl text-base text-white/70">
         Choose Signup Help (Free) to start. Add Promotion (Paid) when you want faster growth.
       </p>
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          href={withBase('/apply')}
-        >
-          Apply now
-        </a>
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
-          href={withBase('/packages')}
-        >
-          Open Promotion (Paid)
-        </a>
-      </div>
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1 sm:w-fit"
+        href={withBase('/apply')}
+      >
+        Apply now
+      </a>
     </div>
 
     <div class="grid gap-6 lg:grid-cols-3">
@@ -66,5 +59,10 @@ const canonicalPath = '/how-it-works';
     </div>
 
     <TrustRulesBlock title="Hard rules before you start" compact />
+    <SecondaryPageCTA
+      title="Ready to start?"
+      description="Use the main apply flow and we will send the next step that fits your goals."
+      secondaryLinks={[{ href: '/resources/', label: 'See resources' }]}
+    />
   </section>
 </MainLayout>

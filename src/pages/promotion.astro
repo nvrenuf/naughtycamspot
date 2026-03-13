@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import SecondaryPageCTA from '../components/SecondaryPageCTA.astro';
 import { withBase } from '../utils/links';
 
 const canonicalPath = '/promotion';
@@ -65,20 +66,12 @@ const promotionPackages = [
         This path is Promotion (Paid). Pick the package that matches your operating budget, then submit the intake form
         and we will follow up with campaign details.
       </p>
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          href={withBase('/apply/')}
-        >
-          Open Full Intake
-        </a>
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
-          href={withBase('/recruiting/')}
-        >
-          Need Signup Help (Free)?
-        </a>
-      </div>
+      <a
+        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1 sm:w-fit"
+        href={withBase('/apply/')}
+      >
+        Apply now
+      </a>
       <p class="text-xs uppercase tracking-[0.3em] text-white/55">
         Promotion (Paid) is separate from Signup Help (Free).
       </p>
@@ -140,4 +133,13 @@ const promotionPackages = [
       Join community workshops
     </a>
   </section>
+
+  <SecondaryPageCTA
+    title="Ready to stop comparing options?"
+    description="Apply once and we will route you to the right setup or support path."
+    secondaryLinks={[
+      { href: '/packages/', label: 'See packages' },
+      { href: '/recruiting/', label: 'Signup help' }
+    ]}
+  />
 </MainLayout>

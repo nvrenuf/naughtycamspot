@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import SecondaryPageCTA from '../components/SecondaryPageCTA.astro';
 
 const canonicalPath = '/proof';
 ---
@@ -108,22 +109,10 @@ const canonicalPath = '/proof';
       </p>
     </div>
 
-    <div class="content-card flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-sm text-white/75">Want this implemented as a weekly system? Review packages or start your promo application.</p>
-      <div class="flex flex-wrap gap-3">
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          href="/packages"
-        >
-          View packages
-        </a>
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:border-white/40 hover:bg-white/5"
-          href="/apply/promo"
-        >
-          Apply for promotion
-        </a>
-      </div>
-    </div>
+    <SecondaryPageCTA
+      title="Want help turning this into a real plan?"
+      description="Apply once and tell us what you need. Use packages only if you want more detail first."
+      secondaryLinks={[{ href: '/packages/', label: 'See packages' }]}
+    />
   </section>
 </MainLayout>
