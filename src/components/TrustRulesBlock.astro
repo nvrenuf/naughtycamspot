@@ -1,23 +1,25 @@
 ---
-const { title = 'Non-negotiables', compact = false } = Astro.props as {
+const { title = 'Trust Rules', compact = false } = Astro.props as {
   title?: string;
   compact?: boolean;
 };
 
 const items = [
-  'No passwords. Ever.',
-  'No fake ID. No underage. No exceptions.',
-  'We only help with legitimate setup and promotion.',
-  'If a platform bans for fraud, we cannot reverse it.',
-  'You keep your accounts, content, payouts, and private info.'
+  'No passwords',
+  'No exclusivity',
+  'Model owns accounts and content',
+  'Cancel anytime',
+  'No fake official partner claims',
+  'No spam tactics',
+  'No misleading earnings promises'
 ] as const;
 ---
 
 <section class:list={['content-card space-y-4', compact && 'space-y-3']}>
   <div class="space-y-2">
-    <p class="text-xs uppercase tracking-[0.32em] text-rose-petal/70">Trust + Rules</p>
+    <p class="text-xs uppercase tracking-[0.32em] text-rose-petal/70">Trust + Control</p>
     <h2 class="font-display text-2xl text-white sm:text-3xl">{title}</h2>
-    <p class="max-w-2xl text-sm text-white/75">These are hard rules, not optional fine print.</p>
+    <p class="max-w-2xl text-sm text-white/75">These are hard rules across both lanes.</p>
   </div>
 
   <div class="grid gap-3 sm:grid-cols-2">

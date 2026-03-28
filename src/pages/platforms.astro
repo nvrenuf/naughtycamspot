@@ -1,178 +1,33 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
-import SecondaryPageCTA from '../components/SecondaryPageCTA.astro';
 import { PLATFORMS } from '../data/platforms';
-import { isPagesBuild, withBase } from '../utils/links';
-import { getRequestLang, t } from '../i18n/core';
 
 const canonicalPath = '/platforms';
-const lang = getRequestLang(Astro.url);
-const resolveHostname = (value: string | undefined) => {
-  if (!value) {
-    return '';
-  }
-  try {
-    return new URL(value).hostname;
-  } catch {
-    return String(value).replace(/^https?:\/\//, '').split('/')[0];
-  }
-};
-
-const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
-const isProdSite = siteHostname === 'naughtycamspot.com';
-const useGoLinks = !isPagesBuild() && isProdSite;
-const statusMeta = {
-  open: {
-    label: 'Open',
-    meaning: 'Open signup',
-    className: 'border-emerald-300/50 bg-emerald-400/20 text-emerald-100',
-    icon: 'check'
-  },
-  limited: {
-    label: 'Limited',
-    meaning: 'Open signup',
-    className: 'border-amber-300/50 bg-amber-400/20 text-amber-100',
-    icon: 'check'
-  },
-  waitlist: {
-    label: 'Waitlist',
-    meaning: 'Apply first',
-    className: 'border-slate-300/40 bg-slate-400/20 text-slate-100',
-    icon: 'hourglass'
-  }
-} as const;
-const legendStatuses = ['open', 'limited', 'waitlist'] as const;
-const livePlatformNames = PLATFORMS.filter((platform) => platform.status !== 'waitlist').map((platform) => platform.name);
-const waitlistPlatformNames = PLATFORMS.filter((platform) => platform.status === 'waitlist').map((platform) => platform.name);
 ---
 
-<MainLayout
-  title="Platforms | NaughtyCamSpot"
-  description="Signup Help (Free): supported platforms and signup links."
->
-  <SEO
-    slot="head"
-    title="Platforms | NaughtyCamSpot"
-    description="Signup Help (Free): pick a platform and move to the next step."
-    path={canonicalPath}
-  />
+<MainLayout title="Platforms | NaughtyCamSpot" description="Routed signup links for guided launch.">
+  <SEO slot="head" title="Platforms | NaughtyCamSpot" description="Routed signup links for guided launch." path={canonicalPath} />
 
-  <section class="space-y-10">
-    <div class="content-card space-y-4">
-      <p class="hero-tagline">Signup Help (Free)</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">{t(lang, 'platforms.title')}</h1>
-      <p class="max-w-2xl text-base text-white/70">
-        Pick a live platform and open the signup link. If a platform is still on waitlist, apply once and we will point you to the right next step.
-      </p>
-      <a
-        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1 sm:w-fit"
-        href={withBase('/apply')}
-      >
-        Apply now
-      </a>
-      <div class="space-y-1 text-sm text-white/60">
-        <p>Open now: {livePlatformNames.join(', ')}</p>
-        {waitlistPlatformNames.length > 0 && <p>Waitlist: {waitlistPlatformNames.join(', ')}</p>}
-      </div>
-    </div>
+  <section class="content-card space-y-4">
+    <p class="hero-tagline">Platforms</p>
+    <h1 class="font-display text-4xl text-white sm:text-5xl">Routed signup links for guided launch.</h1>
+    <p class="text-sm text-white/75">Use routed <code>/go/...</code> links from this page so successful signup completion can unlock Start Right.</p>
+  </section>
 
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Status legend</p>
-      <div class="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-        {legendStatuses.map((status) => {
-          const meta = statusMeta[status];
-          return (
-            <span class={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[0.7rem] uppercase tracking-[0.22em] ${meta.className}`}>
-              {meta.icon === 'check' && (
-                <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5l3.5 3.5L15.5 6"></path>
-                </svg>
-              )}
-              {meta.icon === 'clock' && (
-                <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="10" cy="10" r="7"></circle>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 6.5v4l2.5 1.5"></path>
-                </svg>
-              )}
-              {meta.icon === 'hourglass' && (
-                <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 3h8M6 17h8M7 3c0 3 2 4 3 5-1 1-3 2-3 5m6-10c0 3-2 4-3 5 1 1 3 2 3 5"></path>
-                </svg>
-              )}
-              <span>{meta.label} = {meta.meaning}</span>
-            </span>
-          );
-        })}
-      </div>
-    </div>
+  <section class="grid gap-5 md:grid-cols-2">
+    {PLATFORMS.map((platform) => (
+      <article class="content-card space-y-3">
+        <h2 class="font-display text-3xl text-white">{platform.name}</h2>
+        <p class="text-sm text-white/75">{platform.summary}</p>
+        <a class="btn btn-secondary" href={platform.goPath} target="_blank" rel="noopener noreferrer">Open {platform.name} routed signup</a>
+        <p class="text-xs text-white/60">Routed path: {platform.goPath}</p>
+      </article>
+    ))}
+  </section>
 
-    <div class="grid gap-6 lg:grid-cols-2">
-      {PLATFORMS.map((platform) => {
-        const meta = statusMeta[platform.status] ?? statusMeta.waitlist;
-        const isLiveSignup = platform.status !== 'waitlist';
-        const href = isLiveSignup ? (useGoLinks ? platform.goPath : withBase('/apply')) : withBase('/apply');
-        const target = isLiveSignup && useGoLinks ? '_blank' : undefined;
-        const rel = isLiveSignup && useGoLinks ? 'noopener noreferrer' : undefined;
-        return (
-          <article class="content-card space-y-4">
-            <div class="flex items-center justify-between">
-              <h2 class="font-display text-2xl text-white">{platform.name}</h2>
-              <span class={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[0.65rem] uppercase tracking-[0.22em] ${meta.className}`}>
-                {meta.icon === 'check' && (
-                  <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5l3.5 3.5L15.5 6"></path>
-                  </svg>
-                )}
-                {meta.icon === 'clock' && (
-                  <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="10" cy="10" r="7"></circle>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6.5v4l2.5 1.5"></path>
-                  </svg>
-                )}
-                {meta.icon === 'hourglass' && (
-                  <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 3h8M6 17h8M7 3c0 3 2 4 3 5-1 1-3 2-3 5m6-10c0 3-2 4-3 5 1 1 3 2 3 5"></path>
-                  </svg>
-                )}
-                <span>{meta.label}</span>
-              </span>
-            </div>
-            <p class="text-sm text-white/70">{platform.note}</p>
-            <details class="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <summary class="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-rose-petal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold">
-                Details
-              </summary>
-              <div class="mt-3 space-y-2 text-sm text-white/75">
-                <p><span class="text-white/55">Best for:</span> Creators who want {platform.note.toLowerCase()}</p>
-                <p><span class="text-white/55">Needs:</span> A complete profile and quick message replies.</p>
-                <p><span class="text-white/55">Next:</span> {meta.meaning}. Use the button below.</p>
-              </div>
-            </details>
-            <div>
-              <a
-                class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white"
-                href={href}
-                target={target}
-                rel={rel}
-                data-platform={platform.slug}
-                data-preclick={isLiveSignup && useGoLinks ? '1' : undefined}
-                data-go-href={isLiveSignup && useGoLinks ? platform.goPath : undefined}
-                data-platform-id={platform.slug}
-                data-platform-name={platform.name}
-              >
-                {isLiveSignup ? 'Open signup link' : 'Apply for waitlist'}
-              </a>
-            </div>
-          </article>
-        );
-      })}
-    </div>
-
-    <SecondaryPageCTA
-      title="Need help picking the right platform mix?"
-      description="Apply once and we will point you to the best next step. Packages stay secondary."
-      secondaryLinks={[{ href: '/packages/', label: 'See packages' }]}
-    />
+  <section class="content-card space-y-3">
+    <p class="text-sm text-white/75">Successful signup completion through the routed platform path unlocks Start Right.</p>
+    <p class="text-sm text-white/75">Trust note: model owns accounts and content, and we never ask for passwords.</p>
   </section>
 </MainLayout>

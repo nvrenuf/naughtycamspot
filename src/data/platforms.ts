@@ -1,45 +1,33 @@
-export type PlatformStatus = 'open' | 'limited' | 'waitlist';
-
 export type PlatformEntry = {
   slug: string;
   name: string;
-  status: PlatformStatus;
-  statusLabel: string;
   goPath: string;
-  note: string;
+  summary: string;
 };
 
 export const PLATFORMS: PlatformEntry[] = [
   {
-    slug: 'stripchat',
-    name: 'Stripchat',
-    status: 'waitlist',
-    statusLabel: 'Waitlist',
-    goPath: '/go/stripchat',
-    note: 'Launch prep is still underway. Apply once and we will notify you when live signup opens.'
-  },
-  {
     slug: 'chaturbate',
     name: 'Chaturbate',
-    status: 'open',
-    statusLabel: 'Open',
-    goPath: '/go/chaturbate',
-    note: 'High traffic, long-tail tipping, and recurring fan rooms.'
+    goPath: '/go/chaturbate.php',
+    summary: 'High live traffic and deep tip menu support for consistent rooms.'
   },
   {
     slug: 'camsoda',
     name: 'CamSoda',
-    status: 'limited',
-    statusLabel: 'Limited',
-    goPath: '/go/camsoda',
-    note: 'Quality-focused traffic with strong contests and promo placements.'
+    goPath: '/go/camsoda.php',
+    summary: 'Strong event windows and premium room experience options.'
   },
   {
     slug: 'bongacams',
     name: 'BongaCams',
-    status: 'open',
-    statusLabel: 'Open',
-    goPath: '/go/bongacams',
-    note: 'Great geo diversification with steady discovery opportunities.'
+    goPath: '/go/bongacams.php',
+    summary: 'Useful geo diversification and stable discovery opportunities.'
+  },
+  {
+    slug: 'fansly',
+    name: 'Fansly',
+    goPath: '/go/fansly.php',
+    summary: 'Subscription + feed support to extend livestream revenue.'
   }
 ];

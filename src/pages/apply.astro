@@ -2,241 +2,65 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
-import { withBase } from '../utils/links';
 
 const canonicalPath = '/apply';
-const formAction = withBase('/claim/index.php');
-const csrfEndpoint = withBase('/claim/token.php');
-const packageSelected = Astro.url.searchParams.get('package') ?? '';
-const successState = Astro.url.searchParams.get('success') === '1';
-const errorState = Astro.url.searchParams.get('error') ?? Astro.url.searchParams.get('err') ?? '';
-
-const languageOptions = [
-  { value: 'en', label: 'English' },
-  { value: 'es', label: 'Espanol' },
-  { value: 'pt', label: 'Portugues' },
-  { value: 'ru', label: 'Russkiy' },
-  { value: 'ua', label: 'Ukrainska' }
-] as const;
-
-const goalOptions = [
-  { value: 'fast', label: 'Earn fast', hint: 'Quick setup and fast next steps.' },
-  { value: 'long', label: 'Build long-term', hint: 'Safer pace with a longer plan.' },
-  { value: 'both', label: 'Both', hint: 'Start fast and build something steady.' }
-] as const;
-
-const platformOptions = [
-  { value: 'chaturbate', label: 'Chaturbate' },
-  { value: 'camsoda', label: 'CamSoda' },
-  { value: 'stripchat', label: 'Stripchat' },
-  { value: 'bongacams', label: 'BongaCams' },
-  { value: 'onlyfans', label: 'OnlyFans' },
-  { value: 'other', label: 'Other' }
-] as const;
-
-const contactOptions = [
-  { value: 'telegram', label: 'Telegram', placeholder: '@handle or phone' },
-  { value: 'whatsapp', label: 'WhatsApp', placeholder: '+1 555 555 5555' },
-  { value: 'email', label: 'Email', placeholder: 'you@example.com' }
-] as const;
-
-const errorCopy: Record<string, string> = {
-  age: 'You must confirm you are 18 or older before you submit.',
-  consent: 'You must agree to next-step messages before you submit.',
-  token: 'Security check failed. Refresh and try again.'
-};
+const platforms = ['Chaturbate', 'CamSoda', 'BongaCams', 'Fansly'];
 ---
 
-<MainLayout
-  title="Apply | NaughtyCamSpot"
-  description="Short mobile-first apply form for setup and promotion help."
->
-  <SEO
-    slot="head"
-    title="Apply | NaughtyCamSpot"
-    description="Short mobile-first apply form for setup and promotion help."
-    path={canonicalPath}
-  />
+<MainLayout title="Apply | NaughtyCamSpot" description="Intake for active models and guided launch applicants.">
+  <SEO slot="head" title="Apply | NaughtyCamSpot" description="Intake for active models and guided launch applicants." path={canonicalPath} />
 
-  <section class="content-card space-y-6 sm:space-y-8">
-    <div class="space-y-3">
-      <p class="hero-tagline">Apply</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">Start in under 2 minutes.</h1>
-      <p class="max-w-2xl text-base text-white/75">
-        5 short steps. 18+ only. No passwords. No fake ID. You keep your accounts and content.
-      </p>
-      {successState && (
-        <p class="rounded-2xl border border-emerald-300/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-100">
-          Application received. Next: open a live signup link on <a class="underline" href={withBase('/platforms')}>Platforms</a>.
-        </p>
-      )}
-      {errorState && errorCopy[errorState] && (
-        <p class="rounded-2xl border border-amber-300/30 bg-amber-400/10 px-4 py-3 text-sm text-amber-100">
-          {errorCopy[errorState]}
-        </p>
-      )}
-      {packageSelected && (
-        <p class="inline-flex w-fit rounded-full border border-rose-gold/40 bg-rose-gold/10 px-4 py-2 text-xs uppercase tracking-[0.24em] text-rose-petal/80">
-          Package selected: {packageSelected}
-        </p>
-      )}
-    </div>
+  <section class="content-card space-y-4">
+    <p class="hero-tagline">Apply</p>
+    <h1 class="font-display text-4xl text-white sm:text-5xl">One intake, two lanes.</h1>
+    <p class="text-sm text-white/75">Tell us whether you are already modeling or want to get started. We route you to the right next steps.</p>
+  </section>
 
-    <TrustRulesBlock title="Read this before you submit" compact />
+  <section class="grid gap-5 md:grid-cols-2">
+    <article class="content-card space-y-3">
+      <h2 class="font-display text-3xl text-white">Already modeling</h2>
+      <p class="text-sm text-white/75">You will be routed toward the premium Growth lane and package matching.</p>
+    </article>
+    <article class="content-card space-y-3">
+      <h2 class="font-display text-3xl text-white">Want to get started</h2>
+      <p class="text-sm text-white/75">You will be routed into Professional Onboarding Tools and platform-guided signup.</p>
+    </article>
+  </section>
 
-    <form class="grid gap-4" method="post" action={formAction}>
-      <input type="hidden" name="lead_form" value="1" />
-      <input type="hidden" name="csrf_token" value="" data-csrf-token />
-      <input type="hidden" name="source" value="apply_unified" />
-      <input type="hidden" name="page" value={canonicalPath} />
-      <input type="hidden" name="package_selected" value={packageSelected} />
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Professional Onboarding Tools</h2>
+    <ul class="list-disc space-y-2 pl-5 text-sm text-white/75">
+      <li>Model-name scanner app (placeholder structure)</li>
+      <li>Platform-fit guidance (placeholder decision workflow)</li>
+      <li>Signup perks (placeholder perk catalog)</li>
+      <li>Guided next steps after intake submission</li>
+    </ul>
+    <p class="text-sm text-white/70">Launch platforms: {platforms.join(', ')}.</p>
+  </section>
 
-      <fieldset class="rounded-[28px] border border-white/10 bg-white/5 p-4 sm:p-5">
-        <legend class="px-2 text-xs uppercase tracking-[0.32em] text-rose-petal/70">1. Basics</legend>
-        <div class="grid gap-4">
-          <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-white/80">
-            <input class="mt-1 h-4 w-4 shrink-0 accent-rose-gold" type="checkbox" name="age_confirm" required />
-            <span>I am 18 or older.</span>
-          </label>
-
-          <label class="flex flex-col gap-2 text-sm text-white/70">
-            Country
-            <input
-              class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white"
-              type="text"
-              name="country"
-              autocomplete="country-name"
-              required
-            />
-          </label>
-
-          <label class="flex flex-col gap-2 text-sm text-white/70">
-            Preferred language
-            <select class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white" name="language" required>
-              <option value="">Select language</option>
-              {languageOptions.map((option) => (
-                <option value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </label>
-        </div>
-      </fieldset>
-
-      <fieldset class="rounded-[28px] border border-white/10 bg-white/5 p-4 sm:p-5">
-        <legend class="px-2 text-xs uppercase tracking-[0.32em] text-rose-petal/70">2. Goal</legend>
-        <div class="grid gap-3">
-          {goalOptions.map((option) => (
-            <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-white/80">
-              <input class="mt-1 h-4 w-4 shrink-0 accent-rose-gold" type="radio" name="goal" value={option.value} required />
-              <span>
-                <span class="block font-semibold text-white">{option.label}</span>
-                <span class="block text-xs uppercase tracking-[0.2em] text-white/55">{option.hint}</span>
-              </span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset class="rounded-[28px] border border-white/10 bg-white/5 p-4 sm:p-5">
-        <legend class="px-2 text-xs uppercase tracking-[0.32em] text-rose-petal/70">3. Existing platforms</legend>
-        <div class="grid gap-3 sm:grid-cols-2">
-          {platformOptions.map((platform) => (
-            <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80">
-              <input class="h-4 w-4 accent-rose-gold" type="checkbox" name="platforms_active[]" value={platform.value} />
-              <span>{platform.label}</span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset class="rounded-[28px] border border-white/10 bg-white/5 p-4 sm:p-5">
-        <legend class="px-2 text-xs uppercase tracking-[0.32em] text-rose-petal/70">4. Best contact</legend>
-        <div class="grid gap-3">
-          <div class="grid gap-3 sm:grid-cols-3">
-            {contactOptions.map((option, index) => (
-              <label class="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-white/80">
-                <input
-                  class="h-4 w-4 accent-rose-gold"
-                  type="radio"
-                  name="preferred_contact"
-                  value={option.value}
-                  data-contact-option
-                  data-contact-label={option.label}
-                  data-contact-placeholder={option.placeholder}
-                  required
-                  checked={index === 0}
-                />
-                <span>{option.label}</span>
-              </label>
-            ))}
-          </div>
-
-          <label class="flex flex-col gap-2 text-sm text-white/70">
-            <span data-contact-label-text>Telegram</span>
-            <input
-              class="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white"
-              type="text"
-              name="contact_value"
-              data-contact-value
-              placeholder={contactOptions[0].placeholder}
-              required
-            />
-          </label>
-        </div>
-      </fieldset>
-
-      <fieldset class="rounded-[28px] border border-white/10 bg-white/5 p-4 sm:p-5">
-        <legend class="px-2 text-xs uppercase tracking-[0.32em] text-rose-petal/70">5. Consent</legend>
-        <div class="grid gap-3">
-          <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-sm text-white/80">
-            <input class="mt-1 h-4 w-4 shrink-0 accent-rose-gold" type="checkbox" name="consent" required />
-            <span>I agree to get next-step messages from NaughtyCamSpot.</span>
-          </label>
-        </div>
-      </fieldset>
-
-      <button
-        class="inline-flex min-h-12 items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight"
-        type="submit"
-      >
-        Send application
-      </button>
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Intake structure</h2>
+    <form class="grid gap-3" method="post" action="/claim/index.php">
+      <input class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" type="text" name="model_name" placeholder="Model name" required />
+      <select class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" name="audience" required>
+        <option value="">Select path</option>
+        <option value="active">Already modeling</option>
+        <option value="new">Want to get started</option>
+      </select>
+      <select class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" name="platform_interest" required>
+        <option value="">Primary platform interest</option>
+        {platforms.map((platform) => <option value={platform.toLowerCase()}>{platform}</option>)}
+      </select>
+      <input class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" type="text" name="contact" placeholder="Telegram, WhatsApp, or email" required />
+      <button class="btn border border-rose-gold/70 bg-rose-gold text-midnight" type="submit">Submit Intake</button>
     </form>
   </section>
 
-  <script is:inline define:vars={{ csrfEndpoint }}>
-    fetch(csrfEndpoint, { credentials: 'same-origin' })
-      .then((res) => res.ok ? res.json() : null)
-      .then((payload) => {
-        const token = typeof payload?.token === 'string' ? payload.token : '';
-        if (!token) return;
-        document.querySelectorAll('[data-csrf-token]').forEach((input) => {
-          if (input instanceof HTMLInputElement) input.value = token;
-        });
-      })
-      .catch(() => {});
+  <section class="content-card space-y-3">
+    <h2 class="font-display text-3xl text-white">Start Right access rule</h2>
+    <p class="text-sm text-white/75">Start Right is a guided launch bonus only. It unlocks only after successful signup completion through our routed platform path.</p>
+    <a class="btn btn-secondary" href="/platforms/">Review routed platforms</a>
+  </section>
 
-    const contactInputs = Array.from(document.querySelectorAll('[data-contact-option]'));
-    const contactLabel = document.querySelector('[data-contact-label-text]');
-    const contactValue = document.querySelector('[data-contact-value]');
-
-    const syncContactField = () => {
-      const active = contactInputs.find((input) => input instanceof HTMLInputElement && input.checked);
-      if (!(active instanceof HTMLInputElement) || !(contactLabel instanceof HTMLElement) || !(contactValue instanceof HTMLInputElement)) {
-        return;
-      }
-
-      const label = active.dataset.contactLabel || 'Contact';
-      const placeholder = active.dataset.contactPlaceholder || '';
-
-      contactLabel.textContent = label;
-      contactValue.placeholder = placeholder;
-      contactValue.type = active.value === 'email' ? 'email' : 'text';
-      contactValue.autocomplete = active.value === 'email' ? 'email' : 'off';
-      contactValue.inputMode = active.value === 'email' ? 'email' : 'text';
-    };
-
-    contactInputs.forEach((input) => input.addEventListener('change', syncContactField));
-    syncContactField();
-  </script>
+  <TrustRulesBlock title="Trust stays visible before submission" />
 </MainLayout>

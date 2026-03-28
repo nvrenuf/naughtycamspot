@@ -1,0 +1,57 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/growth';
+---
+
+<MainLayout title="Growth | NaughtyCamSpot" description="Premium growth lane for active cam models.">
+  <SEO slot="head" title="Growth | NaughtyCamSpot" description="Premium growth lane for active cam models." path={canonicalPath} />
+
+  <section class="content-card space-y-4">
+    <p class="hero-tagline">Growth</p>
+    <h1 class="font-display text-4xl text-white sm:text-5xl">Premium growth systems for active cam models.</h1>
+    <p class="text-white/75">This is the core business: strategic execution across traffic, room conversion, VIP retention, and passive income.</p>
+  </section>
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Who this is for</h2>
+    <ul class="list-disc space-y-2 pl-5 text-sm text-white/75">
+      <li>Active cam models with existing accounts who want stronger revenue systems.</li>
+      <li>Models ready to operate with weekly structure, campaign testing, and retention workflows.</li>
+      <li>Creators who want control-first growth support without giving up ownership.</li>
+    </ul>
+  </section>
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">What NCS improves across the four pillars</h2>
+    <div class="grid gap-4 md:grid-cols-2 text-sm text-white/75">
+      <p class="rounded-2xl border border-white/10 bg-white/5 p-4"><strong class="text-white">Traffic:</strong> placeholder campaign maps, posting cadence, and discovery loops.</p>
+      <p class="rounded-2xl border border-white/10 bg-white/5 p-4"><strong class="text-white">Room Conversion:</strong> placeholder scripts, menu architecture, and intent checkpoints.</p>
+      <p class="rounded-2xl border border-white/10 bg-white/5 p-4"><strong class="text-white">VIP Retention:</strong> placeholder VIP cycles, support tiers, and follow-up assets.</p>
+      <p class="rounded-2xl border border-white/10 bg-white/5 p-4"><strong class="text-white">Passive Income:</strong> placeholder feed offers, bundles, and evergreen funnels.</p>
+    </div>
+  </section>
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Growth package ladder (placeholder)</h2>
+    <p class="text-sm text-white/70">Start Right is intentionally excluded from this ladder. It belongs only to the guided launch lane after routed signup completion.</p>
+    <div class="grid gap-4 md:grid-cols-3 text-sm text-white/75">
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-white">[Growth Package 1]</h3><p>Placeholder details for foundation sprint support.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-white">[Growth Package 2]</h3><p>Placeholder details for scaling and retention systems.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-white">[Growth Package 3]</h3><p>Placeholder details for premium strategic execution.</p></article>
+    </div>
+  </section>
+
+  <TrustRulesBlock title="Trust + control stays with the model" />
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Ready for growth execution?</h2>
+    <div class="flex flex-wrap gap-3">
+      <a class="btn border border-rose-gold/70 bg-rose-gold text-midnight" href={withBase('/apply/?audience=active')}>Apply for Growth</a>
+      <a class="btn btn-secondary" href={withBase('/how-it-works/')}>See both paths</a>
+    </div>
+  </section>
+</MainLayout>

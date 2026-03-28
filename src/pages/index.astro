@@ -1,131 +1,73 @@
 ---
-import SEO from '../components/SEO.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
-import HowItWorks from '../partials/home/HowItWorks.astro';
-import FinalCTA from '../partials/home/FinalCTA.astro';
 import { withBase } from '../utils/links';
 
 const canonicalPath = '/';
-
-const websiteJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'NaughtyCamSpot',
-  url: import.meta.env.SITE ?? 'https://naughtycamspot.com'
-};
 ---
 
-<MainLayout
-  title="NaughtyCamSpot | Get Set Up and Start Earning"
-  description="Apply in one place, get set up fast, and keep full control of your accounts, content, and payouts."
->
-  <SEO
-    slot="head"
-    title="NaughtyCamSpot | Get Set Up and Start Earning"
-    description="Get set up fast with one clear apply path. No passwords, no fake ID, no underage, and you keep full account ownership."
-    path={canonicalPath}
-    ogImage="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1280&q=80"
-  />
-  <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
+<MainLayout title="NaughtyCamSpot | Growth Systems for Active Cam Models" description="Growth-first support for active cam models plus a guided launch lane using Professional Onboarding Tools.">
+  <SEO slot="head" title="NaughtyCamSpot | Growth Systems for Active Cam Models" description="Growth-first support for active cam models plus a guided launch lane using Professional Onboarding Tools." path={canonicalPath} />
 
-  <section class="relative isolate overflow-hidden px-6 pb-24 pt-20 sm:pb-28 sm:pt-24">
-    <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 flex justify-center">
-      <div class="h-[480px] w-full max-w-5xl -translate-y-1/2 rounded-full bg-rose-gold/30 blur-3xl"></div>
-    </div>
-    <div class="mx-auto max-w-6xl space-y-8">
-      <div class="grid gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center">
-        <div class="space-y-7">
-          <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[clamp(0.7rem,1vw,0.85rem)] uppercase tracking-[0.4em] text-rose-petal/80">
-            18+ setup help
-          </p>
-          <h1 class="font-display text-[clamp(2.8rem,6vw,4.25rem)] leading-[1.05] text-white">
-            Get set up, apply once, and start earning faster.
-          </h1>
-          <p class="max-w-xl text-[clamp(1.05rem,2.3vw,1.35rem)] text-white/80">
-            We help 18+ creators get started without guesswork. Apply once, get clear next steps, and keep control of your accounts,
-            content, and payouts.
-          </p>
-          <div class="flex flex-col gap-3">
-            <a
-              class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-4 text-base font-semibold uppercase tracking-[0.2em] text-midnight shadow-glow sm:w-fit"
-              href={withBase('/apply')}
-            >
-              Start your application
-            </a>
-            <div class="flex flex-wrap items-center gap-4 text-sm text-white/65">
-              <a class="uppercase tracking-[0.28em] transition hover:text-rose-gold" href={withBase('/how-it-works')}>
-                How it works
-              </a>
-              <a class="uppercase tracking-[0.28em] transition hover:text-rose-gold" href={withBase('/resources')}>
-                Resources
-              </a>
-            </div>
-          </div>
-          <p class="max-w-xl text-[clamp(0.78rem,1.4vw,0.9rem)] text-white/60">
-            Simple help for stressed, mobile-first creators who want to get moving without giving up control.
-          </p>
-        </div>
-        <div class="grid">
-          <div class="relative overflow-hidden rounded-[34px] border border-white/10 bg-white/5 p-6 backdrop-blur shadow-glow">
-            <img
-              class="h-full w-full rounded-3xl object-cover"
-              src="/images/home-hero.webp"
-              srcset="/images/home-hero-768.jpg 768w, /images/home-hero-1280.jpg 1280w, /images/home-hero.webp 1600w"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 42vw"
-              alt="Smiling red-haired model sitting in a white gaming chair, looking at the camera."
-              width="1600"
-              height="1067"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="grid gap-4 md:grid-cols-3">
-        <article class="content-card space-y-2">
-          <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step 1</p>
-          <h2 class="font-display text-2xl text-white">Apply once</h2>
-          <p class="text-sm text-white/75">Share the basics so we can point you to the right next step.</p>
-        </article>
-        <article class="content-card space-y-2">
-          <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step 2</p>
-          <h2 class="font-display text-2xl text-white">Get a clear setup plan</h2>
-          <p class="text-sm text-white/75">Use simple instructions built for mobile and fast follow-through.</p>
-        </article>
-        <article class="content-card space-y-2">
-          <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Step 3</p>
-          <h2 class="font-display text-2xl text-white">Start earning</h2>
-          <p class="text-sm text-white/75">Move forward with legitimate setup help while keeping account control.</p>
-        </article>
-      </div>
-
-      <TrustRulesBlock title="Read this before you apply" compact />
-
-      <div class="content-card flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div class="space-y-1">
-          <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Need details first?</p>
-          <p class="text-sm text-white/75">Read how it works or browse resources before you apply.</p>
-        </div>
-        <div class="flex flex-col gap-3 sm:flex-row">
-          <a
-            class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.3em] text-white/75 transition hover:border-white/30 hover:text-white"
-            href={withBase('/how-it-works')}
-          >
-            How it works
-          </a>
-          <a
-            class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-5 py-2 text-xs uppercase tracking-[0.3em] text-white/75 transition hover:border-white/30 hover:text-white"
-            href={withBase('/resources')}
-          >
-            Resources
-          </a>
-        </div>
-      </div>
+  <section class="content-card space-y-5">
+    <p class="hero-tagline">Premium Growth Business</p>
+    <h1 class="font-display text-4xl text-white sm:text-5xl">Scale your cam revenue with a four-pillar growth system.</h1>
+    <p class="max-w-3xl text-white/75">NaughtyCamSpot is built first for active models who want better traffic, higher conversion, stronger VIP retention, and reliable passive income systems. New models can still launch through our guided path.</p>
+    <div class="flex flex-wrap gap-3">
+      <a class="btn border border-rose-gold/70 bg-rose-gold text-midnight" href={withBase('/growth/')}>View Growth Packages</a>
+      <a class="btn btn-secondary" href={withBase('/apply/')}>Apply for Guided Launch</a>
     </div>
   </section>
-  <HowItWorks compact />
-  <FinalCTA />
+
+  <TrustRulesBlock title="Non-negotiable trust rules" />
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Four-pillar revenue system</h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-xl text-white">Traffic</h3><p class="text-sm text-white/75">Placeholder: omnichannel traffic plan and platform-specific audience capture.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-xl text-white">Room Conversion</h3><p class="text-sm text-white/75">Placeholder: room scripts, pricing psychology, and live conversion checkpoints.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-xl text-white">VIP Retention</h3><p class="text-sm text-white/75">Placeholder: VIP lifecycle cadence, messaging templates, and return-visit loops.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-xl text-white">Passive Income</h3><p class="text-sm text-white/75">Placeholder: feed/subscription offers, bundles, and evergreen promo workflows.</p></article>
+    </div>
+  </section>
+
+  <section class="grid gap-5 lg:grid-cols-2">
+    <article class="content-card space-y-3">
+      <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Path 1</p>
+      <h2 class="font-display text-3xl text-white">Already modeling?</h2>
+      <p class="text-sm text-white/75">Go straight into the Growth lane with package-led execution.</p>
+      <a class="btn btn-secondary" href={withBase('/growth/')}>Explore Growth</a>
+    </article>
+    <article class="content-card space-y-3">
+      <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Path 2</p>
+      <h2 class="font-display text-3xl text-white">New to modeling?</h2>
+      <p class="text-sm text-white/75">Use Professional Onboarding Tools for a guided start, platform fit, and routed signup help.</p>
+      <a class="btn btn-secondary" href={withBase('/apply/')}>Start Guided Launch</a>
+    </article>
+  </section>
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Growth package preview (placeholder)</h2>
+    <div class="grid gap-4 md:grid-cols-3">
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><h3 class="text-white">[Package A Placeholder]</h3><p>Placeholder scope for active models with core weekly optimization.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><h3 class="text-white">[Package B Placeholder]</h3><p>Placeholder scope for deeper campaign systems and retention workflows.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><h3 class="text-white">[Package C Placeholder]</h3><p>Placeholder scope for premium growth execution and strategic support.</p></article>
+    </div>
+  </section>
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Proof preview (sample/template posture)</h2>
+    <p class="text-sm text-white/75">We show sample workflows and template deliverables only. No fake outcomes and no unsupported metrics.</p>
+    <p class="text-sm text-white/75"><strong>Featured VIP cameo:</strong> Anna appears as a replaceable example profile in the proof section.</p>
+    <a class="btn btn-secondary" href={withBase('/proof/')}>View Proof</a>
+  </section>
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Choose your lane</h2>
+    <div class="flex flex-wrap gap-3">
+      <a class="btn border border-rose-gold/70 bg-rose-gold text-midnight" href={withBase('/growth/')}>I want growth now</a>
+      <a class="btn btn-secondary" href={withBase('/apply/')}>I need guided launch help</a>
+    </div>
+  </section>
 </MainLayout>
