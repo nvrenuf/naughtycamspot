@@ -4,12 +4,9 @@ const {
   description = 'Premium growth systems for active cam models, with a guided launch lane for new models.',
   showNavigation = true
 } = Astro.props;
-import PreClickCapture from '../components/PreClickCapture.astro';
 import '../styles/tailwind.css';
-import { DISCLOSURE } from '../data/copy';
 import { NAV_PRIMARY } from '../data/nav';
 import { withBase } from '../utils/links';
-import { getRequestLang, LANGS } from '../i18n/core';
 import buildStamp from '../generated/build-stamp.json';
 
 const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
@@ -62,18 +59,6 @@ const stripBase = (value: string) => {
 };
 
 const currentPath = stripBase(Astro.url.pathname);
-const requestLang = getRequestLang(Astro.url);
-const buildLangHref = (lang: string) => {
-  const params = new URLSearchParams(Astro.url.searchParams);
-  if (lang === 'en') {
-    params.delete('lang');
-  } else {
-    params.set('lang', lang);
-  }
-  const qs = params.toString();
-  return qs ? `?${qs}` : '';
-};
-
 const primaryNavLinks = NAV_PRIMARY;
 
 const isNavActive = (href: string) => {
@@ -95,11 +80,6 @@ const resolveNavHref = (link) => {
 };
 
 const footerLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/growth/', label: 'Growth' },
-  { href: '/how-it-works/', label: 'How It Works' },
-  { href: '/proof/', label: 'Proof' },
-  { href: '/apply/', label: 'Apply' },
   { href: '/platforms/', label: 'Platforms' },
   { href: '/privacy/', label: 'Privacy' },
   { href: '/terms/', label: 'Terms' },
@@ -146,7 +126,6 @@ gtag('config', '${gaMeasurementId}');`}
     <div class="pointer-events-none fixed inset-0 z-0 bg-aurora opacity-80"></div>
     <div class="pointer-events-none absolute -left-24 top-32 h-72 w-72 rounded-full bg-rose-gold/20 blur-3xl"></div>
     <div class="pointer-events-none absolute -right-32 top-12 h-80 w-80 rounded-full bg-rose-gold/25 blur-3xl"></div>
-    <PreClickCapture />
 
     <div class="relative z-10 flex min-h-screen flex-col">
       {showNavigation && (
@@ -240,8 +219,8 @@ gtag('config', '${gaMeasurementId}');`}
       </main>
 
       <footer class="border-t border-white/10 bg-black/40 py-10 backdrop-blur-2xl">
-        <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 text-sm tracking-[0.04em] text-white/70 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex flex-wrap items-center gap-4 text-sm">
+        <div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 text-sm tracking-[0.04em] text-white/70">
+          <div class="flex flex-wrap items-center gap-4 text-sm" data-footer-nav>
             {footerLinks.map((link) => {
               const resolvedHref = resolveNavHref(link);
               return (
@@ -255,22 +234,13 @@ gtag('config', '${gaMeasurementId}');`}
             <a class="transition hover:text-rose-gold" href="mailto:concierge@naughtycamspot.com">
               concierge@naughtycamspot.com
             </a>
-            <span>© NaughtyCamSpot 2025</span>
+            <span>© NaughtyCamSpot 2026</span>
           </div>
+          <p class="max-w-3xl text-xs text-white/55">
+            Premium growth for active cam models, plus a guided launch lane through Professional Onboarding Tools. Contains affiliate
+            links. No passwords. No exclusivity. Cancel anytime.
+          </p>
           <p class="text-xs text-white/50">Build: {buildCommit} • {buildDisplay}</p>
-          <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.28em] text-white/60">
-            <span class="text-white/50">Lang</span>
-            {LANGS.map((lang) => (
-              <a
-                class={`rounded-full border px-3 py-1 transition hover:border-white/30 hover:text-rose-gold ${requestLang === lang ? 'border-rose-gold/60 text-rose-gold' : 'border-white/10 text-white/70'}`}
-                href={buildLangHref(lang)}
-                aria-current={requestLang === lang ? 'true' : undefined}
-              >
-                {lang.toUpperCase()}
-              </a>
-            ))}
-          </div>
-          <p class="text-xs tracking-[0.04em] text-white/65">{DISCLOSURE}</p>
         </div>
       </footer>
 	    </div>

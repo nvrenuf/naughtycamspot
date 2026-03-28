@@ -18,8 +18,8 @@ execFileSync('npm', ['run', 'build:pages'], {
 
 const html = readFileSync(indexPath, 'utf8');
 const checks = [
-  { token: 'StartRight', message: 'Homepage should reference StartRight in the hero.' },
-  { token: '/startright', message: 'Homepage hero should link to /startright.' }
+  { token: 'Growth-First Public Site', message: 'Homepage should lead with the growth-first hero.' },
+  { token: 'Explore Growth', message: 'Homepage should expose the growth lane CTA.' }
 ];
 
 const missing = checks.filter(({ token }) => !html.includes(token));

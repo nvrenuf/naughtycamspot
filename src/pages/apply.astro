@@ -2,6 +2,7 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
+import { withBase } from '../utils/links';
 
 const canonicalPath = '/apply';
 const platforms = ['Chaturbate', 'CamSoda', 'BongaCams', 'Fansly'];
@@ -10,56 +11,56 @@ const platforms = ['Chaturbate', 'CamSoda', 'BongaCams', 'Fansly'];
 <MainLayout title="Apply | NaughtyCamSpot" description="Intake for active models and guided launch applicants.">
   <SEO slot="head" title="Apply | NaughtyCamSpot" description="Intake for active models and guided launch applicants." path={canonicalPath} />
 
-  <section class="content-card space-y-4">
+  <section class="hero-shell parallax-veil space-y-4">
     <p class="hero-tagline">Apply</p>
     <h1 class="font-display text-4xl text-white sm:text-5xl">One intake, two lanes.</h1>
-    <p class="text-sm text-white/75">Tell us whether you are already modeling or want to get started. We route you to the right next steps.</p>
+    <p class="max-w-3xl text-sm text-white/75">Tell us whether you are already active or starting from scratch. We use one form to route you into either premium Growth or the guided launch lane.</p>
   </section>
 
   <section class="grid gap-5 md:grid-cols-2">
     <article class="content-card space-y-3">
       <h2 class="font-display text-3xl text-white">Already modeling</h2>
-      <p class="text-sm text-white/75">You will be routed toward the premium Growth lane and package matching.</p>
+      <p class="text-sm text-white/75">Use this path if you already have live accounts and want growth support focused on traffic, conversion, retention, and passive income.</p>
     </article>
     <article class="content-card space-y-3">
-      <h2 class="font-display text-3xl text-white">Want to get started</h2>
-      <p class="text-sm text-white/75">You will be routed into Professional Onboarding Tools and platform-guided signup.</p>
+      <h2 class="font-display text-3xl text-white">New to modeling</h2>
+      <p class="text-sm text-white/75">Use this path if you need Professional Onboarding Tools, platform-fit guidance, and routed signup help before you go live.</p>
     </article>
   </section>
 
   <section class="content-card space-y-4">
     <h2 class="font-display text-3xl text-white">Professional Onboarding Tools</h2>
-    <ul class="list-disc space-y-2 pl-5 text-sm text-white/75">
-      <li>Model-name scanner app (placeholder structure)</li>
-      <li>Platform-fit guidance (placeholder decision workflow)</li>
-      <li>Signup perks (placeholder perk catalog)</li>
-      <li>Guided next steps after intake submission</li>
-    </ul>
-    <p class="text-sm text-white/70">Launch platforms: {platforms.join(', ')}.</p>
+    <div class="grid gap-4 md:grid-cols-2">
+      <p class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><strong class="text-white">Model-name scanner:</strong> placeholder review flow to catch conflicts, availability issues, and identity cleanup before signup.</p>
+      <p class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><strong class="text-white">Platform-fit guidance:</strong> placeholder decision support for matching your goals to the right starting platform.</p>
+      <p class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><strong class="text-white">Signup perks:</strong> placeholder perks overview tied to the routed launch path and post-signup next steps.</p>
+      <p class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><strong class="text-white">Launch platforms:</strong> {platforms.join(', ')}.</p>
+    </div>
   </section>
 
   <section class="content-card space-y-4">
-    <h2 class="font-display text-3xl text-white">Intake structure</h2>
-    <form class="grid gap-3" method="post" action="/claim/index.php">
+    <h2 class="font-display text-3xl text-white">Intake form</h2>
+    <form class="grid gap-3 md:grid-cols-2" method="get" action={withBase('/how-it-works/')}>
       <input class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" type="text" name="model_name" placeholder="Model name" required />
       <select class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" name="audience" required>
-        <option value="">Select path</option>
+        <option value="">Choose your lane</option>
         <option value="active">Already modeling</option>
-        <option value="new">Want to get started</option>
+        <option value="new">New to modeling</option>
       </select>
       <select class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" name="platform_interest" required>
-        <option value="">Primary platform interest</option>
+        <option value="">Launch platform interest</option>
         {platforms.map((platform) => <option value={platform.toLowerCase()}>{platform}</option>)}
       </select>
       <input class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" type="text" name="contact" placeholder="Telegram, WhatsApp, or email" required />
-      <button class="btn border border-rose-gold/70 bg-rose-gold text-midnight" type="submit">Submit Intake</button>
+      <textarea class="rounded-xl border border-white/10 bg-black/20 px-4 py-3 md:col-span-2" name="current_stage" rows="4" placeholder="Tell us whether you are already active, what platforms you use, and what help you need." />
+      <button class="btn border border-rose-gold/70 bg-rose-gold text-midnight md:col-span-2" type="submit">Submit Intake</button>
     </form>
   </section>
 
   <section class="content-card space-y-3">
-    <h2 class="font-display text-3xl text-white">Start Right access rule</h2>
-    <p class="text-sm text-white/75">Start Right is a guided launch bonus only. It unlocks only after successful signup completion through our routed platform path.</p>
-    <a class="btn btn-secondary" href="/platforms/">Review routed platforms</a>
+    <h2 class="font-display text-3xl text-white">Start Right is post-signup only</h2>
+    <p class="text-sm text-white/75">Start Right is not the public front door. It unlocks only after successful signup completion through the routed platform path.</p>
+    <a class="btn btn-secondary" href={withBase('/platforms/')}>Review routed platforms</a>
   </section>
 
   <TrustRulesBlock title="Trust stays visible before submission" />

@@ -7,64 +7,74 @@ import { withBase } from '../utils/links';
 const canonicalPath = '/';
 ---
 
-<MainLayout title="NaughtyCamSpot | Growth Systems for Active Cam Models" description="Growth-first support for active cam models plus a guided launch lane using Professional Onboarding Tools.">
-  <SEO slot="head" title="NaughtyCamSpot | Growth Systems for Active Cam Models" description="Growth-first support for active cam models plus a guided launch lane using Professional Onboarding Tools." path={canonicalPath} />
+<MainLayout title="NaughtyCamSpot | Growth systems for active cam talent" description="Growth-first support for active cam models plus a guided launch lane using Professional Onboarding Tools.">
+  <SEO slot="head" title="NaughtyCamSpot | Growth systems for active cam talent" description="Growth-first support for active cam models plus a guided launch lane using Professional Onboarding Tools." path={canonicalPath} />
 
-  <section class="content-card space-y-5">
-    <p class="hero-tagline">Premium Growth Business</p>
-    <h1 class="font-display text-4xl text-white sm:text-5xl">Scale your cam revenue with a four-pillar growth system.</h1>
-    <p class="max-w-3xl text-white/75">NaughtyCamSpot is built first for active models who want better traffic, higher conversion, stronger VIP retention, and reliable passive income systems. New models can still launch through our guided path.</p>
+  <section class="hero-shell parallax-veil space-y-6" id="growth-first-hero">
+    <p class="hero-tagline">Growth-First Public Site</p>
+    <h1 class="max-w-4xl font-display text-4xl text-white sm:text-6xl">We build revenue systems for active cam models.</h1>
+    <p class="max-w-3xl text-white/75">
+      NaughtyCamSpot leads with premium growth for active models: better traffic, stronger room conversion, tighter VIP retention,
+      and more dependable passive income systems. New models still have a guided launch path, but growth is the public center of gravity.
+    </p>
     <div class="flex flex-wrap gap-3">
-      <a class="btn border border-rose-gold/70 bg-rose-gold text-midnight" href={withBase('/growth/')}>View Growth Packages</a>
-      <a class="btn btn-secondary" href={withBase('/apply/')}>Apply for Guided Launch</a>
+      <a class="btn border border-rose-gold/70 bg-rose-gold text-midnight" href={withBase('/growth/')}>Explore Growth</a>
+      <a class="btn btn-secondary" href={withBase('/apply/')}>Apply</a>
     </div>
   </section>
 
   <TrustRulesBlock title="Non-negotiable trust rules" />
 
-  <section class="content-card space-y-4">
+  <section class="content-card space-y-4" id="four-pillar-revenue-system">
     <h2 class="font-display text-3xl text-white">Four-pillar revenue system</h2>
     <div class="grid gap-4 md:grid-cols-2">
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-xl text-white">Traffic</h3><p class="text-sm text-white/75">Placeholder: omnichannel traffic plan and platform-specific audience capture.</p></article>
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-xl text-white">Room Conversion</h3><p class="text-sm text-white/75">Placeholder: room scripts, pricing psychology, and live conversion checkpoints.</p></article>
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-xl text-white">VIP Retention</h3><p class="text-sm text-white/75">Placeholder: VIP lifecycle cadence, messaging templates, and return-visit loops.</p></article>
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-4"><h3 class="text-xl text-white">Passive Income</h3><p class="text-sm text-white/75">Placeholder: feed/subscription offers, bundles, and evergreen promo workflows.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-5"><h3 class="text-xl text-white">Traffic</h3><p class="mt-2 text-sm text-white/75">Placeholder channel planning for platform-aware traffic, audience capture, and campaign pacing.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-5"><h3 class="text-xl text-white">Room Conversion</h3><p class="mt-2 text-sm text-white/75">Placeholder live-room systems for menu design, show structure, upsell sequencing, and conversion checkpoints.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-5"><h3 class="text-xl text-white">VIP Retention</h3><p class="mt-2 text-sm text-white/75">Placeholder retention systems for VIP ladders, follow-up cadence, and relationship continuity between sessions.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-5"><h3 class="text-xl text-white">Passive Income</h3><p class="mt-2 text-sm text-white/75">Placeholder subscription and evergreen monetization support that keeps revenue working off-stream too.</p></article>
     </div>
   </section>
 
-  <section class="grid gap-5 lg:grid-cols-2">
+  <section class="grid gap-5 lg:grid-cols-2" id="two-path-split">
     <article class="content-card space-y-3">
       <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Path 1</p>
       <h2 class="font-display text-3xl text-white">Already modeling?</h2>
-      <p class="text-sm text-white/75">Go straight into the Growth lane with package-led execution.</p>
+      <p class="text-sm text-white/75">Go straight to the Growth lane for four-pillar diagnosis, package matching, and active optimization.</p>
       <a class="btn btn-secondary" href={withBase('/growth/')}>Explore Growth</a>
     </article>
     <article class="content-card space-y-3">
       <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Path 2</p>
       <h2 class="font-display text-3xl text-white">New to modeling?</h2>
-      <p class="text-sm text-white/75">Use Professional Onboarding Tools for a guided start, platform fit, and routed signup help.</p>
-      <a class="btn btn-secondary" href={withBase('/apply/')}>Start Guided Launch</a>
+      <p class="text-sm text-white/75">Apply for Professional Onboarding Tools, get platform-fit guidance, and use the routed signup path before Start Right unlocks.</p>
+      <a class="btn btn-secondary" href={withBase('/apply/')}>Use Professional Onboarding Tools</a>
     </article>
   </section>
 
-  <section class="content-card space-y-4">
-    <h2 class="font-display text-3xl text-white">Growth package preview (placeholder)</h2>
+  <section class="content-card space-y-4" id="growth-package-preview">
+    <div class="space-y-2">
+      <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Growth package preview</p>
+      <h2 class="font-display text-3xl text-white">Growth package preview using placeholders</h2>
+    </div>
     <div class="grid gap-4 md:grid-cols-3">
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><h3 class="text-white">[Package A Placeholder]</h3><p>Placeholder scope for active models with core weekly optimization.</p></article>
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><h3 class="text-white">[Package B Placeholder]</h3><p>Placeholder scope for deeper campaign systems and retention workflows.</p></article>
-      <article class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><h3 class="text-white">[Package C Placeholder]</h3><p>Placeholder scope for premium growth execution and strategic support.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/75"><h3 class="text-white">[Growth Package Placeholder A]</h3><p class="mt-2">Placeholder scope for active models needing consistent weekly optimization and reporting rhythm.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/75"><h3 class="text-white">[Growth Package Placeholder B]</h3><p class="mt-2">Placeholder scope for deeper campaign testing, room conversion systems, and retention structure.</p></article>
+      <article class="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/75"><h3 class="text-white">[Growth Package Placeholder C]</h3><p class="mt-2">Placeholder scope for hands-on strategic execution across traffic, VIP, and passive income levers.</p></article>
     </div>
   </section>
 
-  <section class="content-card space-y-4">
-    <h2 class="font-display text-3xl text-white">Proof preview (sample/template posture)</h2>
-    <p class="text-sm text-white/75">We show sample workflows and template deliverables only. No fake outcomes and no unsupported metrics.</p>
-    <p class="text-sm text-white/75"><strong>Featured VIP cameo:</strong> Anna appears as a replaceable example profile in the proof section.</p>
+  <section class="content-card space-y-4" id="conservative-proof-preview">
+    <h2 class="font-display text-3xl text-white">Conservative proof preview</h2>
+    <p class="text-sm text-white/75">The public proof posture stays conservative: sample workflows, template deliverables, and example structures only.</p>
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-white/75">
+      <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Anna cameo only</p>
+      <p class="mt-2"><strong class="text-white">Anna</strong> appears here as a replaceable VIP cameo, not as the homepage centerpiece and not as a hard dependency for the site.</p>
+    </div>
     <a class="btn btn-secondary" href={withBase('/proof/')}>View Proof</a>
   </section>
 
-  <section class="content-card space-y-4">
-    <h2 class="font-display text-3xl text-white">Choose your lane</h2>
+  <section class="content-card space-y-4" id="final-cta">
+    <h2 class="font-display text-3xl text-white">Pick the lane that fits where you are now</h2>
+    <p class="max-w-3xl text-sm text-white/75">Already active models should go straight into the Growth lane. New models should apply for Professional Onboarding Tools and unlock Start Right only after routed signup completion.</p>
     <div class="flex flex-wrap gap-3">
       <a class="btn border border-rose-gold/70 bg-rose-gold text-midnight" href={withBase('/growth/')}>I want growth now</a>
       <a class="btn btn-secondary" href={withBase('/apply/')}>I need guided launch help</a>

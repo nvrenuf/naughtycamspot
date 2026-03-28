@@ -1,165 +1,37 @@
-# naughtycamspot
-Recruiting + promotion frontend for NaughtyCamSpot, built with Astro and Tailwind CSS.
+# NaughtyCamSpot
+
+Growth-first public site for NaughtyCamSpot, built with Astro and Tailwind CSS.
+
+## Public architecture
+
+Main public pages:
+
+- `/`
+- `/growth`
+- `/how-it-works`
+- `/apply`
+- `/platforms`
+- `/proof`
+
+Utility pages:
+
+- `/privacy`
+- `/terms`
+- `/disclosure`
+
+Affiliate routing exists only for the launch lane through the `/go/*.php` endpoints surfaced on the platforms page.
 
 ## Commands
 
 - Install dependencies: `npm install`
 - Start local dev server: `npm run dev`
+- Run tests: `npm test`
 - Create a production build: `npm run build`
 - Build for GitHub Pages: `npm run build:pages`
 - Pages safety scan: `npm run test:pages-safety`
-- JSON schema validation: `npm run check:schemas`
-- Homepage snapshot check: `npm run test:snapshot`
-- E2E smoke tests (dev): `npm run dev` then `BASE_URL=http://localhost:4321 npm run test:e2e`
 
-## Deploy model
+## Notes
 
-- Run a local production build and upload the generated `dist/` directory to ViceTemple.
-- Treat `/public/go` as the canonical source inside the repo — never hand-edit PHP on the server.
-- The Pages workflow deletes `dist/go`, so GitHub Pages never ships the PHP redirectors.
-- ViceTemple Apache normalizes `/join-models`, `/apply`, `/packages`, `/how-it-works`, and `/platforms` to their trailing-slash routes.
-
-## E2E smoke tests
-
-Dev mode (Astro):
-
-```bash
-npm run dev
-BASE_URL=http://localhost:4321 npm run test:e2e
-```
-
-PHP mode (claim endpoints):
-
-```bash
-npm run build
-php -S localhost:8080 -t dist
-BASE_URL=http://localhost:8080 npm run test:e2e
-```
-
-Note: local PHP does not emulate Apache `.htaccess` rewrites.
-
-## Project structure
-
-- `src/layouts/MainLayout.astro` — shared chrome, fonts, and ambient gradients
-- `src/pages/index.astro` — dual-path homepage for recruiting (affiliate links) and paid promotion services
-- `src/pages/join-models.astro` — recruitment landing with concierge bullets, tracked CTA, FAQ placeholders, and banner slot
-- `src/pages/disclosure.astro` — affiliate disclosure copy surfaced in the global footer
-- `src/styles/tailwind.css` — Tailwind layers plus glassmorphism utility classes
-- `images/` — shared static assets ready to surface in future sections
-
-Legacy HTML pages, generators, and blog scaffolding have been removed. Work forward from the Astro surface for new sections and routes.
-
-## Local hooks
-
-Enable the shared Git hooks to run safety checks before every push:
-
-```bash
-git config core.hooksPath .githooks
-chmod +x .githooks/pre-push
-```
-
-The pre-push hook executes the Pages safety scan, JSON schema validation, and the hero snapshot test.
-
-### Branch synchronization
-
-Use the helper script to fast-forward every local branch to the latest remote state in one sweep:
-
-```bash
-./scripts/sync-all-branches.sh
-```
-
-The script fetches all remotes, skips dirty working trees, creates any missing local branches, and fast-forwards the rest. If a
-branch has diverged, the script will warn so you can handle the merge manually.
-
-## SEO & indexing
-
-- Production builds (`astro.config.mjs`) enable `@astrojs/sitemap` with the public `site` domain locked to `https://naughtycamspot.com`. GitHub Pages builds continue to use `astro.config.pages.mjs` and inject a `<meta name="robots" content="noindex,nofollow">` tag so previews stay out of the index.
-- Robots directives live in `public/robots.prod.txt` (deploy as `robots.txt` on ViceTemple) and `public/robots.pages.txt` (copied to `robots.txt` by the Pages workflow before building). Update both files when crawl strategy changes.
-- ViceTemple security headers are shipped via `public/.htaccess` — keep updates scoped there so Pages previews remain unaffected.
-- Page-level titles, descriptions, OG, and canonical tags are centralized in `src/components/SEO.astro`. Pull this component into new pages and provide unique copy per surface.
-
-### Adding SEO to a new page or post
-
-1. Import `SEO` from `src/components/SEO.astro`.
-2. Render `<SEO slot="head" ... />` inside the page layout with:
-   - unique `title`
-   - unique `description`
-   - canonical `path` (for example `/startright` or `/posts/my-slug`)
-3. Add `ogImage` for pages/posts that have a share image and set `ogType="article"` on article detail pages.
-4. Run `npm run build` and confirm the route appears in `dist/sitemap-index.xml` / `dist/sitemap-0.xml`.
-5. Keep `public/robots.prod.txt` and `public/robots.pages.txt` aligned with the intended crawl policy.
-
-## Tracked links in prod vs Pages
-
-- Use the shared `buildTrackedLink` helper whenever a `/go/*` slug is involved (homepage hero CTA, `<BannerSlot>`, model profile buttons).
-- Production builds return `/go/*` URLs with `?src=<slot>&camp=<page>&date=YYYYMMDD` appended for tracking.
-- GitHub Pages builds fall back to the provided external placeholder, stripping query strings so previews stay clean and never link to `/go/*`.
-- The production server now handles `/go/*` redirects and geotargeted program rotation via the PHP handlers in `public/go/`.
-
-## Analytics & click beacons
-
-- Set the GA4 measurement ID through the `PUBLIC_GA4_ID` environment variable (for example, add `PUBLIC_GA4_ID=G-XXXXXXX` to your ViceTemple `.env`).
-- The GA snippet only renders when `import.meta.env.SITE` resolves to `https://naughtycamspot.com` **and** `IS_PAGES` is not flagged, so GitHub Pages previews never emit tracking.
-- Click beacons fire for any element marked with `data-track="click"` (homepage hero CTA and all banner slots in production) and send lightweight GET requests to `/go/click.php` with the slot, campaign, and timestamp.
-- ViceTemple writes those beacon hits to `logs/clicks.log` (see `public/go/click.php`). Pages builds keep the PHP handler inert because the environment never executes the file.
-
-### Join Models CTA behaviour
-
-- The Join Models landing (`src/pages/join-models.astro`) calls `buildTrackedLink` with `/go/model-join.php`, `src=join_models`, and `camp=landing`.
-- Provide a safe public placeholder URL in the `CTA_PLACEHOLDER` constant so Pages builds output an external link that does **not** start with `/go/`.
-- Production builds automatically append the `date=YYYYMMDD` stamp and keep the `/go/model-join.php` target.
-- Update the FAQ copy by editing the `faqItems` array in `src/pages/join-models.astro`.
-
-## StartRight kit claim flow
-
-- The Pages-safe instructions live in `src/pages/claim.astro`. It renders the proof checklist and links to the correct StartRight claim endpoint depending on the build (Tally on Pages, `/claim/` on ViceTemple) using the shared `getClaimUrl` helper.
-- ViceTemple serves the multipart form from `public/claim/index.php`. Proof uploads are written to `public/claim/uploads/<year>/<month>/` and each submission is appended to `public/claim/claims.log`.
-- Astro dev (`npm run dev`) does not execute PHP, so `/claim/` endpoints only work on ViceTemple/Apache.
-- Notification emails go to `admin@naughtycamspot.com` through PHP&apos;s native `mail()` function. Confirm that the host has outbound email enabled so concierge receives alerts.
-- Adjust the external intake URL by editing `CLAIM_FORM_EXTERNAL_URL` in `src/utils/links.js`. Production automatically switches back to `/claim/`.
-- `.htaccess` hardens the claim folder: requests are limited to `GET`/`POST` and executable extensions inside `uploads/` are denied. Keep those guards intact when extending the flow.
-- Privacy reminder: claims store the submitter&apos;s name, email, platform selection, optional notes, and the uploaded screenshot. Treat the uploads directory and log file as sensitive StartRight customer data and restrict server-level access accordingly.
-
-## Banner slots
-
-Banner placement is configured in `src/data/banners.ts`. Each slot defines its `/go/*` path for production, a Pages-safe placeholder link, SVG creative, explicit dimensions, and descriptive alt text.
-
-Current slots:
-
-- `home_top_leaderboard`
-- `home_mid_rectangle`
-- `home_footer_leaderboard`
-- `model_sidebar_tall`
-- `model_mid_rectangle`
-- `post_top_strip`
-- `post_inline_rect`
-- `post_end_strip`
-
-SVG placeholders for every slot live in `public/ads/`. Update these assets if creative direction changes, but avoid embedding third-party ad scripts.
-
-### Adding a new slot
-
-1. Define the slot in `src/data/banners.ts` with a unique `id`, production `/go/*` path, Pages placeholder URL, camp grouping, image path, dimensions, and alt text.
-2. Drop a matching SVG into `public/ads/` so Pages previews have local creative.
-3. Render the slot with `<BannerSlot id="slot_id" />` in the page or layout where it should appear, adding a `<!-- SLOT: slot_id -->` comment for quick scanning.
-
-## How to add a model page
-
-1. Create a dedicated page in `src/pages/models/` named after the slug (for example, `anna-prince.astro`). Import `MainLayout`, `BannerSlot`, and the shared `buildTrackedLink` helper so link behaviour matches other surfaces.
-2. Wire up both `model_sidebar_tall` and `model_mid_rectangle` banner slots with their identifying HTML comments so ad ops can trace placements quickly.
-3. Surface JSON-LD `Person` metadata with the model name, canonical URL, and `sameAs` profiles. Use the production URL structure (e.g. `https://naughtycamspot.com/models/<slug>/`).
-4. Use `buildTrackedLink` for every active affiliate button so Pages previews fall back to safe externals while production builds point to `/go/*` slugs.
-5. Include at least one concierge-flavoured call-to-action (email capture stub, booking prompt, etc.) to keep the page aligned with the luxury concierge brand tone.
-
-### Model button order
-
-When listing platform buttons on model pages, use the following canonical order so returning visitors immediately recognise the lineup:
-
-1. ManyVids (primary treatment)
-2. Beacons – All links
-3. Stripchat
-4. Chaturbate
-5. CamSoda
-6. Pornhub
-7. OnlyFans
-8. My.club (render as inactive when not yet live)
+- `src/components/TrustRulesBlock.astro` contains the non-negotiable trust language used across the public site.
+- `public/api/namecheck.php` supports the model-name scanner mentioned on the apply page.
+- `public/go/*.php` contains the launch-lane affiliate redirects used by the platforms page.

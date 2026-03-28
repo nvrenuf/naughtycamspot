@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaughtyCamSpot — Premium Growth Business Mockup</title>
+  <style>
+    :root{
+      --bg:#07070a;
+      --bg2:#0d0c11;
+      --bg3:#131118;
+      --panel:#111015;
+      --panel2:#17141d;
+      --gold:#c7a34a;
+      --gold-soft:rgba(199,163,74,.18);
+      --text:#ece4d8;
+      --muted:rgba(236,228,216,.72);
+      --soft:rgba(236,228,216,.44);
+      --line:rgba(199,163,74,.16);
+      --white-line:rgba(255,255,255,.07);
+      --success:#89c78f;
+      --danger:#de6b6b;
+      --shadow:0 20px 80px rgba(0,0,0,.35);
+      --radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at top right, rgba(199,163,74,.10), transparent 28%),
+        radial-gradient(circle at 0% 40%, rgba(255,255,255,.03), transparent 24%),
+        linear-gradient(180deg, #060608 0%, #0b0b0f 100%);
+      color:var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+    .serif{font-family: Georgia, "Times New Roman", serif}
+    .gold{color:var(--gold)}
+    .muted{color:var(--muted)}
+    .soft{color:var(--soft)}
+    .eyebrow{
+      color:var(--gold);
+      font-size:11px;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      margin-bottom:16px;
+    }
+    .line{width:48px;height:1px;background:var(--gold);opacity:.72;margin:12px 0 24px}
+
+    .nav{
+      position:sticky;top:0;z-index:40;
+      border-bottom:1px solid var(--line);
+      background:rgba(7,7,10,.84);
+      backdrop-filter:blur(12px);
+    }
+    .nav-inner{
+      max-width:1180px;margin:0 auto;padding:18px 24px;
+      display:flex;justify-content:space-between;align-items:center;gap:16px;
+    }
+    .brand{font-size:28px;line-height:1;font-weight:500}
+    .brand em{font-style:normal;color:var(--gold)}
+    .nav-links{display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+    .nav-links a{
+      color:var(--soft);font-size:12px;text-transform:uppercase;letter-spacing:.14em;
+      transition:.2s ease;
+    }
+    .nav-links a:hover{color:var(--gold)}
+    .nav-cta{
+      display:inline-block;padding:12px 18px;border:1px solid var(--gold);border-radius:999px;
+      color:var(--gold);font-size:12px;letter-spacing:.14em;text-transform:uppercase;transition:.2s ease;
+    }
+    .nav-cta:hover{background:var(--gold);color:#0b0b0f}
+
+    .hero{
+      padding:86px 0 52px;
+      border-bottom:1px solid var(--line);
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.12fr .88fr;gap:34px;align-items:stretch;
+    }
+    h1{
+      font-size:clamp(46px,7vw,88px);
+      line-height:.98;
+      font-weight:400;
+      margin:0 0 20px;
+    }
+    .hero-copy p{
+      margin:0 0 16px;
+      font-size:18px;
+      color:var(--muted);
+      max-width:700px;
+    }
+    .hero-qual{
+      color:rgba(236,228,216,.85);
+      font-size:18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style:italic;
+      margin-top:10px;
+    }
+    .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      min-height:50px;padding:14px 22px;border-radius:999px;border:1px solid var(--gold);
+      font-size:12px;text-transform:uppercase;letter-spacing:.16em;transition:.2s ease;
+    }
+    .btn.primary{background:var(--gold);color:#0a0a0c}
+    .btn.primary:hover{transform:translateY(-1px);box-shadow:0 10px 30px rgba(199,163,74,.18)}
+    .btn.secondary{color:var(--gold);background:transparent}
+    .btn.secondary:hover{background:rgba(199,163,74,.08)}
+    .hero-panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:26px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      min-height:500px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-panel::after{
+      content:"";position:absolute;inset:auto -10% -25% auto;width:280px;height:280px;border-radius:50%;
+      background:radial-gradient(circle, rgba(199,163,74,.18), transparent 65%);
+      filter:blur(12px);
+    }
+    .tag{
+      display:inline-block;padding:7px 11px;border-radius:999px;border:1px solid rgba(199,163,74,.32);
+      color:var(--gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    }
+    .hero-panel h3{font-size:30px;font-weight:500;margin:14px 0 10px}
+    .hero-panel p{margin:0 0 12px;color:var(--muted);font-size:15px}
+    .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+    .mini-card{
+      border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:14px;background:rgba(255,255,255,.02)
+    }
+    .mini-card strong{display:block;font-size:14px;margin-bottom:4px}
+    .mini-card span{font-size:13px;color:var(--soft)}
+
+    .trust-strip{background:var(--bg2);border-bottom:1px solid var(--line)}
+    .trust-row{
+      max-width:1180px;margin:0 auto;padding:16px 24px;
+      display:flex;gap:12px 24px;justify-content:center;flex-wrap:wrap;
+    }
+    .trust-item{
+      font-size:12px;text-transform:uppercase;letter-spacing:.11em;color:var(--soft)
+    }
+    .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-right:8px}
+
+    section{padding:76px 0;border-bottom:1px solid var(--line)}
+    h2{
+      font-size:clamp(34px,5vw,58px);
+      line-height:1.06;
+      font-weight:400;
+      margin:0 0 16px;
+    }
+    .lead{font-size:18px;color:var(--muted);max-width:860px;margin:0 0 30px}
+
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.012));
+      border:1px solid var(--white-line);
+      border-radius:24px;
+      padding:28px;
+    }
+    .card h3{font-size:28px;margin:0 0 10px;font-weight:500}
+    .card p{margin:0;color:var(--muted)}
+
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-radius:24px;overflow:hidden;margin-top:16px}
+    .compare-col{background:var(--bg2);padding:28px}
+    .compare-col h3{font-size:28px;margin:0 0 10px}
+    .compare-col ul{margin:0;padding-left:20px;color:var(--muted)}
+    .compare-col li{margin:10px 0}
+
+    .pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-radius:24px;overflow:hidden;margin-top:32px}
+    .pillar{background:var(--bg2);padding:28px}
+    .pillar .num{font-size:58px;line-height:1;color:rgba(199,163,74,.16);font-family:Georgia,serif}
+    .pillar h3{font-size:24px;margin:14px 0 10px}
+    .pillar p{font-size:15px;color:var(--muted);margin:0 0 14px}
+    .pillar ul{margin:0;padding-left:18px;color:var(--soft)}
+    .pillar li{margin:8px 0}
+
+    .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+    .proof-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.012));
+      border:1px solid var(--white-line);border-radius:24px;padding:22px
+    }
+    .proof-box{
+      border:1px dashed rgba(199,163,74,.32);border-radius:18px;min-height:170px;
+      display:flex;align-items:center;justify-content:center;text-align:center;color:var(--soft);
+      padding:18px;background:rgba(199,163,74,.04);margin-bottom:16px;font-size:14px
+    }
+    .proof-card h3{font-size:22px;margin:0 0 8px}
+    .proof-card p{margin:0;color:var(--muted);font-size:15px}
+
+    .dual-path{
+      display:grid;grid-template-columns:1.18fr .82fr;gap:28px;align-items:start;margin-top:28px
+    }
+    .path-grid{display:grid;gap:18px}
+    .path-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.012));
+      border:1px solid var(--white-line);border-radius:24px;padding:26px
+    }
+    .path-card h3{font-size:28px;margin:12px 0 8px}
+    .path-card p{font-size:16px;color:var(--muted);margin:0 0 14px}
+    .path-card ul{margin:0;padding-left:18px;color:var(--soft)}
+    .side-panel{
+      background:linear-gradient(180deg, #15121a, #0e0d12);
+      border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:var(--shadow)
+    }
+    .side-panel h3{font-size:30px;margin:12px 0 10px}
+    .side-panel p{margin:0 0 10px;color:var(--muted)}
+    .checklist{display:grid;gap:10px;margin-top:16px}
+    .check{
+      padding:14px 16px;border-radius:18px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);
+      font-size:14px;color:var(--muted)
+    }
+
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-radius:24px;overflow:hidden;margin-top:26px}
+    .step{background:var(--bg2);padding:26px}
+    .step .num{font-size:52px;color:rgba(199,163,74,.16);line-height:1;font-family:Georgia,serif}
+    .step h3{font-size:23px;margin:12px 0 8px}
+    .step p{margin:0;color:var(--muted)}
+
+    .packages{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+    .package{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.012));
+      border:1px solid var(--white-line);border-radius:28px;padding:28px;position:relative;
+    }
+    .package.featured{border-color:rgba(199,163,74,.34);background:linear-gradient(180deg, rgba(199,163,74,.08), rgba(255,255,255,.012))}
+    .package .top-tag{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--gold);margin-bottom:12px}
+    .package h3{font-size:34px;margin:0 0 8px}
+    .package .sub{font-size:15px;color:var(--muted);margin:0 0 16px}
+    .package ul{margin:0 0 18px;padding-left:18px;color:var(--soft)}
+    .package li{margin:8px 0}
+    .package .note{font-size:13px;color:var(--soft);padding-top:12px;border-top:1px solid rgba(255,255,255,.07)}
+    .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+    .pill{
+      padding:6px 10px;border-radius:999px;border:1px solid rgba(199,163,74,.24);
+      color:var(--gold);font-size:11px;letter-spacing:.08em;text-transform:uppercase
+    }
+
+    .apply-grid{display:grid;grid-template-columns:1fr .95fr;gap:28px;align-items:start;margin-top:26px}
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.012));
+      border:1px solid var(--white-line);border-radius:28px;padding:28px
+    }
+    .panel h3{font-size:30px;margin:0 0 10px}
+    .panel p{margin:0 0 16px;color:var(--muted)}
+    .field-label{
+      display:block;margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--soft)
+    }
+    input, select, textarea{
+      width:100%;padding:14px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);color:var(--text);margin-bottom:16px;font:inherit
+    }
+    textarea{min-height:120px;resize:vertical}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 16px}
+    .chip{
+      border:1px solid rgba(255,255,255,.10);border-radius:999px;padding:10px 12px;color:var(--muted);font-size:14px;
+      background:rgba(255,255,255,.02)
+    }
+    .checkbox{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted);margin:4px 0 16px}
+    .checkbox input{width:auto;margin:4px 0 0}
+    .small{font-size:13px;color:var(--soft)}
+
+    .faq{display:grid;gap:12px;margin-top:26px}
+    .faq-item{border:1px solid var(--white-line);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.02)}
+    .faq-q{padding:18px 20px;font-size:16px;font-weight:600}
+    .faq-a{padding:0 20px 20px;color:var(--muted)}
+
+    .final-cta{
+      text-align:center;padding:90px 0;background:
+        radial-gradient(circle at center, rgba(199,163,74,.10), transparent 32%),
+        var(--bg2)
+    }
+    .final-cta p{max-width:720px;margin:0 auto 24px;color:var(--muted);font-size:18px}
+
+    footer{padding:28px 0;color:var(--soft);font-size:12px}
+    .foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+
+    @media (max-width: 1040px){
+      .hero-grid,.dual-path,.apply-grid,.split{grid-template-columns:1fr}
+      .pillars,.steps,.packages{grid-template-columns:1fr 1fr}
+      .proof-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 720px){
+      .nav-links{display:none}
+      .compare,.pillars,.steps,.packages,.proof-grid{grid-template-columns:1fr}
+      .hero{padding-top:62px}
+      h1{font-size:48px}
+      .hero-copy p,.lead,.final-cta p{font-size:16px}
+      .mini-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand serif">Naughty<em>Cam</em>Spot</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#system">Revenue System</a>
+        <a href="#proof">Proof</a>
+        <a href="#paths">Who We Help</a>
+        <a href="#packages">Packages</a>
+        <a href="#apply">Apply</a>
+      </div>
+      <a class="nav-cta" href="#apply">Apply for Review</a>
+    </div>
+  </nav>
+
+  <main id="home">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Premium growth business for serious cam models</div>
+          <div class="line"></div>
+          <h1 class="serif">We help cam models<br><span class="gold"><em>grow revenue.</em></span></h1>
+          <p>NaughtyCamSpot is built as a premium growth business first. We work on the real levers behind model income: better traffic, stronger room conversion, smarter VIP retention, and more durable passive-income systems.</p>
+          <p>For serious new models, we also provide a guided launch path with real head-start tools — so the brand helps people begin correctly without turning the whole business into a cheap signup funnel.</p>
+          <div class="hero-qual">Growth is the core business. Launch support is the feeder lane.</div>
+          <div class="cta-row">
+            <a class="btn primary" href="#packages">See Growth Packages</a>
+            <a class="btn secondary" href="#paths">Just Getting Started?</a>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <div>
+            <span class="tag">What makes this different</span>
+            <h3 class="serif">More than promotion. More than posting.</h3>
+            <p>This offer is built for models who want business-level support, not random exposure promises. We do not lead with AI buzzwords, fake agency posturing, or vague traffic claims.</p>
+            <p>We lead with money logic: where revenue enters, where it leaks, and what needs to change to make income more repeatable.</p>
+          </div>
+          <div class="mini-grid">
+            <div class="mini-card">
+              <strong>Primary lane</strong>
+              <span>Premium growth packages for active or growth-ready models</span>
+            </div>
+            <div class="mini-card">
+              <strong>Secondary lane</strong>
+              <span>Guided start path with professional head-start tools</span>
+            </div>
+            <div class="mini-card">
+              <strong>Trust posture</strong>
+              <span>No passwords. No exclusivity. Model keeps control.</span>
+            </div>
+            <div class="mini-card">
+              <strong>Positioning</strong>
+              <span>Selective growth partner, not bargain-bin promo shop</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="trust-row">
+        <div class="trust-item"><span class="dot"></span>No passwords</div>
+        <div class="trust-item"><span class="dot"></span>No exclusivity</div>
+        <div class="trust-item"><span class="dot"></span>You own accounts and content</div>
+        <div class="trust-item"><span class="dot"></span>Cancel anytime</div>
+        <div class="trust-item"><span class="dot"></span>No spam tactics</div>
+        <div class="trust-item"><span class="dot"></span>No fake partner claims</div>
+      </div>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <div class="eyebrow">What this actually is</div>
+        <div class="line"></div>
+        <h2 class="serif">Not a generic model promo site.<br><span class="gold"><em>A revenue growth system.</em></span></h2>
+        <p class="lead">The site should feel premium because the business is premium. That means the public story centers on growth, monetization structure, trust, and selectivity — not on looking like a disposable affiliate page.</p>
+
+        <div class="compare">
+          <div class="compare-col">
+            <h3 class="serif">What we are not</h3>
+            <ul>
+              <li>Cheap lead-gen funnel pretending to be a brand</li>
+              <li>Low-end social posting service with recycled captions</li>
+              <li>Random traffic pushes with no revenue logic behind them</li>
+              <li>Signup-first business that disappears after the referral</li>
+              <li>Hype-driven “AI magic” with no operational depth</li>
+            </ul>
+          </div>
+          <div class="compare-col">
+            <h3 class="serif">What we are</h3>
+            <ul>
+              <li>Premium growth partner for serious cam models</li>
+              <li>System builder across traffic, conversion, retention, and passive income</li>
+              <li>Selective operator with clear trust rules and cleaner positioning</li>
+              <li>Guided launch path for new models who want a real head start</li>
+              <li>Longer-term platform opportunity built on repeatable workflows</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="system">
+      <div class="wrap">
+        <div class="eyebrow">The revenue system</div>
+        <div class="line"></div>
+        <h2 class="serif">Traffic brings opportunity.<br>Conversion, retention, and leverage <span class="gold"><em>create the business.</em></span></h2>
+        <p class="lead">Most services fix one surface and ignore the rest. This model is built around the full monetization system because breaking any one of these pillars costs the model money.</p>
+
+        <div class="pillars">
+          <div class="pillar">
+            <div class="num">01</div>
+            <h3 class="serif">Traffic</h3>
+            <p>Bring the right viewers into the model’s world — not just more random reach.</p>
+            <ul>
+              <li>platform-aware promotion</li>
+              <li>content repurposing and routing</li>
+              <li>niche positioning and offer angles</li>
+              <li>event hype and audience capture</li>
+            </ul>
+          </div>
+          <div class="pillar">
+            <div class="num">02</div>
+            <h3 class="serif">Room Conversion</h3>
+            <p>Turn attention into spend by improving the room itself, not just the funnel into it.</p>
+            <ul>
+              <li>goal ladder design</li>
+              <li>menu as a spending ladder</li>
+              <li>show pacing and momentum</li>
+              <li>special-event monetization logic</li>
+            </ul>
+          </div>
+          <div class="pillar">
+            <div class="num">03</div>
+            <h3 class="serif">VIP Retention</h3>
+            <p>Top fans are too valuable to treat like generic traffic. Retention creates stability.</p>
+            <ul>
+              <li>segmenting valuable viewers</li>
+              <li>welcome and reactivation flows</li>
+              <li>event reminders and VIP drops</li>
+              <li>controlled contact channels</li>
+            </ul>
+          </div>
+          <div class="pillar">
+            <div class="num">04</div>
+            <h3 class="serif">Passive Income</h3>
+            <p>Live-only revenue is fragile. Better systems turn shows into future earnings.</p>
+            <ul>
+              <li>content packaging and bundles</li>
+              <li>subscription and fan-club logic</li>
+              <li>catalog and recurring offers</li>
+              <li>post-show asset conversion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proof">
+      <div class="wrap">
+        <div class="eyebrow">Proof and authority</div>
+        <div class="line"></div>
+        <h2 class="serif">Show the work, not fake stats.<br><span class="gold"><em>Proof should feel real.</em></span></h2>
+        <p class="lead">This section avoids invented earnings claims, fake testimonials, and vanity metrics. Instead it shows the kinds of deliverables and operating artifacts a premium model-growth business would use.</p>
+
+        <div class="proof-grid">
+          <div class="proof-card">
+            <div class="proof-box">Placeholder: room goal ladder example<br>with mini-goals, momentum goals, stretch goals</div>
+            <h3 class="serif">Room Goal System</h3>
+            <p>Demonstrate how a room is structured to create early wins, momentum, and clearer spending behavior.</p>
+          </div>
+          <div class="proof-card">
+            <div class="proof-box">Placeholder: weekly growth report<br>traffic, conversion notes, retention ideas, next experiments</div>
+            <h3 class="serif">Weekly Review</h3>
+            <p>Show that this is an operating system with iteration — not a “set it and hope” service.</p>
+          </div>
+          <div class="proof-card">
+            <div class="proof-box">Placeholder: event-show campaign sheet<br>tease, menu, VIP reminder, post-show offer</div>
+            <h3 class="serif">Event Campaign Planning</h3>
+            <p>Position birthdays, holidays, milestones, and themed shows as monetization campaigns instead of casual streams.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="paths">
+      <div class="wrap">
+        <div class="eyebrow">Two clear paths</div>
+        <div class="line"></div>
+        <h2 class="serif">Built for active models first.<br>Open to serious newcomers with a <span class="gold"><em>real head start.</em></span></h2>
+        <p class="lead">The brand should speak clearly to both audiences without letting the lower-value lane define the business.</p>
+
+        <div class="dual-path">
+          <div class="path-grid">
+            <div class="path-card">
+              <span class="tag">Primary path</span>
+              <h3 class="serif">Already modeling and want to grow?</h3>
+              <p>This is the core business. We work with models who want structure, better money logic, and more than surface-level promotion.</p>
+              <ul>
+                <li>serious growth review and fit screening</li>
+                <li>package matching based on current stage</li>
+                <li>system work across the four pillars</li>
+                <li>higher-touch execution, iteration, and support</li>
+              </ul>
+            </div>
+            <div class="path-card">
+              <span class="tag">Secondary path</span>
+              <h3 class="serif">Want to become a model?</h3>
+              <p>The site also provides a guided launch path with head-start tools, so new models can make better starting decisions and enter a more professional lane from day one.</p>
+              <ul>
+                <li>show-name and brand-direction help</li>
+                <li>platform-fit guidance</li>
+                <li>launch-readiness checklist</li>
+                <li>structured next steps after signup</li>
+              </ul>
+            </div>
+          </div>
+
+          <aside class="side-panel">
+            <span class="tag">Launch tools</span>
+            <h3 class="serif">Head-start tools that feel professional.</h3>
+            <p>The free side should not feel like a gimmick or a course giveaway. It should feel like genuine launch assistance that improves signup quality without giving away the paid growth service.</p>
+            <div class="checklist">
+              <div class="check">Show-name checker and cleaner backup options</div>
+              <div class="check">Platform-fit guidance based on where the model wants to go</div>
+              <div class="check">Launch-readiness help before the first real push</div>
+              <div class="check">Clear next-step guidance after routed signup</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="eyebrow">How it works</div>
+        <div class="line"></div>
+        <h2 class="serif">A cleaner path for growth.<br>A simpler path for getting started.</h2>
+        <p class="lead">The site needs to make both flows obvious without confusing the hierarchy of the business.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">01</div>
+            <h3 class="serif">Apply</h3>
+            <p>Choose growth review if already active, or guided start if new. Keep the intake light and trust-first.</p>
+          </div>
+          <div class="step">
+            <div class="num">02</div>
+            <h3 class="serif">Review</h3>
+            <p>We assess fit, platform direction, stage, and which lane makes sense right now.</p>
+          </div>
+          <div class="step">
+            <div class="num">03</div>
+            <h3 class="serif">Launch or optimize</h3>
+            <p>New models get head-start tools. Active models move into structured growth work.</p>
+          </div>
+          <div class="step">
+            <div class="num">04</div>
+            <h3 class="serif">Iterate</h3>
+            <p>Growth clients operate inside a repeatable system built around measurable adjustments over time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages">
+      <div class="wrap">
+        <div class="eyebrow">Growth packages</div>
+        <div class="line"></div>
+        <h2 class="serif">Premium offers for models who are ready to grow.<br><span class="gold"><em>Selective by design.</em></span></h2>
+        <p class="lead">These public package summaries keep the positioning premium. They sell the operating model, not a commodity menu of random tasks.</p>
+
+        <div class="packages">
+          <div class="package">
+            <div class="top-tag">Starter Boost · 7-day sprint</div>
+            <h3 class="serif">Sprint</h3>
+            <p class="sub">For models who need clarity, rapid fixes, and a stronger operating baseline.</p>
+            <div class="pill-row">
+              <span class="pill">Conversion</span>
+              <span class="pill">Menu</span>
+              <span class="pill">Direction</span>
+            </div>
+            <ul>
+              <li>baseline business review</li>
+              <li>room goals and menu reset</li>
+              <li>promotion and positioning recommendations</li>
+              <li>priority action plan for the next 30 days</li>
+            </ul>
+            <div class="note">Built for models who need sharper structure before committing to ongoing work.</div>
+          </div>
+
+          <div class="package featured">
+            <div class="top-tag">Growth Engine · monthly</div>
+            <h3 class="serif">Growth</h3>
+            <p class="sub">For serious models who want ongoing improvement across traffic, room performance, and retention.</p>
+            <div class="pill-row">
+              <span class="pill">Traffic</span>
+              <span class="pill">Conversion</span>
+              <span class="pill">Retention</span>
+            </div>
+            <ul>
+              <li>ongoing growth support and iteration</li>
+              <li>campaign, event, and funnel planning</li>
+              <li>VIP retention workflows and testing</li>
+              <li>weekly review and next-step decisions</li>
+            </ul>
+            <div class="note">This is the core offer for active models who want a real growth partner.</div>
+          </div>
+
+          <div class="package">
+            <div class="top-tag">Premium · done-with-you / done-for-you</div>
+            <h3 class="serif">Partner</h3>
+            <p class="sub">For higher-intent models who want deeper system work and higher-touch collaboration.</p>
+            <div class="pill-row">
+              <span class="pill">All 4 pillars</span>
+              <span class="pill">Events</span>
+              <span class="pill">Passive income</span>
+            </div>
+            <ul>
+              <li>custom strategy and deeper testing</li>
+              <li>advanced event-show campaigns</li>
+              <li>passive-income buildout direction</li>
+              <li>closer growth partnership and priority support</li>
+            </ul>
+            <div class="note">For models ready to treat their work like a business and scale with more intent.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="apply">
+      <div class="wrap">
+        <div class="eyebrow">Application preview</div>
+        <div class="line"></div>
+        <h2 class="serif">One form. Two lanes.<br><span class="gold"><em>Light friction. Clear intent.</em></span></h2>
+        <p class="lead">The application should be fast, controlled, and mobile-friendly. It should capture enough to route people correctly without turning into a long questionnaire.</p>
+
+        <div class="apply-grid">
+          <div class="panel">
+            <h3 class="serif">Apply for review</h3>
+            <p>Choose the lane that fits you now. Growth is the primary offer. Guided start is for serious new models who want help beginning correctly.</p>
+
+            <label class="field-label">Which lane fits you?</label>
+            <div class="chips">
+              <div class="chip">I am already modeling and want growth help</div>
+              <div class="chip">I am new and want the guided start path</div>
+            </div>
+
+            <label class="field-label">Telegram handle (recommended)</label>
+            <input type="text" placeholder="@yourhandle" />
+
+            <label class="field-label">Email (optional)</label>
+            <input type="email" placeholder="you@example.com" />
+
+            <label class="field-label">WhatsApp (optional)</label>
+            <input type="text" placeholder="+1 ..." />
+
+            <label class="field-label">Platform interests</label>
+            <div class="chips">
+              <div class="chip">Chaturbate</div>
+              <div class="chip">CamSoda</div>
+              <div class="chip">Bonga</div>
+              <div class="chip">Stripchat</div>
+              <div class="chip">Other / unsure</div>
+            </div>
+
+            <label class="field-label">Anything useful to know?</label>
+            <textarea placeholder="Optional: current stage, niche, goals, or what you want help with"></textarea>
+
+            <label class="checkbox">
+              <input type="checkbox" checked />
+              <span>I confirm I am 18+ and I agree to receive next-step messages and onboarding/growth updates.</span>
+            </label>
+
+            <a class="btn primary" href="#apply">Submit application</a>
+            <p class="small" style="margin-top:14px">Mockup note: this is a visual preview, not a live form handler.</p>
+          </div>
+
+          <div class="panel">
+            <h3 class="serif">What happens next</h3>
+            <p>The post-submit flow should feel calm, structured, and professional — not like a dead-end thank-you page.</p>
+            <div class="checklist">
+              <div class="check"><strong>Growth applicants:</strong> fit review, lane confirmation, and next-step guidance</div>
+              <div class="check"><strong>New models:</strong> head-start tools, routed signup guidance, and clearer launch steps</div>
+              <div class="check"><strong>Trust reminder:</strong> you keep control of your accounts, content, and brand</div>
+              <div class="check"><strong>Ongoing logic:</strong> launch path feeds the growth business later when the fit is right</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="eyebrow">Common questions</div>
+        <div class="line"></div>
+        <h2 class="serif">Premium positioning only works if the trust story is clear.</h2>
+        <div class="faq">
+          <div class="faq-item">
+            <div class="faq-q">Do you need my passwords?</div>
+            <div class="faq-a">No. Never. Password requests are outside the model. The trust posture only works if account control stays with the model.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Is this mainly a signup site?</div>
+            <div class="faq-a">No. The core business is premium growth support. The guided launch path exists to bring serious new models in correctly and create a cleaner future path into growth services.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Do I have to work only with you?</div>
+            <div class="faq-a">No exclusivity is required. The positioning should stay premium without trying to trap the model.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-q">Why avoid fake stats and flashy promises?</div>
+            <div class="faq-a">Because unsupported earnings claims weaken trust. A premium business should look more credible, not more exaggerated.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="wrap">
+        <div class="eyebrow">Final call to action</div>
+        <h2 class="serif">Serious growth for serious models.<br>And a cleaner start for those just getting in.</h2>
+        <p>That is the brand hierarchy. Keep growth at the center, use launch support as the feeder lane, and let the site look like a premium operator instead of a disposable signup page.</p>
+        <div class="cta-row" style="justify-content:center">
+          <a class="btn primary" href="#packages">Explore Growth Packages</a>
+          <a class="btn secondary" href="#apply">Start With the Right Path</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div>NaughtyCamSpot — Premium growth business mockup</div>
+      <div>Trust-first positioning · Growth-first architecture · Launch path as feeder lane</div>
+    </div>
+  </footer>
+</body>
+</html>
