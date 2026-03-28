@@ -10,32 +10,39 @@ const canonicalPath = '/how-it-works';
 <MainLayout title="How It Works | NaughtyCamSpot" description="How the Growth lane and guided launch lane work.">
   <SEO slot="head" title="How It Works | NaughtyCamSpot" description="How the Growth lane and guided launch lane work." path={canonicalPath} />
 
-  <section class="hero-shell parallax-veil space-y-4">
-    <p class="hero-tagline">How It Works</p>
-    <h1 class="font-display text-4xl text-white sm:text-5xl">Two paths, one control-first standard.</h1>
-    <p class="max-w-3xl text-white/75">NaughtyCamSpot has two distinct lanes: a premium Growth lane for active cam models and a guided launch lane for new models using Professional Onboarding Tools.</p>
+  <section class="content-card section-intro">
+    <p class="eyebrow">How it works</p>
+    <h1 class="section-heading">Two paths, one <em class="not-italic text-gold">control-first</em> standard.</h1>
+    <p class="text-sm text-parchment/70">NCS runs two clear lanes: Growth for active models and guided launch through Professional Onboarding Tools for new models.</p>
+  </section>
+
+  <section class="grid gap-px bg-gold/20 md:grid-cols-2">
+    <article class="split-choice"><p class="eyebrow">Path A</p><h2 class="font-display text-4xl text-parchment">Growth lane</h2><p class="mt-2 text-sm text-parchment/68">For active models ready for structured execution.</p></article>
+    <article class="split-choice"><p class="eyebrow">Path B</p><h2 class="font-display text-4xl text-parchment">Guided launch</h2><p class="mt-2 text-sm text-parchment/68">For new models needing onboarding tools before go-live.</p></article>
+  </section>
+
+  <section class="space-y-6">
+    <div class="section-intro">
+      <p class="eyebrow">Sequence</p>
+      <h2 class="section-heading">Growth workflow</h2>
+    </div>
+    <div class="grid gap-px bg-gold/15 md:grid-cols-2">
+      {['Apply and select active-model path','Receive four-pillar growth audit and opportunity map','Enter package ladder with scoped execution blocks','Run weekly optimization cycles and controlled iteration'].map((step, index) => (
+        <article class="pill-item"><p class="font-display text-5xl text-gold/25">0{index + 1}</p><p class="mt-2 text-sm text-parchment/72">{step}</p></article>
+      ))}
+    </div>
   </section>
 
   <section class="content-card space-y-4">
-    <h2 class="font-display text-3xl text-white">Growth workflow</h2>
-    <ol class="list-decimal space-y-2 pl-5 text-sm text-white/75">
-      <li>Apply and select the active-model path.</li>
-      <li>Get a growth audit and four-pillar opportunity map.</li>
-      <li>Enter the package ladder with placeholder-defined execution blocks.</li>
-      <li>Run weekly optimization cycles and controlled iteration.</li>
+    <p class="eyebrow">Launch workflow</p>
+    <ol class="space-y-2 text-sm text-parchment/75">
+      <li>1. Apply.</li>
+      <li>2. Use Professional Onboarding Tools.</li>
+      <li>3. Choose platform fit.</li>
+      <li>4. Signup through routed path.</li>
+      <li>5. Unlock Start Right.</li>
     </ol>
-  </section>
-
-  <section class="content-card space-y-4">
-    <h2 class="font-display text-3xl text-white">Launch workflow</h2>
-    <ol class="list-decimal space-y-2 pl-5 text-sm text-white/75">
-      <li>Apply</li>
-      <li>Use Professional Onboarding Tools</li>
-      <li>Choose platform</li>
-      <li>Signup through routed path</li>
-      <li>Unlock Start Right</li>
-    </ol>
-    <p class="text-sm text-white/65">Start Right is post-signup only. It does not sit in the public growth ladder and is unlocked only after routed signup completion.</p>
+    <p class="text-sm text-parchment/62">Start Right is post-signup only and is not part of the public growth package ladder.</p>
     <a class="btn btn-secondary" href={withBase('/platforms/')}>Go to Platforms</a>
   </section>
 

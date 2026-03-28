@@ -11,55 +11,55 @@ const platforms = ['Chaturbate', 'CamSoda', 'BongaCams', 'Fansly'];
 <MainLayout title="Apply | NaughtyCamSpot" description="Intake for active models and guided launch applicants.">
   <SEO slot="head" title="Apply | NaughtyCamSpot" description="Intake for active models and guided launch applicants." path={canonicalPath} />
 
-  <section class="hero-shell parallax-veil space-y-4">
-    <p class="hero-tagline">Apply</p>
-    <h1 class="font-display text-4xl text-white sm:text-5xl">One intake, two lanes.</h1>
-    <p class="max-w-3xl text-sm text-white/75">Tell us whether you are already active or starting from scratch. We use one form to route you into either premium Growth or the guided launch lane.</p>
+  <section class="hero-shell hero-split parallax-veil">
+    <div class="hero-content">
+      <p class="eyebrow">Apply</p>
+      <h1 class="hero-title">One intake. <em>Two lanes.</em></h1>
+      <p class="hero-sub">Tell us whether you are active now or launching fresh. The form routes you into either premium Growth or guided launch using Professional Onboarding Tools.</p>
+    </div>
+    <div class="hero-media">
+      <img src="/images/home-hero-768.jpg" alt="Editorial onboarding visual" loading="lazy" decoding="async" />
+    </div>
   </section>
 
   <section class="grid gap-5 md:grid-cols-2">
-    <article class="content-card space-y-3">
-      <h2 class="font-display text-3xl text-white">Already modeling</h2>
-      <p class="text-sm text-white/75">Use this path if you already have live accounts and want growth support focused on traffic, conversion, retention, and passive income.</p>
-    </article>
-    <article class="content-card space-y-3">
-      <h2 class="font-display text-3xl text-white">New to modeling</h2>
-      <p class="text-sm text-white/75">Use this path if you need Professional Onboarding Tools, platform-fit guidance, and routed signup help before you go live.</p>
-    </article>
+    <article class="split-choice space-y-3"><p class="eyebrow">Audience A</p><h2 class="font-display text-4xl text-parchment">Already modeling</h2><p class="text-sm text-parchment/72">Growth support for traffic, conversion, retention, and passive income systems.</p></article>
+    <article class="split-choice space-y-3"><p class="eyebrow">Audience B</p><h2 class="font-display text-4xl text-parchment">New to modeling</h2><p class="text-sm text-parchment/72">Professional Onboarding Tools, platform-fit guidance, and routed signup support.</p></article>
   </section>
 
-  <section class="content-card space-y-4">
-    <h2 class="font-display text-3xl text-white">Professional Onboarding Tools</h2>
-    <div class="grid gap-4 md:grid-cols-2">
-      <p class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><strong class="text-white">Model-name scanner:</strong> placeholder review flow to catch conflicts, availability issues, and identity cleanup before signup.</p>
-      <p class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><strong class="text-white">Platform-fit guidance:</strong> placeholder decision support for matching your goals to the right starting platform.</p>
-      <p class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><strong class="text-white">Signup perks:</strong> placeholder perks overview tied to the routed launch path and post-signup next steps.</p>
-      <p class="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/75"><strong class="text-white">Launch platforms:</strong> {platforms.join(', ')}.</p>
+  <section class="content-card space-y-5">
+    <p class="eyebrow">Professional Onboarding Tools</p>
+    <div class="grid gap-px bg-gold/15 md:grid-cols-2">
+      <p class="bg-midnight p-5 text-sm text-parchment/74"><strong class="text-parchment">Model-name scanner:</strong> placeholder pre-check flow for conflicts and cleanup.</p>
+      <p class="bg-obsidian p-5 text-sm text-parchment/74"><strong class="text-parchment">Platform-fit guidance:</strong> placeholder platform selection support.</p>
+      <p class="bg-midnight p-5 text-sm text-parchment/74"><strong class="text-parchment">Signup perks:</strong> placeholder launch-lane perks tied to routed signup.</p>
+      <p class="bg-obsidian p-5 text-sm text-parchment/74"><strong class="text-parchment">Launch platforms:</strong> {platforms.join(', ')}.</p>
     </div>
   </section>
 
   <section class="content-card space-y-4">
-    <h2 class="font-display text-3xl text-white">Intake form</h2>
+    <p class="eyebrow">Intake form</p>
+    <h2 class="font-display text-4xl font-light text-parchment">Submit your lane routing request.</h2>
     <form class="grid gap-3 md:grid-cols-2" method="get" action={withBase('/how-it-works/')}>
-      <input class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" type="text" name="model_name" placeholder="Model name" required />
-      <select class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" name="audience" required>
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="model_name" placeholder="Model name" required />
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="audience" required>
         <option value="">Choose your lane</option>
         <option value="active">Already modeling</option>
         <option value="new">New to modeling</option>
       </select>
-      <select class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" name="platform_interest" required>
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="platform_interest" required>
         <option value="">Launch platform interest</option>
         {platforms.map((platform) => <option value={platform.toLowerCase()}>{platform}</option>)}
       </select>
-      <input class="rounded-xl border border-white/10 bg-black/20 px-4 py-3" type="text" name="contact" placeholder="Telegram, WhatsApp, or email" required />
-      <textarea class="rounded-xl border border-white/10 bg-black/20 px-4 py-3 md:col-span-2" name="current_stage" rows="4" placeholder="Tell us whether you are already active, what platforms you use, and what help you need." />
-      <button class="btn border border-rose-gold/70 bg-rose-gold text-midnight md:col-span-2" type="submit">Submit Intake</button>
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="contact" placeholder="Telegram, WhatsApp, or email" required />
+      <textarea class="border border-gold/25 bg-midnight px-4 py-3 text-sm md:col-span-2" name="current_stage" rows="4" placeholder="Tell us whether you are already active, what platforms you use, and what help you need." />
+      <button class="btn btn-primary md:col-span-2" type="submit">Submit Intake</button>
     </form>
   </section>
 
   <section class="content-card space-y-3">
-    <h2 class="font-display text-3xl text-white">Start Right is post-signup only</h2>
-    <p class="text-sm text-white/75">Start Right is not the public front door. It unlocks only after successful signup completion through the routed platform path.</p>
+    <h2 class="font-display text-4xl font-light text-parchment">Start Right is post-signup only</h2>
+    <p class="text-sm text-parchment/70">Start Right is not the public front door; it unlocks only after routed signup completion.</p>
     <a class="btn btn-secondary" href={withBase('/platforms/')}>Review routed platforms</a>
   </section>
 
