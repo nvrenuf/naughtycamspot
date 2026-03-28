@@ -5,11 +5,11 @@
 @layer base {
   html {
     @apply scroll-smooth;
-    font-size: 17px;
+    font-size: 16px;
   }
 
   body {
-    @apply bg-midnight text-white font-sans leading-relaxed antialiased;
+    @apply bg-midnight text-parchment font-sans leading-relaxed antialiased;
   }
 
   img,
@@ -19,86 +19,108 @@
     height: auto;
   }
 
-  figure,
-  .figure {
-    margin-block: 2.5rem;
-  }
-
-  figure figcaption,
-  .figure figcaption,
-  .figure-caption {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: rgb(223 227 236 / 0.88);
-    text-align: center;
-  }
-
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
   select:focus-visible,
   textarea:focus-visible,
   summary:focus-visible {
-    outline: 2px solid rgb(246 186 205 / 0.95);
-    outline-offset: 2px;
-    border-radius: 0.5rem;
-  }
-
-  @media print {
-    body {
-      background: #ffffff !important;
-      color: #111111 !important;
-    }
-
-    a {
-      color: #111111;
-    }
-
-    figure figcaption,
-    .figure figcaption,
-    .figure-caption {
-      color: #333333;
-    }
+    outline: 2px solid rgb(198 162 71 / 0.9);
+    outline-offset: 3px;
+    border-radius: 0.35rem;
   }
 }
 
 @layer components {
-  .hero-shell {
-    @apply glass relative overflow-hidden rounded-[42px] px-8 py-16 sm:px-10;
+  .eyebrow {
+    @apply text-[0.62rem] uppercase tracking-[0.24em] text-gold/90;
   }
 
-  .hero-tagline {
-    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 text-sm tracking-[0.08em] text-rose-petal/90;
+  .section-intro {
+    @apply mx-auto max-w-3xl space-y-4 text-center;
   }
 
   .section-heading {
-    @apply font-display text-4xl text-white;
+    @apply font-display text-4xl font-light leading-[1.06] text-parchment sm:text-5xl;
+  }
+
+  .section-divider {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-gold/30 to-transparent;
+  }
+
+  .hero-shell {
+    @apply relative overflow-hidden border border-gold/20 bg-obsidian/90 shadow-glow;
+  }
+
+  .hero-split {
+    @apply grid gap-0 lg:grid-cols-[1.06fr_0.94fr];
+  }
+
+  .hero-content {
+    @apply relative px-8 py-14 sm:px-12 sm:py-16;
+  }
+
+  .hero-media {
+    @apply relative min-h-[420px] overflow-hidden border-t border-gold/20 lg:border-l lg:border-t-0;
+  }
+
+  .hero-media::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-midnight/55 via-transparent to-midnight/10;
+  }
+
+  .hero-media img {
+    @apply h-full w-full object-cover object-top brightness-[0.8] saturate-[0.88];
+  }
+
+  .hero-title {
+    @apply mt-5 font-display text-5xl font-light leading-[0.98] text-parchment sm:text-6xl lg:text-7xl;
+  }
+
+  .hero-title em {
+    @apply text-gold not-italic;
+  }
+
+  .hero-sub {
+    @apply mt-5 max-w-2xl text-[0.95rem] leading-8 text-parchment/70;
   }
 
   .content-card {
-    @apply glass rounded-3xl p-8 transition duration-500 ease-out hover:-translate-y-2 hover:border-rose-gold/40;
+    @apply border border-white/10 bg-white/[0.03] p-7 shadow-glow sm:p-9;
   }
 
-  .video-placeholder {
-    @apply flex h-40 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-sm tracking-[0.08em] text-white/70 backdrop-blur-xl;
+  .premium-card {
+    @apply border border-gold/20 bg-obsidian p-6 transition duration-300 hover:border-gold/45;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold tracking-[0.08em] transition hover:-translate-y-1;
+    @apply inline-flex items-center justify-center px-6 py-3 text-[0.64rem] uppercase tracking-[0.2em] transition;
+  }
+
+  .btn-primary {
+    @apply border border-gold bg-gold text-midnight hover:bg-[#d4ae54];
   }
 
   .btn-secondary {
-    @apply border border-white/15 bg-white/5 text-white/70 backdrop-blur-xl hover:border-white/30 hover:bg-white/10 hover:text-white;
+    @apply border border-white/20 bg-transparent text-parchment/75 hover:border-gold/60 hover:text-gold;
+  }
+
+  .split-choice {
+    @apply border border-gold/20 bg-obsidian/70 p-7;
+  }
+
+  .pill-grid {
+    @apply grid gap-px bg-gold/15 md:grid-cols-2 xl:grid-cols-4;
+  }
+
+  .pill-item {
+    @apply bg-midnight p-6;
   }
 }
 
 @layer utilities {
-  .glass {
-    @apply bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_25px_65px_rgba(5,6,8,0.65)];
-  }
-
   .parallax-veil {
-    background: radial-gradient(circle at 10% 20%, rgba(183, 110, 121, 0.4), transparent 55%),
-      radial-gradient(circle at 85% 15%, rgba(183, 110, 121, 0.2), transparent 50%);
+    background: radial-gradient(circle at 15% 20%, rgba(198, 162, 71, 0.15), transparent 52%),
+      radial-gradient(circle at 90% 10%, rgba(198, 162, 71, 0.1), transparent 45%);
   }
 }

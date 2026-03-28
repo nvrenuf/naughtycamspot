@@ -9,25 +9,26 @@ const canonicalPath = '/platforms';
 <MainLayout title="Platforms | NaughtyCamSpot" description="Routed signup links for guided launch.">
   <SEO slot="head" title="Platforms | NaughtyCamSpot" description="Routed signup links for guided launch." path={canonicalPath} />
 
-  <section class="hero-shell parallax-veil space-y-4">
-    <p class="hero-tagline">Platforms</p>
-    <h1 class="font-display text-4xl text-white sm:text-5xl">Routed signup links for guided launch.</h1>
-    <p class="max-w-3xl text-sm text-white/75">Use the routed <code>/go/...</code> links below for the launch lane. Successful signup completion through one of these paths is what unlocks Start Right later.</p>
+  <section class="content-card section-intro">
+    <p class="eyebrow">Platforms</p>
+    <h1 class="section-heading">Routed signup links for guided launch.</h1>
+    <p class="text-sm text-parchment/70">Use the routed <code>/go/...</code> links for launch. Successful routed signup is what unlocks Start Right later.</p>
   </section>
 
-  <section class="grid gap-5 md:grid-cols-2">
+  <section class="grid gap-px bg-gold/18 md:grid-cols-2">
     {PLATFORMS.map((platform) => (
-      <article class="content-card space-y-3">
-        <h2 class="font-display text-3xl text-white">{platform.name}</h2>
-        <p class="text-sm text-white/75">{platform.summary}</p>
-        <a class="btn btn-secondary" href={platform.goPath} target="_blank" rel="noopener noreferrer">Open {platform.name} routed signup</a>
-        <p class="text-xs text-white/60">Routed path: {platform.goPath}</p>
+      <article class="premium-card space-y-3">
+        <p class="eyebrow">Launch platform</p>
+        <h2 class="font-display text-4xl font-light text-parchment">{platform.name}</h2>
+        <p class="text-sm text-parchment/72">{platform.summary}</p>
+        <a class="btn btn-secondary" href={platform.goPath} target="_blank" rel="noopener noreferrer">Open routed signup</a>
+        <p class="text-xs uppercase tracking-[0.14em] text-gold/70">{platform.goPath}</p>
       </article>
     ))}
   </section>
 
   <section class="content-card space-y-3">
-    <p class="text-sm text-white/75">Successful signup completion through the routed platform path unlocks Start Right.</p>
-    <p class="text-sm text-white/75">Trust note: the model owns accounts and content, we never ask for passwords, and there is no exclusivity lock-in.</p>
+    <p class="text-sm text-parchment/72">Successful signup completion through the routed platform path unlocks Start Right.</p>
+    <p class="text-sm text-parchment/72">Trust note: model owns accounts/content, no passwords, no exclusivity lock-in.</p>
   </section>
 </MainLayout>

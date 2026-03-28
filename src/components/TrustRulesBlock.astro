@@ -15,16 +15,16 @@ const items = [
 ] as const;
 ---
 
-<section class:list={['content-card space-y-4', compact && 'space-y-3']}>
+<section class:list={['content-card space-y-5', compact && 'space-y-3']}>
   <div class="space-y-2">
-    <p class="text-xs uppercase tracking-[0.32em] text-rose-petal/70">Trust + Control</p>
-    <h2 class="font-display text-2xl text-white sm:text-3xl">{title}</h2>
-    <p class="max-w-2xl text-sm text-white/75">These are hard rules across both lanes.</p>
+    <p class="eyebrow">Trust + Control</p>
+    <h2 class="font-display text-3xl font-light text-parchment sm:text-4xl">{title}</h2>
+    <p class="max-w-2xl text-sm text-parchment/70">Hard rules across both lanes with no exceptions.</p>
   </div>
 
-  <div class="grid gap-3 sm:grid-cols-2">
+  <div class="grid gap-px bg-gold/20 sm:grid-cols-2 xl:grid-cols-4">
     {items.map((item) => (
-      <p class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80">{item}</p>
+      <p class="bg-midnight px-4 py-4 text-sm text-parchment/82">{item}</p>
     ))}
   </div>
 </section>
