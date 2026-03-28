@@ -28,6 +28,10 @@ const GO_MODEL_PROGRAM_CONFIG = [
         'active' => false,
         'tiers' => ['T3', 'T4'],
     ],
+    'fansly' => [
+        'active' => true,
+        'tiers' => ['T1', 'T2', 'T3', 'T4'],
+    ],
 ];
 
 /**
@@ -173,6 +177,7 @@ function go_build_model_program_url(string $programKey, string $subid, array $co
         'of_creator' => go_build_onlyfans_creator_signup($subid),
         'myclub' => go_build_myclub_model_signup($subid),
         'ph_model' => go_build_pornhub_model_signup($subid),
+        'fansly' => go_build_fansly_creator_signup($subid),
         default => null,
     };
 }
@@ -232,6 +237,13 @@ function go_build_myclub_model_signup(string $subid): string
 function go_build_pornhub_model_signup(string $subid): string
 {
     $base = 'https://track.naughtycamspot.com/pornhub/models';
+
+    return go_append_subid($base, $subid);
+}
+
+function go_build_fansly_creator_signup(string $subid): string
+{
+    $base = 'https://fansly.com/application/form?r=naughtycamspot';
 
     return go_append_subid($base, $subid);
 }

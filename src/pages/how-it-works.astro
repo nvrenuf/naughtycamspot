@@ -1,68 +1,43 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
-import SecondaryPageCTA from '../components/SecondaryPageCTA.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
 import { withBase } from '../utils/links';
 
 const canonicalPath = '/how-it-works';
 ---
 
-<MainLayout
-  title="How It Works | NaughtyCamSpot"
-  description="How Signup Help (Free) and Promotion (Paid) work for cam models."
->
-  <SEO
-    slot="head"
-    title="How It Works | NaughtyCamSpot"
-    description="How Signup Help (Free) and Promotion (Paid) work for cam models."
-    path={canonicalPath}
-  />
+<MainLayout title="How It Works | NaughtyCamSpot" description="How the Growth lane and guided launch lane work.">
+  <SEO slot="head" title="How It Works | NaughtyCamSpot" description="How the Growth lane and guided launch lane work." path={canonicalPath} />
 
-  <section class="space-y-10">
-    <div class="content-card space-y-4">
-      <p class="hero-tagline">How It Works</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">Signup Help (Free) + Promotion (Paid).</h1>
-      <p class="max-w-2xl text-base text-white/70">
-        Choose Signup Help (Free) to start. Add Promotion (Paid) when you want faster growth.
-      </p>
-      <a
-        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1 sm:w-fit"
-        href={withBase('/apply')}
-      >
-        Apply now
-      </a>
-    </div>
-
-    <div class="grid gap-6 lg:grid-cols-3">
-      <article class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Step 1</p>
-        <h2 class="font-display text-2xl text-white">Apply + Match</h2>
-        <p class="text-sm text-white/70">
-          Tell us your goals and platforms. We pick the best plan for you.
-        </p>
-      </article>
-      <article class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Step 2</p>
-        <h2 class="font-display text-2xl text-white">Start + Run</h2>
-        <p class="text-sm text-white/70">
-          We set up Promotion (Paid) tasks and weekly checks while you perform.
-        </p>
-      </article>
-      <article class="content-card space-y-3">
-        <p class="text-xs uppercase tracking-[0.35em] text-rose-petal/70">Step 3</p>
-        <h2 class="font-display text-2xl text-white">Review + Improve</h2>
-        <p class="text-sm text-white/70">
-          Each week we review results and improve your plan.
-        </p>
-      </article>
-    </div>
-
-    <TrustRulesBlock title="Hard rules before you start" compact />
-    <SecondaryPageCTA
-      title="Ready to start?"
-      description="Use the main apply flow and we will send the next step that fits your goals."
-      secondaryLinks={[{ href: '/resources/', label: 'See resources' }]}
-    />
+  <section class="content-card space-y-4">
+    <p class="hero-tagline">How It Works</p>
+    <h1 class="font-display text-4xl text-white sm:text-5xl">Two paths, one control-first standard.</h1>
+    <p class="text-white/75">NaughtyCamSpot serves active models through a premium Growth lane and helps new models launch through Professional Onboarding Tools.</p>
   </section>
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Growth workflow</h2>
+    <ol class="list-decimal space-y-2 pl-5 text-sm text-white/75">
+      <li>Apply and select the active-model path.</li>
+      <li>Get a growth audit and four-pillar opportunity map.</li>
+      <li>Enter the package ladder with placeholder-defined execution blocks.</li>
+      <li>Run weekly optimization cycles and controlled iteration.</li>
+    </ol>
+  </section>
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-3xl text-white">Launch workflow</h2>
+    <ol class="list-decimal space-y-2 pl-5 text-sm text-white/75">
+      <li>Apply</li>
+      <li>Use Professional Onboarding Tools</li>
+      <li>Choose platform</li>
+      <li>Signup through routed path</li>
+      <li>Unlock Start Right after successful signup completion</li>
+    </ol>
+    <p class="text-sm text-white/65">Start Right is not part of the main growth package ladder and is only unlocked after routed signup completion.</p>
+    <a class="btn btn-secondary" href={withBase('/platforms/')}>Go to Platforms</a>
+  </section>
+
+  <TrustRulesBlock title="Trust reinforcement" />
 </MainLayout>
