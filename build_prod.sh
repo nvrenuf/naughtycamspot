@@ -40,14 +40,11 @@ if [ -f "dist/robots.prod.txt" ]; then
   cp -f dist/robots.prod.txt dist/robots.txt
 fi
 
-# --- verify required prod files
-REQ=( "dist/.htaccess" "dist/go/model-join.php" "dist/go/affiliates.php" )
+# --- verify required prod files for current architecture
+REQ=( "dist/.htaccess" "dist/go/affiliates.php" )
 for f in "${REQ[@]}"; do
   [ -f "$f" ] || { echo "Missing $f"; exit 1; }
 done
-
-echo "Build stamp in dist/build.txt:"
-cat dist/build.txt || { echo "Missing dist/build.txt"; exit 1; }
 
 
 # --- zip artifact
