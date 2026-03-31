@@ -2,65 +2,103 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
+import LaunchNotice from '../components/LaunchNotice.astro';
 import { withBase } from '../utils/links';
+import { applyInterests, promoLaunch } from '../data/promoLaunch';
 
 const canonicalPath = '/apply';
 const platforms = ['Chaturbate', 'CamSoda', 'BongaCams', 'Fansly'];
 ---
 
-<MainLayout title="Apply | NaughtyCamSpot" description="Intake for active models and guided launch applicants.">
-  <SEO slot="head" title="Apply | NaughtyCamSpot" description="Intake for active models and guided launch applicants." path={canonicalPath} />
+<MainLayout
+  title="Apply | NaughtyCamSpot"
+  description="Apply for early access, founding consideration, or guided launch support ahead of the April 2026 growth-line opening."
+>
+  <SEO
+    slot="head"
+    title="Apply | NaughtyCamSpot"
+    description="Apply for early access, founding consideration, or guided launch support ahead of the April 2026 growth-line opening."
+    path={canonicalPath}
+  />
 
   <section class="hero-shell hero-split parallax-veil">
     <div class="hero-content">
       <p class="eyebrow">Apply</p>
-      <h1 class="hero-title">One intake. <em>Two lanes.</em></h1>
-      <p class="hero-sub">Tell us whether you are active now or launching fresh. The form routes you into either premium Growth or guided launch using Professional Onboarding Tools.</p>
+      <h1 class="hero-title">Get closer to the front of the line.</h1>
+      <p class="hero-sub">
+        Some things are open now: guided launch conversations, active-model intake, and early access review. The bigger promotional and
+        growth line rolls live in {promoLaunch.month}. This form is how you get in early.
+      </p>
     </div>
     <div class="hero-media">
-      <img src="/images/home-hero-768.jpg" alt="Editorial onboarding visual" loading="lazy" decoding="async" />
+      <img src="/images/home-hero-768.jpg" alt="Editorial intake visual for early access and guided launch" loading="lazy" decoding="async" />
     </div>
   </section>
 
+  <LaunchNotice
+    title="Early access is open now."
+    body="Apply for founding model consideration, active-model growth interest, or guided launch support now. The next promotional line goes live in April 2026."
+  />
+
   <section class="grid gap-5 md:grid-cols-2">
-    <article class="split-choice space-y-3"><p class="eyebrow">Audience A</p><h2 class="font-display text-4xl text-parchment">Already modeling</h2><p class="text-sm text-parchment/72">Growth support for traffic, conversion, retention, and passive income systems.</p></article>
-    <article class="split-choice space-y-3"><p class="eyebrow">Audience B</p><h2 class="font-display text-4xl text-parchment">New to modeling</h2><p class="text-sm text-parchment/72">Professional Onboarding Tools, platform-fit guidance, and routed signup support.</p></article>
+    <article class="split-choice space-y-3">
+      <p class="eyebrow">Audience A</p>
+      <h2 class="font-display text-4xl text-parchment">Already modeling</h2>
+      <p class="text-sm text-parchment/72">Signal that you want early access, a smarter growth system, or founding review before the April 2026 opening.</p>
+    </article>
+    <article class="split-choice space-y-3">
+      <p class="eyebrow">Audience B</p>
+      <h2 class="font-display text-4xl text-parchment">New or launching soon</h2>
+      <p class="text-sm text-parchment/72">Use the intake to join guided onboarding now and move closer to the front of the line before the bigger rollout.</p>
+    </article>
   </section>
 
   <section class="content-card space-y-5">
-    <p class="eyebrow">Professional Onboarding Tools</p>
+    <p class="eyebrow">What is open now</p>
     <div class="grid gap-px bg-gold/15 md:grid-cols-2">
-      <p class="bg-midnight p-5 text-sm text-parchment/74"><strong class="text-parchment">Model-name scanner:</strong> placeholder pre-check flow for conflicts and cleanup.</p>
-      <p class="bg-obsidian p-5 text-sm text-parchment/74"><strong class="text-parchment">Platform-fit guidance:</strong> placeholder platform selection support.</p>
-      <p class="bg-midnight p-5 text-sm text-parchment/74"><strong class="text-parchment">Signup perks:</strong> placeholder launch-lane perks tied to routed signup.</p>
+      <p class="bg-midnight p-5 text-sm text-parchment/74"><strong class="text-parchment">Early access review:</strong> priority consideration ahead of the April 2026 launch.</p>
+      <p class="bg-obsidian p-5 text-sm text-parchment/74"><strong class="text-parchment">Founding consideration:</strong> selective review for models who want in before the public line opens.</p>
+      <p class="bg-midnight p-5 text-sm text-parchment/74"><strong class="text-parchment">Guided launch support:</strong> onboarding and platform-fit conversations for models not live yet.</p>
       <p class="bg-obsidian p-5 text-sm text-parchment/74"><strong class="text-parchment">Launch platforms:</strong> {platforms.join(', ')}.</p>
     </div>
   </section>
 
   <section class="content-card space-y-4">
     <p class="eyebrow">Intake form</p>
-    <h2 class="font-display text-4xl font-light text-parchment">Submit your lane routing request.</h2>
+    <h2 class="font-display text-4xl font-light text-parchment">Tell us what you want access to.</h2>
     <form class="grid gap-3 md:grid-cols-2" method="get" action={withBase('/how-it-works/')}>
       <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="model_name" placeholder="Model name" required />
       <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="audience" required>
         <option value="">Choose your lane</option>
         <option value="active">Already modeling</option>
-        <option value="new">New to modeling</option>
+        <option value="new">New or launching soon</option>
+      </select>
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="interest" required>
+        <option value="">What are you applying for?</option>
+        {applyInterests.map((interest) => <option value={interest.value}>{interest.label}</option>)}
       </select>
       <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="platform_interest" required>
-        <option value="">Launch platform interest</option>
+        <option value="">Platform interest</option>
         {platforms.map((platform) => <option value={platform.toLowerCase()}>{platform}</option>)}
       </select>
-      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="contact" placeholder="Telegram, WhatsApp, or email" required />
-      <textarea class="border border-gold/25 bg-midnight px-4 py-3 text-sm md:col-span-2" name="current_stage" rows="4" placeholder="Tell us whether you are already active, what platforms you use, and what help you need." />
-      <button class="btn btn-primary md:col-span-2" type="submit">Submit Intake</button>
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm md:col-span-2" type="text" name="contact" placeholder="Telegram, WhatsApp, or email" required />
+      <textarea
+        class="border border-gold/25 bg-midnight px-4 py-3 text-sm md:col-span-2"
+        name="current_stage"
+        rows="4"
+        placeholder="Tell us your current stage, where you are active now if relevant, and whether you want early access, founding review, or guided launch support."
+      />
+      <button class="btn btn-primary md:col-span-2" type="submit">Submit Application</button>
     </form>
   </section>
 
   <section class="content-card space-y-3">
-    <h2 class="font-display text-4xl font-light text-parchment">Start Right is post-signup only</h2>
-    <p class="text-sm text-parchment/70">Start Right is not the public front door; it unlocks only after routed signup completion.</p>
-    <a class="btn btn-secondary" href={withBase('/platforms/')}>Review routed platforms</a>
+    <h2 class="font-display text-4xl font-light text-parchment">The bigger line goes live in April 2026.</h2>
+    <p class="text-sm text-parchment/70">
+      Joining early does not pretend every feature already exists today. It gets you closer to the front of the line while the next
+      growth direction is being rolled out.
+    </p>
+    <a class="btn btn-secondary" href={withBase('/growth/')}>See the April 2026 preview</a>
   </section>
 
   <TrustRulesBlock title="Trust stays visible before submission" />

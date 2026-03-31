@@ -2,60 +2,90 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
+import LaunchNotice from '../components/LaunchNotice.astro';
 import { withBase } from '../utils/links';
+import { homepageTeasers, promoLaunch } from '../data/promoLaunch';
 
 const canonicalPath = '/';
 ---
 
-<MainLayout title="NaughtyCamSpot | Growth systems for active cam talent" description="Growth-first support for active cam models plus a guided launch lane using Professional Onboarding Tools.">
-  <SEO slot="head" title="NaughtyCamSpot | Growth systems for active cam talent" description="Growth-first support for active cam models plus a guided launch lane using Professional Onboarding Tools." path={canonicalPath} />
+<MainLayout
+  title="NaughtyCamSpot | Live April 2026"
+  description="A premium new growth line for cam models goes live in April 2026. Founding access and early applications are open now."
+>
+  <SEO
+    slot="head"
+    title="NaughtyCamSpot | Live April 2026"
+    description="A premium new growth line for cam models goes live in April 2026. Founding access and early applications are open now."
+    path={canonicalPath}
+  />
 
   <section class="hero-shell hero-split parallax-veil" id="growth-first-hero">
     <div class="hero-content">
-      <p class="eyebrow">Growth-First Public Site</p>
-      <h1 class="hero-title">We build <em>revenue systems</em> for active cam models.</h1>
+      <p class="eyebrow">{promoLaunch.eyebrow}</p>
+      <h1 class="hero-title">More than promotion. <em>A better model business</em>, live in April 2026.</h1>
       <p class="hero-sub">
-        NaughtyCamSpot leads with premium growth for active models: stronger traffic flow, tighter conversion structure, higher VIP retention,
-        and better passive-income consistency. New models still have a guided launch lane, but growth remains the public center of gravity.
+        NaughtyCamSpot is entering its next phase: a sharper growth line for models who are tired of blasting socials, chasing random
+        traffic, and hoping the room does the rest. The current site is live now. The bigger system goes live in April 2026.
       </p>
-      <p class="mt-4 font-display text-xl italic text-parchment/40">Professional systems. Control stays with the model.</p>
+      <p class="mt-4 font-display text-xl italic text-parchment/48">Built for models who want more than go live and hope.</p>
       <div class="mt-8 flex flex-wrap gap-3">
-        <a class="btn btn-primary" href={withBase('/growth/')}>Explore Growth</a>
-        <a class="btn btn-secondary" href={withBase('/apply/')}>Apply</a>
+        <a class="btn btn-primary" href={withBase('/growth/')}>{promoLaunch.growthCta}</a>
+        <a class="btn btn-secondary" href={withBase('/apply/?interest=founding')}>{promoLaunch.foundingCta}</a>
       </div>
     </div>
     <figure class="hero-media">
-      <img src="/images/home-hero.webp" alt="Editorial growth-focused model portrait" loading="eager" decoding="async" />
-      <figcaption class="absolute bottom-6 left-6 z-10 border-l border-gold/50 pl-4 text-left text-xs uppercase tracking-[0.18em] text-gold/85">Featured visual presence • replaceable VIP styling</figcaption>
+      <img src="/images/home-hero.webp" alt="Editorial portrait for the next NaughtyCamSpot growth phase" loading="eager" decoding="async" />
+      <figcaption class="absolute bottom-6 left-6 z-10 border-l border-gold/50 pl-4 text-left text-xs uppercase tracking-[0.18em] text-gold/85">
+        New growth line in buildout • founding access now open
+      </figcaption>
     </figure>
   </section>
+
+  <LaunchNotice
+    title="The next line is being built now."
+    body="What is open now: early access, founding applications, guided launch conversations, and active-model intake. What goes live in April 2026: the bigger promotional and revenue-system direction."
+  />
 
   <TrustRulesBlock title="Non-negotiable trust rules" />
 
   <section class="content-card space-y-8" id="what-we-actually-are">
-    <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+    <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
       <div class="space-y-4">
-        <p class="eyebrow">What we actually are</p>
-        <h2 class="section-heading">A premium growth business, not a "done-for-you" account takeover.</h2>
-        <p class="text-sm leading-8 text-parchment/72">NCS is an operator-led growth partner for active models. We structure revenue systems and execution rhythm; we do not ask for passwords, control accounts, or promise fantasy outcomes.</p>
+        <p class="eyebrow">Positioning</p>
+        <h2 class="section-heading">The old way is breaking. This is the rebuild.</h2>
+        <p class="text-sm leading-8 text-parchment/72">
+          We are not refreshing the same generic promo pitch. The next NaughtyCamSpot line is being built around better discovery,
+          stronger fan retention, and a more premium revenue system for models who want something smarter than constant social blasting.
+        </p>
       </div>
       <div class="space-y-px bg-gold/20">
-        <div class="bg-midnight p-5"><p class="eyebrow text-parchment/40">Not this</p><p class="text-sm text-parchment/38 line-through decoration-white/20">Generic agency hype, spam tactics, fake "official partner" claims.</p></div>
-        <div class="bg-obsidian p-5"><p class="eyebrow">This</p><p class="text-sm text-parchment/75">Structured growth systems, transparent rules, and model-owned assets.</p></div>
+        <div class="bg-midnight p-5">
+          <p class="eyebrow text-parchment/40">Old way</p>
+          <p class="text-sm text-parchment/46">Spammy promo loops, one-off traffic, social dependency, and competing inside the same room format as everyone else.</p>
+        </div>
+        <div class="bg-obsidian p-5">
+          <p class="eyebrow">Next way</p>
+          <p class="text-sm text-parchment/75">Discovery, retention, and fan revenue rebuilt around owned audience, better events, and smarter creator systems.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="space-y-6" id="four-pillar-revenue-system">
+  <section class="space-y-6" id="april-2026-teasers">
     <div class="section-intro">
-      <p class="eyebrow">Four pillars</p>
-      <h2 class="section-heading">Four-pillar revenue system for premium growth execution.</h2>
+      <p class="eyebrow">What April unlocks</p>
+      <h2 class="section-heading">Short signals, not a long explainer.</h2>
+      <p class="text-sm text-parchment/65">Enough to show the direction. Not enough to flatten the intrigue.</p>
     </div>
     <div class="pill-grid">
-      <article class="pill-item"><p class="font-display text-5xl text-gold/25">01</p><h3 class="mt-2 font-display text-3xl text-parchment">Traffic</h3><p class="mt-2 text-sm text-parchment/65">Placeholder channel planning for platform-aware traffic and audience routing.</p></article>
-      <article class="pill-item"><p class="font-display text-5xl text-gold/25">02</p><h3 class="mt-2 font-display text-3xl text-parchment">Room Conversion</h3><p class="mt-2 text-sm text-parchment/65">Placeholder room systems for menu architecture and conversion checkpoints.</p></article>
-      <article class="pill-item"><p class="font-display text-5xl text-gold/25">03</p><h3 class="mt-2 font-display text-3xl text-parchment">VIP Retention</h3><p class="mt-2 text-sm text-parchment/65">Placeholder retention ladders and follow-up continuity.</p></article>
-      <article class="pill-item"><p class="font-display text-5xl text-gold/25">04</p><h3 class="mt-2 font-display text-3xl text-parchment">Passive Income</h3><p class="mt-2 text-sm text-parchment/65">Placeholder evergreen monetization support off-stream.</p></article>
+      {homepageTeasers.map((item, index) => (
+        <article class="pill-item">
+          <p class="font-display text-5xl text-gold/25">{String(index + 1).padStart(2, '0')}</p>
+          <h3 class="mt-2 font-display text-3xl text-parchment">{item.title}</h3>
+          <p class="mt-2 text-sm text-parchment/65">{item.body}</p>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -63,46 +93,61 @@ const canonicalPath = '/';
     <article class="split-choice space-y-3">
       <p class="eyebrow">Path 1</p>
       <h2 class="font-display text-4xl font-light text-parchment">Already modeling?</h2>
-      <p class="text-sm text-parchment/70">Go straight into the Growth lane for diagnosis, package matching, and active optimization.</p>
-      <a class="btn btn-secondary" href={withBase('/growth/')}>Explore Growth</a>
+      <p class="text-sm text-parchment/70">Apply for early access if you want the April 2026 line, founding consideration, or a smarter revenue structure before public rollout.</p>
+      <a class="btn btn-secondary" href={withBase('/apply/?audience=active')}>Apply for Early Access</a>
     </article>
     <article class="split-choice space-y-3">
       <p class="eyebrow">Path 2</p>
-      <h2 class="font-display text-4xl font-light text-parchment">New to modeling?</h2>
-      <p class="text-sm text-parchment/70">Use Professional Onboarding Tools first, then unlock Start Right only after routed signup completion.</p>
-      <a class="btn btn-secondary" href={withBase('/apply/')}>Use Onboarding Tools</a>
+      <h2 class="font-display text-4xl font-light text-parchment">Launching fresh?</h2>
+      <p class="text-sm text-parchment/70">Some guided launch support is open now. Get closer to the front of the line before the bigger promotional system opens in April 2026.</p>
+      <a class="btn btn-secondary" href={withBase('/apply/?audience=new')}>Join the Waitlist</a>
     </article>
   </section>
 
-  <section class="content-card space-y-5" id="conservative-proof-preview">
-    <p class="eyebrow">Proof preview</p>
-    <h2 class="font-display text-4xl font-light text-parchment">Conservative proof posture with a light VIP cameo.</h2>
+  <section class="content-card space-y-5" id="proof-posture">
+    <p class="eyebrow">Proof posture</p>
+    <h2 class="font-display text-4xl font-light text-parchment">Premium tone. Conservative claims.</h2>
     <div class="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-      <p class="text-sm text-parchment/70">Public proof remains sample/template based only: workflows, deliverable examples, and system snapshots. No fake claims and no unsupported earnings storytelling.</p>
+      <p class="text-sm text-parchment/70">
+        The site stays disciplined: no fake proof, no invented earnings, no fake partnerships, and no pretending planned systems are
+        already fully live.
+      </p>
       <div class="premium-card">
-        <p class="eyebrow">Featured VIP (replaceable)</p>
-        <p class="mt-2 text-sm text-parchment/75"><strong class="text-parchment">Anna</strong> appears as supporting presence only, never as the central business proposition.</p>
+        <p class="eyebrow">What is real now</p>
+        <p class="mt-2 text-sm text-parchment/75">Applications, guided launch intake, active-model conversations, and founding access review.</p>
       </div>
     </div>
-    <a class="btn btn-secondary" href={withBase('/proof/')}>View Proof</a>
+    <a class="btn btn-secondary" href={withBase('/proof/')}>View Proof Posture</a>
   </section>
 
-  <section class="content-card space-y-5" id="growth-package-preview">
-    <p class="eyebrow">Growth package preview</p>
-    <h2 class="font-display text-4xl font-light text-parchment">Selective package framing, not startup pricing tiles.</h2>
+  <section class="content-card space-y-5" id="growth-preview">
+    <p class="eyebrow">New direction</p>
+    <h2 class="font-display text-4xl font-light text-parchment">A smarter way to grow than blasting social.</h2>
     <div class="grid gap-px bg-gold/20 md:grid-cols-3">
-      <article class="bg-midnight p-5 text-sm text-parchment/72"><h3 class="font-display text-3xl text-parchment">[Growth Package Placeholder A]</h3><p class="mt-2">Foundation optimization and reporting rhythm.</p></article>
-      <article class="bg-obsidian p-5 text-sm text-parchment/72"><h3 class="font-display text-3xl text-parchment">[Growth Package Placeholder B]</h3><p class="mt-2">Expanded campaign testing and retention systems.</p></article>
-      <article class="bg-midnight p-5 text-sm text-parchment/72"><h3 class="font-display text-3xl text-parchment">[Growth Package Placeholder C]</h3><p class="mt-2">Hands-on strategic execution across all four pillars.</p></article>
+      <article class="bg-midnight p-5 text-sm text-parchment/72">
+        <h3 class="font-display text-3xl text-parchment">Better discovery</h3>
+        <p class="mt-2">Less dependence on generic posting. More intent, better routing, stronger fit.</p>
+      </article>
+      <article class="bg-obsidian p-5 text-sm text-parchment/72">
+        <h3 class="font-display text-3xl text-parchment">Better fan worlds</h3>
+        <p class="mt-2">VIP structure, recurring events, and better reasons for fans to stay in orbit.</p>
+      </article>
+      <article class="bg-midnight p-5 text-sm text-parchment/72">
+        <h3 class="font-display text-3xl text-parchment">Better revenue logic</h3>
+        <p class="mt-2">A more modern model business built around repeatability, not one-off spikes.</p>
+      </article>
     </div>
   </section>
 
   <section class="content-card space-y-4" id="final-cta">
-    <h2 class="font-display text-4xl font-light text-parchment">Pick the lane that matches your stage.</h2>
-    <p class="max-w-3xl text-sm text-parchment/70">Active models go to Growth. New models apply for Professional Onboarding Tools first; Start Right remains post-signup only.</p>
+    <h2 class="font-display text-4xl font-light text-parchment">Get in before launch.</h2>
+    <p class="max-w-3xl text-sm text-parchment/70">
+      The next promotional and growth line clearly goes live in April 2026. Founding access, early applications, and guided intake are
+      open now.
+    </p>
     <div class="flex flex-wrap gap-3">
-      <a class="btn btn-primary" href={withBase('/growth/')}>I want growth now</a>
-      <a class="btn btn-secondary" href={withBase('/apply/')}>I need guided launch help</a>
+      <a class="btn btn-primary" href={withBase('/apply/?interest=early-access')}>Join Early Access</a>
+      <a class="btn btn-secondary" href={withBase('/growth/')}>View the April 2026 Preview</a>
     </div>
   </section>
 </MainLayout>
