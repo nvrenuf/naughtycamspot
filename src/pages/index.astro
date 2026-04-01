@@ -3,7 +3,6 @@ import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
 import LaunchNotice from '../components/LaunchNotice.astro';
-import { withBase } from '../utils/links';
 import { homepageTeasers, promoLaunch } from '../data/promoLaunch';
 
 const canonicalPath = '/';
@@ -30,8 +29,8 @@ const canonicalPath = '/';
       </p>
       <p class="mt-4 font-display text-xl italic text-parchment/48">Built for models who want more than go live and hope.</p>
       <div class="mt-8 flex flex-wrap gap-3">
-        <a class="btn btn-primary" href={withBase('/growth/')}>{promoLaunch.growthCta}</a>
-        <a class="btn btn-secondary" href={withBase('/apply/?interest=founding')}>{promoLaunch.foundingCta}</a>
+        <a class="btn btn-primary" href="#growth-preview">See the Direction</a>
+        <a class="btn btn-secondary" href="#final-cta">See What Opens in April</a>
       </div>
     </div>
     <figure class="hero-media">
@@ -94,13 +93,13 @@ const canonicalPath = '/';
       <p class="eyebrow">Path 1</p>
       <h2 class="font-display text-4xl font-light text-parchment">Already modeling?</h2>
       <p class="text-sm text-parchment/70">Apply for early access if you want the April 2026 line, founding consideration, or a smarter revenue structure before public rollout.</p>
-      <a class="btn btn-secondary" href={withBase('/apply/?audience=active')}>Apply for Early Access</a>
+      <a class="btn btn-secondary" href="#final-cta">See Founding Access</a>
     </article>
     <article class="split-choice space-y-3">
       <p class="eyebrow">Path 2</p>
       <h2 class="font-display text-4xl font-light text-parchment">Launching fresh?</h2>
       <p class="text-sm text-parchment/70">Some guided launch support is open now. Get closer to the front of the line before the bigger promotional system opens in April 2026.</p>
-      <a class="btn btn-secondary" href={withBase('/apply/?audience=new')}>Join the Waitlist</a>
+      <a class="btn btn-secondary" href="#final-cta">View Launch Status</a>
     </article>
   </section>
 
@@ -117,7 +116,7 @@ const canonicalPath = '/';
         <p class="mt-2 text-sm text-parchment/75">Applications, guided launch intake, active-model conversations, and founding access review.</p>
       </div>
     </div>
-    <a class="btn btn-secondary" href={withBase('/proof/')}>View Proof Posture</a>
+    <a class="btn btn-secondary" href="#what-we-actually-are">View Trust Posture</a>
   </section>
 
   <section class="content-card space-y-5" id="growth-preview">
@@ -146,8 +145,8 @@ const canonicalPath = '/';
       open now.
     </p>
     <div class="flex flex-wrap gap-3">
-      <a class="btn btn-primary" href={withBase('/apply/?interest=early-access')}>Join Early Access</a>
-      <a class="btn btn-secondary" href={withBase('/growth/')}>View the April 2026 Preview</a>
+      <a class="btn btn-primary" href="mailto:concierge@naughtycamspot.com?subject=Founding%20Access">Request Founding Access</a>
+      <a class="btn btn-secondary" href="mailto:concierge@naughtycamspot.com?subject=April%202026%20Preview">Ask for the April 2026 Preview</a>
     </div>
   </section>
 </MainLayout>

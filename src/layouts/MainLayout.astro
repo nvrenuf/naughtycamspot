@@ -60,6 +60,7 @@ const stripBase = (value: string) => {
 
 const currentPath = stripBase(Astro.url.pathname);
 const primaryNavLinks = NAV_PRIMARY;
+const hasPrimaryNav = primaryNavLinks.length > 0;
 
 const isNavActive = (href: string) => {
   const normalizedHref = stripBase(href);
@@ -79,12 +80,7 @@ const resolveNavHref = (link) => {
   return link.href;
 };
 
-const footerLinks = [
-  { href: '/platforms/', label: 'Platforms' },
-  { href: '/privacy/', label: 'Privacy' },
-  { href: '/terms/', label: 'Terms' },
-  { href: '/disclosure/', label: 'Disclosure' }
-];
+const footerLinks: { href: string; label: string }[] = [];
 
 const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
 const buildStampValue = typeof buildStamp?.stamp === 'string' ? buildStamp.stamp : 'dev|dev';
@@ -145,34 +141,38 @@ gtag('config', '${gaMeasurementId}');`}
                 decoding="async"
               />
             </a>
-            <div class="flex items-center gap-3">
-              <button
-                type="button"
-                class="rounded-full border border-gold/25 bg-obsidian/90 px-4 py-2 text-sm font-semibold tracking-[0.06em] text-parchment/78 shadow-glow backdrop-blur-xl transition hover:border-white/30 hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold lg:hidden"
-                data-nav-mobile-toggle
-                aria-expanded="false"
-                aria-controls="mobile-navigation"
-              >
-                Menu
-              </button>
-            </div>
-          </div>
-          <nav class="hidden w-full items-center justify-center gap-3 rounded-full border border-gold/20 bg-obsidian/90 px-4 py-3 text-sm tracking-[0.06em] text-parchment/78 backdrop-blur-2xl sm:gap-4 lg:flex lg:flex-nowrap" aria-label="Primary Navigation">
-            {primaryNavLinks.map((link) => {
-              const resolvedHref = resolveNavHref(link);
-              const active = isNavActive(resolvedHref);
-              return (
-                <a
-                  class={`whitespace-nowrap transition hover:text-gold ${active ? 'text-gold' : ''}`}
-                  href={withBase(resolvedHref)}
-                  aria-current={active ? 'page' : undefined}
+            {hasPrimaryNav && (
+              <div class="flex items-center gap-3">
+                <button
+                  type="button"
+                  class="rounded-full border border-gold/25 bg-obsidian/90 px-4 py-2 text-sm font-semibold tracking-[0.06em] text-parchment/78 shadow-glow backdrop-blur-xl transition hover:border-white/30 hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold lg:hidden"
+                  data-nav-mobile-toggle
+                  aria-expanded="false"
+                  aria-controls="mobile-navigation"
                 >
-                  {link.label}
-                </a>
-              );
-            })}
-          </nav>
-          <div class="lg:hidden">
+                  Menu
+                </button>
+              </div>
+            )}
+          </div>
+          {hasPrimaryNav && (
+            <nav class="hidden w-full items-center justify-center gap-3 rounded-full border border-gold/20 bg-obsidian/90 px-4 py-3 text-sm tracking-[0.06em] text-parchment/78 backdrop-blur-2xl sm:gap-4 lg:flex lg:flex-nowrap" aria-label="Primary Navigation">
+              {primaryNavLinks.map((link) => {
+                const resolvedHref = resolveNavHref(link);
+                const active = isNavActive(resolvedHref);
+                return (
+                  <a
+                    class={`whitespace-nowrap transition hover:text-gold ${active ? 'text-gold' : ''}`}
+                    href={withBase(resolvedHref)}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+            </nav>
+          )}
+          {hasPrimaryNav && <div class="lg:hidden">
             <div
               class="fixed inset-0 z-40 hidden bg-black/75 opacity-0 transition-opacity duration-200"
               data-nav-mobile-overlay
@@ -210,7 +210,7 @@ gtag('config', '${gaMeasurementId}');`}
                 })}
               </nav>
             </div>
-          </div>
+          </div>}
         </header>
       )}
 
@@ -220,16 +220,18 @@ gtag('config', '${gaMeasurementId}');`}
 
       <footer class="border-t border-gold/20 bg-obsidian/80 py-10">
         <div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 text-sm tracking-[0.04em] text-parchment/70">
-          <div class="flex flex-wrap items-center gap-4 text-sm" data-footer-nav>
-            {footerLinks.map((link) => {
-              const resolvedHref = resolveNavHref(link);
-              return (
-                <a class="transition hover:text-gold" href={withBase(resolvedHref)}>
-                  {link.label}
-                </a>
-              );
-            })}
-          </div>
+          {footerLinks.length > 0 && (
+            <div class="flex flex-wrap items-center gap-4 text-sm" data-footer-nav>
+              {footerLinks.map((link) => {
+                const resolvedHref = resolveNavHref(link);
+                return (
+                  <a class="transition hover:text-gold" href={withBase(resolvedHref)}>
+                    {link.label}
+                  </a>
+                );
+              })}
+            </div>
+          )}
           <div class="flex items-center gap-4 text-sm">
             <a class="transition hover:text-gold" href="mailto:concierge@naughtycamspot.com">
               concierge@naughtycamspot.com
