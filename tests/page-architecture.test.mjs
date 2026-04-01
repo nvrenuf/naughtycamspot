@@ -17,18 +17,14 @@ test('home page includes April 2026 launch positioning and two-path content', ()
   assert.doesNotMatch(home, /Apply once and start earning faster/);
 });
 
-test('how-it-works defines Start Right unlock sequence', () => {
+test('hidden secondary pages render the shared hidden-page notice', () => {
   const page = read('src/pages/how-it-works.astro');
-  assert.match(page, /Use Professional Onboarding Tools/);
-  assert.match(page, /Signup through routed path/);
-  assert.match(page, /Unlock Start Right/);
+  assert.match(page, /HiddenPageNotice/);
+  assert.match(page, /How It Works \| Hidden/);
 });
 
-test('apply page includes required launch platforms', () => {
+test('apply page is hidden behind the shared notice on this branch', () => {
   const page = read('src/pages/apply.astro');
-  assert.match(page, /The bigger line goes live in April 2026/);
-  assert.match(page, /founding model consideration/i);
-  for (const platform of ['Chaturbate', 'CamSoda', 'BongaCams', 'Fansly']) {
-    assert.match(page, new RegExp(platform));
-  }
+  assert.match(page, /HiddenPageNotice/);
+  assert.match(page, /Apply \| Hidden/);
 });
