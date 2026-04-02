@@ -12,6 +12,13 @@ const NCS_CLAIM_REQUIRED_FIELDS = [
     'contact',
 ];
 
+const NCS_ALLOWED_PLATFORM_INTERESTS = [
+    'chaturbate',
+    'camsoda',
+    'bongacams',
+    'fansly',
+];
+
 if (strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
     respondWithError(405, 'Method not allowed.');
 }
@@ -84,10 +91,28 @@ function collectInput(array $source): array
     $result = [];
     foreach ($fields as $field) {
         $value = $source[$field] ?? '';
-        $result[$field] = normalizeField(is_string($value) ? $value : '');
+        $result[$field] = normalizeInputValue($value);
     }
 
     return $result;
+}
+
+function normalizeInputValue(mixed $value): string
+{
+    if (is_array($value)) {
+        foreach ($value as $item) {
+            if (is_string($item)) {
+                $normalized = normalizeField($item);
+                if ($normalized !== '') {
+                    return $normalized;
+                }
+            }
+        }
+
+        return '';
+    }
+
+    return normalizeField(is_string($value) ? $value : '');
 }
 
 function normalizeField(string $value): string
@@ -117,6 +142,10 @@ function validateInput(array $input): array
 
     if (($input['notes'] ?? '') !== '' && mb_strlen($input['notes']) > 2000) {
         $errors[] = 'notes_length';
+    }
+
+    if (($input['platform_interest'] ?? '') !== '' && !in_array($input['platform_interest'], NCS_ALLOWED_PLATFORM_INTERESTS, true)) {
+        $errors[] = 'platform_interest_invalid';
     }
 
     return array_values(array_unique($errors));

@@ -152,7 +152,7 @@ const contactMethods = ['Telegram', 'Email', 'WhatsApp'] as const;
         <option value="live-established">Live and established</option>
       </select>
       <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="platform_interest" required>
-        <option value="">Main platform or target platform</option>
+        <option value="">Main platform or target platform (choose one)</option>
         {platforms.map((platform) => <option value={platform.toLowerCase()}>{platform}</option>)}
       </select>
       <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="current_platforms" placeholder="Current platforms used, if any" />
