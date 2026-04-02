@@ -12,18 +12,27 @@ General working rules
    - no spam or mass unsolicited DM claims
 5. Optimize for a stressed, mobile-first, low-patience 18+ creator audience.
 6. Use short, concrete copy. Avoid jargon like funnel, monetization, growth ops, ecosystem.
+7. Do not reduce NaughtyCamSpot to a generic social posting agency.
+8. Treat posting channels such as X, Instagram, TikTok, reels, Telegram, and similar as distribution rails, not as the moat or core business.
+9. Preserve the launch-to-growth partner positioning: help models start right, build real brand structure, then move into deeper growth support.
+10. Preserve the distinction between:
+    - standard NCS-hosted managed hub
+    - premium model-owned custom-domain hub
+11. When NCS is accountable for outcomes, assume NCS should control the front door experience while active service is in place.
+12. Avoid spammy, mass-DM, fake-agency, or shallow creator-marketing language.
+13. Avoid misleading "official partner" framing or anything that implies platform endorsement without proof.
 
 Issue completion and closure policy
-7. Never close a GitHub issue unless all required checks for that issue pass.
-8. Do not stop at “implementation complete” if verification is still failing.
-9. If a required check fails, keep working until it passes.
-10. Only close the issue after:
+14. Never close a GitHub issue unless all required checks for that issue pass.
+15. Do not stop at “implementation complete” if verification is still failing.
+16. If a required check fails, keep working until it passes.
+17. Only close the issue after:
     - code changes are complete
     - required checks pass
     - results are reported clearly
 
 Required reporting for every issue
-11. At the end of each issue, report:
+18. At the end of each issue, report:
     - files changed
     - what changed
     - commands run
@@ -32,7 +41,7 @@ Required reporting for every issue
     - commit hash
 
 Blocked-work policy
-12. If blocked by a real external dependency or a pre-existing unrelated failure:
+19. If blocked by a real external dependency or a pre-existing unrelated failure:
     - do not close the issue
     - explain the blocker clearly
     - state whether it is newly introduced or pre-existing
@@ -40,33 +49,36 @@ Blocked-work policy
     - only create or reference a blocking issue if necessary
 
 Verification rules
-13. For site/frontend/content issues, run the relevant checks for the changed scope.
-14. Unless the issue explicitly says otherwise, use this default verification set for site changes:
+20. For site/frontend/content issues, run the relevant checks for the changed scope.
+21. Unless the issue explicitly says otherwise, use this default verification set for site changes:
     - ./node_modules/.bin/astro build
     - ./node_modules/.bin/astro build --config astro.config.pages.mjs
     - npm run build:pages
     - npm run test:snapshot
-15. If a command is not relevant to the scope, state why it was skipped.
-16. If a command fails, include the failure in the final report and keep working unless blocked.
+22. If a command is not relevant to the scope, state why it was skipped.
+23. If a command fails, include the failure in the final report and keep working unless blocked.
+24. For docs-only strategy/rules work, run only lightweight relevant checks unless the user explicitly requests the full site/build set.
 
 Git and PR rules
-17. One issue per branch/PR.
-18. Reference the issue number in the commit message.
-19. Do not create a PR until the issue scope is complete and required checks pass, unless the user explicitly asks for a draft PR.
-20. Do not close legacy or related issues unless the user explicitly asked for issue cleanup or the issue mapping is already approved.
+25. One issue per branch/PR.
+26. Reference the issue number in the commit message.
+27. Do not create a PR until the issue scope is complete and required checks pass, unless the user explicitly asks for a draft PR.
+28. Do not close legacy or related issues unless the user explicitly asked for issue cleanup or the issue mapping is already approved.
 
 Implementation rules
-21. Make the minimum change needed to satisfy acceptance criteria.
-22. Reuse existing components/data patterns when practical.
-23. Do not change unrelated pages just because they could be improved.
-24. Keep top-funnel UX simple:
+29. Make the minimum change needed to satisfy acceptance criteria.
+30. Reuse existing components/data patterns when practical.
+31. Do not change unrelated pages just because they could be improved.
+32. Keep top-funnel UX simple:
     - one clear promise
     - one primary CTA
     - strong trust signals
     - secondary content should not compete with conversion
+33. Preserve the idea that public posting is one layer in a larger system: brand, discovery, hub/front door, live conversion, VIP retention, recurring events, premium offers, passive layers.
+34. Do not erase useful strategy just to make copy shorter. Prefer consolidation and clearer hierarchy over flattening.
 
 Safety and honesty rules
-25. Do not claim tests passed if they did not pass.
-26. Do not claim an issue is done if required checks are failing.
-27. If something is uncertain, say so clearly.
-28. If GitHub/network/tooling access fails, report the failure plainly instead of pretending the action succeeded.
+35. Do not claim tests passed if they did not pass.
+36. Do not claim an issue is done if required checks are failing.
+37. If something is uncertain, say so clearly.
+38. If GitHub/network/tooling access fails, report the failure plainly instead of pretending the action succeeded.

@@ -1,0 +1,184 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
+import { OFFERS, OFFER_TRACKS } from '../data/offers';
+import { promoLaunch } from '../data/promoLaunch';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/packages';
+const trackOrder = ['launch', 'growth'] as const;
+---
+
+<MainLayout
+  title="Packages | NaughtyCamSpot"
+  description="The NaughtyCamSpot offer ladder from Start Right through Growth Partner, built around launch, brand, discovery, conversion, retention, and premium offers."
+>
+  <SEO
+    slot="head"
+    title="Packages | NaughtyCamSpot"
+    description="The NaughtyCamSpot offer ladder from Start Right through Growth Partner, built around launch, brand, discovery, conversion, retention, and premium offers."
+    path={canonicalPath}
+  />
+
+  <section class="hero-shell hero-split parallax-veil">
+    <div class="hero-content">
+      <p class="eyebrow">Offer Ladder</p>
+      <h1 class="hero-title">Most models do not need <em>more posting</em>. They need a better business.</h1>
+      <p class="hero-sub">
+        Most models start wrong: weak naming, no front door, random posting, random traffic, no retention structure. This ladder exists
+        to fix that. These are not random promo tiers. They are the steps from cleaner setup into stronger discovery, conversion, VIP
+        retention, recurring events, premium offers, and passive layers. The next public growth line still goes live in {promoLaunch.month}.
+      </p>
+      <p class="mt-4 max-w-2xl text-sm text-parchment/64">Built for structure, not hype. Built for models who are tired of guessing.</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="btn btn-primary" href={withBase('/apply/')}>Apply for Founding Model Fit Review</a>
+        <a class="btn btn-secondary" href={withBase('/')}>Return Home</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="/images/home-hero-1280.jpg" alt="Editorial offer-ladder visual" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+  <section class="content-card space-y-5">
+    <p class="eyebrow">What This Ladder Is</p>
+    <div class="grid gap-px bg-gold/20 md:grid-cols-3">
+      <p class="bg-midnight p-5 text-sm text-parchment/74">X, Instagram, TikTok, Telegram, and similar channels still matter, but they are distribution rails. They are not the business.</p>
+      <p class="bg-obsidian p-5 text-sm text-parchment/74">This ladder exists because most models do not fail from lack of effort. They fail from weak structure: weak brand, weak front door, weak retention, weak repeat-spend logic.</p>
+      <p class="bg-midnight p-5 text-sm text-parchment/74">These stages are not random promo tiers. They are business layers: setup, front door, identity, conversion, retention, recurring events, and stronger revenue behavior.</p>
+    </div>
+  </section>
+
+  <section class="content-card space-y-5">
+    <div class="space-y-2">
+      <p class="eyebrow">Where You Fit</p>
+      <h2 class="font-display text-4xl font-light text-parchment">Start with the problem you already feel.</h2>
+      <p class="max-w-3xl text-sm text-parchment/70">This is not a quiz. It is a quick way to recognize the stage that is probably closest to your current bottleneck.</p>
+    </div>
+    <div class="grid gap-px bg-gold/20 md:grid-cols-2 xl:grid-cols-4">
+      <article class="bg-midnight p-5 text-sm text-parchment/74">
+        <p class="eyebrow">Foundation / Start Right</p>
+        <p>If you are new, restarting, or already feel messy before real momentum exists, this is usually where you start.</p>
+      </article>
+      <article class="bg-obsidian p-5 text-sm text-parchment/74">
+        <p class="eyebrow">Launch</p>
+        <p>If people can find you but the handoff is weak, confusing, or scattered, this is usually the missing layer.</p>
+      </article>
+      <article class="bg-midnight p-5 text-sm text-parchment/74">
+        <p class="eyebrow">Brand Builder</p>
+        <p>If you are active but still look generic, forgettable, or too similar to everyone else, this is usually the next step.</p>
+      </article>
+      <article class="bg-obsidian p-5 text-sm text-parchment/74">
+        <p class="eyebrow">Growth Partner</p>
+        <p>If you are making money but it still feels unstable, traffic-dependent, or reset-to-reset, this is usually the right fit.</p>
+      </article>
+    </div>
+  </section>
+
+  {trackOrder.map((trackId) => {
+    const track = OFFER_TRACKS[trackId];
+    const offers = OFFERS.filter((offer) => offer.track === trackId);
+    return (
+      <section class="space-y-6">
+        <div class="section-intro">
+          <p class="eyebrow">{track.label}</p>
+          <h2 class="section-heading">{track.description}</h2>
+        </div>
+        <div class="grid gap-6 xl:grid-cols-2">
+          {offers.map((offer) => (
+            <article class="content-card space-y-5">
+              <div class="space-y-3">
+                <p class="eyebrow">{offer.stageLabel}</p>
+                <h3 class="font-display text-4xl font-light text-parchment">{offer.displayName}</h3>
+                <p class="text-sm text-parchment/72">{offer.shortDescription}</p>
+              </div>
+
+              <div class="grid gap-4 md:grid-cols-2">
+                <div class="premium-card">
+                  <p class="eyebrow">Who it is for</p>
+                  <ul class="mt-3 space-y-2 text-sm text-parchment/74">
+                    {offer.forWho.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+                <div class="premium-card">
+                  <p class="eyebrow">Strategic deliverables</p>
+                  <ul class="mt-3 space-y-2 text-sm text-parchment/74">
+                    {offer.deliverables.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+              </div>
+
+              <div class="grid gap-4 md:grid-cols-2">
+                <div class="premium-card">
+                  <p class="eyebrow">NCS responsibilities</p>
+                  <ul class="mt-3 space-y-2 text-sm text-parchment/74">
+                    {offer.ncsResponsibilities.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+                <div class="premium-card">
+                  <p class="eyebrow">Model responsibilities</p>
+                  <ul class="mt-3 space-y-2 text-sm text-parchment/74">
+                    {offer.modelResponsibilities.map((item) => <li>{item}</li>)}
+                  </ul>
+                </div>
+              </div>
+
+              <div class="grid gap-4 md:grid-cols-2">
+                {offer.successLooksLike && (
+                  <div class="premium-card">
+                    <p class="eyebrow">What success looks like</p>
+                    <ul class="mt-3 space-y-2 text-sm text-parchment/74">
+                      {offer.successLooksLike.map((item) => <li>{item}</li>)}
+                    </ul>
+                  </div>
+                )}
+                {offer.foundingModelValue && (
+                  <div class="premium-card">
+                    <p class="eyebrow">Founding Model Program</p>
+                    <p class="mt-3 text-sm text-parchment/74"><strong class="text-parchment">Current cost:</strong> {offer.foundingModelValue.currentCost}</p>
+                    <p class="mt-3 text-sm text-parchment/74"><strong class="text-parchment">Estimated value:</strong> {offer.foundingModelValue.estimatedValue}</p>
+                    <p class="mt-3 text-sm text-parchment/62">{offer.foundingModelValue.note}</p>
+                  </div>
+                )}
+                {offer.hubApproach && (
+                  <div class="premium-card">
+                    <p class="eyebrow">Front-door options</p>
+                    <p class="mt-3 text-sm text-parchment/74"><strong class="text-parchment">Standard:</strong> {offer.hubApproach.standard}</p>
+                    <p class="mt-3 text-sm text-parchment/74"><strong class="text-parchment">Premium:</strong> {offer.hubApproach.premium}</p>
+                  </div>
+                )}
+              </div>
+
+              {offer.upgradePath && (
+                <div class="premium-card">
+                  <p class="eyebrow">Why this stage exists</p>
+                  <p class="mt-3 text-sm text-parchment/74">{offer.upgradePath}</p>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+    );
+  })}
+
+  <TrustRulesBlock title="Trust rules stay fixed across the ladder" />
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-4xl font-light text-parchment">One apply flow. The right stage gets mapped after.</h2>
+    <p class="text-sm text-parchment/72">
+      You do not need to guess perfectly before you apply. Apply once, describe your current stage honestly, and the fit review can map
+      you to the right point in the ladder without turning this into a hypey sales funnel.
+    </p>
+    <p class="text-sm text-parchment/66">
+      Founding models receive real structured work, not placeholder advice, and they keep the outputs created for them: naming direction,
+      handle and platform-fit recommendations, room and tip-menu recommendations, progressive goal structure, front-door setup logic, and
+      event ideas where relevant.
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <a class="btn btn-primary" href={withBase('/apply/')}>Apply for Founding Model Fit Review</a>
+      <a class="btn btn-secondary" href="mailto:concierge@naughtycamspot.com?subject=NCS%20Offer%20Ladder">Ask a question</a>
+    </div>
+  </section>
+</MainLayout>

@@ -1,21 +1,10 @@
 ---
+import { TRUST_RULES } from '../data/offers';
+
 const { title = 'Trust Rules', compact = false } = Astro.props as {
   title?: string;
   compact?: boolean;
 };
-
-const items = [
-  'No passwords',
-  'No exclusivity',
-  'Model owns accounts and content',
-  'Cancel anytime',
-  'No fake official partner claims',
-  'No spam tactics',
-  'No spam or mass unsolicited DM tactics',
-  'No misleading platform language',
-  'No fake proof or earnings claims',
-  'No misleading earnings promises'
-] as const;
 ---
 
 <section class:list={['content-card space-y-5', compact && 'space-y-3']}>
@@ -26,7 +15,7 @@ const items = [
   </div>
 
   <div class="grid gap-px bg-gold/20 sm:grid-cols-2 xl:grid-cols-4">
-    {items.map((item) => (
+    {TRUST_RULES.map((item) => (
       <p class="bg-midnight px-4 py-4 text-sm text-parchment/82">{item}</p>
     ))}
   </div>

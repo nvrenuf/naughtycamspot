@@ -1,5 +1,191 @@
 ---
-import HiddenPageNotice from '../components/HiddenPageNotice.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
+import LaunchNotice from '../components/LaunchNotice.astro';
+import { OFFERS } from '../data/offers';
+import { withBase } from '../utils/links';
+import { promoLaunch } from '../data/promoLaunch';
+
+const canonicalPath = '/apply';
+const platforms = ['Chaturbate', 'CamSoda', 'BongaCams', 'Fansly'];
+const quickReference = [
+  {
+    title: 'Foundation / Start Right',
+    body: 'You are new, restarting, or already feel messy before real momentum exists.'
+  },
+  {
+    title: 'Launch',
+    body: 'You are live or close to live, but the handoff is weak, scattered, or unclear once someone finds you.'
+  },
+  {
+    title: 'Brand Builder',
+    body: 'You are active, but still look too generic, too forgettable, or too similar to everyone else.'
+  },
+  {
+    title: 'Growth Partner',
+    body: 'You are earning, but the business still feels unstable, traffic-dependent, or reset-to-reset.'
+  }
+] as const;
+
+const mainProblems = [
+  'Unsure where to start',
+  'No structure',
+  'Weak front door or hub',
+  'Traffic but no tips',
+  'Inconsistent income',
+  'Active but too generic',
+  'Weak VIP retention or repeat spend'
+] as const;
+
+const contactMethods = ['Telegram', 'Email', 'WhatsApp'] as const;
 ---
 
-<HiddenPageNotice title="Apply | Hidden" description="The Apply page is hidden on this branch. Return to the NaughtyCamSpot home page." />
+<MainLayout
+  title="Apply | NaughtyCamSpot"
+  description="Apply for the Founding Model Program fit review across the NaughtyCamSpot offer ladder, from Start Right and Launch through Brand Builder and Growth Partner."
+>
+  <SEO
+    slot="head"
+    title="Apply | NaughtyCamSpot"
+    description="Apply for the Founding Model Program fit review across the NaughtyCamSpot offer ladder, from Start Right and Launch through Brand Builder and Growth Partner."
+    path={canonicalPath}
+  />
+
+  <section class="hero-shell hero-split parallax-veil">
+    <div class="hero-content">
+      <p class="eyebrow">Founding Model Program</p>
+      <h1 class="hero-title">This is a <em>founding-model intake</em>, not a generic application form.</h1>
+      <p class="hero-sub">
+        NCS is working with a small founding-model group to run the first stages of the system in real conditions, refine the workflows,
+        and deliver real structured value at the same time. One application is enough. We review your situation, map you to the right
+        stage of the ladder, and recommend the clearest next step. This is not instant acceptance.
+      </p>
+      <p class="mt-4 max-w-2xl text-sm text-parchment/64">Structured intake. Honest mapping. Real work product. No mass-onboarding posture. The bigger public growth line still rolls live in {promoLaunch.month}.</p>
+    </div>
+    <div class="hero-media">
+      <img src="/images/home-hero-768.jpg" alt="Editorial intake visual for the NaughtyCamSpot offer ladder" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+  <LaunchNotice
+    title="Founding Model Fit Review is open."
+    body="Use the form to show where you are now, what is breaking down, and which stage sounds closest. Founding intake is selective, structured, and built around real workflow refinement with real value delivered."
+  />
+
+  <section class="content-card space-y-5">
+    <div class="space-y-2">
+      <p class="eyebrow">Founding Model Program</p>
+      <h2 class="font-display text-4xl font-light text-parchment">$0 for founding models. Real structured work.</h2>
+    </div>
+    <div class="grid gap-px bg-gold/15 md:grid-cols-3">
+      <p class="bg-midnight p-5 text-sm text-parchment/74">Current cost for founding models: $0.</p>
+      <p class="bg-obsidian p-5 text-sm text-parchment/74">This is real structured work that would normally live inside a paid service relationship.</p>
+      <p class="bg-midnight p-5 text-sm text-parchment/74">The point of the founding program is to refine the system while delivering real value around naming, platform fit, front door, room setup, and launch structure.</p>
+    </div>
+  </section>
+
+  <section class="content-card space-y-5">
+    <div class="space-y-2">
+      <p class="eyebrow">What You Keep</p>
+      <h2 class="font-display text-4xl font-light text-parchment">Real signup. Real outputs. Yours to keep.</h2>
+    </div>
+    <div class="grid gap-px bg-gold/15 md:grid-cols-3">
+      <p class="bg-midnight p-5 text-sm text-parchment/74">If you sign up to a platform through NCS, that is a real signup with the platform, not a placeholder workflow.</p>
+      <p class="bg-obsidian p-5 text-sm text-parchment/74">If NCS creates recommendations or strategic outputs for you, they remain yours to keep.</p>
+      <p class="bg-midnight p-5 text-sm text-parchment/74">That can include brand/name recommendations, handle or platform-fit recommendations, room and tip-menu recommendations, progressive goal structure, front-door setup logic, and event ideas where relevant.</p>
+    </div>
+  </section>
+
+  <section class="content-card space-y-5">
+    <div class="space-y-2">
+      <p class="eyebrow">What Happens After You Apply</p>
+      <h2 class="font-display text-4xl font-light text-parchment">A structured review, then a stage recommendation.</h2>
+    </div>
+    <div class="grid gap-px bg-gold/15 md:grid-cols-3">
+      <p class="bg-midnight p-5 text-sm text-parchment/74">We review your current situation: where you are live, how your brand looks, and where the structure is weak.</p>
+      <p class="bg-obsidian p-5 text-sm text-parchment/74">We map you to the right stage: Foundation / Start Right, Launch, Brand Builder, or Growth Partner.</p>
+      <p class="bg-midnight p-5 text-sm text-parchment/74">That review may include brand-name or handle checks, platform-fit review, launch-readiness feedback, and front-door or setup recommendations.</p>
+    </div>
+  </section>
+
+  <section class="content-card space-y-5">
+    <div class="space-y-2">
+      <p class="eyebrow">Where You Likely Fit</p>
+      <h2 class="font-display text-4xl font-light text-parchment">Quick reference before you fill out the form.</h2>
+      <p class="max-w-3xl text-sm text-parchment/70">This is not a quiz. It is a short orientation so you can answer the form more accurately.</p>
+    </div>
+    <div class="grid gap-px bg-gold/15 md:grid-cols-2 xl:grid-cols-4">
+      {quickReference.map((item) => (
+        <article class="bg-midnight p-5 text-sm text-parchment/74">
+          <p class="eyebrow">{item.title}</p>
+          <p>{item.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="content-card space-y-4">
+    <p class="eyebrow">Intake form</p>
+    <h2 class="font-display text-4xl font-light text-parchment">Tell us enough to review the real situation.</h2>
+    <form class="grid gap-3 md:grid-cols-2" method="get" action={withBase('/packages/')}>
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="preferred_model_name" placeholder="Preferred model name" required />
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="alternate_model_names" placeholder="Alternate model names, if any" />
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="closest_stage" required>
+        <option value="">Which stage sounds closest?</option>
+        {OFFERS.map((offer) => <option value={offer.slug}>{offer.displayName}</option>)}
+      </select>
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="current_stage" required>
+        <option value="">Current stage</option>
+        <option value="new">New or launching soon</option>
+        <option value="relaunching">Relaunching or repositioning</option>
+        <option value="active">Active and looking for structure</option>
+        <option value="growing">Active and ready for deeper growth</option>
+      </select>
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="live_status" required>
+        <option value="">Are you already live?</option>
+        <option value="not-live">Not live yet</option>
+        <option value="starting-now">Launching now</option>
+        <option value="live-inconsistent">Live, but inconsistent</option>
+        <option value="live-established">Live and established</option>
+      </select>
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="platform_interest" required>
+        <option value="">Main platform or target platform</option>
+        {platforms.map((platform) => <option value={platform.toLowerCase()}>{platform}</option>)}
+      </select>
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="current_platforms" placeholder="Current platforms used, if any" />
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="current_handles" placeholder="Current handles or usernames, if any" />
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="main_problem" required>
+        <option value="">Main problem right now</option>
+        {mainProblems.map((problem) => <option value={problem.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>{problem}</option>)}
+      </select>
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="main_problem_other" placeholder="Optional detail on the main problem" />
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="preferred_contact_method" required>
+        <option value="">Preferred contact method</option>
+        {contactMethods.map((method) => <option value={method.toLowerCase()}>{method}</option>)}
+      </select>
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm md:col-span-2" type="text" name="contact" placeholder="Telegram preferred, or email / WhatsApp" required />
+      <textarea
+        class="border border-gold/25 bg-midnight px-4 py-3 text-sm md:col-span-2"
+        name="notes"
+        rows="4"
+        placeholder="Tell us your current situation, where the structure feels weak, and anything useful for naming, platform-fit, launch-readiness, or front-door review."
+      />
+      <div class="space-y-3 md:col-span-2">
+        <button class="btn btn-primary w-full sm:w-auto" type="submit">Apply for Founding Model Fit Review</button>
+        <p class="text-sm text-parchment/62">We will review your situation and map you to the right stage.</p>
+      </div>
+    </form>
+  </section>
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-4xl font-light text-parchment">Why this intake is structured this way</h2>
+    <p class="text-sm text-parchment/70">
+      NCS is not a posting service with a contact form attached. The intake is built to understand whether the real problem is setup,
+      front door, brand, conversion, retention, or overall business structure. That is what makes the ladder useful.
+    </p>
+    <a class="btn btn-secondary" href={withBase('/packages/')}>See the full offer ladder</a>
+  </section>
+
+  <TrustRulesBlock title="Trust stays visible before submission" />
+</MainLayout>

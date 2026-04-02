@@ -17,14 +17,18 @@ test('home page includes April 2026 launch positioning and two-path content', ()
   assert.doesNotMatch(home, /Apply once and start earning faster/);
 });
 
-test('hidden secondary pages render the shared hidden-page notice', () => {
-  const page = read('src/pages/how-it-works.astro');
-  assert.match(page, /HiddenPageNotice/);
-  assert.match(page, /How It Works \| Hidden/);
+test('packages page consumes the canonical offer ladder', () => {
+  const page = read('src/pages/packages.astro');
+  const offers = read('src/data/offers.ts');
+  assert.match(page, /OFFERS/);
+  assert.match(page, /Offer Ladder/);
+  assert.match(offers, /Foundation \/ Start Right/);
+  assert.match(offers, /Growth Partner/);
 });
 
-test('apply page is hidden behind the shared notice on this branch', () => {
+test('apply page consumes the canonical offer ladder', () => {
   const page = read('src/pages/apply.astro');
-  assert.match(page, /HiddenPageNotice/);
-  assert.match(page, /Apply \| Hidden/);
+  assert.match(page, /OFFERS/);
+  assert.match(page, /Which stage sounds closest\?/);
+  assert.match(page, /Trust stays visible before submission/);
 });
