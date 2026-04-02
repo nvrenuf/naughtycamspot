@@ -128,7 +128,9 @@ const contactMethods = ['Telegram', 'Email', 'WhatsApp'] as const;
   <section class="content-card space-y-4">
     <p class="eyebrow">Intake form</p>
     <h2 class="font-display text-4xl font-light text-parchment">Tell us enough to review the real situation.</h2>
-    <form class="grid gap-3 md:grid-cols-2" method="get" action={withBase('/packages/')}>
+    <form class="grid gap-3 md:grid-cols-2" method="post" action={withBase('/claim/index.php')}>
+      <input type="hidden" name="program" value="founding-model-program" />
+      <input type="hidden" name="source_page" value="/apply/" />
       <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="preferred_model_name" placeholder="Preferred model name" required />
       <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="alternate_model_names" placeholder="Alternate model names, if any" />
       <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="closest_stage" required>
@@ -150,7 +152,7 @@ const contactMethods = ['Telegram', 'Email', 'WhatsApp'] as const;
         <option value="live-established">Live and established</option>
       </select>
       <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="platform_interest" required>
-        <option value="">Main platform or target platform</option>
+        <option value="">Main platform or target platform (choose one)</option>
         {platforms.map((platform) => <option value={platform.toLowerCase()}>{platform}</option>)}
       </select>
       <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="current_platforms" placeholder="Current platforms used, if any" />

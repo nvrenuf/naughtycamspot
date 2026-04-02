@@ -1,0 +1,3 @@
+{"timestamp":"2026-04-02T06:25:12+00:00","event":"validation_failed","context":{"errors":["current_stage","platform_interest"],"preferred_model_name":"TestModel","source_page":""}}
+{"timestamp":"2026-04-02T06:26:54+00:00","event":"validation_failed","context":{"errors":["platform_interest"],"preferred_model_name":"TestModel","source_page":""}}
+{"timestamp":"2026-04-02T06:29:30+00:00","event":"telegram_notify_failed","context":{"reason":"telegram_env_missing","preferred_model_name":"TestModel","closest_stage":"foundation-start-right"}}
