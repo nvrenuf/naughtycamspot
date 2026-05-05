@@ -8,12 +8,12 @@ const extractLabels = (source, varName) => {
   return Array.from(match[1].matchAll(/label: '([^']+)'/g)).map((entry) => entry[1]);
 };
 
-test('primary navigation is hidden for the home-only branch', () => {
+test('primary navigation reflects signup-first routes', () => {
   const nav = readFileSync(new URL('../src/data/nav.ts', import.meta.url), 'utf8');
-  assert.deepEqual(extractLabels(nav, 'NAV_PRIMARY'), []);
+  assert.deepEqual(extractLabels(nav, 'NAV_PRIMARY'), ['Apply', 'Name Check', 'Platforms', 'Trust']);
 });
 
-test('footer navigation is hidden for the home-only branch', () => {
+test('footer navigation remains hidden', () => {
   const layout = readFileSync(new URL('../src/layouts/MainLayout.astro', import.meta.url), 'utf8');
   assert.deepEqual(extractLabels(layout, 'footerLinks'), []);
 });
