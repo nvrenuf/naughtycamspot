@@ -58,10 +58,9 @@ test('name-check page remains public and points into the signup-first funnel', (
 
 test('platform page uses signup-oriented CTAs and free-with-signup copy', () => {
   const page = read('src/pages/platforms.astro');
-  const platformData = read('src/data/platforms.ts');
   assert.match(page, /If you sign up through NCS, you can receive the Model Launch Kit free/);
   assert.match(page, /Start Signup/);
-  assert.match(platformData, /signupUrlPlaceholder/);
+  assert.doesNotMatch(page, /placeholder/i);
 });
 
 test('trust posture remains visible on public pages', () => {
