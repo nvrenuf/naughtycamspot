@@ -1,33 +1,46 @@
 export type PlatformEntry = {
-  slug: string;
+  id: string;
   name: string;
+  status: 'live' | 'coming_soon';
   goPath: string;
-  summary: string;
+  description: string;
+  signupUrlPlaceholder?: string;
+  notes?: string;
 };
 
 export const PLATFORMS: PlatformEntry[] = [
   {
-    slug: 'chaturbate',
+    id: 'chaturbate',
     name: 'Chaturbate',
+    status: 'live',
     goPath: '/go/chaturbate.php',
-    summary: 'High live traffic and deep tip menu support for consistent rooms.'
+    description: 'High live traffic and deep tip-menu support for models building consistent rooms.',
+    signupUrlPlaceholder: 'https://example.com/chaturbate-signup', // Placeholder until final verified signup URL is confirmed.
   },
   {
-    slug: 'camsoda',
+    id: 'camsoda',
     name: 'CamSoda',
+    status: 'live',
     goPath: '/go/camsoda.php',
-    summary: 'Strong event windows and premium room experience options.'
+    description: 'Strong event windows and room features for premium stream positioning.',
+    signupUrlPlaceholder: 'https://example.com/camsoda-signup', // Placeholder until final verified signup URL is confirmed.
   },
   {
-    slug: 'bongacams',
+    id: 'bongacams',
     name: 'BongaCams',
+    status: 'live',
     goPath: '/go/bongacams.php',
-    summary: 'Useful geo diversification and stable discovery opportunities.'
+    description: 'Useful geo diversification and stable discovery opportunities for live creators.',
+    signupUrlPlaceholder: 'https://example.com/bongacams-signup', // Placeholder until final verified signup URL is confirmed.
   },
   {
-    slug: 'fansly',
+    id: 'fansly',
     name: 'Fansly',
+    status: 'live',
     goPath: '/go/fansly.php',
-    summary: 'Subscription + feed support to extend livestream revenue.'
-  }
+    description: 'Subscription and feed support to extend fan monetization beyond live sessions.',
+    signupUrlPlaceholder: 'https://example.com/fansly-signup', // Placeholder until final verified signup URL is confirmed.
+  },
 ];
+
+export const PLATFORM_IDS = PLATFORMS.map((platform) => platform.id);

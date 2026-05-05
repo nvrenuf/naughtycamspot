@@ -1,5 +1,25 @@
 ---
-import HiddenPageNotice from '../components/HiddenPageNotice.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { PLATFORMS } from '../data/platforms';
+
+const canonicalPath = '/platforms';
 ---
 
-<HiddenPageNotice title="Platforms | Hidden" description="The Platforms page is hidden on this branch. Return to the NaughtyCamSpot home page." />
+<MainLayout title="Platforms | NaughtyCamSpot" description="Platform signup paths for new and relaunching cam models.">
+  <SEO slot="head" title="Platforms | NaughtyCamSpot" description="Platform signup paths for new and relaunching cam models." path={canonicalPath} />
+  <section class="hero-shell space-y-4 parallax-veil">
+    <p class="eyebrow">Platform paths</p>
+    <h1 class="hero-title">Choose your signup direction with intention.</h1>
+  </section>
+  <section class="grid gap-5 md:grid-cols-2">
+    {PLATFORMS.map((platform) => (
+      <article class="content-card space-y-3">
+        <p class="eyebrow">{platform.status === 'live' ? 'Live now' : 'Coming soon'}</p>
+        <h2 class="font-display text-4xl font-light text-parchment">{platform.name}</h2>
+        <p class="text-sm text-parchment/72">{platform.description}</p>
+        <a class="btn btn-secondary" href={platform.goPath}>Go to signup path</a>
+      </article>
+    ))}
+  </section>
+</MainLayout>

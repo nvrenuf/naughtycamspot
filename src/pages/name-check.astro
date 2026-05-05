@@ -1,0 +1,122 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+
+const canonicalPath = '/name-check';
+---
+
+<MainLayout title="Name Check | NaughtyCamSpot" description="Run a first-pass model-name brandability checklist before signing up across platforms.">
+  <SEO
+    slot="head"
+    title="Name Check | NaughtyCamSpot"
+    description="Run a first-pass model-name brandability checklist before signing up across platforms."
+    path={canonicalPath}
+  />
+
+  <section class="hero-shell space-y-5 parallax-veil">
+    <p class="eyebrow">Model-name brandability checker</p>
+    <h1 class="hero-title">First-pass brandability check before platform signup.</h1>
+    <p class="hero-sub max-w-4xl">Enter a desired model name to generate clean handle variants and a structured checklist you can use before creating accounts.</p>
+  </section>
+
+  <section class="content-card space-y-4" data-name-check-app>
+    <label class="eyebrow" for="desired_name">Desired model name</label>
+    <div class="flex flex-col gap-3 md:flex-row">
+      <input id="desired_name" class="flex-1 border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" placeholder="Example: Velvet Nova" />
+      <button class="btn btn-primary" type="button" data-run-check>Run Pre-Check</button>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-2" data-results hidden>
+      <article class="premium-card">
+        <p class="eyebrow">Suggested handle variants</p>
+        <ul class="mt-3 space-y-1 text-sm text-parchment/74" data-variants></ul>
+      </article>
+      <article class="premium-card">
+        <p class="eyebrow">Risk flags</p>
+        <ul class="mt-3 space-y-1 text-sm text-parchment/74" data-risks></ul>
+      </article>
+    </div>
+
+    <div class="grid gap-px bg-gold/15 md:grid-cols-2 xl:grid-cols-3" data-results hidden>
+      <article class="bg-midnight p-5 text-sm text-parchment/74"><p class="eyebrow">Cam platform handle consistency</p><p data-cam></p></article>
+      <article class="bg-obsidian p-5 text-sm text-parchment/74"><p class="eyebrow">Social handle consistency</p><p data-social></p></article>
+      <article class="bg-midnight p-5 text-sm text-parchment/74"><p class="eyebrow">Domain/brand fit</p><p data-domain></p></article>
+      <article class="bg-obsidian p-5 text-sm text-parchment/74"><p class="eyebrow">Link-in-bio fit</p><p data-linkbio></p></article>
+      <article class="bg-midnight p-5 text-sm text-parchment/74"><p class="eyebrow">Memorability/readability</p><p data-memory></p></article>
+      <article class="bg-obsidian p-5 text-sm text-parchment/74"><p class="eyebrow">Risk flags summary</p><p data-risk-summary></p></article>
+    </div>
+
+    <article class="premium-card">
+      <p class="eyebrow">Brand guidance</p>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-parchment/72">
+        <li>Avoid hard-to-spell names that fans will mistype.</li>
+        <li>Avoid names too close to major creators or existing brands.</li>
+        <li>Avoid platform-specific names that cannot travel to socials and your fan hub.</li>
+        <li>Prefer names that work across cam platforms, socials, and a future domain.</li>
+      </ul>
+    </article>
+
+    <p class="text-xs text-parchment/60">This is a brandability pre-check, not a live availability guarantee. Final availability must be confirmed on each platform.</p>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector('[data-name-check-app]');
+      if (!root) return;
+      const input = root.querySelector('#desired_name');
+      const button = root.querySelector('[data-run-check]');
+      const results = root.querySelectorAll('[data-results]');
+      const variantsNode = root.querySelector('[data-variants]');
+      const risksNode = root.querySelector('[data-risks]');
+
+      const textTargets = {
+        cam: root.querySelector('[data-cam]'),
+        social: root.querySelector('[data-social]'),
+        domain: root.querySelector('[data-domain]'),
+        linkbio: root.querySelector('[data-linkbio]'),
+        memory: root.querySelector('[data-memory]'),
+        riskSummary: root.querySelector('[data-risk-summary]'),
+      };
+
+      const normalize = (value) => value.toLowerCase().trim().replace(/[^a-z0-9\s_-]/g, '').replace(/\s+/g, ' ');
+      const buildVariants = (name) => {
+        const base = name.replace(/\s+/g, '');
+        const compact = base.replace(/[_-]+/g, '');
+        const underscore = name.replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
+        const hyphen = name.replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        const out = new Set([compact, underscore, hyphen]);
+        if (compact.length >= 4 && compact.length <= 14) {
+          out.add(`${compact}official`);
+          out.add(`${compact}live`);
+        }
+        return Array.from(out).filter(Boolean);
+      };
+
+      const runCheck = () => {
+        const clean = normalize(input.value || '');
+        if (!clean || clean.length < 3) return;
+        const variants = buildVariants(clean);
+        const riskFlags = [];
+        if (clean.length > 20) riskFlags.push('Name may be too long for handle consistency.');
+        if (/\d{3,}/.test(clean)) riskFlags.push('Heavy number strings can reduce memorability.');
+        if (/(chaturbate|camsoda|fansly|bonga)/.test(clean)) riskFlags.push('Platform-specific wording may not travel as a full brand.');
+        if (/(officialofficial|livelive)/.test(clean)) riskFlags.push('Repeated suffix patterns look spammy.');
+        if (riskFlags.length === 0) riskFlags.push('No obvious structural flags from this pre-check.');
+
+        variantsNode.innerHTML = variants.map((v) => `<li>@${v}</li>`).join('');
+        risksNode.innerHTML = riskFlags.map((r) => `<li>${r}</li>`).join('');
+
+        textTargets.cam.textContent = variants.length >= 3 ? 'Good: multiple clean variants are available for handle matching.' : 'Needs work: very limited clean variants.';
+        textTargets.social.textContent = variants[0] ? `Try to keep @${variants[0]} or a close version across all social accounts.` : 'Add a cleaner base name.';
+        textTargets.domain.textContent = variants[0] ? `Check whether ${variants[0]}.com (or similar) is realistic later.` : 'No domain-style candidate yet.';
+        textTargets.linkbio.textContent = variants[0] ? `Use one short canonical name (${variants[0]}) in your link-in-bio profile.` : 'Define one canonical short name first.';
+        textTargets.memory.textContent = clean.length <= 14 ? 'Readable length for most fans.' : 'Consider shortening for recall and typing speed.';
+        textTargets.riskSummary.textContent = riskFlags[0];
+
+        results.forEach((el) => el.hidden = false);
+      };
+
+      button?.addEventListener('click', runCheck);
+    })();
+  </script>
+</MainLayout>
