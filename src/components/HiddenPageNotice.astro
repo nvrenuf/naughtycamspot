@@ -1,0 +1,29 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
+
+const {
+  title = 'Page Hidden',
+  description = 'This page is currently hidden. Return to the NaughtyCamSpot home page.'
+} = Astro.props as {
+  title?: string;
+  description?: string;
+};
+---
+
+<MainLayout title={title} description={description} showNavigation={false}>
+  <SEO slot="head" title={title} description={description} path={Astro.url.pathname} />
+  <meta slot="head" name="robots" content="noindex,nofollow" />
+
+  <section class="content-card mx-auto max-w-3xl space-y-5 text-center">
+    <p class="eyebrow">Not Public Right Now</p>
+    <h1 class="font-display text-5xl font-light text-parchment">The public site is home-page only on this branch.</h1>
+    <p class="mx-auto max-w-2xl text-sm leading-8 text-parchment/72">
+      This route has been hidden from the public site for now. Return to the home page to view the active public experience.
+    </p>
+    <div class="flex justify-center">
+      <a class="btn btn-primary" href={withBase('/')}>Return Home</a>
+    </div>
+  </section>
+</MainLayout>

@@ -18,8 +18,8 @@ execFileSync('npm', ['run', 'build:pages'], {
 
 const html = readFileSync(indexPath, 'utf8');
 const checks = [
-  { token: 'StartRight', message: 'Homepage should reference StartRight in the hero.' },
-  { token: '/startright', message: 'Homepage hero should link to /startright.' }
+  { token: 'Live April 2026', message: 'Homepage should clearly frame the new line as launching in April 2026.' },
+  { token: "See What's Coming", message: 'Homepage should expose the April 2026 preview CTA.' }
 ];
 
 const missing = checks.filter(({ token }) => !html.includes(token));

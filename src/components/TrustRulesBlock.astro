@@ -1,0 +1,22 @@
+---
+import { TRUST_RULES } from '../data/offers';
+
+const { title = 'Trust Rules', compact = false } = Astro.props as {
+  title?: string;
+  compact?: boolean;
+};
+---
+
+<section class:list={['content-card space-y-5', compact && 'space-y-3']}>
+  <div class="space-y-2">
+    <p class="eyebrow">Trust + Control</p>
+    <h2 class="font-display text-3xl font-light text-parchment sm:text-4xl">{title}</h2>
+    <p class="max-w-2xl text-sm text-parchment/70">Hard rules across both lanes with no exceptions.</p>
+  </div>
+
+  <div class="grid gap-px bg-gold/20 sm:grid-cols-2 xl:grid-cols-4">
+    {TRUST_RULES.map((item) => (
+      <p class="bg-midnight px-4 py-4 text-sm text-parchment/82">{item}</p>
+    ))}
+  </div>
+</section>

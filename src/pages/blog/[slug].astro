@@ -1,7 +1,0 @@
----
-export { getStaticPaths } from '../posts/[slug].astro';
-
-const { slug } = Astro.params;
-export const prerender = true;
-return Astro.redirect(`/posts/${slug}`, 308);
----

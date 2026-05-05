@@ -9,7 +9,7 @@ Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   RewriteEngine On
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(join-models|apply|packages|how-it-works|platforms)$ /$1/ [R=301,L]
+  RewriteRule ^(apply|growth|how-it-works|proof|platforms|privacy|terms|disclosure)$ /$1/ [R=301,L]
 </IfModule>
 
 <IfModule mod_expires.c>

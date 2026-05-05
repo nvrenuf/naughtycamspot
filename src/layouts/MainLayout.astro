@@ -1,16 +1,12 @@
 ---
 const {
   title = 'NaughtyCamSpot',
-  description = 'Signup Help (Free) plus Promotion (Paid) services for cam models.',
+  description = 'Signup-first guidance for cam models: brand naming, platform-fit, and launch readiness.',
   showNavigation = true
 } = Astro.props;
-import LinkCTA from '../components/LinkCTA.astro';
-import PreClickCapture from '../components/PreClickCapture.astro';
 import '../styles/tailwind.css';
-import { DISCLOSURE, PRIMARY_CTA } from '../data/copy';
 import { NAV_PRIMARY } from '../data/nav';
 import { withBase } from '../utils/links';
-import { getRequestLang, LANGS } from '../i18n/core';
 import buildStamp from '../generated/build-stamp.json';
 
 const baseUrl = typeof import.meta.env.BASE_URL === 'string' ? import.meta.env.BASE_URL : '/';
@@ -63,19 +59,8 @@ const stripBase = (value: string) => {
 };
 
 const currentPath = stripBase(Astro.url.pathname);
-const requestLang = getRequestLang(Astro.url);
-const buildLangHref = (lang: string) => {
-  const params = new URLSearchParams(Astro.url.searchParams);
-  if (lang === 'en') {
-    params.delete('lang');
-  } else {
-    params.set('lang', lang);
-  }
-  const qs = params.toString();
-  return qs ? `?${qs}` : '';
-};
-
 const primaryNavLinks = NAV_PRIMARY;
+const hasPrimaryNav = primaryNavLinks.length > 0;
 
 const isNavActive = (href: string) => {
   const normalizedHref = stripBase(href);
@@ -95,25 +80,7 @@ const resolveNavHref = (link) => {
   return link.href;
 };
 
-const footerLinks = [
-  { href: '/how-it-works/', label: 'How It Works' },
-  { href: '/startright/', label: 'StartRight' },
-  { href: '/recruiting/', label: 'Signup Help (Free)' },
-  { href: '/promotion/', label: 'Promotion (Paid)' },
-  { href: '/resources/', label: 'Resources' },
-  { href: '/resources/platforms/', label: 'Platform Guides' },
-  { href: '/gear-kits/', label: 'Gear Kits' },
-  { href: '/community/', label: 'Community' },
-  { href: '/events/', label: 'Events' },
-  { href: '/library/', label: 'Library' },
-  { href: '/blog/', label: 'Blog' },
-  { href: '/posts/', label: 'Posts' },
-  { href: '/earnings/', label: 'Earnings' },
-  { href: '/trust-safety/', label: 'Trust & Safety' },
-  { href: '/privacy/', label: 'Privacy' },
-  { href: '/terms/', label: 'Terms' },
-  { href: '/disclosure/', label: 'Disclosure' }
-];
+const footerLinks: { href: string; label: string }[] = [];
 
 const mainTopPadding = showNavigation ? 'pt-10' : 'pt-20';
 const buildStampValue = typeof buildStamp?.stamp === 'string' ? buildStamp.stamp : 'dev|dev';
@@ -137,8 +104,8 @@ const buildDisplay = typeof buildStamp?.displayUtc === 'string' ? buildStamp.dis
 	  <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet" />
     {shouldLoadAnalytics && (
       <>
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}></script>
@@ -151,11 +118,10 @@ gtag('config', '${gaMeasurementId}');`}
       </>
     )}
   </head>
-  <body class="relative min-h-screen overflow-x-hidden bg-midnight text-white">
-    <div class="pointer-events-none fixed inset-0 z-0 bg-aurora opacity-80"></div>
-    <div class="pointer-events-none absolute -left-24 top-32 h-72 w-72 rounded-full bg-rose-gold/20 blur-3xl"></div>
-    <div class="pointer-events-none absolute -right-32 top-12 h-80 w-80 rounded-full bg-rose-gold/25 blur-3xl"></div>
-    <PreClickCapture />
+  <body class="relative min-h-screen overflow-x-hidden bg-midnight text-parchment">
+    <div class="pointer-events-none fixed inset-0 z-0 bg-aurora opacity-95"></div>
+    <div class="pointer-events-none absolute -left-24 top-32 h-72 w-72 rounded-full bg-gold/10 blur-3xl"></div>
+    <div class="pointer-events-none absolute -right-32 top-12 h-80 w-80 rounded-full bg-gold/10 blur-3xl"></div>
 
     <div class="relative z-10 flex min-h-screen flex-col">
       {showNavigation && (
@@ -163,79 +129,77 @@ gtag('config', '${gaMeasurementId}');`}
           <div class="flex w-full items-center justify-between gap-3">
             <a
               href={withBase('/')}
-              class="inline-flex items-center gap-3 rounded-lg text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
+              class="inline-flex shrink-0 items-center gap-3 rounded-lg text-gold"
             >
               <img
                 src="/brand/ncs-logo-primary.svg"
                 alt="NaughtyCamSpot"
-                class="h-8 w-auto select-none md:h-10"
+                class="h-10 w-auto select-none md:h-14"
                 width="200"
                 height="40"
                 loading="eager"
                 decoding="async"
               />
             </a>
-            <div class="flex items-center gap-3">
-              <button
-                type="button"
-                class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold tracking-[0.06em] text-white/80 shadow-glow backdrop-blur-xl transition hover:border-white/30 hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold lg:hidden"
-                data-nav-mobile-toggle
-                aria-expanded="false"
-                aria-controls="mobile-navigation"
-              >
-                Menu
-              </button>
-              <LinkCTA
-                class="border border-rose-gold/40 bg-rose-gold/20 px-5 py-2 text-rose-petal shadow-glow backdrop-blur-xl hover:border-rose-gold/60 hover:bg-rose-gold/30"
-                pagesHref={PRIMARY_CTA.pagesHref}
-                prodHref={PRIMARY_CTA.prodHref}
-                label={PRIMARY_CTA.label}
-              />
-            </div>
-          </div>
-          <nav class="hidden w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/10 px-4 py-3 text-sm tracking-[0.06em] text-white/80 backdrop-blur-2xl sm:gap-4 lg:flex lg:flex-nowrap" aria-label="Primary Navigation">
-            {primaryNavLinks.map((link) => {
-              const resolvedHref = resolveNavHref(link);
-              const active = isNavActive(resolvedHref);
-              return (
-                <a
-                  class={`whitespace-nowrap transition hover:text-rose-gold ${active ? 'text-rose-gold' : ''}`}
-                  href={withBase(resolvedHref)}
-                  aria-current={active ? 'page' : undefined}
+            {hasPrimaryNav && (
+              <div class="flex items-center gap-3">
+                <button
+                  type="button"
+                  class="rounded-full border border-gold/25 bg-obsidian/90 px-4 py-2 text-sm font-semibold tracking-[0.06em] text-parchment/78 shadow-glow backdrop-blur-xl transition hover:border-white/30 hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold lg:hidden"
+                  data-nav-mobile-toggle
+                  aria-expanded="false"
+                  aria-controls="mobile-navigation"
                 >
-                  {link.label}
-                </a>
-              );
-            })}
-          </nav>
-          <div class="lg:hidden">
+                  Menu
+                </button>
+              </div>
+            )}
+          </div>
+          {hasPrimaryNav && (
+            <nav class="hidden w-full items-center justify-center gap-3 rounded-full border border-gold/20 bg-obsidian/90 px-4 py-3 text-sm tracking-[0.06em] text-parchment/78 backdrop-blur-2xl sm:gap-4 lg:flex lg:flex-nowrap" aria-label="Primary Navigation">
+              {primaryNavLinks.map((link) => {
+                const resolvedHref = resolveNavHref(link);
+                const active = isNavActive(resolvedHref);
+                return (
+                  <a
+                    class={`whitespace-nowrap transition hover:text-gold ${active ? 'text-gold' : ''}`}
+                    href={withBase(resolvedHref)}
+                    aria-current={active ? 'page' : undefined}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+            </nav>
+          )}
+          {hasPrimaryNav && <div class="lg:hidden">
             <div
-              class="fixed inset-0 z-40 hidden bg-black/70 opacity-0 transition-opacity duration-200"
+              class="fixed inset-0 z-40 hidden bg-black/75 opacity-0 transition-opacity duration-200"
               data-nav-mobile-overlay
             ></div>
             <div
               id="mobile-navigation"
-              class="fixed inset-y-0 right-0 z-50 flex w-80 max-w-full translate-x-full flex-col gap-6 bg-black/95 p-6 text-base tracking-[0.06em] text-white/80 shadow-glow transition-transform duration-200"
+              class="fixed inset-y-0 right-0 z-50 flex w-80 max-w-full translate-x-full flex-col gap-6 bg-midnight p-6 text-base tracking-[0.06em] text-parchment/78 shadow-glow transition-transform duration-200"
               data-nav-mobile-drawer
             >
               <div class="flex items-center justify-between">
-                <span class="text-sm font-semibold tracking-[0.06em] text-white/80">Navigation</span>
+                <span class="eyebrow">Navigation</span>
                 <button
                   type="button"
-                  class="rounded-full border border-white/20 px-3 py-1 text-sm font-semibold tracking-[0.06em] text-white/80 transition hover:border-white/30 hover:text-rose-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold"
+                  class="rounded-full border border-white/20 px-3 py-1 text-sm font-semibold tracking-[0.06em] text-parchment/78 transition hover:border-white/30 hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
                   data-nav-mobile-close
                   aria-label="Close menu"
                 >
                   Close
                 </button>
               </div>
-              <nav class="flex flex-col gap-3 text-white/70" aria-label="Mobile primary">
+              <nav class="flex flex-col gap-3 text-parchment/70" aria-label="Mobile primary">
                 {primaryNavLinks.map((link) => {
                   const resolvedHref = resolveNavHref(link);
                   const active = isNavActive(resolvedHref);
                   return (
                     <a
-                      class={`rounded-full border border-white/10 px-4 py-3 text-sm tracking-[0.06em] transition hover:border-white/20 hover:text-rose-gold ${active ? 'border-rose-gold/50 text-rose-gold' : 'text-white/80'}`}
+                      class={`rounded-full border border-white/10 px-4 py-3 text-sm tracking-[0.06em] transition hover:border-white/20 hover:text-gold ${active ? 'border-gold/50 text-gold' : 'text-parchment/78'}`}
                       href={withBase(resolvedHref)}
                       data-nav-mobile-link
                       aria-current={active ? 'page' : undefined}
@@ -246,7 +210,7 @@ gtag('config', '${gaMeasurementId}');`}
                 })}
               </nav>
             </div>
-          </div>
+          </div>}
         </header>
       )}
 
@@ -254,38 +218,30 @@ gtag('config', '${gaMeasurementId}');`}
         <slot />
       </main>
 
-      <footer class="border-t border-white/10 bg-black/40 py-10 backdrop-blur-2xl">
-        <div class="mx-auto flex w-full max-w-6xl flex-col gap-3 px-6 text-sm tracking-[0.04em] text-white/70 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex flex-wrap items-center gap-4 text-sm">
-            {footerLinks.map((link) => {
-              const resolvedHref = resolveNavHref(link);
-              return (
-                <a class="transition hover:text-rose-gold" href={withBase(resolvedHref)}>
-                  {link.label}
-                </a>
-              );
-            })}
-          </div>
+      <footer class="border-t border-gold/20 bg-obsidian/80 py-10">
+        <div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 text-sm tracking-[0.04em] text-parchment/70">
+          {footerLinks.length > 0 && (
+            <div class="flex flex-wrap items-center gap-4 text-sm" data-footer-nav>
+              {footerLinks.map((link) => {
+                const resolvedHref = resolveNavHref(link);
+                return (
+                  <a class="transition hover:text-gold" href={withBase(resolvedHref)}>
+                    {link.label}
+                  </a>
+                );
+              })}
+            </div>
+          )}
           <div class="flex items-center gap-4 text-sm">
-            <a class="transition hover:text-rose-gold" href="mailto:concierge@naughtycamspot.com">
+            <a class="transition hover:text-gold" href="mailto:concierge@naughtycamspot.com">
               concierge@naughtycamspot.com
             </a>
-            <span>© NaughtyCamSpot 2025</span>
+            <span>© NaughtyCamSpot 2026</span>
           </div>
-          <p class="text-xs text-white/50">Build: {buildCommit} • {buildDisplay}</p>
-          <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.28em] text-white/60">
-            <span class="text-white/50">Lang</span>
-            {LANGS.map((lang) => (
-              <a
-                class={`rounded-full border px-3 py-1 transition hover:border-white/30 hover:text-rose-gold ${requestLang === lang ? 'border-rose-gold/60 text-rose-gold' : 'border-white/10 text-white/70'}`}
-                href={buildLangHref(lang)}
-                aria-current={requestLang === lang ? 'true' : undefined}
-              >
-                {lang.toUpperCase()}
-              </a>
-            ))}
-          </div>
-          <p class="text-xs tracking-[0.04em] text-white/65">{DISCLOSURE}</p>
+          <p class="max-w-3xl text-xs text-parchment/55">
+            Signup-first guidance with trust-first posture. Contains affiliate links. No passwords. No exclusivity. Model keeps account and content ownership.
+          </p>
+          <p class="text-xs text-parchment/45">Build: {buildCommit} • {buildDisplay}</p>
         </div>
       </footer>
 	    </div>

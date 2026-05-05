@@ -1,19 +1,13 @@
 export type NavLink = {
   href: string;
   label: string;
-  section?: 'Getting Started' | 'Guides' | 'Community' | 'Insights';
-  pagesHref?: string;
-  prodHref?: string;
 };
 
 export const NAV_PRIMARY: NavLink[] = [
-  { href: '/', label: 'Home' },
-  { href: '/packages/', label: 'Packages' },
   { href: '/apply/', label: 'Apply' },
+  { href: '/name-check/', label: 'Name Check' },
   { href: '/platforms/', label: 'Platforms' },
-  { href: '/resources/', label: 'Resources' },
-  { href: '/proof/', label: 'Proof' }
+  { href: '/how-it-works/', label: 'Trust' },
 ];
 
-// Secondary links are intentionally footer-only (mobile-first navigation).
 export const NAV_MORE: NavLink[] = [];

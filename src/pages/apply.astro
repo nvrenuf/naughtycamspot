@@ -1,46 +1,78 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
+import { PLATFORMS } from '../data/platforms';
 import { withBase } from '../utils/links';
 
 const canonicalPath = '/apply';
+const contactMethods = ['Telegram', 'Email', 'WhatsApp'] as const;
 ---
 
 <MainLayout
   title="Apply | NaughtyCamSpot"
-  description="Choose Promotion or Signup Help to continue your application."
+  description="Apply for signup guidance, model-name brand check, platform-fit recommendations, and launch readiness support."
 >
   <SEO
     slot="head"
     title="Apply | NaughtyCamSpot"
-    description="Choose Promotion or Signup Help to continue your application."
+    description="Apply for signup guidance, model-name brand check, platform-fit recommendations, and launch readiness support."
     path={canonicalPath}
   />
 
-  <section class="content-card space-y-6">
-    <div class="space-y-3">
-      <p class="hero-tagline">Apply</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">
-        Get matched to Signup Help (Free) or Promotion (Paid).
-      </h1>
-      <p class="max-w-2xl text-base text-white/70">
-        Pick your path to continue. You can always submit both forms separately.
+  <section class="hero-shell hero-split parallax-veil">
+    <div class="hero-content">
+      <p class="eyebrow">Signup-first application</p>
+      <h1 class="hero-title">Apply for <em>launch readiness guidance</em>.</h1>
+      <p class="hero-sub">
+        This form is focused on starting correctly: platform-fit guidance, model-name/brand check support, and clean signup planning.
       </p>
     </div>
-
-    <div class="grid gap-4 sm:grid-cols-2">
-      <a
-        class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-        href={withBase('/apply/promo')}
-      >
-        Promotion
-      </a>
-      <a
-        class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1"
-        href={withBase('/apply/signup')}
-      >
-        Signup Help
-      </a>
+    <div class="hero-media">
+      <img src="/images/home-hero-768.jpg" alt="Editorial intake visual for signup-first guidance" loading="lazy" decoding="async" />
     </div>
   </section>
+
+  <section class="content-card space-y-4">
+    <p class="eyebrow">Application form</p>
+    <h2 class="font-display text-4xl font-light text-parchment">Tell us enough to guide your start.</h2>
+    <form class="grid gap-3 md:grid-cols-2" method="post" action={withBase('/claim/index.php')}>
+      <input type="hidden" name="source_page" value="/apply/" />
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="preferred_model_name" placeholder="Preferred model name" required />
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="alternate_model_names" placeholder="Alternate model names, if any" />
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="current_stage" required>
+        <option value="">Current stage</option>
+        <option value="new">New and preparing to start</option>
+        <option value="launching">Launching now</option>
+        <option value="relaunching">Relaunching with a new brand direction</option>
+        <option value="active">Already active but fixing setup consistency</option>
+      </select>
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="platform_interest" required>
+        <option value="">Platform interest</option>
+        {PLATFORMS.map((platform) => <option value={platform.id}>{platform.name}</option>)}
+      </select>
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="current_platforms" placeholder="Current platforms, if any" />
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="current_handles" placeholder="Current handles/usernames, if any" />
+      <select class="border border-gold/25 bg-midnight px-4 py-3 text-sm" name="preferred_contact_method" required>
+        <option value="">Preferred contact method</option>
+        {contactMethods.map((method) => <option value={method.toLowerCase()}>{method}</option>)}
+      </select>
+      <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="contact" placeholder="Contact (Telegram, email, or WhatsApp)" required />
+      <textarea class="border border-gold/25 bg-midnight px-4 py-3 text-sm md:col-span-2" name="notes" rows="4" placeholder="Notes for platform-fit, name-check context, and launch readiness details." />
+      <label class="flex items-start gap-3 text-sm text-parchment/72 md:col-span-2">
+        <input type="checkbox" name="consent_18_plus" value="yes" required class="mt-1" />
+        <span>I confirm I am 18+ and I consent to submit this application for signup guidance.</span>
+      </label>
+      <label class="flex items-start gap-3 text-sm text-parchment/72 md:col-span-2">
+        <input type="checkbox" name="consent_updates" value="yes" class="mt-1" />
+        <span>Optional: I consent to receive application follow-up updates from NaughtyCamSpot.</span>
+      </label>
+      <div class="space-y-3 md:col-span-2">
+        <button class="btn btn-primary w-full sm:w-auto" type="submit">Submit Application</button>
+        <p class="text-sm text-parchment/62">No passwords. No exclusivity. You keep ownership of your accounts and content.</p>
+      </div>
+    </form>
+  </section>
+
+  <TrustRulesBlock title="Trust stays visible before submission" />
 </MainLayout>

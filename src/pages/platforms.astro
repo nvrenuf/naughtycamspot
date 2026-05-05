@@ -1,175 +1,25 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
-import { promoOffer } from '../data/promoOffer';
-import { isPagesBuild, withBase } from '../utils/links';
-import { getRequestLang, t } from '../i18n/core';
+import { PLATFORMS } from '../data/platforms';
 
 const canonicalPath = '/platforms';
-const lang = getRequestLang(Astro.url);
-const resolveHostname = (value: string | undefined) => {
-  if (!value) {
-    return '';
-  }
-  try {
-    return new URL(value).hostname;
-  } catch {
-    return String(value).replace(/^https?:\/\//, '').split('/')[0];
-  }
-};
-
-const siteHostname = resolveHostname(import.meta.env.SITE as string | undefined);
-const isProdSite = siteHostname === 'naughtycamspot.com';
-const useGoLinks = !isPagesBuild() && isProdSite;
-const platformNotes: Record<string, string> = {
-  chaturbate: 'High traffic, long-tail tipping, and recurring fan rooms.',
-  camsoda: 'Quality-focused traffic with strong contests and promo placements.',
-  bongacams: 'Great geo diversification with steady discovery opportunities.',
-  stripchat: 'Launch prep is underway. Join promo intake to get notified first.'
-};
-const statusMeta = {
-  live: {
-    label: 'Live',
-    meaning: 'Join now',
-    className: 'border-emerald-300/50 bg-emerald-400/20 text-emerald-100',
-    icon: 'check'
-  },
-  'coming-soon': {
-    label: 'Coming soon',
-    meaning: 'Notify me',
-    className: 'border-slate-300/40 bg-slate-400/20 text-slate-100',
-    icon: 'hourglass'
-  }
-} as const;
-const legendStatuses = ['live', 'coming-soon'] as const;
-const promoPlatforms = promoOffer.platformScope.platforms;
 ---
 
-<MainLayout
-  title="Platforms | NaughtyCamSpot"
-  description="Signup Help (Free): supported platforms and signup links."
->
-  <SEO
-    slot="head"
-    title="Platforms | NaughtyCamSpot"
-    description="Signup Help (Free): pick a platform and move to the next step."
-    path={canonicalPath}
-  />
-
-  <section class="space-y-10">
-    <div class="content-card space-y-4">
-      <p class="hero-tagline">Signup Help (Free)</p>
-      <h1 class="font-display text-4xl text-white sm:text-5xl">{t(lang, 'platforms.title')}</h1>
-      <p class="max-w-2xl text-base text-white/70">
-        This page is Signup Help (Free). Pick a platform and start.
-      </p>
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-rose-gold/70 bg-rose-gold px-6 py-3 text-sm uppercase tracking-[0.3em] text-midnight shadow-glow transition hover:-translate-y-1"
-          href={withBase('/apply')}
-        >
-          {t(lang, 'platforms.cta')}
-        </a>
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm uppercase tracking-[0.3em] text-white transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/5"
-          href={withBase('/packages')}
-        >
-          Promotion (Paid)
-        </a>
-      </div>
-    </div>
-
-    <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-      <p class="text-xs uppercase tracking-[0.3em] text-rose-petal/70">Status legend</p>
-      <div class="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-        {legendStatuses.map((status) => {
-          const meta = statusMeta[status];
-          return (
-            <span class={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[0.7rem] uppercase tracking-[0.22em] ${meta.className}`}>
-              {meta.icon === 'check' && (
-                <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5l3.5 3.5L15.5 6"></path>
-                </svg>
-              )}
-              {meta.icon === 'clock' && (
-                <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="10" cy="10" r="7"></circle>
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M10 6.5v4l2.5 1.5"></path>
-                </svg>
-              )}
-              {meta.icon === 'hourglass' && (
-                <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 3h8M6 17h8M7 3c0 3 2 4 3 5-1 1-3 2-3 5m6-10c0 3-2 4-3 5 1 1 3 2 3 5"></path>
-                </svg>
-              )}
-              <span>{meta.label} = {meta.meaning}</span>
-            </span>
-          );
-        })}
-      </div>
-    </div>
-
-    <div class="grid gap-6 lg:grid-cols-2">
-      {promoPlatforms.map((platform) => {
-        const meta = statusMeta[platform.status] ?? statusMeta['coming-soon'];
-        const goPath = `/go/${platform.id}`;
-        const href = platform.status === 'coming-soon' ? withBase('/apply/promo') : (useGoLinks ? goPath : withBase('/apply'));
-        const target = platform.status === 'live' && useGoLinks ? '_blank' : undefined;
-        const rel = platform.status === 'live' && useGoLinks ? 'noopener noreferrer' : undefined;
-        const note = platformNotes[platform.id] ?? 'Platform support details available during application review.';
-        return (
-          <article class="content-card space-y-4">
-            <div class="flex items-center justify-between">
-              <h2 class="font-display text-2xl text-white">{platform.name}</h2>
-              <span class={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[0.65rem] uppercase tracking-[0.22em] ${meta.className}`}>
-                {meta.icon === 'check' && (
-                  <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5l3.5 3.5L15.5 6"></path>
-                  </svg>
-                )}
-                {meta.icon === 'clock' && (
-                  <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="10" cy="10" r="7"></circle>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6.5v4l2.5 1.5"></path>
-                  </svg>
-                )}
-                {meta.icon === 'hourglass' && (
-                  <svg viewBox="0 0 20 20" aria-hidden="true" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 3h8M6 17h8M7 3c0 3 2 4 3 5-1 1-3 2-3 5m6-10c0 3-2 4-3 5 1 1 3 2 3 5"></path>
-                  </svg>
-                )}
-                <span>{meta.label}</span>
-              </span>
-            </div>
-            <p class="text-sm text-white/70">{note}</p>
-            <details class="rounded-2xl border border-white/10 bg-black/20 p-4">
-              <summary class="cursor-pointer text-xs font-semibold uppercase tracking-[0.22em] text-rose-petal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-gold">
-                Details
-              </summary>
-              <div class="mt-3 space-y-2 text-sm text-white/75">
-                <p><span class="text-white/55">Best for:</span> Creators who want {note.toLowerCase()}</p>
-                <p><span class="text-white/55">Needs:</span> A complete profile and quick message replies.</p>
-                <p><span class="text-white/55">Next:</span> {meta.meaning}. Use the button below.</p>
-              </div>
-            </details>
-            <div>
-              <a
-                class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-rose-gold transition hover:text-white"
-                href={href}
-                target={target}
-                rel={rel}
-                data-platform={platform.id}
-                data-preclick={platform.status === 'live' && useGoLinks ? '1' : undefined}
-                data-go-href={platform.status === 'live' && useGoLinks ? goPath : undefined}
-                data-platform-id={platform.id}
-                data-platform-name={platform.name}
-              >
-                Open next step
-              </a>
-            </div>
-          </article>
-        );
-      })}
-    </div>
+<MainLayout title="Platforms | NaughtyCamSpot" description="Platform signup paths for new and relaunching cam models.">
+  <SEO slot="head" title="Platforms | NaughtyCamSpot" description="Platform signup paths for new and relaunching cam models." path={canonicalPath} />
+  <section class="hero-shell space-y-4 parallax-veil">
+    <p class="eyebrow">Platform paths</p>
+    <h1 class="hero-title">Choose your signup direction with intention.</h1>
+  </section>
+  <section class="grid gap-5 md:grid-cols-2">
+    {PLATFORMS.map((platform) => (
+      <article class="content-card space-y-3">
+        <p class="eyebrow">{platform.status === 'live' ? 'Live now' : 'Coming soon'}</p>
+        <h2 class="font-display text-4xl font-light text-parchment">{platform.name}</h2>
+        <p class="text-sm text-parchment/72">{platform.description}</p>
+        <a class="btn btn-secondary" href={platform.goPath}>Go to signup path</a>
+      </article>
+    ))}
   </section>
 </MainLayout>

@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NaughtyCamSpot — Site Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:#07070a;color:#e4dfd4;font-size:15px;line-height:1.65;overflow-x:hidden;}
+.serif{font-family:'Cormorant Garamond',serif;}
+.gc{color:#c6a247;}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+button{font-family:'DM Sans',sans-serif;}
+input,select,textarea{font-family:'DM Sans',sans-serif;}
+
+/* ===== PAGE SYSTEM ===== */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* ===== SHARED ===== */
+.w{max-width:1120px;margin:0 auto;padding:0 52px;}
+.eyebrow{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#c6a247;font-weight:500;}
+.gline{width:36px;height:1px;background:#c6a247;}
+.div{width:100%;height:.5px;background:linear-gradient(90deg,transparent,rgba(198,162,71,.22),transparent);}
+.section{padding:90px 0;}
+.section-dark{background:#0a0a0e;}
+.section-mid{background:#0c0b0f;}
+.sec-head{text-align:center;margin-bottom:60px;}
+.sec-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.5vw,52px);font-weight:300;line-height:1.1;margin-bottom:14px;}
+.sec-head h2 em{font-style:italic;color:#c6a247;}
+.sec-head p{font-size:14px;color:rgba(228,223,212,.44);max-width:520px;margin:0 auto;}
+.btn-primary{display:inline-block;padding:14px 32px;background:#c6a247;color:#07070a;font-size:10px;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:pointer;font-weight:500;transition:background .2s;}
+.btn-primary:hover{background:#d4ae54;}
+.btn-ghost{display:inline-block;padding:14px 32px;background:transparent;color:rgba(228,223,212,.55);font-size:10px;letter-spacing:.18em;text-transform:uppercase;border:.5px solid rgba(228,223,212,.18);cursor:pointer;transition:all .2s;}
+.btn-ghost:hover{border-color:#c6a247;color:#c6a247;}
+.btn-gold-outline{display:inline-block;padding:12px 26px;background:transparent;color:#c6a247;font-size:10px;letter-spacing:.18em;text-transform:uppercase;border:.5px solid rgba(198,162,71,.45);cursor:pointer;transition:all .2s;}
+.btn-gold-outline:hover{background:#c6a247;color:#07070a;}
+
+/* ===== NAV ===== */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:20px 52px;border-bottom:.5px solid rgba(198,162,71,.14);background:rgba(7,7,10,.97);position:sticky;top:0;z-index:500;backdrop-filter:blur(8px);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;letter-spacing:.12em;color:#e4dfd4;cursor:pointer;}
+.nav-logo em{font-style:normal;color:#c6a247;}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:rgba(228,223,212,.42);cursor:pointer;transition:color .2s;border:none;background:none;padding:0;}
+.nav-links a:hover,.nav-links a.active{color:#c6a247;}
+.nav-right{display:flex;align-items:center;gap:14px;}
+.nav-apply{font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:9px 22px;border:.5px solid #c6a247;color:#c6a247;background:transparent;cursor:pointer;transition:all .2s;}
+.nav-apply:hover{background:#c6a247;color:#07070a;}
+.nav-login{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(228,223,212,.35);background:none;border:none;cursor:pointer;transition:color .2s;}
+.nav-login:hover{color:#c6a247;}
+
+/* ===== FOOTER ===== */
+.footer{border-top:.5px solid rgba(198,162,71,.1);}
+.footer-inner{max-width:1120px;margin:0 auto;padding:28px 52px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:rgba(228,223,212,.3);letter-spacing:.1em;}
+.footer-logo em{font-style:normal;color:#c6a247;}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;}
+.footer-links a{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(228,223,212,.22);cursor:pointer;transition:color .2s;}
+.footer-links a:hover{color:#c6a247;}
+.footer-copy{font-size:10px;color:rgba(228,223,212,.18);letter-spacing:.03em;text-align:right;}
+
+/* ===== TRUST BAR ===== */
+.trust-bar{background:#0c0b0f;border-bottom:.5px solid rgba(198,162,71,.1);padding:13px 52px;display:flex;gap:36px;align-items:center;justify-content:center;flex-wrap:wrap;}
+.trust-item{font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:rgba(228,223,212,.3);display:flex;align-items:center;gap:7px;}
+.trust-dot{width:3px;height:3px;border-radius:50%;background:#c6a247;flex-shrink:0;}
+
+/* ================================================
+   HOME PAGE
+   ================================================ */
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:91vh;border-bottom:.5px solid rgba(198,162,71,.1);}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 64px 80px 52px;position:relative;}
+.hero-left::after{content:'';position:absolute;right:0;top:8%;bottom:8%;width:.5px;background:linear-gradient(to bottom,transparent,rgba(198,162,71,.2),transparent);}
+.hero-right{position:relative;overflow:hidden;background:#111;}
+.hero-right img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(.82) contrast(1.06) saturate(.9);}
+.hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(7,7,10,.45) 0%,transparent 28%),linear-gradient(to top,rgba(7,7,10,.65) 0%,transparent 45%);z-index:1;}
+.hero-caption{position:absolute;bottom:22px;left:24px;z-index:2;}
+.hero-caption-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:rgba(228,223,212,.65);}
+.hero-caption-sub{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,162,71,.55);margin-top:2px;}
+.htag{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(198,162,71,.65);margin-bottom:28px;}
+.htag-line{width:22px;height:.5px;background:rgba(198,162,71,.5);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,4.2vw,72px);font-weight:300;line-height:1.04;margin-bottom:22px;}
+.hero-title em{font-style:italic;color:#c6a247;}
+.hero-sub{font-size:14px;color:rgba(228,223,212,.46);line-height:1.85;max-width:400px;margin-bottom:12px;font-weight:300;}
+.hero-qualifier{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:rgba(228,223,212,.26);margin-bottom:36px;}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* Positioning section */
+.pos-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.pos-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.5vw,52px);font-weight:300;line-height:1.08;margin-bottom:20px;}
+.pos-left h2 em{font-style:italic;color:#c6a247;}
+.pos-left p{font-size:14px;color:rgba(228,223,212,.46);line-height:1.85;margin-bottom:14px;}
+.pos-left blockquote{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:rgba(228,223,212,.32);border-left:2px solid rgba(198,162,71,.3);padding-left:16px;margin-top:24px;line-height:1.65;}
+.not-list{display:flex;flex-direction:column;gap:1px;}
+.not-item{background:#0d0c10;padding:20px 24px;border-left:2px solid transparent;transition:border-color .2s;}
+.not-item:hover{border-left-color:rgba(198,162,71,.3);}
+.not-item.is-yes{border-left-color:rgba(198,162,71,.4);background:#0f0d09;}
+.not-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;}
+.not-label.lno{color:rgba(228,223,212,.22);}
+.not-label.lyes{color:#c6a247;}
+.not-text{font-size:13px;line-height:1.6;}
+.not-text.tno{color:rgba(228,223,212,.28);text-decoration:line-through;text-decoration-color:rgba(228,223,212,.12);}
+.not-text.tyes{color:rgba(228,223,212,.72);}
+
+/* Four pillars */
+.pillar-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(198,162,71,.12);}
+.pillar{background:#0a0a0e;padding:36px 26px;position:relative;}
+.pillar::after{content:'→';position:absolute;right:-12px;top:44px;color:rgba(198,162,71,.25);font-size:14px;z-index:2;}
+.pillar:last-child::after{display:none;}
+.pillar-num{font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:300;color:rgba(198,162,71,.1);line-height:1;margin-bottom:14px;}
+.pillar-icon{width:36px;height:36px;border:.5px solid rgba(198,162,71,.22);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.pillar-icon svg{width:14px;height:14px;stroke:#c6a247;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.pillar h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;margin-bottom:10px;}
+.pillar > p{font-size:12.5px;color:rgba(228,223,212,.4);line-height:1.7;margin-bottom:14px;}
+.pillar ul{list-style:none;}
+.pillar ul li{font-size:11.5px;color:rgba(228,223,212,.35);padding:5px 0;border-bottom:.5px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:8px;}
+.pillar ul li::before{content:'';width:3px;height:3px;background:rgba(198,162,71,.45);border-radius:50%;flex-shrink:0;margin-top:5px;}
+.pillars-tagline{text-align:center;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:rgba(228,223,212,.22);margin-top:28px;}
+
+/* Who section */
+.who-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center;}
+.who-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.5vw,52px);font-weight:300;line-height:1.1;margin-bottom:20px;}
+.who-left h2 em{font-style:italic;color:#c6a247;}
+.who-left > p{font-size:14px;color:rgba(228,223,212,.44);line-height:1.85;margin-bottom:24px;}
+.for-list{display:flex;flex-direction:column;gap:1px;}
+.for-item{background:#0d0c10;padding:17px 20px;display:flex;gap:14px;align-items:flex-start;transition:background .2s;}
+.for-item:hover{background:#101018;}
+.for-check{width:18px;height:18px;border:.5px solid rgba(198,162,71,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.for-check svg{width:9px;height:9px;stroke:#c6a247;fill:none;stroke-width:2;stroke-linecap:round;}
+.for-item-body strong{display:block;font-size:13px;font-weight:500;color:#e4dfd4;margin-bottom:2px;}
+.for-item-body span{font-size:12px;color:rgba(228,223,212,.4);line-height:1.55;}
+.not-for-note{margin-top:18px;padding:15px 18px;border:.5px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);}
+.not-for-note p{font-size:12px;color:rgba(228,223,212,.25);line-height:1.65;}
+.not-for-note strong{color:rgba(228,223,212,.4);font-weight:500;}
+.who-visual-wrap{position:relative;}
+.who-visual{overflow:hidden;border:.5px solid rgba(198,162,71,.1);}
+.who-visual img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;filter:brightness(.72) contrast(1.05) saturate(.85);}
+.who-overlay{padding:24px 22px;background:#0d0c10;border-top:.5px solid rgba(198,162,71,.1);}
+.who-quote{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:rgba(228,223,212,.55);line-height:1.55;margin-bottom:8px;}
+.who-attr{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,162,71,.5);}
+
+/* Stats row */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(198,162,71,.12);}
+.stat-box{background:#0a0a0e;padding:32px 24px;text-align:center;}
+.stat-big{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:300;color:#c6a247;line-height:1;}
+.stat-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(228,223,212,.3);margin-top:6px;}
+
+/* Testimonials */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(198,162,71,.1);}
+.testi-card{background:#07070a;padding:30px 26px;}
+.testi-stars{display:flex;gap:3px;margin-bottom:14px;}
+.star{width:10px;height:10px;background:#c6a247;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+.testi-quote{font-family:'Cormorant Garamond',serif;font-size:16.5px;font-style:italic;font-weight:300;color:rgba(228,223,212,.68);line-height:1.65;margin-bottom:20px;}
+.testi-person{display:flex;align-items:center;gap:11px;padding-top:16px;border-top:.5px solid rgba(255,255,255,.05);}
+.testi-avatar{width:32px;height:32px;border-radius:50%;border:.5px solid rgba(198,162,71,.28);background:rgba(198,162,71,.08);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:12px;color:#c6a247;flex-shrink:0;}
+.testi-name{font-size:12px;font-weight:500;color:#e4dfd4;}
+.testi-meta{font-size:10px;color:rgba(228,223,212,.28);}
+
+/* Home CTA */
+.home-cta-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:center;}
+.home-cta-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.5vw,52px);font-weight:300;line-height:1.08;margin-bottom:18px;}
+.home-cta-left h2 em{font-style:italic;color:#c6a247;}
+.home-cta-left p{font-size:14px;color:rgba(228,223,212,.42);line-height:1.85;margin-bottom:20px;}
+.home-cta-left .qualifier{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:rgba(228,223,212,.24);}
+.cta-actions{display:flex;flex-direction:column;gap:10px;}
+.cta-action-card{background:#0f0e12;border:.5px solid rgba(198,162,71,.15);padding:22px 22px;cursor:pointer;transition:border-color .2s;}
+.cta-action-card:hover{border-color:rgba(198,162,71,.4);}
+.cta-action-tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#c6a247;margin-bottom:5px;}
+.cta-action-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:#e4dfd4;margin-bottom:4px;}
+.cta-action-desc{font-size:12px;color:rgba(228,223,212,.32);line-height:1.5;}
+.cta-action-arrow{font-size:12px;color:#c6a247;margin-top:10px;}
+
+/* ================================================
+   PACKAGES PAGE
+   ================================================ */
+.pkg-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:80px 0 60px;}
+.pkg-intro-left h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4vw,62px);font-weight:300;line-height:1.06;margin-bottom:20px;}
+.pkg-intro-left h1 em{font-style:italic;color:#c6a247;}
+.pkg-intro-left p{font-size:14px;color:rgba(228,223,212,.44);line-height:1.85;margin-bottom:14px;}
+.pkg-intro-left .note{font-size:12px;color:rgba(228,223,212,.24);font-style:italic;border-left:2px solid rgba(198,162,71,.25);padding-left:14px;font-family:'Cormorant Garamond',serif;font-size:15px;margin-top:20px;}
+.pkg-intro-right{display:flex;flex-direction:column;gap:1px;}
+.pkg-pillar-row{background:#0d0c10;padding:16px 20px;display:flex;align-items:center;gap:16px;transition:background .2s;}
+.pkg-pillar-row:hover{background:#101018;}
+.pkg-pillar-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:rgba(198,162,71,.3);min-width:28px;}
+.pkg-pillar-text h4{font-size:13px;font-weight:500;color:#e4dfd4;margin-bottom:2px;}
+.pkg-pillar-text p{font-size:12px;color:rgba(228,223,212,.38);line-height:1.5;}
+
+/* Package cards */
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(198,162,71,.12);}
+.pkg-card{background:#0a0a0e;padding:38px 28px;position:relative;transition:background .2s;}
+.pkg-card:hover{background:#0d0c10;}
+.pkg-card.featured{background:#0e0c08;}
+.pkg-badge{position:absolute;top:0;right:0;font-size:8px;letter-spacing:.2em;text-transform:uppercase;background:#c6a247;color:#07070a;padding:5px 12px;font-weight:500;}
+.pkg-tier{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(198,162,71,.5);margin-bottom:14px;display:block;}
+.pkg-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;margin-bottom:2px;}
+.pkg-tagline{font-size:11px;color:rgba(228,223,212,.28);letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px;}
+.pkg-price{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:#c6a247;line-height:1;}
+.pkg-price sup{font-size:20px;vertical-align:super;}
+.pkg-period{font-size:11px;color:rgba(228,223,212,.28);margin:6px 0 14px;}
+.pkg-desc{font-size:13px;color:rgba(228,223,212,.42);line-height:1.7;padding-bottom:18px;margin-bottom:18px;border-bottom:.5px solid rgba(255,255,255,.05);}
+.pkg-pillars-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px;}
+.pkg-pill{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border:.5px solid rgba(198,162,71,.22);color:rgba(198,162,71,.6);}
+.pkg-features{list-style:none;margin-bottom:28px;}
+.pkg-features li{font-size:12.5px;color:rgba(228,223,212,.52);padding:7px 0;border-bottom:.5px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:9px;line-height:1.4;}
+.pkg-features li::before{content:'';min-width:4px;height:4px;background:#c6a247;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.pkg-btn{width:100%;padding:13px;font-size:10px;letter-spacing:.17em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.pkg-btn.outline{background:transparent;border:.5px solid rgba(198,162,71,.3);color:rgba(228,223,212,.52);}
+.pkg-btn.outline:hover{border-color:#c6a247;color:#c6a247;}
+.pkg-btn.filled{background:#c6a247;border:none;color:#07070a;font-weight:500;}
+.pkg-btn.filled:hover{background:#d4ae54;}
+
+/* Add-ons */
+.addons-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(198,162,71,.1);}
+.addon-card{background:#0a0a0e;padding:24px 22px;transition:background .2s;}
+.addon-card:hover{background:#0d0c10;}
+.addon-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:6px;}
+.addon-price{font-size:18px;color:#c6a247;font-family:'Cormorant Garamond',serif;font-weight:300;margin-bottom:8px;}
+.addon-desc{font-size:12px;color:rgba(228,223,212,.38);line-height:1.6;}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:1px;max-width:760px;margin:0 auto;}
+.faq-item{background:#0d0c10;overflow:hidden;}
+.faq-q{width:100%;padding:20px 24px;background:transparent;border:none;text-align:left;font-size:14px;color:rgba(228,223,212,.7);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'DM Sans',sans-serif;transition:color .2s;}
+.faq-q:hover{color:#e4dfd4;}
+.faq-q .faq-arrow{color:#c6a247;font-size:16px;transition:transform .3s;flex-shrink:0;}
+.faq-q.open .faq-arrow{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.faq-a.open{max-height:200px;}
+.faq-a-inner{padding:0 24px 20px;font-size:13px;color:rgba(228,223,212,.42);line-height:1.75;}
+
+/* ================================================
+   HOW IT WORKS PAGE
+   ================================================ */
+.hiw-hero{padding:80px 0 60px;text-align:center;}
+.hiw-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,4.5vw,72px);font-weight:300;line-height:1.04;margin-bottom:18px;}
+.hiw-hero h1 em{font-style:italic;color:#c6a247;}
+.hiw-hero p{font-size:15px;color:rgba(228,223,212,.44);max-width:540px;margin:0 auto 32px;line-height:1.85;}
+.hiw-path-split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(198,162,71,.12);margin-bottom:80px;}
+.hiw-path{background:#0a0a0e;padding:40px 36px;cursor:pointer;transition:background .2s;}
+.hiw-path:hover{background:#0d0c10;}
+.hiw-path-tag{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c6a247;margin-bottom:14px;}
+.hiw-path h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin-bottom:10px;}
+.hiw-path p{font-size:13px;color:rgba(228,223,212,.42);line-height:1.7;margin-bottom:20px;}
+.hiw-path-link{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#c6a247;}
+
+/* Steps timeline */
+.steps-section{padding:80px 0;}
+.steps-header{text-align:center;margin-bottom:56px;}
+.steps-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.2vw,48px);font-weight:300;line-height:1.1;margin-bottom:12px;}
+.steps-header h2 em{font-style:italic;color:#c6a247;}
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(198,162,71,.1);}
+.step-card{background:#0a0a0e;padding:36px 32px;transition:background .2s;}
+.step-card:hover{background:#0d0c10;}
+.step-num-big{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;color:rgba(198,162,71,.12);line-height:1;margin-bottom:16px;}
+.step-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:10px;}
+.step-card p{font-size:13px;color:rgba(228,223,212,.42);line-height:1.7;margin-bottom:12px;}
+.step-tag{display:inline-block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#c6a247;border:.5px solid rgba(198,162,71,.28);padding:3px 10px;}
+
+/* Revenue system explained */
+.system-explainer{padding:80px 0;background:#0a0a0e;}
+.system-intro{text-align:center;margin-bottom:56px;}
+.system-intro h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.2vw,48px);font-weight:300;line-height:1.1;margin-bottom:14px;}
+.system-intro h2 em{font-style:italic;color:#c6a247;}
+.system-intro p{font-size:14px;color:rgba(228,223,212,.42);max-width:500px;margin:0 auto;}
+.system-rows{display:flex;flex-direction:column;gap:1px;}
+.system-row{background:#07070a;display:grid;grid-template-columns:80px 1fr 1.4fr;gap:0;transition:background .2s;}
+.system-row:hover{background:#0a0a0e;}
+.sys-num{padding:32px 28px;border-right:.5px solid rgba(198,162,71,.1);display:flex;align-items:center;justify-content:center;}
+.sys-num span{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:rgba(198,162,71,.2);}
+.sys-title{padding:32px 28px;border-right:.5px solid rgba(255,255,255,.04);}
+.sys-title h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:6px;}
+.sys-title p{font-size:12px;color:rgba(228,223,212,.38);line-height:1.6;}
+.sys-detail{padding:32px 28px;}
+.sys-detail ul{list-style:none;}
+.sys-detail ul li{font-size:12px;color:rgba(228,223,212,.4);padding:5px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.4;}
+.sys-detail ul li::before{content:'';width:3px;height:3px;background:rgba(198,162,71,.4);border-radius:50%;flex-shrink:0;margin-top:5px;}
+
+/* Trust section */
+.trust-section{padding:80px 0;}
+.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(198,162,71,.1);}
+.trust-card{background:#0a0a0e;padding:28px 26px;}
+.trust-card-icon{width:32px;height:32px;border:.5px solid rgba(198,162,71,.22);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.trust-card-icon svg{width:13px;height:13px;stroke:#c6a247;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.trust-card h4{font-size:14px;font-weight:500;margin-bottom:6px;}
+.trust-card p{font-size:12.5px;color:rgba(228,223,212,.4);line-height:1.65;}
+
+/* ================================================
+   APPLY PAGE
+   ================================================ */
+.apply-layout{display:grid;grid-template-columns:1fr 420px;gap:80px;padding:72px 0 80px;align-items:start;}
+.apply-left h1{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,4vw,58px);font-weight:300;line-height:1.06;margin-bottom:18px;}
+.apply-left h1 em{font-style:italic;color:#c6a247;}
+.apply-left p{font-size:14px;color:rgba(228,223,212,.44);line-height:1.85;margin-bottom:20px;}
+.apply-trust{display:flex;flex-direction:column;gap:1px;margin-top:32px;}
+.apply-trust-item{background:#0d0c10;padding:14px 18px;display:flex;gap:12px;align-items:center;}
+.apply-trust-icon{width:20px;height:20px;border:.5px solid rgba(198,162,71,.28);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.apply-trust-icon svg{width:9px;height:9px;stroke:#c6a247;fill:none;stroke-width:2;stroke-linecap:round;}
+.apply-trust-text{font-size:12px;color:rgba(228,223,212,.45);}
+
+/* Form */
+.apply-form-wrap{background:#0d0c10;border:.5px solid rgba(198,162,71,.14);}
+.form-header{padding:24px 28px;border-bottom:.5px solid rgba(255,255,255,.05);}
+.form-header h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin-bottom:4px;}
+.form-header p{font-size:12px;color:rgba(228,223,212,.38);}
+.form-progress{padding:16px 28px;border-bottom:.5px solid rgba(255,255,255,.05);}
+.form-progress-bar{height:2px;background:rgba(255,255,255,.08);border-radius:1px;}
+.form-progress-fill{height:2px;background:#c6a247;border-radius:1px;width:20%;transition:width .4s;}
+.form-progress-label{display:flex;justify-content:space-between;margin-bottom:8px;}
+.form-progress-label span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(228,223,212,.3);}
+.form-progress-label strong{font-size:10px;color:#c6a247;font-weight:500;}
+.form-steps-dots{display:flex;gap:6px;margin-top:10px;}
+.fdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.1);transition:all .3s;}
+.fdot.done{background:rgba(198,162,71,.45);}
+.fdot.active{background:#c6a247;width:18px;border-radius:3px;}
+.form-body{padding:24px 28px;}
+.form-step{display:none;}
+.form-step.active{display:block;}
+.fstep-eyebrow{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,162,71,.5);margin-bottom:4px;}
+.fstep-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;margin-bottom:4px;}
+.fstep-title em{font-style:italic;color:#c6a247;}
+.fstep-sub{font-size:12px;color:rgba(228,223,212,.38);margin-bottom:20px;line-height:1.55;}
+.flabel{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:rgba(228,223,212,.38);display:block;margin-bottom:7px;}
+.fselect{width:100%;padding:13px 14px;background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.1);color:#e4dfd4;font-size:13px;font-family:'DM Sans',sans-serif;margin-bottom:14px;appearance:none;-webkit-appearance:none;cursor:pointer;border-radius:0;}
+.fselect:focus{outline:none;border-color:#c6a247;}
+.finput{width:100%;padding:13px 14px;background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.1);color:#e4dfd4;font-size:13px;font-family:'DM Sans',sans-serif;margin-bottom:8px;border-radius:0;}
+.finput::placeholder{color:rgba(228,223,212,.22);}
+.finput:focus{outline:none;border-color:#c6a247;}
+.finput-hint{font-size:10px;color:rgba(228,223,212,.22);margin-bottom:14px;line-height:1.5;}
+.age-confirm{display:flex;align-items:flex-start;gap:12px;background:rgba(198,162,71,.04);border:.5px solid rgba(198,162,71,.18);padding:14px;margin-bottom:14px;cursor:pointer;}
+.age-confirm input{width:16px;height:16px;accent-color:#c6a247;flex-shrink:0;margin-top:2px;cursor:pointer;}
+.age-confirm-text{font-size:12.5px;color:rgba(228,223,212,.65);line-height:1.5;}
+.age-confirm-text strong{color:#e4dfd4;font-weight:500;}
+.goal-cards{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.goal-card{padding:13px 15px;border:.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px;}
+.goal-card:hover{border-color:rgba(198,162,71,.3);}
+.goal-card.selected{border-color:#c6a247;background:rgba(198,162,71,.05);}
+.goal-radio{width:14px;height:14px;border-radius:50%;border:.5px solid rgba(255,255,255,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.goal-card.selected .goal-radio{border-color:#c6a247;background:#c6a247;}
+.goal-radio::after{content:'';width:5px;height:5px;border-radius:50%;background:#07070a;display:none;}
+.goal-card.selected .goal-radio::after{display:block;}
+.goal-body h4{font-size:13px;font-weight:500;color:#e4dfd4;margin-bottom:1px;}
+.goal-body p{font-size:11px;color:rgba(228,223,212,.36);line-height:1.4;}
+.platform-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;}
+.pchip{padding:9px 13px;border:.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);font-size:12px;color:rgba(228,223,212,.5);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;}
+.pchip:hover{border-color:rgba(198,162,71,.3);}
+.pchip.selected{border-color:#c6a247;background:rgba(198,162,71,.06);color:#e4dfd4;}
+.pchip-dot{width:4px;height:4px;border-radius:50%;background:rgba(198,162,71,.3);flex-shrink:0;}
+.pchip.selected .pchip-dot{background:#c6a247;}
+.contact-cards{display:flex;flex-direction:column;gap:7px;margin-bottom:12px;}
+.contact-card{padding:13px 15px;border:.5px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:13px;}
+.contact-card:hover{border-color:rgba(198,162,71,.28);}
+.contact-card.selected{border-color:#c6a247;background:rgba(198,162,71,.05);}
+.contact-icon{width:30px;height:30px;border:.5px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.contact-card.selected .contact-icon{border-color:#c6a247;}
+.contact-label{font-size:13px;color:rgba(228,223,212,.65);}
+.contact-card.selected .contact-label{color:#e4dfd4;}
+.contact-sub{font-size:11px;color:rgba(228,223,212,.28);}
+.contact-input-area{display:none;margin-bottom:8px;}
+.consent-box{background:rgba(255,255,255,.02);border:.5px solid rgba(255,255,255,.07);padding:14px;margin-bottom:14px;}
+.consent-box p{font-size:11.5px;color:rgba(228,223,212,.38);line-height:1.65;margin-bottom:10px;}
+.consent-toggle{display:flex;align-items:flex-start;gap:10px;cursor:pointer;}
+.consent-toggle input{width:16px;height:16px;accent-color:#c6a247;flex-shrink:0;margin-top:2px;cursor:pointer;}
+.consent-toggle span{font-size:12px;color:rgba(228,223,212,.58);line-height:1.5;}
+.summary-card{background:rgba(198,162,71,.03);border:.5px solid rgba(198,162,71,.18);padding:16px;margin-bottom:14px;}
+.summary-row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:.5px solid rgba(255,255,255,.04);}
+.summary-row:last-child{border:none;}
+.summary-key{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(228,223,212,.3);}
+.summary-val{font-size:12px;color:#e4dfd4;font-weight:500;text-align:right;max-width:180px;word-break:break-word;}
+.ferror{font-size:10px;color:#e24b4a;letter-spacing:.04em;margin-bottom:10px;display:none;}
+.ferror.show{display:block;}
+.form-nav{padding:18px 28px;border-top:.5px solid rgba(255,255,255,.05);display:flex;flex-direction:column;gap:8px;}
+.form-next{width:100%;padding:14px;background:#c6a247;color:#07070a;font-size:10px;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:pointer;font-weight:500;font-family:'DM Sans',sans-serif;transition:background .2s;}
+.form-next:hover{background:#d4ae54;}
+.form-next:disabled{background:rgba(198,162,71,.25);color:rgba(7,7,10,.4);cursor:not-allowed;}
+.form-prev{width:100%;padding:12px;background:transparent;color:rgba(228,223,212,.35);font-size:10px;letter-spacing:.15em;text-transform:uppercase;border:.5px solid rgba(255,255,255,.07);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.form-prev:hover{border-color:rgba(255,255,255,.18);color:rgba(228,223,212,.65);}
+/* Success screen */
+.form-success{display:none;padding:32px 28px;text-align:center;}
+.form-success.show{display:block;}
+.success-icon{width:52px;height:52px;border:.5px solid rgba(198,162,71,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+.success-icon svg{width:20px;height:20px;stroke:#c6a247;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:8px;}
+.success-title em{font-style:italic;color:#c6a247;}
+.success-body{font-size:13px;color:rgba(228,223,212,.42);margin-bottom:22px;line-height:1.7;}
+.success-next-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;text-align:left;}
+.success-step{background:#0f0e12;border:.5px solid rgba(198,162,71,.15);padding:14px 16px;}
+.success-step-num{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#c6a247;margin-bottom:3px;}
+.success-step-text{font-size:12px;color:rgba(228,223,212,.52);line-height:1.5;}
+
+/* ================================================
+   ABOUT PAGE
+   ================================================ */
+.about-hero{padding:80px 0 60px;}
+.about-hero-inner{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center;}
+.about-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,4vw,62px);font-weight:300;line-height:1.06;margin-bottom:20px;}
+.about-hero h1 em{font-style:italic;color:#c6a247;}
+.about-hero p{font-size:14px;color:rgba(228,223,212,.44);line-height:1.85;margin-bottom:14px;}
+.about-hero .sig{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:rgba(198,162,71,.45);margin-top:24px;}
+.about-visual{overflow:hidden;border:.5px solid rgba(198,162,71,.1);}
+.about-visual img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;filter:brightness(.72) contrast(1.04) saturate(.88);}
+.about-visual-footer{padding:20px 22px;background:#0d0c10;border-top:.5px solid rgba(198,162,71,.1);}
+.about-visual-quote{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:rgba(228,223,212,.5);line-height:1.55;margin-bottom:6px;}
+.about-visual-attr{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,162,71,.45);}
+.about-pillars-section{padding:80px 0;background:#0a0a0e;}
+.about-pillars-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(198,162,71,.1);}
+.about-pillar-card{background:#0a0a0e;padding:32px 28px;display:flex;gap:20px;transition:background .2s;}
+.about-pillar-card:hover{background:#0d0c10;}
+.about-pillar-icon{width:36px;height:36px;border:.5px solid rgba(198,162,71,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.about-pillar-icon svg{width:14px;height:14px;stroke:#c6a247;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.about-pillar-body h4{font-size:14px;font-weight:500;margin-bottom:6px;}
+.about-pillar-body p{font-size:13px;color:rgba(228,223,212,.4);line-height:1.65;}
+.about-model-section{padding:80px 0;}
+.about-model-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center;}
+.about-model-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.2vw,48px);font-weight:300;line-height:1.1;margin-bottom:18px;}
+.about-model-left h2 em{font-style:italic;color:#c6a247;}
+.about-model-left p{font-size:14px;color:rgba(228,223,212,.44);line-height:1.85;margin-bottom:14px;}
+.model-features{display:flex;flex-direction:column;gap:1px;}
+.model-feature{background:#0d0c10;padding:17px 20px;display:flex;align-items:center;gap:14px;transition:background .2s;}
+.model-feature:hover{background:#101018;}
+.model-feature-dot{width:5px;height:5px;background:#c6a247;border-radius:50%;flex-shrink:0;}
+.model-feature span{font-size:13px;color:rgba(228,223,212,.55);}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+@media(max-width:900px){
+  .hero,.pos-grid,.who-grid,.home-cta-grid,.pkg-intro,.apply-layout,.about-hero-inner,.about-model-inner,.hiw-path-split,.steps-grid{grid-template-columns:1fr!important;}
+  .hero-right{height:360px;}
+  .hero-left{padding:56px 24px!important;}
+  .pillar-flow{grid-template-columns:1fr 1fr;}
+  .pillar::after{display:none;}
+  .pkg-grid,.testi-grid,.addons-grid,.trust-grid,.about-pillars-grid{grid-template-columns:1fr 1fr;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .nav{padding:18px 24px;}
+  .nav-links{display:none;}
+  .w{padding:0 24px!important;}
+  .footer-inner{grid-template-columns:1fr;text-align:center;}
+  .footer-copy{text-align:center;}
+  .footer-links{justify-content:center;}
+  .trust-bar{padding:13px 24px;gap:16px;}
+  .system-row{grid-template-columns:60px 1fr!important;}
+  .sys-detail{display:none;}
+}
+@media(max-width:580px){
+  .pkg-grid,.testi-grid,.addons-grid,.trust-grid,.about-pillars-grid,.pillar-flow{grid-template-columns:1fr;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <div class="nav-logo" onclick="showPage('home')">Naughty<em>Cam</em>Spot</div>
+  <div class="nav-links">
+    <a onclick="showPage('home')" id="nav-home">Home</a>
+    <a onclick="showPage('packages')" id="nav-packages">Growth Packages</a>
+    <a onclick="showPage('how')" id="nav-how">How It Works</a>
+    <a onclick="showPage('about')" id="nav-about">About</a>
+    <a onclick="showPage('apply')" id="nav-apply-link">Become a Model</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-login">Model Login</button>
+    <button class="nav-apply" onclick="showPage('apply')">Apply Free →</button>
+  </div>
+</nav>
+
+<!-- ================================================
+     HOME PAGE
+     ================================================ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="htag"><span class="htag-line"></span>Serious growth for serious models</div>
+      <h1 class="hero-title serif">We build<br><em>revenue systems</em><br>for cam models.</h1>
+      <p class="hero-sub">Not just promotion. A full growth system — covering traffic, room conversion, VIP retention, and passive income. Built for models who take this seriously.</p>
+      <p class="hero-qualifier serif">This is not for everyone. It is for models who are ready to grow.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="showPage('apply')">Apply to Get Started</button>
+        <button class="btn-ghost" onclick="showPage('how')">See How It Works</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="https://www.naughtycamspot.com/images/home-hero.webp" alt="Anna Prince — Featured Creator" onerror="this.parentElement.style.background='linear-gradient(160deg,#1c1408 0%,#07070a 100%)';this.style.display='none';">
+      <div class="hero-caption">
+        <div class="hero-caption-name">Anna Prince</div>
+        <div class="hero-caption-sub">Featured Creator</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust bar -->
+  <div class="trust-bar">
+    <div class="trust-item"><span class="trust-dot"></span>No passwords. Ever.</div>
+    <div class="trust-item"><span class="trust-dot"></span>You own your accounts &amp; content</div>
+    <div class="trust-item"><span class="trust-dot"></span>No exclusivity required</div>
+    <div class="trust-item"><span class="trust-dot"></span>Cancel anytime</div>
+    <div class="trust-item"><span class="trust-dot"></span>180+ countries reached</div>
+    <div class="trust-item"><span class="trust-dot"></span>Serious support. No hype.</div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Positioning -->
+  <section class="section">
+    <div class="w">
+      <div class="pos-grid">
+        <div class="pos-left">
+          <p class="eyebrow">What we actually are</p>
+          <div class="gline" style="margin:12px 0 20px;"></div>
+          <h2 class="serif">Not a promo shop.<br>A <em>revenue growth system.</em></h2>
+          <p>Most services in this space sell posting and reach. They give you activity and call it promotion. That is not what we do.</p>
+          <p>We work on the full picture — how traffic enters your world, how your room converts viewers into spenders, how you keep your best fans coming back, and how you earn when you are not live.</p>
+          <blockquote>"We help serious cam models build a repeatable income machine."</blockquote>
+        </div>
+        <div class="not-list">
+          <div class="not-item">
+            <div class="not-label lno">Not this</div>
+            <p class="not-text tno">Random social posting with recycled captions and no strategy</p>
+          </div>
+          <div class="not-item">
+            <div class="not-label lno">Not this</div>
+            <p class="not-text tno">Vague "exposure" promises with no revenue logic behind them</p>
+          </div>
+          <div class="not-item">
+            <div class="not-label lno">Not this</div>
+            <p class="not-text tno">Generic affiliate page that disappears after you sign up</p>
+          </div>
+          <div class="not-item">
+            <div class="not-label lno">Not this</div>
+            <p class="not-text tno">Bargain-bin promotion sold to anyone who fills a form</p>
+          </div>
+          <div class="not-item is-yes" style="margin-top:1px;">
+            <div class="not-label lyes">This is us</div>
+            <p class="not-text tyes">A structured revenue system — promotion, room optimization, VIP retention, and passive income — for models serious about their income.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- Four pillars -->
+  <section class="section section-dark">
+    <div class="w">
+      <div class="sec-head">
+        <p class="eyebrow">The Revenue System</p>
+        <div class="gline" style="margin:12px auto 20px;"></div>
+        <h2 class="serif">Four pillars. One <em>complete system.</em></h2>
+        <p>Most services fix one piece and ignore the rest. We improve all four — because breaking any one of them costs you money.</p>
+      </div>
+      <div class="pillar-flow">
+        <div class="pillar">
+          <div class="pillar-num serif">01</div>
+          <div class="pillar-icon"><svg viewBox="0 0 16 16"><path d="M2 14 L6 9 L9 12 L13 5"/><circle cx="13.5" cy="3.5" r="1.5"/></svg></div>
+          <h3 class="serif">Traffic</h3>
+          <p>Targeted, platform-aware promotion that brings the right people into your world — not just random reach.</p>
+          <ul>
+            <li>Platform-targeted campaigns</li>
+            <li>Content repurposing &amp; distribution</li>
+            <li>Niche positioning strategy</li>
+            <li>Event &amp; show hype</li>
+            <li>Audience capture into owned channels</li>
+          </ul>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num serif">02</div>
+          <div class="pillar-icon"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M5 8h6M8 5v6"/></svg></div>
+          <h3 class="serif">Room Conversion</h3>
+          <p>Turn viewers into tippers and repeat spenders through room design that works like a game loop.</p>
+          <ul>
+            <li>Room goal architecture</li>
+            <li>Menu optimization &amp; spending ladder</li>
+            <li>Show pacing &amp; momentum</li>
+            <li>Special event structuring</li>
+            <li>Real-time adjustment logic</li>
+          </ul>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num serif">03</div>
+          <div class="pillar-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="3"/><path d="M2 14c0-3 2.5-5 6-5s6 2 6 5"/><path d="M11 3c1 1 1 3 0 4"/></svg></div>
+          <h3 class="serif">VIP Retention</h3>
+          <p>Your best fans are worth far more than random new traffic. We build systems that keep them spending over time.</p>
+          <ul>
+            <li>Top-spender identification</li>
+            <li>Segmented follow-up flows</li>
+            <li>Event reminders &amp; VIP drops</li>
+            <li>Reactivation campaigns</li>
+            <li>Telegram / WhatsApp / email systems</li>
+          </ul>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num serif">04</div>
+          <div class="pillar-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 1.5"/></svg></div>
+          <h3 class="serif">Passive Income</h3>
+          <p>A live-only income is fragile. We help every show become future revenue — long after you go offline.</p>
+          <ul>
+            <li>Content packaging &amp; bundle design</li>
+            <li>Post-show content conversion</li>
+            <li>Subscription &amp; fan club strategy</li>
+            <li>Catalog &amp; recurring offer builds</li>
+            <li>Themed content drops</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pillars-tagline serif">Traffic brings opportunity. Room conversion turns attention into money. VIP retention creates stability. Passive income creates leverage.</p>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- Who it's for -->
+  <section class="section">
+    <div class="w">
+      <div class="who-grid">
+        <div class="who-left">
+          <p class="eyebrow">Who this is for</p>
+          <div class="gline" style="margin:12px 0 20px;"></div>
+          <h2 class="serif">Built for models who<br><em>take this seriously.</em></h2>
+          <p>This service is selective by design. We work with models who are ready to invest in real growth — not people looking for the cheapest option or a quick shortcut.</p>
+          <div class="for-list">
+            <div class="for-item">
+              <div class="for-check"><svg viewBox="0 0 10 10"><polyline points="1.5 5 4 7.5 8.5 2"/></svg></div>
+              <div class="for-item-body"><strong>Active models who take their work seriously</strong><span>Already earning. Want better structure and more reliable income growth.</span></div>
+            </div>
+            <div class="for-item">
+              <div class="for-check"><svg viewBox="0 0 10 10"><polyline points="1.5 5 4 7.5 8.5 2"/></svg></div>
+              <div class="for-item-body"><strong>Models who want systems, not random tips</strong><span>Done with generic advice. Ready for a structured approach that compounds.</span></div>
+            </div>
+            <div class="for-item">
+              <div class="for-check"><svg viewBox="0 0 10 10"><polyline points="1.5 5 4 7.5 8.5 2"/></svg></div>
+              <div class="for-item-body"><strong>Models ready to invest in growth</strong><span>You see professional support as a business decision, not an expense.</span></div>
+            </div>
+            <div class="for-item">
+              <div class="for-check"><svg viewBox="0 0 10 10"><polyline points="1.5 5 4 7.5 8.5 2"/></svg></div>
+              <div class="for-item-body"><strong>Models who value ownership and control</strong><span>Your accounts, your content, your brand. We work alongside you.</span></div>
+            </div>
+          </div>
+          <div class="not-for-note">
+            <p><strong>This is not for everyone.</strong> If you are looking for the cheapest option, a magic shortcut, or someone to hand everything to without your involvement — this service is not the right fit.</p>
+          </div>
+        </div>
+        <div class="who-visual-wrap">
+          <div class="who-visual">
+            <img src="https://www.naughtycamspot.com/images/home-hero.webp" alt="Anna Prince" onerror="this.style.display='none';this.parentElement.style.minHeight='360px';this.parentElement.style.background='linear-gradient(160deg,#1c1408,#07070a)';">
+          </div>
+          <div class="who-overlay">
+            <div class="who-quote">"I stopped guessing and started growing. The system changed how I think about my income entirely."</div>
+            <div class="who-attr">Anna Prince · Featured Creator</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- Stats -->
+  <div class="w" style="padding:0 52px;">
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-big serif">$3k+</div><div class="stat-label">Avg. first-month earnings</div></div>
+      <div class="stat-box"><div class="stat-big serif">48h</div><div class="stat-label">Average time to live</div></div>
+      <div class="stat-box"><div class="stat-big serif">180+</div><div class="stat-label">Countries in our reach</div></div>
+      <div class="stat-box"><div class="stat-big serif">94%</div><div class="stat-label">Models who stay past 90 days</div></div>
+    </div>
+  </div>
+
+  <div class="div" style="margin-top:0;"></div>
+
+  <!-- Testimonials -->
+  <section class="section">
+    <div class="w">
+      <div class="sec-head">
+        <p class="eyebrow">Creator Stories</p>
+        <div class="gline" style="margin:12px auto 20px;"></div>
+        <h2 class="serif">From the models <em>themselves.</em></h2>
+        <p>Real feedback from creators inside the system. Testimonials will be replaced as real ones come in.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="testi-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+          <div class="testi-quote">"Before NCS I was posting randomly and hoping something would stick. The room goal work changed my earnings in the first two weeks. The system makes sense in a way nothing else did."</div>
+          <div class="testi-person"><div class="testi-avatar">VN</div><div><div class="testi-name">VelvetNova</div><div class="testi-meta">Fansly · Pro Package · 7 months</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+          <div class="testi-quote">"The passive income piece was the one I didn't expect. My show content was disappearing after I went offline. Now it keeps earning. That part alone pays for the package several times over."</div>
+          <div class="testi-person"><div class="testi-avatar">SK</div><div><div class="testi-name">ScarletKai</div><div class="testi-meta">OnlyFans + Chaturbate · Premium · 5 months</div></div></div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+          <div class="testi-quote">"English is not my first language but everything was explained clearly. My account manager actually responds fast. I feel like a professional now, not just a cam girl."</div>
+          <div class="testi-person"><div class="testi-avatar">AK</div><div><div class="testi-name">Aleksa_K</div><div class="testi-meta">Chaturbate · Pro Package · 6 months</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- Final CTA -->
+  <section class="section section-mid">
+    <div class="w">
+      <div class="home-cta-grid">
+        <div class="home-cta-left">
+          <p class="eyebrow">Ready to start?</p>
+          <div class="gline" style="margin:12px 0 20px;"></div>
+          <h2 class="serif">Two paths.<br>One <em>right starting point.</em></h2>
+          <p>Whether you are new to this or already earning and want to grow — the process starts the same way. Apply through our route, get your setup confirmed, and access the growth system when you are ready.</p>
+          <p class="qualifier serif">Accepted models only. We are selective because the service only works when the model is serious.</p>
+        </div>
+        <div class="cta-actions">
+          <div class="cta-action-card" onclick="showPage('apply')">
+            <div class="cta-action-tag">New model</div>
+            <div class="cta-action-title serif">Apply Free — Launch Path</div>
+            <div class="cta-action-desc">Apply once, sign up through our route, unlock your VIP setup kit. Free to start — growth services available after acceptance.</div>
+            <div class="cta-action-arrow">Apply now →</div>
+          </div>
+          <div class="cta-action-card" onclick="showPage('packages')">
+            <div class="cta-action-tag">Already active</div>
+            <div class="cta-action-title serif">Explore Growth Packages</div>
+            <div class="cta-action-desc">Already live? See if you qualify for Pro or Premium. We will tell you if it is a fit.</div>
+            <div class="cta-action-arrow">See packages →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="div"></div>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Naughty<em>Cam</em>Spot</div>
+      <div class="footer-links">
+        <a onclick="showPage('apply')">Apply</a>
+        <a onclick="showPage('packages')">Packages</a>
+        <a onclick="showPage('how')">How It Works</a>
+        <a onclick="showPage('about')">About</a>
+        <a>Privacy</a><a>Terms</a><a>Disclosure</a>
+      </div>
+      <div class="footer-copy">© 2026 NaughtyCamSpot · concierge@naughtycamspot.com<br>Contains affiliate links · Not an agency · No earnings guarantee</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ================================================
+     PACKAGES PAGE
+     ================================================ -->
+<div id="page-packages" class="page">
+  <section class="section-dark" style="padding:0;">
+    <div class="w">
+      <div class="pkg-intro">
+        <div class="pkg-intro-left">
+          <p class="eyebrow">Growth Packages</p>
+          <div class="gline" style="margin:12px 0 20px;"></div>
+          <h1 class="serif">Choose your level<br>of <em>commitment.</em></h1>
+          <p>Every package is built around the same four-pillar revenue system. The difference is depth, access, and how much we execute for you versus with you.</p>
+          <p>All packages are available only to models accepted through our platform path. Apply first — we will match you to the right tier.</p>
+          <p class="pkg-intro-left note">Month-to-month. No long-term contracts. No earnings guarantee. Contains affiliate links.</p>
+        </div>
+        <div class="pkg-intro-right">
+          <div class="pkg-pillar-row">
+            <div class="pkg-pillar-num serif">01</div>
+            <div class="pkg-pillar-text"><h4>Traffic</h4><p>Platform-targeted promotion, content distribution, niche positioning</p></div>
+          </div>
+          <div class="pkg-pillar-row">
+            <div class="pkg-pillar-num serif">02</div>
+            <div class="pkg-pillar-text"><h4>Room Conversion</h4><p>Room goal architecture, menu design, show pacing strategy</p></div>
+          </div>
+          <div class="pkg-pillar-row">
+            <div class="pkg-pillar-num serif">03</div>
+            <div class="pkg-pillar-text"><h4>VIP Retention</h4><p>Fan segmentation, follow-up flows, reactivation, VIP drops</p></div>
+          </div>
+          <div class="pkg-pillar-row">
+            <div class="pkg-pillar-num serif">04</div>
+            <div class="pkg-pillar-text"><h4>Passive Income</h4><p>Content packaging, bundles, subscriptions, post-show conversion</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <section class="section">
+    <div class="w">
+      <div class="pkg-grid">
+        <!-- Launch -->
+        <div class="pkg-card">
+          <span class="pkg-tier">Tier 01 · Foundation</span>
+          <div class="pkg-name serif">Launch</div>
+          <div class="pkg-tagline">New models entering the system</div>
+          <div class="pkg-price serif"><sup>$</sup>89</div>
+          <div class="pkg-period">per month · cancel anytime</div>
+          <p class="pkg-desc">Professional launch setup and foundational promotion. Apply through our route — we build your presence correctly from day one.</p>
+          <div class="pkg-pillars-tags">
+            <span class="pkg-pill">Traffic</span>
+            <span class="pkg-pill">Room Setup</span>
+          </div>
+          <ul class="pkg-features">
+            <li>Profile audit, bio &amp; brand name guidance</li>
+            <li>Platform-fit consultation</li>
+            <li>Twitter/X promo posts — 3× weekly</li>
+            <li>Reddit exposure in targeted communities</li>
+            <li>Monthly content calendar &amp; posting schedule</li>
+            <li>Room goal starter architecture</li>
+            <li>Basic menu structure guidance</li>
+            <li>1 shoutout exchange arranged per month</li>
+            <li>Monthly performance summary report</li>
+          </ul>
+          <button class="pkg-btn outline" onclick="showPage('apply')">Apply for This Package</button>
+        </div>
+        <!-- Pro -->
+        <div class="pkg-card featured">
+          <div class="pkg-badge">Most Selected</div>
+          <span class="pkg-tier">Tier 02 · Growth</span>
+          <div class="pkg-name serif">Pro</div>
+          <div class="pkg-tagline">Models ready to scale seriously</div>
+          <div class="pkg-price serif"><sup>$</sup>229</div>
+          <div class="pkg-period">per month · cancel anytime</div>
+          <p class="pkg-desc">Multi-platform promotion plus room conversion and VIP retention support. A dedicated manager runs your growth week to week.</p>
+          <div class="pkg-pillars-tags">
+            <span class="pkg-pill">Traffic</span>
+            <span class="pkg-pill">Room Conversion</span>
+            <span class="pkg-pill">VIP Retention</span>
+          </div>
+          <ul class="pkg-features">
+            <li>Everything in Launch</li>
+            <li>Dedicated account manager — weekly check-in</li>
+            <li>Twitter/X daily posting + scheduling</li>
+            <li>Instagram &amp; TikTok-safe teaser content strategy</li>
+            <li>3 Reddit campaigns/month across niche communities</li>
+            <li>Telegram &amp; Discord community promotion</li>
+            <li>3 shoutout arrangements per month</li>
+            <li>Paid traffic — adult network entry budget included</li>
+            <li>Full room goal ladder design &amp; optimization</li>
+            <li>Full menu redesign &amp; spending-ladder structure</li>
+            <li>VIP fan segment setup (Telegram / WhatsApp)</li>
+            <li>Event show planning — 1 per month</li>
+            <li>Weekly analytics dashboard access</li>
+          </ul>
+          <button class="pkg-btn filled" onclick="showPage('apply')">Apply for This Package</button>
+        </div>
+        <!-- Premium -->
+        <div class="pkg-card">
+          <span class="pkg-tier">Tier 03 · Elite</span>
+          <div class="pkg-name serif">Premium</div>
+          <div class="pkg-tagline">Full system. Global reach. Top earners.</div>
+          <div class="pkg-price serif"><sup>$</sup>499</div>
+          <div class="pkg-period">per month · cancel anytime</div>
+          <p class="pkg-desc">All four pillars running simultaneously — international targeting, passive income buildout, and hands-on strategy calls every month.</p>
+          <div class="pkg-pillars-tags">
+            <span class="pkg-pill">Traffic</span>
+            <span class="pkg-pill">Room Conversion</span>
+            <span class="pkg-pill">VIP Retention</span>
+            <span class="pkg-pill">Passive Income</span>
+          </div>
+          <ul class="pkg-features">
+            <li>Everything in Pro</li>
+            <li>Custom brand kit — visuals, banners, watermarks</li>
+            <li>Paid ad management — TrafficJunky &amp; ExoClick</li>
+            <li>International targeting — EU, LATAM, APAC</li>
+            <li>Full passive-income buildout — bundles, VOD, subscriptions</li>
+            <li>Post-show content conversion workflow</li>
+            <li>Full VIP retention system — drops, segmentation, reactivation</li>
+            <li>Collab outreach — we pitch and arrange creator partnerships</li>
+            <li>Priority placement across NaughtyCamSpot</li>
+            <li>Monthly 1-to-1 strategy call — 30 min</li>
+            <li>24/7 priority support via Telegram or WhatsApp</li>
+          </ul>
+          <button class="pkg-btn outline" onclick="showPage('apply')">Apply for This Package</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- Add-ons -->
+  <section class="section section-dark">
+    <div class="w">
+      <div class="sec-head">
+        <p class="eyebrow">Add-Ons</p>
+        <div class="gline" style="margin:12px auto 20px;"></div>
+        <h2 class="serif">Bolt-ons for any <em>package.</em></h2>
+        <p>One-off or recurring extras available to any active package client.</p>
+      </div>
+      <div class="addons-grid">
+        <div class="addon-card">
+          <div class="addon-name serif">Profile Polish</div>
+          <div class="addon-price serif">$49</div>
+          <p class="addon-desc">Full profile review and setup recommendations before launch — bio, pricing, preview content, and naming.</p>
+        </div>
+        <div class="addon-card">
+          <div class="addon-name serif">Landing Page Audit</div>
+          <div class="addon-price serif">$79</div>
+          <p class="addon-desc">Conversion-focused review of your profile or landing page, with a prioritised improvement list.</p>
+        </div>
+        <div class="addon-card">
+          <div class="addon-name serif">Extra Reporting Pack</div>
+          <div class="addon-price serif">$39/mo</div>
+          <p class="addon-desc">Additional weekly performance snapshots beyond your package's standard reporting cadence.</p>
+        </div>
+        <div class="addon-card">
+          <div class="addon-name serif">Weekend Priority Window</div>
+          <div class="addon-price serif">$59/mo</div>
+          <p class="addon-desc">Priority response and campaign adjustment support during peak weekend show windows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="w">
+      <div class="sec-head">
+        <p class="eyebrow">Common Questions</p>
+        <div class="gline" style="margin:12px auto 20px;"></div>
+        <h2 class="serif">Before you <em>apply.</em></h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Who owns the account and content? <span class="faq-arrow">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">You do — entirely. Your platform accounts, your media, your payout access. They remain yours at all times. We never ask for login credentials and we never take ownership of any account or asset.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Can I cancel anytime? <span class="faq-arrow">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. All packages are month-to-month. You can stop at the next renewal. No long lock-in contracts, no cancellation fees, no awkward conversations.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Do you need my login password? <span class="faq-arrow">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">No. Never. We only use approved files, your content, and any publishing permissions you choose to grant. Passwords are a hard no — always.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">What does "accepted through our platform path" mean? <span class="faq-arrow">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">To access growth packages, you need to have signed up on your chosen cam platform using our affiliate link. This confirms your slot, allows us to verify your account, and is how we fund the free onboarding tools we offer. You keep full control of your account.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">How is this different from basic social media management? <span class="faq-arrow">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Social posting is just one small piece of what we do — and it's the least interesting part. The real value is in room conversion strategy, VIP fan retention systems, and passive income buildout. These are things no social media manager touches. We work on your whole revenue picture, not just your follower count.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Are there earnings guarantees? <span class="faq-arrow">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">No. We never make earnings guarantees and any service that does should be treated with scepticism. What we guarantee is our effort, our systems, and our accountability to the work. Results depend on many factors including the model's own involvement and consistency.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+  <footer class="footer"><div class="footer-inner"><div class="footer-logo">Naughty<em>Cam</em>Spot</div><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('apply')">Apply</a><a onclick="showPage('how')">How It Works</a><a onclick="showPage('about')">About</a><a>Privacy</a><a>Terms</a></div><div class="footer-copy">© 2026 NaughtyCamSpot · Contains affiliate links · Not an agency · No earnings guarantee</div></div></footer>
+</div>
+
+<!-- ================================================
+     HOW IT WORKS PAGE
+     ================================================ -->
+<div id="page-how" class="page">
+
+  <!-- Hero -->
+  <section style="padding:0; background:#0a0a0e; border-bottom:.5px solid rgba(198,162,71,.1);">
+    <div class="w">
+      <div class="hiw-hero">
+        <p class="eyebrow">How It Works</p>
+        <div class="gline" style="margin:12px auto 20px;"></div>
+        <h1 class="serif">Simple entry. <em>Professional growth.</em></h1>
+        <p>Start for free. Get set up correctly. Unlock growth services when you are ready. Here is exactly what happens at every step.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-primary" onclick="showPage('apply')">Apply Free Now</button>
+          <button class="btn-ghost" onclick="showPage('packages')">See Growth Packages</button>
+        </div>
+      </div>
+      <div class="hiw-path-split">
+        <div class="hiw-path">
+          <div class="hiw-path-tag">Path 01 — Free</div>
+          <h3 class="serif">New Model — Launch Path</h3>
+          <p>Apply once, sign up on your chosen platform via our link, unlock your VIP setup kit, and start earning. The setup help and onboarding tools are free.</p>
+          <div class="hiw-path-link" onclick="showPage('apply')">Start your application →</div>
+        </div>
+        <div class="hiw-path">
+          <div class="hiw-path-tag">Path 02 — Paid</div>
+          <h3 class="serif">Existing Model — Growth Path</h3>
+          <p>Already live? Apply to see if you qualify for our Pro or Premium growth packages. Room conversion, VIP retention, and passive income — the whole system.</p>
+          <div class="hiw-path-link" onclick="showPage('packages')">See growth packages →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Steps -->
+  <section class="steps-section">
+    <div class="w">
+      <div class="steps-header">
+        <p class="eyebrow">The Launch Path</p>
+        <div class="gline" style="margin:12px auto 20px;"></div>
+        <h2 class="serif">Four steps to <em>earning.</em></h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num-big serif">01</div>
+          <h3 class="serif">Apply once</h3>
+          <p>Share your goals, preferred platform, and contact method. The application takes under 3 minutes and helps us match you to the right setup path.</p>
+          <span class="step-tag">Free · 3 minutes · Mobile-friendly</span>
+        </div>
+        <div class="step-card">
+          <div class="step-num-big serif">02</div>
+          <h3 class="serif">Sign up via our link</h3>
+          <p>Use our affiliate link to register on your chosen platform — Chaturbate, OnlyFans, Fansly, and more. This confirms your slot and unlocks your VIP status.</p>
+          <span class="step-tag">Tracked safely · You keep full account control</span>
+        </div>
+        <div class="step-card">
+          <div class="step-num-big serif">03</div>
+          <h3 class="serif">Send proof → unlock VIP</h3>
+          <p>Send a quick screenshot of your signup. We verify it within 24 hours, confirm your slot, and send your personalised StartRight checklist and setup steps.</p>
+          <span class="step-tag">Reviewed within 24 hours</span>
+        </div>
+        <div class="step-card">
+          <div class="step-num-big serif">04</div>
+          <h3 class="serif">Start earning — then grow</h3>
+          <p>You are live. Most models see first earnings within the first week. When you are ready to scale, our growth packages are right here — most top earners upgrade within 60 days.</p>
+          <span class="step-tag">Upgrade to growth packages anytime</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- Revenue system explained -->
+  <section class="system-explainer">
+    <div class="w">
+      <div class="system-intro">
+        <p class="eyebrow">The Growth System</p>
+        <div class="gline" style="margin:12px auto 20px;"></div>
+        <h2 class="serif">Why four pillars <em>matter.</em></h2>
+        <p>Most models focus on one thing and wonder why the rest doesn't grow. Here is why the full system is the only system that works long-term.</p>
+      </div>
+      <div class="system-rows">
+        <div class="system-row">
+          <div class="sys-num"><span class="serif">01</span></div>
+          <div class="sys-title"><h3 class="serif">Traffic</h3><p>Without the right viewers entering your world, nothing else can work. Traffic quality matters more than volume.</p></div>
+          <div class="sys-detail"><ul><li>Platform-aware promotion campaigns</li><li>Content repurposing &amp; distribution</li><li>Niche positioning &amp; audience targeting</li><li>Event hype &amp; show promotion</li><li>Audience capture into owned channels</li></ul></div>
+        </div>
+        <div class="system-row">
+          <div class="sys-num"><span class="serif">02</span></div>
+          <div class="sys-title"><h3 class="serif">Room Conversion</h3><p>Traffic without conversion is expensive. A well-designed room turns attention into tipping — reliably.</p></div>
+          <div class="sys-detail"><ul><li>Room goal architecture — game loop design</li><li>Menu optimization &amp; spending ladder</li><li>Show pacing, momentum &amp; reward timing</li><li>Special event structuring</li><li>Real-time adjustment strategy</li></ul></div>
+        </div>
+        <div class="system-row">
+          <div class="sys-num"><span class="serif">03</span></div>
+          <div class="sys-title"><h3 class="serif">VIP Retention</h3><p>Repeat buyers are worth more than new random traffic. A retention system turns good fans into great ones.</p></div>
+          <div class="sys-detail"><ul><li>Top-spender identification &amp; segmentation</li><li>VIP follow-up flows &amp; welcome sequences</li><li>Event reminders &amp; exclusive drops</li><li>Reactivation campaigns for lapsed fans</li><li>Telegram / WhatsApp / email systems</li></ul></div>
+        </div>
+        <div class="system-row">
+          <div class="sys-num"><span class="serif">04</span></div>
+          <div class="sys-title"><h3 class="serif">Passive Income</h3><p>A live-only income is fragile and exhausting. Every show should create future revenue, not just present revenue.</p></div>
+          <div class="sys-detail"><ul><li>Content packaging, bundles &amp; VOD</li><li>Post-show content conversion workflow</li><li>Subscription &amp; fan club strategy</li><li>Catalog &amp; recurring offer builds</li><li>Themed content drops &amp; special offers</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- Trust section -->
+  <section class="trust-section">
+    <div class="w">
+      <div class="sec-head">
+        <p class="eyebrow">Our Hard Rules</p>
+        <div class="gline" style="margin:12px auto 20px;"></div>
+        <h2 class="serif">Non-negotiable. <em>Always.</em></h2>
+        <p>These are not marketing claims. They are the operating rules behind everything we do.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-card-icon"><svg viewBox="0 0 16 16"><rect x="4" y="7" width="8" height="7" rx="1"/><path d="M5 7V5.5a3 3 0 0 1 6 0V7"/></svg></div>
+          <h4>No passwords. Ever.</h4>
+          <p>We never ask for your login credentials. Not once, not for any reason. If someone using our name asks for your password, that is fraud — report it.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-icon"><svg viewBox="0 0 16 16"><path d="M8 2l1.5 4H14l-3.5 2.5 1.3 4L8 10l-3.8 2.5 1.3-4L2 6h4.5z"/></svg></div>
+          <h4>You keep everything.</h4>
+          <p>Your accounts, your content, your payout access, your private information. All of it stays yours at every stage of the relationship.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 1.5"/></svg></div>
+          <h4>No exclusivity required.</h4>
+          <p>You can work with other platforms and services. We do not require you to work only with us or give up other income streams.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-icon"><svg viewBox="0 0 16 16"><path d="M3 8 L6 11 L13 4"/></svg></div>
+          <h4>Legitimate only.</h4>
+          <p>We only help with legitimate setup and promotion. No fake ID, no underage, no fraud. If a platform bans for violations, we cannot reverse it.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-icon"><svg viewBox="0 0 16 16"><path d="M2 12 L14 12M2 8 L14 8M2 4 L8 4"/></svg></div>
+          <h4>No spam tactics.</h4>
+          <p>No mass unsolicited DM blasts, no fake engagement, no automation that violates platform terms. Everything we do is within the rules.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-icon"><svg viewBox="0 0 16 16"><path d="M8 2 C4 2 2 5 2 8 C2 11 4 14 8 14 C12 14 14 11 14 8"/><path d="M11 2 L14 5 M14 2 L11 5"/></svg></div>
+          <h4>Cancel anytime.</h4>
+          <p>All packages are month-to-month. Stop at any renewal. No lock-in contracts, no cancellation fees, no pressure to stay.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+  <section style="padding:56px 0; text-align:center; background:#0c0b0f;">
+    <div class="w">
+      <p class="eyebrow">Ready?</p>
+      <div class="gline" style="margin:12px auto 20px;"></div>
+      <h2 class="serif" style="font-size:clamp(32px,3.5vw,50px); font-weight:300; margin-bottom:16px;">Start the right way.<br><em class="gc">Apply free today.</em></h2>
+      <p style="font-size:14px; color:rgba(228,223,212,.42); max-width:440px; margin:0 auto 28px; line-height:1.8;">Apply once, sign up via our link, and get your personalised setup plan within 24 hours. Growth packages are available after you are accepted and live.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="showPage('apply')">Apply Free Now</button>
+        <button class="btn-ghost" onclick="showPage('packages')">View Growth Packages</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+  <footer class="footer"><div class="footer-inner"><div class="footer-logo">Naughty<em>Cam</em>Spot</div><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('apply')">Apply</a><a onclick="showPage('packages')">Packages</a><a onclick="showPage('about')">About</a><a>Privacy</a><a>Terms</a></div><div class="footer-copy">© 2026 NaughtyCamSpot · Contains affiliate links · Not an agency · No earnings guarantee</div></div></footer>
+</div>
+
+<!-- ================================================
+     APPLY PAGE
+     ================================================ -->
+<div id="page-apply" class="page">
+  <section style="padding:0;">
+    <div class="w">
+      <div class="apply-layout">
+        <div class="apply-left">
+          <p class="eyebrow">Free Application</p>
+          <div class="gline" style="margin:12px 0 20px;"></div>
+          <h1 class="serif">Start in under<br><em>two minutes.</em></h1>
+          <p>Five short steps. Apply once — we match you to the right platform and setup path, then send your personalised StartRight kit within 24 hours.</p>
+          <p style="font-size:13px; color:rgba(228,223,212,.32);">We earn an affiliate commission when you sign up through our link. That is how we fund the free setup tools. You keep full control of your account at all times.</p>
+          <div class="apply-trust">
+            <div class="apply-trust-item"><div class="apply-trust-icon"><svg viewBox="0 0 10 10"><polyline points="1 5 4 8 9 2"/></svg></div><span class="apply-trust-text">No passwords required — ever</span></div>
+            <div class="apply-trust-item"><div class="apply-trust-icon"><svg viewBox="0 0 10 10"><polyline points="1 5 4 8 9 2"/></svg></div><span class="apply-trust-text">You own your accounts and content</span></div>
+            <div class="apply-trust-item"><div class="apply-trust-icon"><svg viewBox="0 0 10 10"><polyline points="1 5 4 8 9 2"/></svg></div><span class="apply-trust-text">18+ only — hard requirement</span></div>
+            <div class="apply-trust-item"><div class="apply-trust-icon"><svg viewBox="0 0 10 10"><polyline points="1 5 4 8 9 2"/></svg></div><span class="apply-trust-text">No exclusivity — work where you want</span></div>
+            <div class="apply-trust-item"><div class="apply-trust-icon"><svg viewBox="0 0 10 10"><polyline points="1 5 4 8 9 2"/></svg></div><span class="apply-trust-text">Legitimate setup only — no fraud exceptions</span></div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="apply-form-wrap">
+          <div class="form-header">
+            <h3 class="serif">Apply Now</h3>
+            <p id="form-header-sub">Step 1 of 5 — The basics</p>
+          </div>
+          <div class="form-progress">
+            <div class="form-progress-label">
+              <span id="progress-label">Step 1 — Basics</span>
+              <strong id="progress-pct">20%</strong>
+            </div>
+            <div class="form-progress-bar"><div class="form-progress-fill" id="progress-fill"></div></div>
+            <div class="form-steps-dots">
+              <div class="fdot active" id="fdot-0"></div>
+              <div class="fdot" id="fdot-1"></div>
+              <div class="fdot" id="fdot-2"></div>
+              <div class="fdot" id="fdot-3"></div>
+              <div class="fdot" id="fdot-4"></div>
+            </div>
+          </div>
+
+          <div class="form-body">
+
+            <!-- Step 1 -->
+            <div class="form-step active" id="fstep-0">
+              <div class="fstep-eyebrow">Step 01 of 05</div>
+              <div class="fstep-title serif">The <em>basics.</em></div>
+              <div class="fstep-sub">Confirm you meet the requirements and tell us where you are.</div>
+              <label class="age-confirm">
+                <input type="checkbox" id="age-check">
+                <span class="age-confirm-text"><strong>I confirm I am 18 years of age or older.</strong><br>This is a hard requirement. Underage applications are rejected and reported.</span>
+              </label>
+              <div class="ferror" id="err-age">You must confirm you are 18 or older to continue.</div>
+              <label class="flabel">Your country</label>
+              <select class="fselect" id="country">
+                <option value="">Select your country…</option>
+                <option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option><option>Germany</option><option>France</option><option>Brazil</option><option>Mexico</option><option>Colombia</option><option>Romania</option><option>Ukraine</option><option>Russia</option><option>Philippines</option><option>Thailand</option><option>Other</option>
+              </select>
+              <label class="flabel">Preferred language</label>
+              <select class="fselect" id="lang">
+                <option value="">Select language…</option>
+                <option>English</option><option>Español</option><option>Português</option><option>Русский</option><option>Українська</option>
+              </select>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="form-step" id="fstep-1">
+              <div class="fstep-eyebrow">Step 02 of 05</div>
+              <div class="fstep-title serif">Your <em>goal.</em></div>
+              <div class="fstep-sub">This shapes the setup path we send you. No wrong answers.</div>
+              <div class="goal-cards" id="goal-cards">
+                <div class="goal-card" onclick="selectGoal(this,'earn-fast')">
+                  <div class="goal-radio"></div>
+                  <div class="goal-body"><h4>Earn fast</h4><p>Quick setup and fast next steps — live and earning within the week.</p></div>
+                </div>
+                <div class="goal-card" onclick="selectGoal(this,'build-long')">
+                  <div class="goal-radio"></div>
+                  <div class="goal-body"><h4>Build long-term</h4><p>Slower, more strategic start — sustainable income over months.</p></div>
+                </div>
+                <div class="goal-card" onclick="selectGoal(this,'both')">
+                  <div class="goal-radio"></div>
+                  <div class="goal-body"><h4>Both — start fast, build steady</h4><p>Get earning quickly, then scale. Most top earners take this path.</p></div>
+                </div>
+              </div>
+              <div class="ferror" id="err-goal">Please select a goal to continue.</div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="form-step" id="fstep-2">
+              <div class="fstep-eyebrow">Step 03 of 05</div>
+              <div class="fstep-title serif">Existing <em>platforms.</em></div>
+              <div class="fstep-sub">Already active somewhere? Select all that apply. Brand new? Select "None".</div>
+              <div class="platform-chips" id="platform-chips">
+                <div class="pchip" onclick="toggleChip(this,'Chaturbate')"><span class="pchip-dot"></span>Chaturbate</div>
+                <div class="pchip" onclick="toggleChip(this,'OnlyFans')"><span class="pchip-dot"></span>OnlyFans</div>
+                <div class="pchip" onclick="toggleChip(this,'Fansly')"><span class="pchip-dot"></span>Fansly</div>
+                <div class="pchip" onclick="toggleChip(this,'Stripchat')"><span class="pchip-dot"></span>Stripchat</div>
+                <div class="pchip" onclick="toggleChip(this,'CamSoda')"><span class="pchip-dot"></span>CamSoda</div>
+                <div class="pchip" onclick="toggleChip(this,'BongaCams')"><span class="pchip-dot"></span>BongaCams</div>
+                <div class="pchip" onclick="toggleChip(this,'Other')"><span class="pchip-dot"></span>Other</div>
+                <div class="pchip" onclick="toggleChip(this,'None — brand new')"><span class="pchip-dot"></span>None — brand new</div>
+              </div>
+              <div class="ferror" id="err-platform">Please select at least one option.</div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="form-step" id="fstep-3">
+              <div class="fstep-eyebrow">Step 04 of 05</div>
+              <div class="fstep-title serif">Best way to <em>reach you.</em></div>
+              <div class="fstep-sub">We send your StartRight kit here. Pick whichever feels safest.</div>
+              <div class="contact-cards" id="contact-cards">
+                <div class="contact-card" onclick="selectContact(this,'telegram')">
+                  <div class="contact-icon">✈</div>
+                  <div><div class="contact-label">Telegram</div><div class="contact-sub">Fast, private, most popular choice</div></div>
+                </div>
+                <div class="contact-card" onclick="selectContact(this,'whatsapp')">
+                  <div class="contact-icon">💬</div>
+                  <div><div class="contact-label">WhatsApp</div><div class="contact-sub">Works well if you use it daily</div></div>
+                </div>
+                <div class="contact-card" onclick="selectContact(this,'email')">
+                  <div class="contact-icon">@</div>
+                  <div><div class="contact-label">Email</div><div class="contact-sub">Checked daily — secure option</div></div>
+                </div>
+              </div>
+              <div class="contact-input-area" id="contact-input-area">
+                <label class="flabel" id="contact-input-label">Your Telegram username</label>
+                <input class="finput" type="text" id="contact-value" placeholder="e.g. @yourhandle">
+                <p class="finput-hint" id="contact-hint">We will never share this with anyone.</p>
+              </div>
+              <div class="ferror" id="err-contact">Please select a contact method and enter your details.</div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="form-step" id="fstep-4">
+              <div class="fstep-eyebrow">Step 05 of 05</div>
+              <div class="fstep-title serif">Almost <em>done.</em></div>
+              <div class="fstep-sub">Review your answers and confirm consent.</div>
+              <div class="summary-card" id="form-summary"></div>
+              <div class="consent-box">
+                <p>By submitting, you confirm everything you've shared is accurate. We will send your StartRight kit and setup guidance to your chosen contact. We do not share your information with third parties.</p>
+                <label class="consent-toggle">
+                  <input type="checkbox" id="consent-check">
+                  <span>I agree to receive next-step messages and my StartRight kit from NaughtyCamSpot.</span>
+                </label>
+              </div>
+              <div class="ferror" id="err-consent">Please agree to receive your setup kit.</div>
+            </div>
+
+          </div>
+
+          <!-- Form success -->
+          <div class="form-success" id="form-success">
+            <div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="success-title serif">You're in.<br><em>What's next?</em></div>
+            <p class="success-body">Your application is submitted. Here's exactly what happens over the next 24 hours.</p>
+            <div class="success-next-steps">
+              <div class="success-step"><div class="success-step-num">Right now</div><div class="success-step-text">Check your inbox — your StartRight kit is on its way within the hour.</div></div>
+              <div class="success-step"><div class="success-step-num">Within 24 hours</div><div class="success-step-text">We confirm your slot and send personalised setup steps based on your goal and platforms.</div></div>
+              <div class="success-step"><div class="success-step-num">Once you're set up</div><div class="success-step-text">Sign up on your platform via our link to unlock VIP status and confirm your place.</div></div>
+            </div>
+            <button class="form-next" onclick="showPage('packages')">View Growth Packages →</button>
+          </div>
+
+          <div class="form-nav" id="form-nav">
+            <button class="form-next" id="form-next-btn" onclick="formNext()">Continue →</button>
+            <button class="form-prev" id="form-prev-btn" style="display:none;" onclick="formPrev()">← Go back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+  <footer class="footer"><div class="footer-inner"><div class="footer-logo">Naughty<em>Cam</em>Spot</div><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('packages')">Packages</a><a onclick="showPage('how')">How It Works</a><a onclick="showPage('about')">About</a><a>Privacy</a><a>Terms</a></div><div class="footer-copy">© 2026 NaughtyCamSpot · Contains affiliate links · Not an agency · No earnings guarantee</div></div></footer>
+</div>
+
+<!-- ================================================
+     ABOUT PAGE
+     ================================================ -->
+<div id="page-about" class="page">
+
+  <!-- About hero -->
+  <section class="section-dark" style="padding:0 0 1px;">
+    <div class="w">
+      <div class="about-hero">
+        <div class="about-hero-inner">
+          <div>
+            <p class="eyebrow">About NaughtyCamSpot</p>
+            <div class="gline" style="margin:12px 0 20px;"></div>
+            <h1 class="serif">We close the gap between<br><em>potential and income.</em></h1>
+            <p>NaughtyCamSpot was built around one observation — the models who earn the most are not always the most talented. They are the most visible, the most strategic, and the most structured.</p>
+            <p>We exist to close that gap. Whether you are applying for the first time or looking for a team to take your brand global, we give you the systems, the strategy, and the reach to make it real — without tricks, without taking over your accounts, and without the nonsense.</p>
+            <p>This is not a generic promo service. It is a revenue growth system for models who take their work seriously.</p>
+            <div class="sig serif">Discreet. Professional. Results-driven.</div>
+          </div>
+          <div>
+            <div class="about-visual">
+              <img src="https://www.naughtycamspot.com/images/home-hero.webp" alt="Anna Prince — Featured Creator" onerror="this.style.display='none';this.parentElement.style.minHeight='420px';this.parentElement.style.background='linear-gradient(160deg,#1c1408,#07070a)';">
+            </div>
+            <div class="about-visual-footer">
+              <div class="about-visual-quote">"I stopped guessing and started growing. The system changed how I think about my income."</div>
+              <div class="about-visual-attr">Anna Prince · Featured Creator</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- Pillars -->
+  <section class="about-pillars-section">
+    <div class="w">
+      <div class="sec-head">
+        <p class="eyebrow">What We Stand For</p>
+        <div class="gline" style="margin:12px auto 20px;"></div>
+        <h2 class="serif">The principles behind <em>everything we do.</em></h2>
+      </div>
+      <div class="about-pillars-grid">
+        <div class="about-pillar-card">
+          <div class="about-pillar-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/><path d="M8 3v5l3 2"/></svg></div>
+          <div class="about-pillar-body"><h4>Global from day one</h4><p>Our campaigns and ad networks reach audiences in 180+ countries. Your platform doesn't limit your market — and neither do we.</p></div>
+        </div>
+        <div class="about-pillar-card">
+          <div class="about-pillar-icon"><svg viewBox="0 0 16 16"><path d="M2 11 L6 7 L9 10 L13 4"/></svg></div>
+          <div class="about-pillar-body"><h4>Results, not vanity</h4><p>We measure success in subscribers and earnings — not follower counts. Every campaign is optimised toward real income growth.</p></div>
+        </div>
+        <div class="about-pillar-card">
+          <div class="about-pillar-icon"><svg viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="7" rx="1"/><path d="M5 7V5.5a3 3 0 0 1 6 0V7"/></svg></div>
+          <div class="about-pillar-body"><h4>Privacy and safety first</h4><p>We never ask for passwords, personal documents beyond what's needed, or any information that could compromise your security.</p></div>
+        </div>
+        <div class="about-pillar-card">
+          <div class="about-pillar-icon"><svg viewBox="0 0 16 16"><path d="M8 2 L10 6 L14 6.5 L11 9.5 L11.8 14 L8 11.8 L4.2 14 L5 9.5 L2 6.5 L6 6z"/></svg></div>
+          <div class="about-pillar-body"><h4>Selective by design</h4><p>We do not work with everyone who applies. We work with models who are serious. That is what keeps the service premium and the results consistent.</p></div>
+        </div>
+        <div class="about-pillar-card">
+          <div class="about-pillar-icon"><svg viewBox="0 0 16 16"><path d="M2 8 C2 4.7 4.7 2 8 2 C11.3 2 14 4.7 14 8"/><path d="M5 12 L8 14 L11 12"/><path d="M8 9 L8 14"/></svg></div>
+          <div class="about-pillar-body"><h4>Done-for-you and done-with-you</h4><p>We execute the campaigns, but we also build your knowledge. Serious models don't just want tasks completed — they want to grow as operators.</p></div>
+        </div>
+        <div class="about-pillar-card">
+          <div class="about-pillar-icon"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg></div>
+          <div class="about-pillar-body"><h4>The full system — not one piece</h4><p>Traffic, room conversion, VIP retention, passive income. We work on all four because breaking any one of them costs you money.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- Model section -->
+  <section class="about-model-section">
+    <div class="w">
+      <div class="about-model-inner">
+        <div class="about-model-left">
+          <p class="eyebrow">For Models at Every Stage</p>
+          <div class="gline" style="margin:12px 0 20px;"></div>
+          <h2 class="serif">It starts with <em>the right entry.</em></h2>
+          <p>New to the industry or already earning — there is a clear path for you inside the NaughtyCamSpot system. The free launch path gets you started correctly. The growth packages take you from earning to thriving.</p>
+          <p>We do not believe in guesswork. We believe in structure — and every model who comes through our system gets a structured plan from day one.</p>
+        </div>
+        <div class="model-features">
+          <div class="model-feature"><div class="model-feature-dot"></div><span>Professional platform-fit guidance before you sign up</span></div>
+          <div class="model-feature"><div class="model-feature-dot"></div><span>Show name and brand identity review before you launch</span></div>
+          <div class="model-feature"><div class="model-feature-dot"></div><span>Clear next-step plan within 24 hours of applying</span></div>
+          <div class="model-feature"><div class="model-feature-dot"></div><span>Mobile-first setup — everything works on your phone</span></div>
+          <div class="model-feature"><div class="model-feature-dot"></div><span>Multilingual support — EN, ES, PT, RU, UA</span></div>
+          <div class="model-feature"><div class="model-feature-dot"></div><span>Growth packages available after acceptance, not before</span></div>
+          <div class="model-feature"><div class="model-feature-dot"></div><span>You own everything — accounts, content, payouts, brand</span></div>
+          <div class="model-feature"><div class="model-feature-dot"></div><span>180+ countries reached through our promo networks</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- About CTA -->
+  <section style="padding:60px 0; text-align:center; background:#0c0b0f;">
+    <div class="w">
+      <h2 class="serif" style="font-size:clamp(32px,3.5vw,50px); font-weight:300; margin-bottom:14px;">Ready to build something <em class="gc">real?</em></h2>
+      <p style="font-size:14px; color:rgba(228,223,212,.4); max-width:440px; margin:0 auto 28px; line-height:1.8;">Apply free, get set up correctly, and access the growth system when you are ready. The process is simple. The support is professional.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-primary" onclick="showPage('apply')">Apply Free Now</button>
+        <button class="btn-ghost" onclick="showPage('packages')">See Growth Packages</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+  <footer class="footer"><div class="footer-inner"><div class="footer-logo">Naughty<em>Cam</em>Spot</div><div class="footer-links"><a onclick="showPage('home')">Home</a><a onclick="showPage('apply')">Apply</a><a onclick="showPage('packages')">Packages</a><a onclick="showPage('how')">How It Works</a><a>Privacy</a><a>Terms</a></div><div class="footer-copy">© 2026 NaughtyCamSpot · Contains affiliate links · Not an agency · No earnings guarantee</div></div></footer>
+</div>
+
+<!-- ================================================
+     JAVASCRIPT
+     ================================================ -->
+<script>
+// Page navigation
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + id);
+  if(navEl) navEl.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// FAQ accordion
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+  if(!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+}
+
+// Form state
+let fStep = 0;
+let fGoal = '';
+let fPlatforms = [];
+let fContact = '';
+const fLabels = ['Step 1 — Basics','Step 2 — Your Goal','Step 3 — Platforms','Step 4 — Contact','Step 5 — Review'];
+const fPcts = ['20%','40%','60%','80%','100%'];
+
+function updateForm() {
+  document.querySelectorAll('.form-step').forEach((s,i) => s.classList.toggle('active', i===fStep));
+  document.getElementById('progress-fill').style.width = fPcts[fStep];
+  document.getElementById('progress-pct').textContent = fPcts[fStep];
+  document.getElementById('progress-label').textContent = fLabels[fStep];
+  document.getElementById('form-header-sub').textContent = 'Step '+(fStep+1)+' of 5 — '+fLabels[fStep].split('— ')[1];
+  document.getElementById('form-next-btn').textContent = fStep === 4 ? 'Submit Application →' : 'Continue →';
+  document.getElementById('form-prev-btn').style.display = fStep > 0 ? 'block' : 'none';
+  for(let i=0;i<5;i++){
+    const d = document.getElementById('fdot-'+i);
+    d.className = 'fdot' + (i<fStep?' done': i===fStep?' active':'');
+  }
+  if(fStep===4) buildSummary();
+}
+
+function formNext() {
+  if(fStep===0 && !validateStep0()) return;
+  if(fStep===1 && !validateStep1()) return;
+  if(fStep===2 && !validateStep2()) return;
+  if(fStep===3 && !validateStep3()) return;
+  if(fStep===4) { submitForm(); return; }
+  fStep++; updateForm();
+  document.getElementById('page-apply').scrollTo({top:0});
+}
+
+function formPrev() {
+  if(fStep>0){ fStep--; updateForm(); }
+}
+
+function validateStep0(){
+  const age = document.getElementById('age-check').checked;
+  const country = document.getElementById('country').value;
+  const lang = document.getElementById('lang').value;
+  document.getElementById('err-age').className = 'ferror'+(!age?' show':'');
+  return age && country && lang;
+}
+function validateStep1(){
+  const ok = fGoal !== '';
+  document.getElementById('err-goal').className = 'ferror'+(!ok?' show':'');
+  return ok;
+}
+function validateStep2(){
+  const ok = fPlatforms.length > 0;
+  document.getElementById('err-platform').className = 'ferror'+(!ok?' show':'');
+  return ok;
+}
+function validateStep3(){
+  const ok = fContact !== '' && document.getElementById('contact-value').value.trim() !== '';
+  document.getElementById('err-contact').className = 'ferror'+(!ok?' show':'');
+  return ok;
+}
+
+function selectGoal(el, val) {
+  fGoal = val;
+  document.querySelectorAll('.goal-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('err-goal').className = 'ferror';
+}
+
+function toggleChip(el, val) {
+  if(val === 'None — brand new') {
+    fPlatforms = ['None — brand new'];
+    document.querySelectorAll('.pchip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  } else {
+    const noneIdx = fPlatforms.indexOf('None — brand new');
+    if(noneIdx > -1){ fPlatforms.splice(noneIdx,1); document.querySelectorAll('.pchip').forEach(c=>{ if(c.textContent.includes('None')) c.classList.remove('selected'); }); }
+    const idx = fPlatforms.indexOf(val);
+    if(idx > -1){ fPlatforms.splice(idx,1); el.classList.remove('selected'); }
+    else { fPlatforms.push(val); el.classList.add('selected'); }
+  }
+  if(fPlatforms.length > 0) document.getElementById('err-platform').className = 'ferror';
+}
+
+function selectContact(el, type) {
+  document.querySelectorAll('.contact-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  fContact = type;
+  const area = document.getElementById('contact-input-area');
+  const lbl = document.getElementById('contact-input-label');
+  const inp = document.getElementById('contact-value');
+  const hint = document.getElementById('contact-hint');
+  area.style.display = 'block';
+  if(type==='telegram'){ lbl.textContent='Your Telegram username'; inp.placeholder='e.g. @yourhandle'; hint.textContent="Start with @. We'll never share this."; }
+  else if(type==='whatsapp'){ lbl.textContent='Your WhatsApp number'; inp.placeholder='e.g. +1 555 000 0000'; hint.textContent='Include your country code. Kept private.'; }
+  else { lbl.textContent='Your email address'; inp.placeholder='e.g. you@email.com'; hint.textContent="Used only to send your setup kit."; }
+  document.getElementById('err-contact').className = 'ferror';
+}
+
+function buildSummary() {
+  const gMap = {'earn-fast':'Earn fast','build-long':'Build long-term','both':'Start fast + build steady'};
+  const cMap = {'telegram':'Telegram','whatsapp':'WhatsApp','email':'Email'};
+  const country = document.getElementById('country').value;
+  const lang = document.getElementById('lang').value;
+  const cVal = document.getElementById('contact-value').value;
+  document.getElementById('form-summary').innerHTML = `
+    <div class="summary-row"><span class="summary-key">Country</span><span class="summary-val">${country}</span></div>
+    <div class="summary-row"><span class="summary-key">Language</span><span class="summary-val">${lang}</span></div>
+    <div class="summary-row"><span class="summary-key">Goal</span><span class="summary-val">${gMap[fGoal]||'—'}</span></div>
+    <div class="summary-row"><span class="summary-key">Platforms</span><span class="summary-val">${fPlatforms.join(', ')||'—'}</span></div>
+    <div class="summary-row"><span class="summary-key">Contact</span><span class="summary-val">${cMap[fContact]||'—'}: ${cVal}</span></div>
+  `;
+}
+
+function submitForm() {
+  if(!document.getElementById('consent-check').checked){
+    document.getElementById('err-consent').className = 'ferror show';
+    return;
+  }
+  document.querySelector('.form-body').style.display = 'none';
+  document.querySelector('.form-progress').style.display = 'none';
+  document.getElementById('form-nav').style.display = 'none';
+  document.getElementById('form-success').className = 'form-success show';
+  document.getElementById('form-header-sub').textContent = 'Application submitted';
+}
+
+updateForm();
+</script>
+</body>
+</html>

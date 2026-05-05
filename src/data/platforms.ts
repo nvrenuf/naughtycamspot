@@ -1,46 +1,46 @@
-export type PlatformStatus = 'open' | 'limited' | 'waitlist';
-
 export type PlatformEntry = {
-  slug: string;
+  id: string;
   name: string;
-  status: PlatformStatus;
-  statusLabel: string;
+  status: 'live' | 'coming_soon';
   goPath: string;
-  note: string;
+  description: string;
+  signupUrlPlaceholder?: string;
+  notes?: string;
 };
 
 export const PLATFORMS: PlatformEntry[] = [
   {
-    slug: 'stripchat',
-    name: 'Stripchat',
-    status: 'open',
-    statusLabel: 'Open',
-    goPath: '/go/stripchat',
-    note: 'Fast approvals, strong discovery tools, and easy schedule control.'
-  },
-  {
-    slug: 'chaturbate',
+    id: 'chaturbate',
     name: 'Chaturbate',
-    status: 'open',
-    statusLabel: 'Open',
-    goPath: '/go/chaturbate',
-    note: 'High traffic, long-tail tipping, and recurring fan rooms.'
+    status: 'live',
+    goPath: '/go/chaturbate.php',
+    description: 'High live traffic and deep tip-menu support for models building consistent rooms.',
+    signupUrlPlaceholder: 'https://example.com/chaturbate-signup', // Placeholder until final verified signup URL is confirmed.
   },
   {
-    slug: 'camsoda',
+    id: 'camsoda',
     name: 'CamSoda',
-    status: 'limited',
-    statusLabel: 'Limited',
-    goPath: '/go/camsoda',
-    note: 'Quality-focused traffic with strong contests and promo placements.'
+    status: 'live',
+    goPath: '/go/camsoda.php',
+    description: 'Strong event windows and room features for premium stream positioning.',
+    signupUrlPlaceholder: 'https://example.com/camsoda-signup', // Placeholder until final verified signup URL is confirmed.
   },
   {
-    slug: 'bonga',
-    name: 'Bonga',
-    status: 'waitlist',
-    statusLabel: 'Waitlist',
-    goPath: '/go/bonga',
-    note: 'Great geo diversification; we add new slots weekly.'
-  }
+    id: 'bongacams',
+    name: 'BongaCams',
+    status: 'live',
+    goPath: '/go/bongacams.php',
+    description: 'Useful geo diversification and stable discovery opportunities for live creators.',
+    signupUrlPlaceholder: 'https://example.com/bongacams-signup', // Placeholder until final verified signup URL is confirmed.
+  },
+  {
+    id: 'fansly',
+    name: 'Fansly',
+    status: 'live',
+    goPath: '/go/fansly.php',
+    description: 'Subscription and feed support to extend fan monetization beyond live sessions.',
+    signupUrlPlaceholder: 'https://example.com/fansly-signup', // Placeholder until final verified signup URL is confirmed.
+  },
 ];
 
+export const PLATFORM_IDS = PLATFORMS.map((platform) => platform.id);

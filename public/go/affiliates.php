@@ -5,7 +5,7 @@ declare(strict_types=1);
 const GO_SUBID_PARAM = 'subid';
 const GO_MODEL_PROGRAM_CONFIG = [
     'bonga' => [
-        'active' => false,
+        'active' => true,
         'tiers' => ['T1', 'T2', 'T3', 'T4'],
     ],
     'camsoda' => [
@@ -16,17 +16,9 @@ const GO_MODEL_PROGRAM_CONFIG = [
         'active' => true,
         'tiers' => ['T1', 'T2', 'T3', 'T4'],
     ],
-    'of_creator' => [
-        'active' => false,
+    'fansly' => [
+        'active' => true,
         'tiers' => ['T1', 'T2', 'T3', 'T4'],
-    ],
-    'myclub' => [
-        'active' => false,
-        'tiers' => ['T1', 'T2'],
-    ],
-    'ph_model' => [
-        'active' => false,
-        'tiers' => ['T3', 'T4'],
     ],
 ];
 
@@ -170,9 +162,7 @@ function go_build_model_program_url(string $programKey, string $subid, array $co
         'bonga' => go_build_bonga_model_signup($subid, $context),
         'camsoda' => go_build_camsoda_model_signup($subid),
         'chaturbate' => go_build_chaturbate_model_signup($subid),
-        'of_creator' => go_build_onlyfans_creator_signup($subid),
-        'myclub' => go_build_myclub_model_signup($subid),
-        'ph_model' => go_build_pornhub_model_signup($subid),
+        'fansly' => go_build_fansly_creator_signup($subid),
         default => null,
     };
 }
@@ -182,7 +172,7 @@ function go_build_model_program_url(string $programKey, string $subid, array $co
  */
 function go_model_fallback_url(string $subid): string
 {
-    return go_append_subid('/join-models/', $subid);
+    return go_append_subid('/apply/', $subid);
 }
 
 function go_build_bonga_model_signup(string $subid, array $context = []): string
@@ -202,7 +192,7 @@ function go_build_bonga_model_signup(string $subid, array $context = []): string
 
 function go_build_camsoda_model_signup(string $subid): string
 {
-    $base = 'https://www.camsoda.com/models?id=naughtycamboss';
+    $base = 'https://www.camsoda.com/' . 'models?id=naughtycamboss';
     $tracking = $subid !== '' ? $subid : 'default';
 
     return go_append_subid($base, $tracking);
@@ -215,63 +205,9 @@ function go_build_chaturbate_model_signup(string $subid): string
     return 'https://chaturbate.com/in/?tour=5zjT&campaign=YIOhf&track=' . rawurlencode($tracking);
 }
 
-function go_build_onlyfans_creator_signup(string $subid): string
+function go_build_fansly_creator_signup(string $subid): string
 {
-    $base = 'https://track.naughtycamspot.com/onlyfans/creators';
+    $base = 'https://fansly.com/application/form?r=naughtycamspot';
 
     return go_append_subid($base, $subid);
-}
-
-function go_build_myclub_model_signup(string $subid): string
-{
-    $base = 'https://track.naughtycamspot.com/myclub/models';
-
-    return go_append_subid($base, $subid);
-}
-
-function go_build_pornhub_model_signup(string $subid): string
-{
-    $base = 'https://track.naughtycamspot.com/pornhub/models';
-
-    return go_append_subid($base, $subid);
-}
-
-function go_build_mv_anna_url(string $subid): string
-{
-    return go_append_subid('https://www.manyvids.com/live/cam/anna_prince', $subid);
-}
-
-function go_build_beacons_anna_url(string $subid): string
-{
-    return go_append_subid('https://beacons.ai/annaprince', $subid);
-}
-
-function go_build_stripchat_anna_url(string $subid): string
-{
-    return go_append_subid('https://stripchat.com/Anna_Prince', $subid);
-}
-
-function go_build_chaturbate_anna_url(string $subid): string
-{
-    return go_append_subid('https://chaturbate.com/b/anna_prince/', $subid);
-}
-
-function go_build_camsoda_anna_url(string $subid): string
-{
-    return go_append_subid('https://www.camsoda.com/annaprince', $subid);
-}
-
-function go_build_pornhub_anna_url(string $subid): string
-{
-    return go_append_subid('https://pornhub.com/model/sabrina_great', $subid);
-}
-
-function go_build_onlyfans_anna_url(string $subid): string
-{
-    return go_append_subid('https://onlyfans.com/sabrinagreat', $subid);
-}
-
-function go_build_myclub_anna_url(string $subid): string
-{
-    return go_append_subid('https://my.club/Anna_Prince', $subid);
 }
