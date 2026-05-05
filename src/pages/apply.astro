@@ -11,31 +11,40 @@ const contactMethods = ['Telegram', 'Email', 'WhatsApp'] as const;
 
 <MainLayout
   title="Apply | NaughtyCamSpot"
-  description="Apply for signup guidance, model-name brand check, platform-fit recommendations, and launch readiness support."
+  description="Apply for signup guidance and launch-start support. Models who sign up through NCS get the Model Launch Kit free."
 >
   <SEO
     slot="head"
     title="Apply | NaughtyCamSpot"
-    description="Apply for signup guidance, model-name brand check, platform-fit recommendations, and launch readiness support."
+    description="Apply for signup guidance and launch-start support. Models who sign up through NCS get the Model Launch Kit free."
     path={canonicalPath}
   />
 
   <section class="hero-shell hero-split parallax-veil">
     <div class="hero-content">
       <p class="eyebrow">Signup-first application</p>
-      <h1 class="hero-title">Apply for <em>launch readiness guidance</em>.</h1>
+      <h1 class="hero-title">Apply to <em>start signup correctly</em>.</h1>
       <p class="hero-sub">
-        This form is focused on starting correctly: platform-fit guidance, model-name/brand check support, and clean signup planning.
+        This form is for signup guidance and launch-start support. Models who sign up through NCS get the Model Launch Kit free. The
+        same kit is also available separately for $200 USD, and the name branding app is available even before applying.
       </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="btn btn-secondary" href={withBase('/name-check/')}>Check Your Model Name</a>
+        <a class="btn btn-secondary" href={withBase('/launch-kit/')}>View Model Launch Kit</a>
+      </div>
     </div>
     <div class="hero-media">
-      <img src="/images/home-hero-768.jpg" alt="Editorial intake visual for signup-first guidance" loading="lazy" decoding="async" />
+      <img src="/images/home-hero-768.jpg" alt="Editorial intake visual for signup-first launch support" loading="lazy" decoding="async" />
     </div>
   </section>
 
   <section class="content-card space-y-4">
     <p class="eyebrow">Application form</p>
-    <h2 class="font-display text-4xl font-light text-parchment">Tell us enough to guide your start.</h2>
+    <h2 class="font-display text-4xl font-light text-parchment">Tell us enough to guide your launch start.</h2>
+    <p class="max-w-3xl text-sm text-parchment/70">
+      We use this form to understand your starting point, your preferred model name, and which platforms you want to begin with. This
+      is not a public growth-ladder intake.
+    </p>
     <form class="grid gap-3 md:grid-cols-2" method="post" action={withBase('/claim/index.php')}>
       <input type="hidden" name="source_page" value="/apply/" />
       <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="preferred_model_name" placeholder="Preferred model name" required />
@@ -58,17 +67,17 @@ const contactMethods = ['Telegram', 'Email', 'WhatsApp'] as const;
         {contactMethods.map((method) => <option value={method.toLowerCase()}>{method}</option>)}
       </select>
       <input class="border border-gold/25 bg-midnight px-4 py-3 text-sm" type="text" name="contact" placeholder="Contact (Telegram, email, or WhatsApp)" required />
-      <textarea class="border border-gold/25 bg-midnight px-4 py-3 text-sm md:col-span-2" name="notes" rows="4" placeholder="Notes for platform-fit, name-check context, and launch readiness details." />
+      <textarea class="border border-gold/25 bg-midnight px-4 py-3 text-sm md:col-span-2" name="notes" rows="4" placeholder="Notes about your model name, platform interests, launch stage, or questions." />
       <label class="flex items-start gap-3 text-sm text-parchment/72 md:col-span-2">
         <input type="checkbox" name="consent_18_plus" value="yes" required class="mt-1" />
-        <span>I confirm I am 18+ and I consent to submit this application for signup guidance.</span>
+        <span>I confirm I am 18+ and I consent to submit this application for signup guidance and launch-start support.</span>
       </label>
       <label class="flex items-start gap-3 text-sm text-parchment/72 md:col-span-2">
         <input type="checkbox" name="consent_updates" value="yes" class="mt-1" />
-        <span>Optional: I consent to receive application follow-up updates from NaughtyCamSpot.</span>
+        <span>Optional: I consent to receive follow-up updates from NaughtyCamSpot.</span>
       </label>
       <div class="space-y-3 md:col-span-2">
-        <button class="btn btn-primary w-full sm:w-auto" type="submit">Submit Application</button>
+        <button class="btn btn-primary w-full sm:w-auto" type="submit">Apply / Start Signup</button>
         <p class="text-sm text-parchment/62">No passwords. No exclusivity. You keep ownership of your accounts and content.</p>
       </div>
     </form>

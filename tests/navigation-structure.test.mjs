@@ -10,7 +10,7 @@ const extractLabels = (source, varName) => {
 
 test('primary navigation reflects signup-first routes', () => {
   const nav = readFileSync(new URL('../src/data/nav.ts', import.meta.url), 'utf8');
-  assert.deepEqual(extractLabels(nav, 'NAV_PRIMARY'), ['Apply', 'Name Check', 'Platforms', 'Trust']);
+  assert.deepEqual(extractLabels(nav, 'NAV_PRIMARY'), ['Apply', 'Name Check', 'Launch Kit', 'Platforms', 'Trust']);
 });
 
 test('footer navigation remains hidden', () => {

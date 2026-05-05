@@ -1,0 +1,92 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/launch-kit';
+const launchKitIncludes = [
+  'Platform selection guidance so you start in the right place',
+  'Model name and brand planning before account creation',
+  'Profile setup checklist for a cleaner launch',
+  'Launch readiness checklist before going live',
+  'Beginner mistake avoidance notes',
+  'Basic room, menu, and goal structure guidance',
+  'Trust and account ownership basics'
+];
+---
+
+<MainLayout
+  title="Model Launch Kit | NaughtyCamSpot"
+  description="The Model Launch Kit is free when you sign up through NCS, or available separately for $200 USD."
+>
+  <SEO
+    slot="head"
+    title="Model Launch Kit | NaughtyCamSpot"
+    description="The Model Launch Kit is free when you sign up through NCS, or available separately for $200 USD."
+    path={canonicalPath}
+  />
+
+  <section class="hero-shell hero-split parallax-veil">
+    <div class="hero-content">
+      <p class="eyebrow">Model Launch Kit</p>
+      <h1 class="hero-title">A cleaner start for <em>new and restarting models</em>.</h1>
+      <p class="hero-sub">
+        The Model Launch Kit helps new or restarting cam models choose the right platform, plan a usable brand, and launch with fewer
+        beginner mistakes. It is free when you sign up through NCS, or available separately for $200 USD.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a class="btn btn-primary" href={withBase('/apply/')}>Apply / Start Signup</a>
+        <a class="btn btn-secondary" href={withBase('/name-check/')}>Check Your Model Name</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="/images/home-hero-1280.jpg" alt="Editorial Model Launch Kit visual for signup-first guidance" loading="lazy" decoding="async" />
+    </div>
+  </section>
+
+  <section class="content-card space-y-5">
+    <p class="eyebrow">Access and pricing</p>
+    <div class="grid gap-px bg-gold/20 md:grid-cols-3">
+      <article class="bg-midnight p-5 text-sm text-parchment/74">
+        <h2 class="font-display text-3xl text-parchment">Free with NCS signup</h2>
+        <p class="mt-2">If you sign up through NCS, the Model Launch Kit is included free as part of the signup-first path.</p>
+      </article>
+      <article class="bg-obsidian p-5 text-sm text-parchment/74">
+        <h2 class="font-display text-3xl text-parchment">$200 USD standalone</h2>
+        <p class="mt-2">If you do not want to sign up through NCS, you can still buy the same Model Launch Kit for $200 USD.</p>
+      </article>
+      <article class="bg-midnight p-5 text-sm text-parchment/74">
+        <h2 class="font-display text-3xl text-parchment">Who it is for</h2>
+        <p class="mt-2">Built for new models, relaunches, and anyone who wants a cleaner launch before trying to grow.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-card space-y-5">
+    <p class="eyebrow">What it helps with</p>
+    <div class="grid gap-4 md:grid-cols-2">
+      <article class="premium-card">
+        <ul class="space-y-2 text-sm text-parchment/74">
+          {launchKitIncludes.slice(0, 4).map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+      <article class="premium-card">
+        <ul class="space-y-2 text-sm text-parchment/74">
+          {launchKitIncludes.slice(4).map((item) => <li>{item}</li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="content-card space-y-4">
+    <p class="eyebrow">Important boundaries</p>
+    <div class="grid gap-px bg-gold/20 md:grid-cols-3">
+      <p class="bg-midnight p-5 text-sm text-parchment/74">No guaranteed earnings. The kit is meant to improve launch readiness, not to promise an income result.</p>
+      <p class="bg-obsidian p-5 text-sm text-parchment/74">No unproven official partner claims. Final platform availability and approvals still depend on each platform.</p>
+      <p class="bg-midnight p-5 text-sm text-parchment/74">No promise of promotion inside this package. It is about setup, readiness, structure, and account-control basics.</p>
+    </div>
+  </section>
+
+  <TrustRulesBlock title="Trust rules stay attached to the offer" />
+</MainLayout>
