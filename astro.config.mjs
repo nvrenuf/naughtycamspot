@@ -1,13 +1,11 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import tailwind from '@astrojs/tailwind';
 import fs from 'node:fs/promises';
 
 export default defineConfig({
   site: 'https://naughtycamspot.com',
   base: '/',
   integrations: [
-    tailwind({ applyBaseStyles: false }),
     sitemap({
       serialize: (page) => {
         if (page.url === 'https://naughtycamspot.com/promo-links/' || page.url.endsWith('/promo-links/')) {

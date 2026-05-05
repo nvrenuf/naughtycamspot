@@ -23,13 +23,12 @@
     "sec:all": "npm run sec:audit || true && npm run sec:scan || true"
   },
   "engines": {
-    "node": "^20.17.0",
+    "node": "^22.12.0",
     "npm": "^10.8.2"
   },
   "dependencies": {
     "@astrojs/sitemap": "file:vendor/astrojs-sitemap",
-    "@astrojs/tailwind": "^6.0.2",
-    "astro": "^4.10.0",
+    "astro": "^6.2.2",
     "autoprefixer": "^10.5.0",
     "postcss": "^8.5.14",
     "tailwindcss": "3.4.19"
