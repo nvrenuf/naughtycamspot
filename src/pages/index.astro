@@ -2,152 +2,73 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import TrustRulesBlock from '../components/TrustRulesBlock.astro';
-import LaunchNotice from '../components/LaunchNotice.astro';
 import { withBase } from '../utils/links';
-import { homepageTeasers, promoLaunch } from '../data/promoLaunch';
 
 const canonicalPath = '/';
 ---
 
 <MainLayout
-  title="NaughtyCamSpot | Live April 2026"
-  description="A premium new growth line for cam models goes live in April 2026. Founding access and early applications are open now."
+  title="NaughtyCamSpot | Start your cam model brand the right way"
+  description="Choose your platform path, pre-check your model name for brand consistency, and start with clean signup guidance."
 >
   <SEO
     slot="head"
-    title="NaughtyCamSpot | Live April 2026"
-    description="A premium new growth line for cam models goes live in April 2026. Founding access and early applications are open now."
+    title="NaughtyCamSpot | Start your cam model brand the right way"
+    description="Choose your platform path, pre-check your model name for brand consistency, and start with clean signup guidance."
     path={canonicalPath}
   />
 
-  <section class="hero-shell hero-split parallax-veil" id="growth-first-hero">
+  <section class="hero-shell hero-split parallax-veil" id="signup-first-hero">
     <div class="hero-content">
-      <p class="eyebrow">{promoLaunch.eyebrow}</p>
-      <h1 class="hero-title">More than promotion. <em>A better model business</em>, live in April 2026.</h1>
+      <p class="eyebrow">Signup-first guidance</p>
+      <h1 class="hero-title">Start your cam model brand <em>the right way</em>.</h1>
       <p class="hero-sub">
-        NaughtyCamSpot is entering its next phase: a sharper growth line for models who are tired of blasting socials, chasing random
-        traffic, and hoping the room does the rest. The current site is live now. The bigger system goes live in April 2026.
+        Before you sign up everywhere, make sure your model name can become a real brand across cam sites, socials, and your fan hub.
+        NaughtyCamSpot helps you choose the right platform path, pressure-test your name, and apply with clean launch readiness.
       </p>
-      <p class="mt-4 font-display text-xl italic text-parchment/48">Built for models who want more than go live and hope.</p>
       <div class="mt-8 flex flex-wrap gap-3">
-        <a class="btn btn-primary" href={withBase('/packages/')}>See the Offer Ladder</a>
-        <a class="btn btn-secondary" href={withBase('/apply/')}>Apply for Fit Review</a>
+        <a class="btn btn-primary" href={withBase('/apply/')}>Apply for Signup Guidance</a>
+        <a class="btn btn-secondary" href={withBase('/name-check/')}>Check Your Model Name</a>
       </div>
     </div>
     <figure class="hero-media">
-      <img src="/images/home-hero.webp" alt="Editorial portrait for the next NaughtyCamSpot growth phase" loading="eager" decoding="async" />
+      <img src="/images/home-hero.webp" alt="Editorial portrait for NaughtyCamSpot launch guidance" loading="eager" decoding="async" />
       <figcaption class="absolute bottom-6 left-6 z-10 border-l border-gold/50 pl-4 text-left text-xs uppercase tracking-[0.18em] text-gold/85">
-        New growth line in buildout • founding access now open
+        Premium launch posture • practical signup-first execution
       </figcaption>
     </figure>
   </section>
 
-  <LaunchNotice
-    title="The next line is being built now."
-    body="What is open now: early access, founding applications, guided launch conversations, and active-model intake. What goes live in April 2026: the bigger promotional and revenue-system direction."
-  />
-
   <TrustRulesBlock title="Non-negotiable trust rules" />
 
-  <section class="content-card space-y-8" id="what-we-actually-are">
-    <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-      <div class="space-y-4">
-        <p class="eyebrow">Positioning</p>
-        <h2 class="section-heading">The old way is breaking. This is the rebuild.</h2>
-        <p class="text-sm leading-8 text-parchment/72">
-          We are not refreshing the same generic promo pitch. The next NaughtyCamSpot line is being built around better discovery,
-          stronger fan retention, and a more premium revenue system for models who want something smarter than constant social blasting.
-        </p>
-      </div>
-      <div class="space-y-px bg-gold/20">
-        <div class="bg-midnight p-5">
-          <p class="eyebrow text-parchment/40">Old way</p>
-          <p class="text-sm text-parchment/46">Spammy promo loops, one-off traffic, social dependency, and competing inside the same room format as everyone else.</p>
-        </div>
-        <div class="bg-obsidian p-5">
-          <p class="eyebrow">Next way</p>
-          <p class="text-sm text-parchment/75">Discovery, retention, and fan revenue rebuilt around owned audience, better events, and smarter creator systems.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="space-y-6" id="april-2026-teasers">
-    <div class="section-intro">
-      <p class="eyebrow">What April unlocks</p>
-      <h2 class="section-heading">Short signals, not a long explainer.</h2>
-      <p class="text-sm text-parchment/65">Enough to show the direction. Not enough to flatten the intrigue.</p>
-    </div>
-    <div class="pill-grid">
-      {homepageTeasers.map((item, index) => (
-        <article class="pill-item">
-          <p class="font-display text-5xl text-gold/25">{String(index + 1).padStart(2, '0')}</p>
-          <h3 class="mt-2 font-display text-3xl text-parchment">{item.title}</h3>
-          <p class="mt-2 text-sm text-parchment/65">{item.body}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="grid gap-5 lg:grid-cols-2" id="two-path-split">
-    <article class="split-choice space-y-3">
-      <p class="eyebrow">Path 1</p>
-      <h2 class="font-display text-4xl font-light text-parchment">Already modeling?</h2>
-      <p class="text-sm text-parchment/70">Apply for early access if you want the April 2026 line, founding consideration, or a smarter revenue structure before public rollout.</p>
-      <a class="btn btn-secondary" href={withBase('/packages/')}>See the Ladder</a>
-    </article>
-    <article class="split-choice space-y-3">
-      <p class="eyebrow">Path 2</p>
-      <h2 class="font-display text-4xl font-light text-parchment">Launching fresh?</h2>
-      <p class="text-sm text-parchment/70">Some guided launch support is open now. Get closer to the front of the line before the bigger promotional system opens in April 2026.</p>
-      <a class="btn btn-secondary" href={withBase('/apply/')}>Apply for Start Right</a>
-    </article>
-  </section>
-
-  <section class="content-card space-y-5" id="proof-posture">
-    <p class="eyebrow">Proof posture</p>
-    <h2 class="font-display text-4xl font-light text-parchment">Premium tone. Conservative claims.</h2>
-    <div class="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-      <p class="text-sm text-parchment/70">
-        The site stays disciplined: no fake proof, no invented earnings, no fake partnerships, and no pretending planned systems are
-        already fully live.
-      </p>
-      <div class="premium-card">
-        <p class="eyebrow">What is real now</p>
-        <p class="mt-2 text-sm text-parchment/75">Applications, guided launch intake, active-model conversations, and founding access review.</p>
-      </div>
-    </div>
-    <a class="btn btn-secondary" href="#what-we-actually-are">View Trust Posture</a>
-  </section>
-
-  <section class="content-card space-y-5" id="growth-preview">
-    <p class="eyebrow">New direction</p>
-    <h2 class="font-display text-4xl font-light text-parchment">A smarter way to grow than blasting social.</h2>
+  <section class="content-card space-y-5">
+    <p class="eyebrow">What we help with first</p>
+    <h2 class="font-display text-4xl font-light text-parchment">Clean setup before noisy promotion.</h2>
     <div class="grid gap-px bg-gold/20 md:grid-cols-3">
-      <article class="bg-midnight p-5 text-sm text-parchment/72">
-        <h3 class="font-display text-3xl text-parchment">Better discovery</h3>
-        <p class="mt-2">Less dependence on generic posting. More intent, better routing, stronger fit.</p>
+      <article class="bg-midnight p-5 text-sm text-parchment/74">
+        <h3 class="font-display text-3xl text-parchment">Platform fit</h3>
+        <p class="mt-2">Choose signup paths that match your stage and content style instead of guessing across too many platforms.</p>
       </article>
-      <article class="bg-obsidian p-5 text-sm text-parchment/72">
-        <h3 class="font-display text-3xl text-parchment">Better fan worlds</h3>
-        <p class="mt-2">VIP structure, recurring events, and better reasons for fans to stay in orbit.</p>
+      <article class="bg-obsidian p-5 text-sm text-parchment/74">
+        <h3 class="font-display text-3xl text-parchment">Model-name brandability</h3>
+        <p class="mt-2">Check whether your name can stay consistent across cam handles, socials, and domain-style branding.</p>
       </article>
-      <article class="bg-midnight p-5 text-sm text-parchment/72">
-        <h3 class="font-display text-3xl text-parchment">Better revenue logic</h3>
-        <p class="mt-2">A more modern model business built around repeatability, not one-off spikes.</p>
+      <article class="bg-midnight p-5 text-sm text-parchment/74">
+        <h3 class="font-display text-3xl text-parchment">Launch readiness</h3>
+        <p class="mt-2">Apply once and get guidance focused on a durable start: naming, signup path, and account consistency.</p>
       </article>
     </div>
   </section>
 
   <section class="content-card space-y-4" id="final-cta">
-    <h2 class="font-display text-4xl font-light text-parchment">Get in before launch.</h2>
+    <h2 class="font-display text-4xl font-light text-parchment">Start with the right name and signup path.</h2>
     <p class="max-w-3xl text-sm text-parchment/70">
-      The next promotional and growth line clearly goes live in April 2026. Founding access, early applications, and guided intake are
-      open now.
+      Public focus is startup clarity for new and relaunching models. Selected growth support may be available later, but it is not the
+      main product on this site.
     </p>
     <div class="flex flex-wrap gap-3">
-      <a class="btn btn-primary" href={withBase('/packages/')}>Explore Packages</a>
-      <a class="btn btn-secondary" href={withBase('/apply/')}>Apply for Fit Review</a>
+      <a class="btn btn-primary" href={withBase('/apply/')}>Apply</a>
+      <a class="btn btn-secondary" href={withBase('/name-check/')}>Name Check</a>
     </div>
   </section>
 </MainLayout>
