@@ -1,5 +1,36 @@
 ---
-import HiddenPageNotice from '../components/HiddenPageNotice.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import SEO from '../components/SEO.astro';
+import TrustRulesBlock from '../components/TrustRulesBlock.astro';
+import { withBase } from '../utils/links';
+
+const canonicalPath = '/how-it-works';
 ---
 
-<HiddenPageNotice title="How It Works | Hidden" description="The How It Works page is hidden on this branch. Return to the NaughtyCamSpot home page." />
+<MainLayout title="Trust | NaughtyCamSpot" description="Public trust rules for signup-first launch guidance.">
+  <SEO slot="head" title="Trust | NaughtyCamSpot" description="Public trust rules for signup-first launch guidance." path={canonicalPath} />
+
+  <section class="hero-shell space-y-5 parallax-veil">
+    <p class="eyebrow">Trust</p>
+    <h1 class="hero-title">The public rules stay visible before signup.</h1>
+    <p class="hero-sub max-w-4xl">
+      NaughtyCamSpot is built around account ownership, honest positioning, and a clean signup-first process. These rules are public on
+      purpose and apply before anyone submits a form.
+    </p>
+  </section>
+
+  <TrustRulesBlock title="Public trust rules" />
+
+  <section class="content-card space-y-4">
+    <h2 class="font-display text-4xl font-light text-parchment">What this means in practice</h2>
+    <div class="grid gap-px bg-gold/20 md:grid-cols-3">
+      <p class="bg-midnight p-5 text-sm text-parchment/74">NCS helps with startup clarity, platform direction, and launch materials. It does not require account surrender or exclusivity.</p>
+      <p class="bg-obsidian p-5 text-sm text-parchment/74">The free public name-check tool is a pre-check only. Final name availability still has to be confirmed on each platform.</p>
+      <p class="bg-midnight p-5 text-sm text-parchment/74">The Model Launch Kit is about avoiding beginner mistakes and starting cleanly. It does not promise guaranteed earnings.</p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <a class="btn btn-primary" href={withBase('/apply/')}>Apply / Start Signup</a>
+      <a class="btn btn-secondary" href={withBase('/launch-kit/')}>View Model Launch Kit</a>
+    </div>
+  </section>
+</MainLayout>

@@ -1,22 +1,26 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
+import { withBase } from '../utils/links';
 
 const canonicalPath = '/name-check';
 ---
 
-<MainLayout title="Name Check | NaughtyCamSpot" description="Run a first-pass model-name brandability checklist before signing up across platforms.">
+<MainLayout title="Name Check | NaughtyCamSpot" description="Use the free public name-check tool before you sign up across platforms.">
   <SEO
     slot="head"
     title="Name Check | NaughtyCamSpot"
-    description="Run a first-pass model-name brandability checklist before signing up across platforms."
+    description="Use the free public name-check tool before you sign up across platforms."
     path={canonicalPath}
   />
 
   <section class="hero-shell space-y-5 parallax-veil">
-    <p class="eyebrow">Model-name brandability checker</p>
-    <h1 class="hero-title">First-pass brandability check before platform signup.</h1>
-    <p class="hero-sub max-w-4xl">Enter a desired model name to generate clean handle variants and a structured checklist you can use before creating accounts.</p>
+    <p class="eyebrow">Free public tool</p>
+    <h1 class="hero-title">Check brandability before you start signup.</h1>
+    <p class="hero-sub max-w-4xl">
+      Enter a desired model name to generate clean handle variants and a structured checklist you can use before creating accounts.
+      This tool stays free for anyone, whether or not they apply through NaughtyCamSpot.
+    </p>
   </section>
 
   <section class="content-card space-y-4" data-name-check-app>
@@ -46,6 +50,17 @@ const canonicalPath = '/name-check';
       <article class="bg-obsidian p-5 text-sm text-parchment/74"><p class="eyebrow">Risk flags summary</p><p data-risk-summary></p></article>
     </div>
 
+    <div class="grid gap-4 md:grid-cols-2" data-results hidden>
+      <article class="premium-card">
+        <p class="eyebrow">Next step</p>
+        <p class="mt-3 text-sm text-parchment/74">If the name looks usable, move into signup guidance or read what is inside the Model Launch Kit first.</p>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <a class="btn btn-primary" href={withBase('/apply/')}>Apply / Start Signup</a>
+          <a class="btn btn-secondary" href={withBase('/launch-kit/')}>View Model Launch Kit</a>
+        </div>
+      </article>
+    </div>
+
     <article class="premium-card">
       <p class="eyebrow">Brand guidance</p>
       <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-parchment/72">
@@ -56,7 +71,7 @@ const canonicalPath = '/name-check';
       </ul>
     </article>
 
-    <p class="text-xs text-parchment/60">This is a brandability pre-check, not a live availability guarantee. Final availability must be confirmed on each platform.</p>
+    <p class="text-xs text-parchment/60">This is a free public brandability pre-check, not a live availability guarantee. Final availability must be confirmed on each platform.</p>
   </section>
 
   <script is:inline>

@@ -2,15 +2,19 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import SEO from '../components/SEO.astro';
 import { PLATFORMS } from '../data/platforms';
+import { withBase } from '../utils/links';
 
 const canonicalPath = '/platforms';
 ---
 
-<MainLayout title="Platforms | NaughtyCamSpot" description="Platform signup paths for new and relaunching cam models.">
-  <SEO slot="head" title="Platforms | NaughtyCamSpot" description="Platform signup paths for new and relaunching cam models." path={canonicalPath} />
+<MainLayout title="Platforms | NaughtyCamSpot" description="Use the platform list to choose where to start signup.">
+  <SEO slot="head" title="Platforms | NaughtyCamSpot" description="Use the platform list to choose where to start signup." path={canonicalPath} />
   <section class="hero-shell space-y-4 parallax-veil">
     <p class="eyebrow">Platform paths</p>
-    <h1 class="hero-title">Choose your signup direction with intention.</h1>
+    <h1 class="hero-title">Choose where to start signup.</h1>
+    <p class="hero-sub max-w-4xl">
+      Use the platform list to choose where to start. If you sign up through NCS, you can receive the Model Launch Kit free.
+    </p>
   </section>
   <section class="grid gap-5 md:grid-cols-2">
     {PLATFORMS.map((platform) => (
@@ -18,7 +22,14 @@ const canonicalPath = '/platforms';
         <p class="eyebrow">{platform.status === 'live' ? 'Live now' : 'Coming soon'}</p>
         <h2 class="font-display text-4xl font-light text-parchment">{platform.name}</h2>
         <p class="text-sm text-parchment/72">{platform.description}</p>
-        <a class="btn btn-secondary" href={platform.goPath}>Go to signup path</a>
+        {platform.signupUrlPlaceholder && (
+          <p class="text-xs text-parchment/58">Signup URL placeholder in code only until the final verified destination is confirmed.</p>
+        )}
+        {platform.status === 'live' ? (
+          <a class="btn btn-primary" href={platform.goPath}>Start Signup</a>
+        ) : (
+          <a class="btn btn-secondary" href={withBase('/apply/')}>Apply for Signup Guidance</a>
+        )}
       </article>
     ))}
   </section>
