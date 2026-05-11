@@ -36,7 +36,7 @@
   "devDependencies": {
     "ajv": "file:vendor/ajv",
     "concurrently": "^9.2.1",
-    "puppeteer": "^24.42.0",
+    "puppeteer": "^24.43.1",
     "vitest": "^4.1.4"
   }
 }
